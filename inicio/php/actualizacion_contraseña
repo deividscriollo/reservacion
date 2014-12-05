@@ -1,0 +1,24 @@
+<?php 
+	require('../admin/class.php');
+	$class=new constante();
+	
+	$acu=$class->consulta("UPDATE SEG.USUARIO SET stado='1' WHERE correo='".$_POST['txt_1']."'");
+
+	$resultado = $class->consulta("SELECT * FROM SEG.USUARIO WHERE correo='".$_POST['txt_1']."'");
+	$stado=0; $nom=""; $correo="";
+	$id="";
+	while ($row=$class->fetch_array($resultado)) {			
+			$id = $row[0];			
+	}	
+
+	$class->consulta("INSERT INTO SEG.AUDITORIA VALUES('".$class->idz().
+														"','UPDATE','".
+														$id.
+														"','SEG.USUARIO','PASSWORD','".$_POST['txt_2']."','".
+														$class->fecha_hora().
+														"','RESTAURAR CONTRASEÑA')");
+	if(!$acu)
+		print('0');
+	else
+		print('1');
+?>

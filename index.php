@@ -1,3 +1,13 @@
+<?php
+if(!isset($_SESSION))
+	{
+		session_start();		
+	}
+	if(isset($_SESSION["pass"])) {
+		header('Location: data/');
+	}
+	
+?>
 <!DOCTYPE HTML>
 <html>
 <head>
@@ -212,7 +222,7 @@ $(document).ready(function() {
 </html>
 <script type="text/javascript">
 	function redireccionar() {
-	    setTimeout("location.href='inicio'", 5000);
+	    setTimeout("location.href='inicio'", 1000);
 	  }               
     redireccionar();
 </script>

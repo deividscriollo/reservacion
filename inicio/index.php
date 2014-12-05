@@ -1,11 +1,11 @@
 <?php
-if(!isset($_SESSION))
-	{
-		session_start();		
-	}
-	if($_SESSION["accesamiento"]!='inicio') {
-		header('Location: ../');
-	}
+//if(!isset($_SESSION))
+	//{
+		//session_start();		
+	//}
+	//if(isset($_SESSION["pass"])) {
+		//header('Location: ../data/');
+	//}
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -32,10 +32,7 @@ if(!isset($_SESSION))
 		<link rel="stylesheet" href="../assets/css/jquery-ui-1.10.3.custom.min.css" />
 		<link rel="stylesheet" href="../assets/css/jquery.gritter.css" />
 
-		<!--fonts-->
-
-		<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400,300" />
-
+		
 		<!--ace styles-->
 
 		<link rel="stylesheet" href="../assets/css/ace.min.css" />
@@ -84,7 +81,7 @@ if(!isset($_SESSION))
 														<span class="span12">
 															<label>
 																<span class="block input-icon input-icon-right">
-																	<input type="text" class="span12" id="txt_usuario" name="txt_usuario" placeholder="Digíte usuario " />
+																	<input type="text" class="span12" id="txt_usuario" name="txt_usuario" placeholder="Digíte email / correo " />
 																	<i class="icon-user"></i>
 																</span>
 															</label>
@@ -122,9 +119,157 @@ if(!isset($_SESSION))
 													<img src="../assets/images/user.png">
 												</div>
 											</div><!--/widget-main-->
-											
+											<div class="toolbar clearfix">
+												<div>
+													<a href="#" onclick="show_box('forgot-box'); return false;" class="forgot-password-link">
+														<i class="icon-arrow-left"></i>
+														Olvidé mi contraseña
+													</a>
+												</div>
+
+												<div>
+													<a href="#" onclick="show_box('signup-box'); return false;" class="user-signup-link">
+														Quiero Registrarme
+														<i class="icon-arrow-right"></i>
+													</a>
+												</div>
+											</div>
 										</div><!--/widget-body-->
 									</div><!--/login-box-->
+									<div id="forgot-box" class="forgot-box widget-box no-border">
+										<div class="widget-body">
+											<div class="widget-main">
+												<h4 class="header red lighter bigger">
+													<i class="icon-key"></i>
+													Recuperar Contraseña
+												</h4>
+
+												<div class="space-6"></div>
+												<p>
+													Digite, su email para recibir instrucciones.
+												</p>
+
+												<form id="frm-recuperar">
+													<fieldset>
+														<label>
+															<span class="block input-icon input-icon-right">
+																<input type="email" class="span12" id="txt_rec_email" name="txt_rec_email" placeholder="Email" />
+																<i class="icon-envelope"></i>
+															</span>
+														</label>
+
+														<div class="clearfix">
+															<button type="submit" class="width-35 pull-right btn btn-small btn-danger">
+																<i class="icon-lightbulb"></i>
+																Enviar!
+															</button>
+														</div>
+													</fieldset>
+												</form>
+											</div><!--/widget-main-->
+
+											<div class="toolbar center">
+												<a href="#" onclick="show_box('login-box'); return false;" class="back-to-login-link">
+													Volver a identificarse
+													<i class="icon-arrow-right"></i>
+												</a>
+											</div>
+										</div><!--/widget-body-->
+									</div><!--/forgot-box-->
+									<div id="signup-box" class="signup-box widget-box no-border">
+										<div class="widget-body">
+											<div class="widget-main">
+												<h4 class="header green lighter bigger">
+													<i class="icon-group blue"></i>
+													Registrar Nuevo Usuario
+												</h4>
+
+												<div class="space-6"></div>
+												<p> Digite, su informacion para comenzar: </p>
+												<fieldset>
+												<form id="frm-registro">												
+													<div class="control-group">														
+														<span class="span12">
+															<label>
+																<span class="block input-icon input-icon-right">
+																	<input type="email" class="span12" id="txt_reg_email" name="txt_reg_email" placeholder="email" />
+																	<i class="icon-envelope"></i>
+																</span>
+															</label>
+														</span>														
+													</div>
+													<div class="control-group">
+														<div class="span12">
+															<label>
+																<span class="block input-icon input-icon-right">
+																	<input type="text" class="span12" id="txt_reg_nom_usuario" name="txt_reg_nom_usuario" placeholder="nombre y apellido" />
+																	<i class="icon-user" id="icon_b_usuario"></i>
+																</span>
+															</label>
+														</div>														
+													</div>
+													<div class="control-group">
+														<div class="span12">
+															<label>
+																<span class="block input-icon input-icon-right">
+																	<input type="password" class="span12" placeholder="password" id="txt_reg_pass" name="txt_reg_pass" />
+																	<i class="icon-lock"></i>
+																</span>
+															</label>
+														</div>
+													</div>
+													<div class="control-group">
+														<div class="span12">
+															<label>
+																<span class="block input-icon input-icon-right">
+																	<input type="password" class="span12" placeholder="repita password" id="txt_repetir" name="txt_repetir" />
+																	<i class="icon-retweet"></i>
+																</span>
+															</label>
+														</div>
+													</div>
+													<div class="control-group">
+														<div class="span12">
+															<label>
+																<input type="checkbox" name="agree" id="agree" />
+																<span class="lbl">
+																	Acepto el
+																	<a href="#modal-form" data-toggle="modal">Acuerdo de Usuario</a>
+																</span>
+															</label>
+														</div>
+													</div>
+
+													<div class="control-group red">
+														<div class="span12">															
+															<div class="space-24"></div>
+
+																<div class="clearfix blue">
+																	<button type="reset" class="width-35 pull-left btn btn-small">
+																		<i class="icon-refresh"></i>
+																		Limpiar
+																	</button>
+
+																	<button type="submit" class="width-55 pull-right btn btn-small btn-success">
+																		Registrar
+																		<i id="icon-derecha" class="icon-arrow-right icon-on-right"></i>
+																		
+																	</button>																	
+																</div>
+														</div>
+														
+													</div>																									
+												</form>
+												</fieldset>
+											</div>											
+											<div class="toolbar center">
+												<a href="#" onclick="show_box('login-box'); return false;" class="back-to-login-link">
+													<i class="icon-arrow-left"></i>
+													Volver a identificarse
+												</a>
+											</div>
+										</div><!--/widget-body-->
+									</div><!--/signup-box-->
 								</div><!--/position-relative-->
 							</div>
 						</div>
@@ -132,7 +277,38 @@ if(!isset($_SESSION))
 				</div><!--/.row-fluid-->
 			</div>
 		</div><!--/.main-container-->
-	
+		<div id="modal-form" class="modal hide" tabindex="-1">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<h4 class="blue bigger">Términos y condiciones</h4>
+			</div>
+
+			<div class="modal-body overflow-visible">
+				<div class="row-fluid">
+					<div class="span12" style="text-align: justify;">
+						<blockquote>
+							<p>
+							El  acceso a esta aplicacion y la utilización de la clave autorizada,
+							conllevan la aceptación del usuario a todas las estipulaciones de este 
+							documento y las condiciones aplicables. Este documento constituye un 
+							acuerdo para el acceso ala aplicacion web de reservaciones de la FABRICA IMBABURA, 
+							entre el cliente, intermediario o usuario, en adelante denominado el 
+							USUARIO que accede a esta aplicacion web, en adelante FABRICA IMBABURA.</p>
+							<small>
+								FABRICA IMBABURA
+								<cite title="Source Title">Política Empresarial</cite>
+							</small>
+						</blockquote>										
+					</div>
+				</div>
+			</div>
+
+			<div class="modal-footer">	
+				<div class="center">
+					<img src="../assets/empresa/logo/logo.png" width="10%">
+				</div>
+			</div>
+		</div><!--PAGE CONTENT ENDS-->
 		<!--basic scripts-->
 
 		<!--[if !IE]>-->
@@ -194,77 +370,11 @@ if(!isset($_SESSION))
 		</script>
 	</body>
 </html>
-<script type="text/javascript">
-	$('#form-acceso').validate({
-		errorElement: 'span',
-		errorClass: 'help-inline',
-		focusInvalid: false,
-		rules: {
-			txt_usuario: {
-				required: true							
-			},
-			txt_pass: {
-				required:true
-			}
-		},
 
-		messages: {
-			txt_usuario: {
-				required: "Por favor, Digite usuario."
-			},
-			txt_pass: {
-				required:"Por favor, Digite su clave / password"
-			}									
-		},
-		invalidHandler: function (event, validator) { //display error alert on form submit   
-			$('.alert-error', $('.login-form')).show();
-		},
+<!--Verificacionm Accesos usuario-->
+<script type="text/javascript" src="js/pro_acce.js"></script>
 
-		highlight: function (e) {
-			$(e).closest('.control-group').removeClass('info').addClass('error');
-		},
-
-		success: function (e) {
-			$(e).closest('.control-group').removeClass('error').addClass('info');
-			$(e).remove();
-		},
-
-		errorPlacement: function (error, element) {
-			if(element.is(':checkbox') || element.is(':radio')) {
-				var controls = element.closest('.controls');
-				if(controls.find(':checkbox,:radio').length > 1) controls.append(error);
-				else error.insertAfter(element.nextAll('.lbl:eq(0)').eq(0));
-			}
-			else if(element.is('.select2')) {
-				error.insertAfter(element.siblings('[class*="select2-container"]:eq(0)'));
-			}
-			else if(element.is('.chzn-select')) {
-				error.insertAfter(element.siblings('[class*="chzn-container"]:eq(0)'));
-			}
-			else error.insertAfter(element);
-		},
-
-		submitHandler: function (form) {
-			
-        	$.ajax({
-				url: 'php/acceso.php',
-				type: 'POST',				
-				data: {txt_1: $('#txt_usuario').val(),txt_2: $('#txt_pass').val()},
-			})
-			$.ajax({
-                url: 'php/acceso.php',
-				type: 'POST',				
-				data: {txt_1: $('#txt_usuario').val(),txt_2: $('#txt_pass').val()},                
-                success:  function (data) {
-                        alert(data)
-                }
-        	});
-		},
-		invalidHandler: function (form) {
-			
-		}
-	});
-</script>
-
-
-			
+<!--Verificacionm Accesos usuario-->
+<script type="text/javascript" src="js/procesos.js"></script>
+<!--Verificacionm Accesos usuario-->
+<script type="text/javascript" src="js/recuperar.js"></script>

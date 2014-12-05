@@ -38,28 +38,29 @@ class constante
    }
    //generador de id unicos
     function idz(){
-      $fecha=date("Y/m/d:H:i:s-");
+      date_default_timezone_set('America/Guayaquil');
+      $fecha=date("YmdHis");
       return($fecha.uniqid());  
     }
 
    function client_ip() {
-    $ipaddress = '';
-    if ($_SERVER['HTTP_CLIENT_IP'])
-        $ipaddress = $_SERVER['HTTP_CLIENT_IP'];
-    else if($_SERVER['HTTP_X_FORWARDED_FOR'])
-        $ipaddress = $_SERVER['HTTP_X_FORWARDED_FOR'];
-    else if($_SERVER['HTTP_X_FORWARDED'])
-        $ipaddress = $_SERVER['HTTP_X_FORWARDED'];
-    else if($_SERVER['HTTP_FORWARDED_FOR'])
-        $ipaddress = $_SERVER['HTTP_FORWARDED_FOR'];
-    else if($_SERVER['HTTP_FORWARDED'])
-        $ipaddress = $_SERVER['HTTP_FORWARDED'];
-    else if($_SERVER['REMOTE_ADDR'])
-        $ipaddress = $_SERVER['REMOTE_ADDR'];
-    else
-        $ipaddress = 'UNKNOWN';
-    return $ipaddress;
-}
+      $ipaddress = '';
+      if ($_SERVER['HTTP_CLIENT_IP'])
+          $ipaddress = $_SERVER['HTTP_CLIENT_IP'];
+      else if($_SERVER['HTTP_X_FORWARDED_FOR'])
+          $ipaddress = $_SERVER['HTTP_X_FORWARDED_FOR'];
+      else if($_SERVER['HTTP_X_FORWARDED'])
+          $ipaddress = $_SERVER['HTTP_X_FORWARDED'];
+      else if($_SERVER['HTTP_FORWARDED_FOR'])
+          $ipaddress = $_SERVER['HTTP_FORWARDED_FOR'];
+      else if($_SERVER['HTTP_FORWARDED'])
+          $ipaddress = $_SERVER['HTTP_FORWARDED'];
+      else if($_SERVER['REMOTE_ADDR'])
+          $ipaddress = $_SERVER['REMOTE_ADDR'];
+      else
+          $ipaddress = 'UNKNOWN';
+      return $ipaddress;
+  }
    public function idx($TABLA)
    {             
       $acu=1;
@@ -87,14 +88,16 @@ class constante
       return $h;
    }
    //Verificar la existencia de un registro X
-   public function existenciax($CAMPO,$TABLA,$REGISTRO)
+   public function registrox($CAMPO,$TABLA,$REGISTRO)
    {  
+      $valor="hola";
       $BaseDato=new BaseDeDato(SERVIDOR,PUERTO,BD,USUARIO,CLAVE);//declarar el objeto de la clase base de dato
       $query="SELECT $CAMPO FROM ".$TABLA." WHERE $CAMPO='$REGISTRO'";  
-      $resultado=$BaseDato->Consultas($query);
-       $Datos=pg_fetch_all($resultado);//Devuelve los datos en forma de arreglo
-         $filas=pg_num_rows($resultado);       
-         return $filas;
+     while ($row=$BaseDato->fetch_array($query)) {            
+           //$valor=$row[$CAMPO];
+      $valor1='hola';
+     }
+     return $valor;
    }
    //Verificar la existencia de un registro X
    public function acceso_usu($USU,$PASS)
@@ -102,9 +105,9 @@ class constante
       $BaseDato=new BaseDeDato(SERVIDOR,PUERTO,BD,USUARIO,CLAVE);//declarar el objeto de la clase base de dato
       $query="SELECT * FROM USUARIO WHERE USUARIO='$USU' and PASSSWORD='$PASS'";  
       $resultado=$BaseDato->Consultas($query);
-       $Datos=@pg_fetch_all($resultado);//Devuelve los datos en forma de arreglo
-         $filas=pg_num_rows($resultado);       
-         return $filas;//If res = 1 => Ok
+      $Datos=@pg_fetch_all($resultado);//Devuelve los datos en forma de arreglo
+      $filas=pg_num_rows($resultado);       
+      return $filas;//If res = 1 => Ok
    }
    
   
@@ -114,8 +117,9 @@ class constante
      return $fecha;
     } 
     public function fecha_hora(){
-     $fecha=date("d-m-Y H:i:s");
-     return $fecha;
+    date_default_timezone_set('America/Guayaquil');
+    $fecha=date("Y-m-d H:i:s");
+    return $fecha;
     } 
    public function fecha2(){
      $fecha=date("Y-m-d");

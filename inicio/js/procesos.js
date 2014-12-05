@@ -1,35 +1,24 @@
 // Buscando registros seccion nombre usuario
-function buscando(registro, campo){
-	var result = "" ; 					
-	$.ajax({
-            url:'php/rev_usu_exi.php',
-            async :  false ,   
-            type:  'post',
-            data: {reg:registro, campo:campo},
-            beforeSend: function () {
-                //$("#icon_b_usuario").addClass("icon-spinner icon-spin orange bigger-125");
-            },
-            success : function ( data )  {
-            	//$("#icon_b_usuario").addClass("icon-user");		                	
-		         result = data ;  
-		    } 		                
-    	});
-	return result ; 
-}
+			function buscando(registro){			
+				var result = "" ; 					
+				$.ajax({
+			            url:'php/rev_usu_exi.php',
+			            async :  false ,   
+			            type:  'post',
+			            data: {reg:registro},
+			            beforeSend: function () {
+			                //$("#icon_b_usuario").addClass("icon-spinner icon-spin orange bigger-125");
+			            },
+			            success : function ( data )  {
+			            	
+			            	//$("#icon_b_usuario").addClass("icon-user");		                						         
+					         result = data ;  
+					    } 		                
+			    	});
+				return result ; 
+			}
 			
-			$(function(){	
-					
-				//Validación Existencia nombre usuario
-				jQuery.validator.addMethod("exis_usu", function (value, element) {
-					var a=value;
-					var reg=$('#txt_reg_nom_usuario').val();					
-					if (buscando(reg,1)==0) {						
-						return true;
-					};
-					if(buscando(reg,1)!=0){						
-						return false;
-					};
-				}, "Por favor, Eligite otro nombre de usuario.");
+			$(function(){				
 				//Validación Existencia correo electronico
 				jQuery.validator.addMethod("exis_correo", function (value, element) {
 					var a=value;
@@ -40,7 +29,7 @@ function buscando(registro, campo){
 					if(buscando(reg,0)!=0){						
 						return false;
 					};
-				}, "Por favor, Digite otro correo ya existes.");
+				}, "Por favor, Digite otro correo ya existe!!!.");
 				//Variable Existencia Continual
 				var a=0;
 				$('#frm-registro').validate({
@@ -62,8 +51,7 @@ function buscando(registro, campo){
 							equalTo: "#txt_reg_pass"
 						},
 						txt_reg_nom_usuario: {
-							required: true,
-							exis_usu: true
+							required: true							
 						},						
 						agree: 'required'
 					},
@@ -84,7 +72,7 @@ function buscando(registro, campo){
 						},						
 						txt_reg_nom_usuario:{
 							required:"Por favor, Digite nombre de usuario",
-							exis_usu:'Por favor, Digite otro nombre de usuario.'
+							
 						},
 						agree: "Por favor,  acepte nuestra política."
 					},
@@ -142,7 +130,7 @@ function buscando(registro, campo){
 							        }
 							    })
 				            },
-				            success : function ( data )  {				            				                        	
+				            success : function ( data )  {				            		            	
 				            	if(data==1){
 				            		$.unblockUI();
 					            	$.gritter.add({
@@ -151,20 +139,20 @@ function buscando(registro, campo){
 																													+'<br> Nombre: '+$('#txt_reg_nom_usuario').val(),
 										time: 4000
 										//class_name: 'gritter-info')
-									});
-									$('#icon-derecha').show();
+									});									
 									$('#frm-registro').each (function(){
 									  this.reset();
 									});
 					            }if(data==0){
+					            	$.unblockUI();
 					            	$.gritter.add({
 										title: '<h1 style="color: #336699;">Mensaje</h1>',
-										text: 'Creado con exito le sugerimos revisar su <br>Email: '+$('#txt_reg_email').val()
-																													+'<br> Nombre:'+$('#txt_reg_nom_usuario').val(),
+										text: 'MMM.. tenemos Algunos Inconvenientes LO SENTIMOS te sugerimos intentar mas tarde...',
 										time: 4000
 										//class_name: 'gritter-info')
 									});					            	
 					            }if(data!=0&&data!=1){
+					            	$.unblockUI();
 					            	$.gritter.add({
 										title: '<h1 style="color: red;">¡¡¡¡¡ Alerta !!!</h1>',
 										text: 'problemas, contactar al desarrollador o administrador de sistema',
@@ -177,8 +165,7 @@ function buscando(registro, campo){
 				    	});
 					},					
 					invalidHandler: function (form) {
-						a++;
-						alert('Intento '+a);
+						
 					}
 				});
 			});		
