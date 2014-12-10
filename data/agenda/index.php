@@ -44,66 +44,15 @@ if(!isset($_SESSION))
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /></head>
 
 	<body>
-		<div class="navbar">
-			<div class="red navbar-inner">
-				<div class="container-fluid">
-					<a href="#" class="brand">
-						<small>
-							<i class="icon-home"></i>
-							Fabrica Imbabura
-						</small>
-					</a><!--/.brand-->
-
-					<ul class="nav ace-nav pull-right">
-						
-
-						<li class="light-blue">
-							<a data-toggle="dropdown" href="#" class="dropdown-toggle">
-								<img class="nav-user-photo" src="../../assets/avatars/user.jpg" alt="Jason's Photo" />
-								<span class="user-info">
-									<small>Bienvenido,</small>
-									<?php print$_SESSION['nom'] ?>
-								</span>
-
-								<i class="icon-caret-down"></i>
-							</a>
-
-							<ul class="user-menu pull-right dropdown-menu dropdown-yellow dropdown-caret dropdown-closer">
-								<li>
-									<a href="#">
-										<i class="icon-cog"></i>
-										Configurar
-									</a>
-								</li>
-
-								<li>
-									<a href="#">
-										<i class="icon-user"></i>
-										Perfil
-									</a>
-								</li>
-
-								<li class="divider"></li>
-
-								<li>
-									<a href="../inicio/salir.php">
-										<i class="icon-off"></i>
-										Cerrar  Session
-									</a>
-								</li>
-							</ul>
-						</li>
-					</ul><!--/.ace-nav-->
-				</div><!--/.container-fluid-->
-			</div><!--/.navbar-inner-->
-		</div>
+		
+		<?php require('../inicio/menu.php'); menunav(); ?>
 
 		<div class="main-container container-fluid">
 			<a class="menu-toggler" id="menu-toggler" href="#">
 				<span class="menu-text"></span>
 			</a>
 
-			<?php require('../inicio/menu.php'); menu(); ?>
+			<?php  menu(); ?>
 
 			<div class="main-content">
 				<div class="page-content">
