@@ -84,8 +84,10 @@ $(function(){
 			else error.insertAfter(element);
 		},
 
-		submitHandler: function (form) {			
+		submitHandler: function (form) {	
+
 			var formObj = new FormData(form); 	
+			alert(formObj)
 			$.ajax({
                 url: "php/guardar.php",
                 type: "POST",

@@ -189,9 +189,38 @@ if(!isset($_SESSION))
 																	<span class="editable" id="about">Editable as WYSIWYG</span>
 																</div>
 															</div>
+
 														</div>
 													</div>
 												</div>
+												<div class="hr hr hr-dotted"></div>
+
+												<div class="row-fluid">
+												<div class="span12">
+													<div class="widget-box">
+														<div class="widget-header">
+															<h4 class="icon-coffee"> Horario de Atención</h4>
+
+															<span class="widget-toolbar">
+																<div class="hidden-phone visible-desktop action-buttons">
+																	<a class="blue" id="btn_mas">
+																		<i class="icon-zoom-in bigger-130"></i>
+																	</a>
+																</div>
+															</span>
+														</div>
+
+														<div class="widget-body">
+															<div class="widget-main" style="height:400px" id="obj_contenedor">
+																
+
+																
+															</div>
+														</div>
+													</div>
+
+												</div>
+											</div>
 											</div>
 
 											<div id="profile" class="tab-pane">
@@ -244,33 +273,6 @@ if(!isset($_SESSION))
 																		</div>
 																	</div>
 																</div>																
-															</div>
-															
-															<div class="row-fluid">
-																<div class="span12">
-																	<div class="widget-box">
-																		<div class="widget-header">
-																			<h4 class="icon-coffee"> Horario de Atención</h4>
-
-																			<span class="widget-toolbar">
-																				<div class="hidden-phone visible-desktop action-buttons">
-																					<a class="blue" id="btn_mas">
-																						<i class="icon-zoom-in bigger-130"></i>
-																					</a>
-																				</div>
-																			</span>
-																		</div>
-
-																		<div class="widget-body">
-																			<div class="widget-main" id="obj_contenedor">
-																				
-
-																				
-																			</div>
-																		</div>
-																	</div>
-
-																</div>
 															</div>
 															<div class="row-fluid wizard-actions">
 																<button class="btn btn-success btn-next" type="submit">
