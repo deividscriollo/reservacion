@@ -5,8 +5,11 @@ $('#btn_servicos').click(function(){
 	    //data: {registro:reg},        
 	    success: function(data)
 	    {
-	       $('#mostrar_servicios').html(data)
-
+	       $('#mostrar_servicios').html(data);
 	    }	        
 	});
-})
+});
+
+function guardar_id(x){
+	alert('hola mundo'+x)
+}

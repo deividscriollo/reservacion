@@ -144,7 +144,7 @@ if(!isset($_SESSION))
 																<div class="profile-info-name"> Servicios </div>
 
 																<div class="profile-info-value">
-																	<span class="editable" id="username"> Sala de Eventos y Convenciones</span>
+																	<span class="editable" id="lbl_servicios"></span>
 																</div>
 															</div>
 
@@ -375,6 +375,7 @@ if(!isset($_SESSION))
 		<!--personal scripts-->
 		<script type="text/javascript" src="js/guardar.js"></script>		
 		<script type="text/javascript" src="js/servicios.js"></script>
+		<script type="text/javascript" src="js/editar.js"></script>
 		<!--ace scripts-->
 
 		<script src="../assets/js/ace-elements.min.js"></script>
@@ -388,23 +389,17 @@ if(!isset($_SESSION))
 <script type="text/javascript">
 
 			$(function() {
-				
-				
-		
-				 
-				
-
 
 				//editables on first profile page
 				$.fn.editable.defaults.mode = 'inline';
 				$.fn.editableform.loading = "<div class='editableform-loading'><i class='light-blue icon-2x icon-spinner icon-spin'></i></div>";
-			    $.fn.editableform.buttons = '<button type="submit" class="btn btn-info editable-submit"><i class="icon-ok icon-white"></i></button>'+
+			    $.fn.editableform.buttons = '<button type="submit" class="btn btn-info editable-submit" onclick="g_edicion()"><i class="icon-ok icon-white"></i></button>'+
 			                                '<button type="button" class="btn editable-cancel"><i class="icon-remove"></i></button>';    
 				
 				//editables 
-			    $('#username').editable({
+			    $('#lbl_servicios').editable({
 			           type: 'text',
-			           name: 'username'
+			           name: 'lbl_servicios'
 			    });
 			
 				var countries = [];

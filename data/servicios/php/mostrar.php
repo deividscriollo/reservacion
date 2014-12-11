@@ -12,16 +12,14 @@ $resultado = $class->consulta("SELECT * FROM SERVICIOS WHERE STADO='1'");
 	<div class="inline position-relative">
 		<div class="user">
 			<a href="#">
-				<img src="img/<?php print($row[4]); ?>" alt="<?php print($row[1]); ?>"  />
+				<img src="img/<?php print($row[4]); ?>" alt="<?php print($row[1]); ?>" onclick="guardar_id(<?php print($row[0]); ?>)" />
 			</a>
 		</div>
 
 		<div class="body">
 			<div class="name">
-				<a href="#">
 					<span class="user-status status-online"></span>
 					<?php print($row[1]); ?>
-				</a>
 			</div>
 		</div>
 
