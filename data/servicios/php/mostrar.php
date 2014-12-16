@@ -11,8 +11,8 @@ $resultado = $class->consulta("SELECT * FROM SERVICIOS WHERE STADO='1'");
 <div class="itemdiv memberdiv">
 	<div class="inline position-relative">
 		<div class="user">
-			<a href="#">
-				<img src="img/<?php print($row[4]); ?>" alt="<?php print($row[1]); ?>" onclick="guardar_id(<?php print($row[0]); ?>)" />
+			<a data-toggle="tab" href="#home">
+				<img src="img/<?php print($row[4]); ?>" alt="<?php print($row[1]); ?>" onclick="guardar_id('<?php print($row[0]); ?>')" />
 			</a>
 		</div>
 

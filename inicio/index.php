@@ -1,11 +1,11 @@
 <?php
-//if(!isset($_SESSION))
-	//{
-		//session_start();		
-	//}
-	//if(isset($_SESSION["pass"])) {
-		//header('Location: ../data/');
-	//}
+if(!isset($_SESSION))
+	{
+		session_start();		
+	}
+	if(isset($_SESSION["pass"])) {
+		header('Location: ../data/');
+	}
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -16,7 +16,8 @@
 		<meta name="description" content="User login page" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<link rel="icon" type="image/png" href="../assets/empresa/logo/logo.png" />
-		
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /></head>
+			
 		<!--basic styles-->
 
 		<link href="../assets/css/bootstrap.min.css" rel="stylesheet" />
@@ -45,7 +46,7 @@
 		<![endif]-->
 
 		<!--inline styles related to this page-->
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /></head>
+	
 
 	<body class="login-layout">
 		<div class="main-container container-fluid">

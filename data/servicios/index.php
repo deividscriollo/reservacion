@@ -77,15 +77,24 @@ if(!isset($_SESSION))
 									<div class="widget-toolbar no-border">
 										<ul class="nav nav-tabs" id="myTab">
 											<li class="active">
-												<a data-toggle="tab" href="#home">Perfil</a>
+												<a data-toggle="tab" href="#home">
+													<i class="icon-cogs blue"></i>	
+													Perfil 
+												</a>
 											</li>
 
 											<li>
-												<a data-toggle="tab" href="#profile"> Nuevo</a>
+												<a data-toggle="tab" href="#profile">
+													<i class="icon-edit green"></i>	
+													Nuevo 
+												</a>
 											</li>
 
 											<li>
-												<a data-toggle="tab" href="#info" id="btn_servicos"> Servicios</a>
+												<a data-toggle="tab" href="#info" id="btn_servicos">
+													<i class="icon-coffee orange"></i>	
+													Servicios 
+												</a>
 											</li>
 										</ul>
 									</div>
@@ -106,35 +115,7 @@ if(!isset($_SESSION))
 															<div class="inline position-relative">
 																
 																<i class="icon-circle light-green middle"></i>
-																<span class="white middle bigger-120">Sala de Eventos y Convenciones</span>
-
-																<ul class="align-left dropdown-menu dropdown-caret dropdown-lighter">
-																	<li class="nav-header"> Change Status </li>
-
-																	<li>
-																		<a href="#">
-																			<i class="icon-circle green"></i>
-																			&nbsp;
-																			<span class="green">Available</span>
-																		</a>
-																	</li>
-
-																	<li>
-																		<a href="#">
-																			<i class="icon-circle red"></i>
-																			&nbsp;
-																			<span class="red">Busy</span>
-																		</a>
-																	</li>
-
-																	<li>
-																		<a href="#">
-																			<i class="icon-circle grey"></i>
-																			&nbsp;
-																			<span class="grey">Invisible</span>
-																		</a>
-																	</li>
-																</ul>
+																<span class="white middle bigger-120">Sala de Eventos y Convenciones</span>																
 															</div>
 														</div>
 													</div>
@@ -144,52 +125,39 @@ if(!isset($_SESSION))
 																<div class="profile-info-name"> Servicios </div>
 
 																<div class="profile-info-value">
-																	<span class="editable" id="lbl_servicios"></span>
+																	<span class="editable" id="lbl_servicios">Servicios</span>
 																</div>
 															</div>
 
 															<div class="profile-info-row">
 																<div class="profile-info-name"> Descripcion </div>
 
-																<div class="profile-info-value">
-																	<i class="icon-map-marker light-orange bigger-110"></i>
-																	<span class="editable" id="country">Netherlands</span>
-																	<span class="editable" id="city">Amsterdam</span>
+																<div class="profile-info-value">																	
+																	<span class="editable" id="lbl_descripcion">descripcion</span>
 																</div>
 															</div>
 
 															<div class="profile-info-row">
-																<div class="profile-info-name"> Age </div>
+																<div class="profile-info-name"> Otros </div>
 
 																<div class="profile-info-value">
-																	<span class="editable" id="age">38</span>
+																	<span class="editable" id="lbl_otros">otros</span>
 																</div>
 															</div>
-
 															<div class="profile-info-row">
-																<div class="profile-info-name"> Joined </div>
+																<div class="profile-info-name"> Fecha </div>
 
 																<div class="profile-info-value">
-																	<span class="editable" id="signup">20/06/2010</span>
+																	<span class="editable" id="lbl_fecha">0000-00-00 00:00:00</span>
 																</div>
 															</div>
-
 															<div class="profile-info-row">
-																<div class="profile-info-name"> Last Online </div>
+																<div class="profile-info-name"> Estado </div>
 
 																<div class="profile-info-value">
-																	<span class="editable" id="login">3 hours ago</span>
+																	<span class="editable" id="lbl_stado">--</span>
 																</div>
 															</div>
-
-															<div class="profile-info-row">
-																<div class="profile-info-name"> About Me </div>
-
-																<div class="profile-info-value">
-																	<span class="editable" id="about">Editable as WYSIWYG</span>
-																</div>
-															</div>
-
 														</div>
 													</div>
 												</div>
@@ -393,7 +361,7 @@ if(!isset($_SESSION))
 				//editables on first profile page
 				$.fn.editable.defaults.mode = 'inline';
 				$.fn.editableform.loading = "<div class='editableform-loading'><i class='light-blue icon-2x icon-spinner icon-spin'></i></div>";
-			    $.fn.editableform.buttons = '<button type="submit" class="btn btn-info editable-submit" onclick="g_edicion()"><i class="icon-ok icon-white"></i></button>'+
+			    $.fn.editableform.buttons = '<button type="submit" class="btn btn-info editable-submit"><i class="icon-ok icon-white"></i></button>'+
 			                                '<button type="button" class="btn editable-cancel"><i class="icon-remove"></i></button>';    
 				
 				//editables 
@@ -401,101 +369,31 @@ if(!isset($_SESSION))
 			           type: 'text',
 			           name: 'lbl_servicios'
 			    });
-			
-				var countries = [];
-			    $.each({ "CA": "Canada", "IN": "India", "NL": "Netherlands", "TR": "Turkey", "US": "United States"}, function(k, v) {
-			        countries.push({id: k, text: v});
+			    //editables 
+			    $('#lbl_otros').editable({
+			           type: 'text',
+			           name: 'lbl_otros'
 			    });
-			
-				var cities = [];
-				cities["CA"] = [];
-				$.each(["Toronto", "Ottawa", "Calgary", "Vancouver"] , function(k, v){
-					cities["CA"].push({id: v, text: v});
-				});
-				cities["IN"] = [];
-				$.each(["Delhi", "Mumbai", "Bangalore"] , function(k, v){
-					cities["IN"].push({id: v, text: v});
-				});
-				cities["NL"] = [];
-				$.each(["Amsterdam", "Rotterdam", "The Hague"] , function(k, v){
-					cities["NL"].push({id: v, text: v});
-				});
-				cities["TR"] = [];
-				$.each(["Ankara", "Istanbul", "Izmir"] , function(k, v){
-					cities["TR"].push({id: v, text: v});
-				});
-				cities["US"] = [];
-				$.each(["New York", "Miami", "Los Angeles", "Chicago", "Wysconsin"] , function(k, v){
-					cities["US"].push({id: v, text: v});
-				});
-				
-				var currentValue = "NL";
-			    $('#country').editable({
-					type: 'select2',
-					value : 'NL',
-			        source: countries,
-					success: function(response, newValue) {
-						if(currentValue == newValue) return;
-						currentValue = newValue;
-						
-						var source = (!newValue || newValue == "") ? [] : cities[newValue];
-						$('#city').editable('destroy').editable({
-							type: 'select2',
-							source: source
-						}).editable('setValue', null);
-					}
-			    });
-			
-				$('#city').editable({
-					type: 'select2',
-					value : 'Amsterdam',
-			        source: cities[currentValue]
-			    });
-			
-			
-			
-				$('#signup').editable({
-					type: 'date',
-					format: 'yyyy-mm-dd',
-					viewformat: 'dd/mm/yyyy',
-					datepicker: {
-						weekStart: 1
-					}
-				});
-			
-			    $('#age').editable({
-			        type: 'spinner',
-					name : 'age',
-					spinner : {
-						min : 16, max:99, step:1
-					}
-				});
-				
-				//var $range = document.createElement("INPUT");
-				//$range.type = 'range';
-			    $('#login').editable({
-			        type: 'slider',//$range.type == 'range' ? 'range' : 'slider',
-					name : 'login',
-					slider : {
-						min : 1, max:50, width:100
-					},
-					success: function(response, newValue) {
-						if(parseInt(newValue) == 1)
-							$(this).html(newValue + " hour ago");
-						else $(this).html(newValue + " hours ago");
-					}
-				});
-			
-				$('#about').editable({
+
+			    $('#lbl_descripcion').editable({
 					mode: 'inline',
 			        type: 'wysiwyg',
-					name : 'about',
+					name : 'lbl_descripcion',
 					wysiwyg : {
 						//css : {'max-width':'300px'}
 					},
 					success: function(response, newValue) {
 					}
 				});
+			
+				var countries = [];
+			    $.each({ "CA": "Canada", "IN": "India", "NL": "Netherlands", "TR": "Turkey", "US": "United States"}, function(k, v) {
+			        countries.push({id: k, text: v});
+			    });	
+			
+							
+			   
+				
 				
 				
 				
