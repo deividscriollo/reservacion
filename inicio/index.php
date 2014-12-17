@@ -92,7 +92,7 @@ if(!isset($_SESSION))
 														<span class="span12">
 															<label>
 																<span class="block input-icon input-icon-right">
-																	<input type="password" class="span12" id="txt_pass" name="txt_pass" placeholder="Digíte Password" />
+																	<input type="password" class="span12" id=" " name="txt_pass" placeholder="Digíte Password" />
 																	<i class="icon-lock"></i>
 																</span>
 															</label>

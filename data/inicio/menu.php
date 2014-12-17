@@ -88,7 +88,7 @@ function menunav(){
 								</li>
 
 								<li>
-									<a href="#">
+									<a href="../inicio/perfil.php">
 										<i class="icon-user"></i>
 										Perfil
 									</a>

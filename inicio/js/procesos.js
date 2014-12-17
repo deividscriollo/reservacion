@@ -1,4 +1,4 @@
-// Buscando registros seccion nombre usuario
+			// Buscando registros seccion nombre usuario
 			function buscando(registro){			
 				var result = "" ; 					
 				$.ajax({
@@ -17,8 +17,36 @@
 			    	});
 				return result ; 
 			}
+
+			// Buscando registros seccion nombre usuario
+			function pass_seguro(reg){			
+				var result = "" ; 					
+				$.ajax({
+						url:'../utilidades/cedula.php',
+			            async :  false ,   
+			            type:  'post',
+			            data: {registro:reg, pass:reg},
+			            success : function ( data )  {	
+			            	result=data; 
+					    } 
+					});	
+				return result ; 
+			}
 			
 			$(function(){				
+				//Validación pass robusto
+				jQuery.validator.addMethod("pass_r", function (value, element) {
+					
+					var reg=$('#txt_reg_pass').val();
+					if (pass_seguro(reg)==0) {						
+						return false;
+					};
+					if (pass_seguro(reg)!=0) {						
+						return true;
+					};
+					//return false;		
+				}, "Password no seguro!!!. :(");
+
 				//Validación Existencia correo electronico
 				jQuery.validator.addMethod("exis_correo", function (value, element) {
 					var a=value;
@@ -44,7 +72,8 @@
 						},
 						txt_reg_pass: {
 							required: true,
-							minlength: 8
+							minlength: 8,
+							pass_r:true
 						},
 						txt_repetir: {
 							required: true,
@@ -52,8 +81,8 @@
 						},
 						txt_reg_nom_usuario: {
 							required: true							
-						},						
-						agree: 'required'
+						}
+						
 					},
 			
 					messages: {
@@ -64,7 +93,8 @@
 						},
 						txt_reg_pass: {
 							required: "Por favor, Digite password.",
-							minlength: "Por favor, Digite minimo 8 caracteres."
+							minlength: "Por favor, Digite minimo 8 caracteres.",
+							pass_r: 'Password no seguro!!!. :('
 						},
 						txt_repetir:{
 							required:"Por favor, Digite nuevamente su password",							
@@ -73,8 +103,8 @@
 						txt_reg_nom_usuario:{
 							required:"Por favor, Digite nombre de usuario",
 							
-						},
-						agree: "Por favor,  acepte nuestra política."
+						}
+						
 					},
 			
 					invalidHandler: function (event, validator) { //display error alert on form submit   

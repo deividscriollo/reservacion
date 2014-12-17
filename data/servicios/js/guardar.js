@@ -1,9 +1,4 @@
-
 $(function(){
-	//////////////////////////////////////VALIDAR CAJA TIPE FILE
-
-
-
 ///////////////////////////PROCESAR IMAGENES////////////////////////////
 
 	function getDoc(frame) {
@@ -147,82 +142,15 @@ $(function(){
 	});
 });
 
-
-
-inputid=0;	
-//////////////////////////////////////////////////INICIO PROCESO GENERAR ELEMENTOS//////////////////////										
-				$("#btn_mas").click(function(){
-					inputid++;
-					var campo = ''
-							+'<i class="icon-caret-right blue"></i> <b><i class="icon-time blue"></i> Horario: '+inputid+'</b>'
-							+'<div class="row-fluid">'
-								+'<div class="span6">'
-									+'<div class="control-group"><label class="control-label" for="Opciones Dias">Seleccione dias:</label>'
-										+'<div class="controls">'
-											+'<div class="span12">'
-												+'<select multiple="" class="chzn-select'+inputid+'" id="'+'select'+inputid+'" data-placeholder="Seleccione Días">'												
-												+'</select>'
-											+'</div>'
-										+'</div>'
-									+'</div>'
-								+'</div>'
-								+'<div class="span6">'
-									+'<div class="row-fluid">'
-										+'<div class="span12">'
-											+'<div class="control-group">'
-												+'<label class="control-label" for="form-field-tags">Horarios</label>'
-												+'<div class="controls">'													
-													+'<input class="span5" type="text" id="form-field-tags'+inputid+'" placeholder="Digite hora..." />'													
-												+'</div>'
-											+'</div>'
-										+'</div>'
-									+'</div>'
-								+'</div>'
-							+'</div>';
-					$("#obj_contenedor").append(campo);
-					
-					//$('.chzn-select'+inputid+"").append("<option value='LUNES' />LUNES");						
-					var semana = [ 
-						    {"id": 'LUNES', "name": "LUNES"}, 
-						    {"id": 'MARTES', "name": "MARTES"},
-						    {"id": 'MIERCOLES', "name": "MIERCOLES"},
-						    {"id": 'JUEVES', "name": "JUEVES"},
-						    {"id": 'VIERNES', "name": "VIERNES"},
-						    {"id": 'SABADO', "name": "SABADO"},
-						    {"id": 'DOMINGO', "name": "DOMINGO"}
-						];
-
-					var myOptions = "<option value></option>";
-					for(var i=0; i<semana.length; i++){
-					    myOptions +=  '<option value="'+semana[i].id+'">'+semana[i].name+'</option>';
-					}
-					// uses new "chosen" actualiza con el nuevo señesct"
-					$('.chzn-select'+inputid+"").html(myOptions).chosen().trigger("chosen:updated");
-
-					////TAGS
-					//we could just set the data-provide="tag" of the element inside HTML, but IE8 fails!
-					var tag_input = $("#form-field-tags"+inputid);	
-					//alert(tag_input.attr('id'))		
-					var regexp = /[0-9]{1,2}[:]{1}[0-9][1,2]/;			
-					if(! ( regexp.test(navigator.userAgent)) ){							
-						tag_input.tag({placeholder:tag_input.attr('placeholder')});
-						//alert('hola '+tag_input.val())
-					}							
-					else {
-						//display a textarea for old IE, because it doesn't support this plugin or another one I tried!							
-						tag_input.after('<textarea class="span12" id="'+tag_input.attr('id')+'" name="'+tag_input.attr('name')+'" rows="5">'+tag_input.val()+'</textarea>').remove();
-						//$('#form-field-tags').autosize({append: "\n"});
-					}
-				});
 //////////////////////////////////////////////////FIN PROCESO GENERAR ELEMENTOS//////////////////////////////////////////////				
 //Validación Existencia registro en tablas
-		jQuery.validator.addMethod("exis_registro", function (value, element) {
-			var a=value;
-			var reg=$('#txt_servicio').val();					
-			if (buscando(reg)==0) {						
-				return false;
-			}
-		}, "Por favor, El servicio que ingreso ya existe verifique!!!.");
+jQuery.validator.addMethod("exis_registro", function (value, element) {
+	var a=value;
+	var reg=$('#txt_servicio').val();					
+	if (buscando(reg)==0) {						
+		return false;
+	}
+}, "Por favor, El servicio que ingreso ya existe verifique!!!.");
 
 function buscar_reg(reg){
 	$.ajax({
