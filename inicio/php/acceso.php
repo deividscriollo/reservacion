@@ -7,8 +7,8 @@ if(!isset($_SESSION))
 require('../../admin/class.php');
 $class=new constante();
 //obtencion d campos usuario y password
-$usu=$_POST['txt_1'];
-$pass=$_POST['txt_2'];
+$usu=$_POST['u'];
+$pass=$_POST['p'];
 $existencia=0;
 
 $resultado = $class->consulta("SELECT * FROM SEG.USUARIO WHERE correo='$usu' and pass=md5('$pass') and stado='1'");	
@@ -16,9 +16,9 @@ $resultado = $class->consulta("SELECT * FROM SEG.USUARIO WHERE correo='$usu' and
 			$existencia=1;			
 			//Dando valor a variables de session
 			$_SESSION['id'] = $row[0];
-			$_SESSION['nom'] = $row[1];
-			$_SESSION['usu'] = $row[4];
-			$_SESSION['pass'] = $row[5];
+			$_SESSION['nom'] = $row[2];
+			$_SESSION['usu'] = $row[5];
+			$_SESSION['pass'] = $row[6];
 
 
 			//ID !! PROCESOS !! USUARIO !! TABLA !! CAMPO !! ID REGISTRO !! FECHA !! OTROS

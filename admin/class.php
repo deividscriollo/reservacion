@@ -61,54 +61,12 @@ class constante
           $ipaddress = 'UNKNOWN';
       return $ipaddress;
   }
-   public function idx($TABLA)
-   {             
-      $acu=1;
-      $BaseDato=new BaseDeDato(SERVIDOR,PUERTO,BD,USUARIO,CLAVE);//declarar el objeto de la clase base de dato
-      $query="SELECT * FROM ".$TABLA;  
-      $result=$BaseDato->Consultas($query);
-      $row = pg_fetch_array ($result, 0);  
-      while($row= pg_fetch_array($result))
-      {
-         $acu=$acu+1;
-      }     
-      return $acu; 
-   }
-   //Verificar la existencia de un registro X
-   public function existenciap($CAMPO,$TABLA,$REGISTRO,$id_proveedor)
-   {  
-      $h=0;
-      $BaseDato=new BaseDeDato(SERVIDOR,PUERTO,BD,USUARIO,CLAVE);//declarar el objeto de la clase base de dato
-      $query="SELECT nom_producto FROM producto WHERE nom_producto='$REGISTRO' and id_proveedor=$id_proveedor";  
-      $resultado=$BaseDato->Consultas($query);
-      while($row= pg_fetch_array($resultado))
-      {
-         $h=1;
-      }
-      return $h;
-   }
-   //Verificar la existencia de un registro X
-   public function registrox($CAMPO,$TABLA,$REGISTRO)
-   {  
-      $valor="hola";
-      $BaseDato=new BaseDeDato(SERVIDOR,PUERTO,BD,USUARIO,CLAVE);//declarar el objeto de la clase base de dato
-      $query="SELECT $CAMPO FROM ".$TABLA." WHERE $CAMPO='$REGISTRO'";  
-     while ($row=$BaseDato->fetch_array($query)) {            
-           //$valor=$row[$CAMPO];
-      $valor1='hola';
-     }
-     return $valor;
-   }
-   //Verificar la existencia de un registro X
-   public function acceso_usu($USU,$PASS)
-   {  
-      $BaseDato=new BaseDeDato(SERVIDOR,PUERTO,BD,USUARIO,CLAVE);//declarar el objeto de la clase base de dato
-      $query="SELECT * FROM USUARIO WHERE USUARIO='$USU' and PASSSWORD='$PASS'";  
-      $resultado=$BaseDato->Consultas($query);
-      $Datos=@pg_fetch_all($resultado);//Devuelve los datos en forma de arreglo
-      $filas=pg_num_rows($resultado);       
-      return $filas;//If res = 1 => Ok
-   }
+   public function edad($fecha){
+    $dias = explode("-", $fecha, 3);
+    $dias = mktime(0,0,0,$dias[1],$dias[0],$dias[2]);
+    $edad = (int)((time()-$dias)/31556926 );
+    return $edad;
+    }
    
   
 

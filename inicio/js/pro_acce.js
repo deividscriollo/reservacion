@@ -50,13 +50,13 @@ $('#form-acceso').validate({
 			else error.insertAfter(element);
 		},
 
-		submitHandler: function (form) {
-			        	
+		submitHandler: function (form) {			 
 			$.ajax({
                 url: 'php/acceso.php',
 				type: 'POST',				
-				data: {txt_1: $('#txt_usuario').val(),txt_2: $('#txt_pass').val()},                
-                success:  function (data) {                	
+				data: {u: $('#txt_usuario').val(), p:$('#txt_pass').val()},                
+                success:  function (data) { 
+                //alert(data)               	
                 	if (data==0) {
                 		$.gritter.add({						
 							title: '..Mensaje..!',						

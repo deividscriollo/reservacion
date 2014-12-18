@@ -10,7 +10,7 @@ while ($row=$class->fetch_array($resultado)) {
                        
     //valores a consumir                      
     $valor = $row[0];
-    $nombre =$row[1];
+    $nombre =$row[2];
     
 }
 
@@ -81,7 +81,7 @@ $contenido_html =  '
 <p>Hola, te saluda <em><strong>FABRICA IMBABURA</strong></em> Para reiniciar tu contraseña, por favor has click: <a href="http://localhost/reservacion/inicio/recuperar.php?id='.$valor.'">AQUI</a>.</p>';
 
 $email = new email();
-if ( $email->enviar( $_POST['txt_1'] , 'FABRICA IMBABURA' , 'RECUPERACION DE CONTRASEÑA' ,  $contenido_html ) )
+if ( $email->enviar( $_POST['txt_1'] , 'FABRICA IMBABURA' , 'RECUPERACION DE PASSWORD' ,  $contenido_html ) )
    print '1';
 else
 {

@@ -30,6 +30,14 @@ if(!isset($_SESSION))
 		<link rel="stylesheet" href="../assets/css/ace-responsive.min.css" />
 		<link rel="stylesheet" href="../assets/css/ace-skins.min.css" />
 
+		<link rel="stylesheet" href="../assets/css/chosen.css"/>
+		<link rel="stylesheet" href="../assets/css/datepicker.css" />
+		<link rel="stylesheet" href="../assets/css/bootstrap-timepicker.css" />
+		<link rel="stylesheet" href="../assets/css/daterangepicker.css" />
+		<link rel="stylesheet" href="../assets/css/colorpicker.css" />
+
+
+
 		<!--[if lte IE 8]>
 		  <link rel="stylesheet" href="../assets/css/ace-ie.min.css" />
 		<![endif]-->
@@ -50,34 +58,44 @@ if(!isset($_SESSION))
 
 			<div class="main-content">
 				<div class="page-content">
+
+				<?php 
+						require('../../admin/class.php');
+						$class=new constante();
+						$id=$_SESSION['id'];						
+						$resultado = $class->consulta("SELECT * FROM SEG.USUARIO WHERE id='$id' and stado='1'");	
+						while ($row=$class->fetch_array($resultado)) {
+
+						
+				?>
 					<div class="row-fluid">
 						<div class="tabbable">
 							<ul class="nav nav-tabs padding-18">
 								<li class="active">
 									<a data-toggle="tab" href="#home">
 										<i class="green icon-user bigger-120"></i>
-										Profile
+										Perfil
 									</a>
 								</li>
 
 								<li>
 									<a data-toggle="tab" href="#feed">
 										<i class="orange icon-rss bigger-120"></i>
-										Activity Feed
+										Actividad
 									</a>
 								</li>
 
 								<li>
 									<a data-toggle="tab" href="#friends">
 										<i class="blue icon-group bigger-120"></i>
-										Friends
+										Historial
 									</a>
 								</li>
 
 								<li>
 									<a data-toggle="tab" href="#pictures">
 										<i class="pink icon-picture bigger-120"></i>
-										Pictures
+										Otros
 									</a>
 								</li>
 							</ul>
@@ -87,231 +105,102 @@ if(!isset($_SESSION))
 									<div class="row-fluid">
 										<div class="span3 center">
 											<span class="profile-picture">
-												<img class="editable" alt="Alex's Avatar" id="avatar2" src="assets/avatars/profile-pic.jpg" />
+												<img class="editable" alt="Alex's Avatar" id="avatar2" src="../../assets/avatars/avatar2.png" />
 											</span>
 
 											<div class="space space-4"></div>
-
-											<a href="#" class="btn btn-small btn-block btn-success">
-												<i class="icon-plus-sign bigger-110"></i>
-												Add as a friend
-											</a>
-
-											<a href="#" class="btn btn-small btn-block btn-primary">
-												<i class="icon-envelope-alt"></i>
-												Send a message
-											</a>
+											
 										</div><!--/span-->
 
 										<div class="span9">
 											<h4 class="blue">
-												<span class="middle">Alex M. Doe</span>
+												<span class="middle"><?php print($row[2]); ?></span>
 
-												<span class="label label-purple arrowed-in-right">
+												<span class="label label-success arrowed-in-right">
 													<i class="icon-circle smaller-80"></i>
-													online
+													enlinea
 												</span>
 											</h4>
 
 											<div class="profile-user-info">
 												<div class="profile-info-row">
-													<div class="profile-info-name"> Username </div>
+													<div class="profile-info-name"> Cedula: </div>
 
 													<div class="profile-info-value">
-														<span>alexdoe</span>
+														<span><?php print($row[1]); ?></span>
+													</div>
+												</div>
+												<div class="profile-info-row">
+													<div class="profile-info-name"> Nombre </div>
+
+													<div class="profile-info-value">
+														<span><?php print($row[2]); ?></span>
 													</div>
 												</div>
 
 												<div class="profile-info-row">
-													<div class="profile-info-name"> Location </div>
+													<div class="profile-info-name"> Localizacion </div>
 
 													<div class="profile-info-value">
-														<i class="icon-map-marker light-orange bigger-110"></i>
-														<span>Netherlands</span>
-														<span>Amsterdam</span>
+														<div class="row-fluid">
+															<div class="span3"><select class="span12"></select></div>
+															<div class="span3"><select class="span12"></select></div>
+															<div class="span3"><select class="span12"></select></div>
+														</div>
+														
 													</div>
 												</div>
 
 												<div class="profile-info-row">
-													<div class="profile-info-name"> Age </div>
+													<div class="profile-info-name"> Edad : <span>18</span></div>													
+														<div class="profile-info-value">
+															<div class="control-group">
+																<div class="row-fluid input-append">
+																	<input class="span2 date-picker" id="id-date-picker-1" type="text" data-date-format="dd-mm-yyyy" />
+																	<span class="add-on">
+																		<i class="icon-calendar"></i>
+																	</span>
+																</div>
+															</div>
+														</div>													
+												</div>
+
+												<div class="profile-info-row">
+													<div class="profile-info-name"> Telefono </div>
 
 													<div class="profile-info-value">
-														<span>38</span>
+														<input type="text" class="span3" value="<?php print($row[3]); ?>">
 													</div>
 												</div>
 
 												<div class="profile-info-row">
-													<div class="profile-info-name"> Joined </div>
+													<div class="profile-info-name"> Dirección: </div>
 
 													<div class="profile-info-value">
-														<span>20/06/2010</span>
+														<input type="text">
 													</div>
 												</div>
-
 												<div class="profile-info-row">
-													<div class="profile-info-name"> Last Online </div>
+													<div class="profile-info-name"> Correo: </div>
 
 													<div class="profile-info-value">
-														<span>3 hours ago</span>
+														<span><?php print($row[5]); ?></span>
+													</div>
+												</div>
+												<div class="profile-info-row">
+													<div class="profile-info-name"> F. Suscripción: </div>
+
+													<div class="profile-info-value">
+														<span><?php print($row[9]); ?></span>
 													</div>
 												</div>
 											</div>
 
 											<div class="hr hr-8 dotted"></div>
 
-											<div class="profile-user-info">
-												<div class="profile-info-row">
-													<div class="profile-info-name"> Website </div>
-
-													<div class="profile-info-value">
-														<a href="#" target="_blank">www.alexdoe.com</a>
-													</div>
-												</div>
-
-												<div class="profile-info-row">
-													<div class="profile-info-name">
-														<i class="middle icon-facebook-sign bigger-150 blue"></i>
-													</div>
-
-													<div class="profile-info-value">
-														<a href="#">Find me on Facebook</a>
-													</div>
-												</div>
-
-												<div class="profile-info-row">
-													<div class="profile-info-name">
-														<i class="middle icon-twitter-sign bigger-150 light-blue"></i>
-													</div>
-
-													<div class="profile-info-value">
-														<a href="#">Follow me on Twitter</a>
-													</div>
-												</div>
-											</div>
+											
 										</div><!--/span-->
-									</div><!--/row-fluid-->
-
-									<div class="space-20"></div>
-
-									<div class="row-fluid">
-										<div class="span6">
-											<div class="widget-box transparent">
-												<div class="widget-header widget-header-small">
-													<h4 class="smaller">
-														<i class="icon-check bigger-110"></i>
-														Little About Me
-													</h4>
-												</div>
-
-												<div class="widget-body">
-													<div class="widget-main">
-														<p>
-															My job is mostly lorem ipsuming and dolor sit ameting as long as consectetur adipiscing elit.
-														</p>
-														<p>
-															Sometimes quisque commodo massa gets in the way and sed ipsum porttitor facilisis.
-														</p>
-														<p>
-															The best thing about my job is that vestibulum id ligula porta felis euismod and nullam quis risus eget urna mollis ornare.
-														</p>
-														<p>
-															Thanks for visiting my profile.
-														</p>
-													</div>
-												</div>
-											</div>
-										</div>
-
-										<div class="span6">
-											<div class="widget-box transparent">
-												<div class="widget-header widget-header-small header-color-blue2">
-													<h4 class="smaller">
-														<i class="icon-lightbulb bigger-120"></i>
-														My Skills
-													</h4>
-												</div>
-
-												<div class="widget-body">
-													<div class="widget-main padding-16">
-														<div class="row-fluid">
-															<div class="grid3 center">
-																<div class="easy-pie-chart percentage" data-percent="45" data-color="#CA5952">
-																	<span class="percent">45</span>
-																	%
-																</div>
-
-																<div class="space-2"></div>
-																Graphic Design
-															</div>
-
-															<div class="grid3 center">
-																<div class="center easy-pie-chart percentage" data-percent="90" data-color="#59A84B">
-																	<span class="percent">90</span>
-																	%
-																</div>
-
-																<div class="space-2"></div>
-																HTML5 & CSS3
-															</div>
-
-															<div class="grid3 center">
-																<div class="center easy-pie-chart percentage" data-percent="80" data-color="#9585BF">
-																	<span class="percent">80</span>
-																	%
-																</div>
-
-																<div class="space-2"></div>
-																Javascript/jQuery
-															</div>
-														</div>
-
-														<div class="hr hr-16"></div>
-
-														<div class="profile-skills">
-															<div class="progress">
-																<div class="bar" style="width:80%">
-																	<span class="pull-left">HTML5 & CSS3</span>
-																	<span class="pull-right">80%</span>
-																</div>
-															</div>
-
-															<div class="progress progress-success">
-																<div class="bar" style="width:72%">
-																	<span class="pull-left">Javascript & jQuery</span>
-
-																	<span class="pull-right">72%</span>
-																</div>
-															</div>
-
-															<div class="progress progress-purple">
-																<div class="bar" style="width:70%">
-																	<span class="pull-left">PHP & MySQL</span>
-
-																	<span class="pull-right">70%</span>
-																</div>
-															</div>
-
-															<div class="progress progress-warning">
-																<div class="bar" style="width:50%">
-																	<span class="pull-left">Wordpress</span>
-
-																	<span class="pull-right">50%</span>
-																</div>
-															</div>
-
-															<div class="progress progress-danger">
-																<div class="bar" style="width:35%">
-																	<span class="pull-left">Photoshop</span>
-
-																	<span class="pull-right">35%</span>
-																</div>
-															</div>
-														</div>
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>
+									</div><!--/row-fluid-->									
 								</div><!--#home-->
 
 								<div id="feed" class="tab-pane">
@@ -1190,6 +1079,7 @@ if(!isset($_SESSION))
 							</div>
 						</div>						
 					</div>
+				<?php } ?>
 				</div>
 			</div><!--/.main-content-->
 		</div><!--/.main-container-->
@@ -1243,6 +1133,21 @@ if(!isset($_SESSION))
 		<script src="../assets/js/flot/jquery.flot.min.js"></script>
 		<script src="../assets/js/flot/jquery.flot.pie.min.js"></script>
 		<script src="../assets/js/flot/jquery.flot.resize.min.js"></script>
+		<script src="../assets/js/jquery-ui-1.10.3.custom.min.js"></script>
+		<script src="../assets/js/jquery.ui.touch-punch.min.js"></script>
+		<script src="../assets/js/chosen.jquery.min.js"></script>
+		<script src="../assets/js/fuelux/fuelux.spinner.min.js"></script>
+		<script src="../assets/js/date-time/bootstrap-datepicker.min.js"></script>
+		<script src="../assets/js/date-time/bootstrap-timepicker.min.js"></script>
+		<script src="../assets/js/date-time/moment.min.js"></script>
+		<script src="../assets/js/date-time/daterangepicker.min.js"></script>
+		<script src="../assets/js/bootstrap-colorpicker.min.js"></script>
+		<script src="../assets/js/jquery.knob.min.js"></script>
+		<script src="../assets/js/jquery.autosize-min.js"></script>
+		<script src="../assets/js/jquery.inputlimiter.1.3.1.min.js"></script>
+		<script src="../assets/js/jquery.maskedinput.min.js"></script>
+		<script src="../assets/js/bootstrap-tag.min.js"></script>
+
 
 		<!--ace scripts-->
 
@@ -1250,7 +1155,13 @@ if(!isset($_SESSION))
 		<script src="../assets/js/ace.min.js"></script>
 
 		<!--inline scripts related to this page-->
-
+		<script type="text/javascript">
+			$(function(){
+				$('.date-picker').datepicker().next().on(ace.click_event, function(){
+					$(this).prev().focus();
+				});
+			});
+		</script>
 		
 	</body>
 </html>

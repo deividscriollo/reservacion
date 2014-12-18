@@ -4,28 +4,19 @@ $class=new constante();
 $acu=0;
 $id=$class->idz();
 
-$resultado = $class->consulta("INSERT INTO SEG.USUARIO VALUES('".$id
-																	."','".$_POST['txt_1'].
-                                  "','".'0900000000'.
-																	"','".$_POST['txt_2'].
-																	"',md5('".$_POST['txt_3'].
-																	"'),'".$class->fecha_hora().
-																	"','".'0'.
-																	"')");
-
 //ID !! PROCESOS !! USUARIO !! TABLA !! CAMPO !! ID REGISTRO !! FECHA !! OTROS
-$class->consulta("INSERT INTO SEG.AUDITORIA VALUES('".$class->idz().
+$r=$class->consulta("INSERT INTO SEG.AUDITORIA VALUES('".$class->idz().
                                                     "','INSERT','".
                                                     $id.
                                                     "','SEG.USUARIO','TODOS','".$id."','".
                                                     $class->fecha_hora().
                                                     "','REGISTRO CUENTA USUARIO')");
-if (!$resultado) 
+if (!$r) 
 	$acu=1;
 else 
 	$acu=0;
-
-
+  
+//envio de correo
 if($acu==0){
 require '../../utilidades/PHPMailer/PHPMailerAutoload.php';
 /**
@@ -79,16 +70,33 @@ $contenido_html =  '<p>Hola, te saluda <em><strong>FABRICA IMBABURA</strong></em
 que actives tu cuenta accediendo <a href="http://localhost/reservacion/inicio/activacion.php?id='.$id.'">AQUI</a>. </p>';
 
 $email = new email();
-if ( $email->enviar( $_POST['txt_2'] , 'FABRICA IMBABURA' , 'PROCESO DE REGISTRO' ,  $contenido_html ) )
-   print '1';
-else
-{
-   print'0';
-   $email->ErrorInfo;
-}
+    if ( $email->enviar( $_POST['txt_2'] , 'FABRICA IMBABURA' , 'PROCESO DE REGISTRO' ,  $contenido_html ) ){
+
+      //Envio valido guardado en la baSE DE DATOS
+      $resultado = $class->consulta("INSERT INTO SEG.USUARIO VALUES('".$id
+                                                                    ."','".$_POST['txt_0'].
+                                                                    "','".$_POST['txt_1'].
+                                                                    "','".'0900000000'.
+                                                                    "','".$class->fecha_hora().
+                                                                    "','".$_POST['txt_2'].
+                                                                    "',md5('".$_POST['txt_3'].
+                                                                    "'),'".''.
+                                                                    "','".''.
+                                                                    "','".$class->fecha_hora().
+                                                                    "','".'0'.
+                                                                    "')");
+      if (!$resultado) 
+        print('0');
+      else 
+        print('1');
+      
+    }else{
+     print'0';
+     $email->ErrorInfo;
+   }
+
 }else{
 	print('2');
 }
-
 ?>
 

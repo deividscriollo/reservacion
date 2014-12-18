@@ -30,6 +30,7 @@ if(!isset($_SESSION))
 		<link rel="stylesheet" href="../assets/css/ace-responsive.min.css" />
 		<link rel="stylesheet" href="../assets/css/ace-skins.min.css" />
 
+
 		<!--[if lte IE 8]>
 		  <link rel="stylesheet" href="../assets/css/ace-ie.min.css" />
 		<![endif]-->
@@ -49,8 +50,146 @@ if(!isset($_SESSION))
 			<?php  menu(); ?>
 
 			<div class="main-content">
+				<div class="breadcrumbs" id="breadcrumbs">
+					<ul class="breadcrumb">
+						<li>
+							<i class="icon-home home-icon"></i>
+							<a href="#">Home</a>
+
+							<span class="divider">
+								<i class="icon-angle-right arrow-icon"></i>
+							</span>
+						</li>
+						<li class="active">Menu Principal</li>
+					</ul><!--.breadcrumb-->
+				</div>
 				<div class="page-content">
-					<div class="row-fluid">
+					<?php 
+						require('../../admin/class.php');
+						$class=new constante();
+						$id=$_SESSION['id'];
+						$acu=0;
+						$cedula='';
+						$localizacion='';
+						$edad='';
+						$fecha='';
+						$correo='';
+						$telefono='';
+						$direccion='';
+						$resultado = $class->consulta("SELECT * FROM SEG.USUARIO WHERE id='$id' and stado='1'");	
+							while ($row=$class->fetch_array($resultado)) {
+								if ($row[3]=="0900000000") {
+									$acu++;
+								}if ($row[7]=='') {
+									$acu++;
+								}if ($row[8]=='') {
+									$acu++;
+								}
+								$cedula=$row[1];
+								$localizacion=$row[2];
+								$edad=$row[4];
+								$fecha=$row[9];
+								$correo=$row[5];
+								$telefono=$row[3];
+								$direccion=$row[7];
+							}
+						//print $edad;
+						$v_eda1=split(' ',$edad);
+						$v_eda2=split('-',$v_eda1[0]);
+						$sum=$v_eda2[2].'-'.$v_eda2[1].'-'.$v_eda2[0];						
+						$edad=$class->edad($sum);
+						if ($edad<10) {
+							$edad='0000-00-00';
+						}
+						if ($direccion=="") {
+							$direccion="-----------------------";
+						}
+						$acu=(10-$acu)*10;
+						if ($acu<100) {	
+					?>
+					<div class="row-fluid">						
+						<h3 class="header smaller lighter green">Hola <a><?php print$_SESSION['nom'].' '; ?></a><i class="icon-user"></i> Te pedimos completar tu información!!! <a href="perfil.php" class="icon-animated-vertical"><i class=" icon-edit"></i> AQUI</a></h3>
+						<div class="row-fluid">
+							<div class="span12">									
+								<div class="row-fluid">
+									<div class="span3 center">
+										<div class="profile-picture">
+											<img src="../assets/avatars/avatar2.png">
+										</div>
+									</div>
+									<div class="span5">
+										<div class="profile-user-info profile-user-info-striped">
+											<div class="profile-info-row">
+												<div class="profile-info-name"> Cedula </div>
+
+												<div class="profile-info-value">
+													<span class="editable" id="username"><?php print($cedula); ?></span>
+												</div>
+											</div>
+
+											<div class="profile-info-row">
+												<div class="profile-info-name"> Localizacion</div>
+
+												<div class="profile-info-value">
+													<i class="icon-map-marker light-orange bigger-110"></i>
+													<span class="editable" id="country">Ecuador</span>
+													<span class="editable" id="city">Imbabura</span>
+													<span class="editable" id="city">Ibarra</span>
+												</div>
+											</div>
+
+											<div class="profile-info-row">
+												<div class="profile-info-name"> Edad </div>
+
+												<div class="profile-info-value">
+													<span class="editable" id="age"><?php print($edad); ?></span>
+												</div>
+											</div>
+
+											<div class="profile-info-row">
+												<div class="profile-info-name"> Fecha Registro </div>
+
+												<div class="profile-info-value">
+													<span class="editable" id="signup"><?php print($fecha); ?></span>
+												</div>
+											</div>
+
+											<div class="profile-info-row">
+												<div class="profile-info-name"> Correo </div>
+
+												<div class="profile-info-value">
+													<span class="editable" id="login"><?php print($correo); ?></span>
+												</div>
+											</div>
+											<div class="profile-info-row">
+												<div class="profile-info-name"> Telefono </div>
+
+												<div class="profile-info-value">
+													<span class="editable" id="login"><?php print($telefono); ?></span>
+												</div>
+											</div>
+											<div class="profile-info-row">
+												<div class="profile-info-name"> Direccion </div>
+
+												<div class="profile-info-value">
+													<span class="editable" id="login"><?php print($direccion); ?></span>
+												</div>
+											</div>												
+										</div>
+									</div>
+									<div class="span3 center">									
+										<div class="easy-pie-chart percentage" data-percent="<?php print $acu; ?>" data-color="#87B87F">
+											<span class="percent"><?php print $acu; ?></span>
+											%
+										</div>
+									</div><!--/span-->
+								</div>
+							</div><!--/span-->
+						</div>
+					</div>
+					<?php } ?>
+					<h3 class="header smaller lighter green">Navegación</h3>
+					<div class="row-fluid">					
 						<div class="span3">
 							<div class="widget-box">
 								<div class="widget-header">
@@ -217,6 +356,8 @@ if(!isset($_SESSION))
 		<script src="../assets/js/flot/jquery.flot.min.js"></script>
 		<script src="../assets/js/flot/jquery.flot.pie.min.js"></script>
 		<script src="../assets/js/flot/jquery.flot.resize.min.js"></script>
+		<script src="../assets/js/jquery.easy-pie-chart.min.js"></script>
+
 
 		<!--ace scripts-->
 
@@ -225,6 +366,22 @@ if(!isset($_SESSION))
 
 		<!--inline scripts related to this page-->
 
-		
+		<script type="text/javascript">
+			$(function(){
+				var oldie = /msie\s*(8|7|6)/.test(navigator.userAgent.toLowerCase());
+
+				$('.easy-pie-chart.percentage').each(function(){
+					$(this).easyPieChart({
+						barColor: $(this).data('color'),
+						trackColor: '#EEEEEE',
+						scaleColor: false,
+						lineCap: 'butt',
+						lineWidth: 8,
+						animate: oldie ? false : 1000,
+						size:230
+					}).css('color', $(this).data('color'));
+				});
+			});
+		</script>
 	</body>
 </html>

@@ -86,8 +86,8 @@
 									while ($row=$class->fetch_array($resultado)) {
 											$existencia=1;											
 											//valores a consumir											
-											$nom = $row[1];
-											$correo = $row[3];
+											$nom = $row[2];
+											$correo = $row[5];
 											$stado=1;
 									}																	
 								}
@@ -264,7 +264,7 @@ $(function (){
 				type: 'POST',				
 				data: {txt_1: $('#txt_correo').val(),txt_2: $('#txt_pass').val()},				
                 success:  function (data) {                	
-                	alert(data)
+                	
                 	if (data==0) {
                 		$.gritter.add({						
 							title: '..Mensaje..!',						

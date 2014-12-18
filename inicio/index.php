@@ -92,7 +92,7 @@ if(!isset($_SESSION))
 														<span class="span12">
 															<label>
 																<span class="block input-icon input-icon-right">
-																	<input type="password" class="span12" id=" " name="txt_pass" placeholder="Digíte Password" />
+																	<input type="password" class="span12" id="txt_pass" name="txt_pass" placeholder="Digíte Password" />
 																	<i class="icon-lock"></i>
 																</span>
 															</label>
@@ -193,6 +193,16 @@ if(!isset($_SESSION))
 														<span class="span12">
 															<label>
 																<span class="block input-icon input-icon-right">
+																	<input type="text" class="span12" id="txt_reg_ced" name="txt_reg_ced" placeholder="Cedula" />
+																	<i class="icon-barcode"></i>
+																</span>
+															</label>
+														</span>														
+													</div>
+													<div class="control-group">														
+														<span class="span12">
+															<label>
+																<span class="block input-icon input-icon-right">
 																	<input type="email" class="span12" id="txt_reg_email" name="txt_reg_email" placeholder="email" />
 																	<i class="icon-envelope"></i>
 																</span>
@@ -208,13 +218,13 @@ if(!isset($_SESSION))
 																</span>
 															</label>
 														</div>														
-													</div>
+													</div>													
 													<div class="control-group">
 														<div class="span12">
 															<label>
 																<span class="block input-icon input-icon-right">
 																	<input type="password" class="span12" placeholder="password" id="txt_reg_pass" name="txt_reg_pass" />
-																	<i class="icon-lock"></i>
+																	<a href="#modal-form1" data-toggle="modal" class="btn-small  icon-legal blue" title="Políticas Password"></a>
 																</span>
 															</label>
 														</div>
@@ -309,7 +319,47 @@ if(!isset($_SESSION))
 					<img src="../assets/empresa/logo/logo.png" width="10%">
 				</div>
 			</div>
-		</div><!--PAGE CONTENT ENDS-->
+		</div>
+
+		<!--Terminos y condiciones password-->
+		<div id="modal-form1" class="modal hide" tabindex="-1">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<h4 class="blue bigger">Términos y condiciones</h4>
+			</div>
+
+			<div class="modal-body overflow-visible">
+				<div class="row-fluid">
+					<div class="span12" style="text-align: justify;">
+						<blockquote>
+							<p>
+							La contraseña de acceso, es la prueba irrefutable de que es el usuario quien accedió ala 
+							 aplicacion y que todas las operaciones realizadas a través de este 
+							 medio han sido aceptadas consciente y voluntariamente por él.  
+							 Es por esta razón que el usuario se obliga a no compartir su contraseña con otra persona, 
+							 de hacerlo, asumirá la responsabilidad por el uso que esta persona le de, 
+							 relevando a FABRICA IMBABURA de toda responsabilidad por tal hecho.
+ 
+								Aspectos importantes sobre la contraseña: <br/> 
+								Debe contener como mínimo 8 caracteres y como máximo 16		<br/>						
+								Debe estar compuesta por letras mayúsculas, minúsculas y números.	<br/>							
+								</p>
+							<small>
+								FABRICA IMBABURA
+								<cite title="Source Title">Política Empresarial</cite>
+							</small>
+						</blockquote>										
+					</div>
+				</div>
+			</div>
+
+			<div class="modal-footer">	
+				<div class="center">
+					<img src="../assets/empresa/logo/logo.png" width="10%">
+				</div>
+			</div>
+		</div>
+		
 		<!--basic scripts-->
 
 		<!--[if !IE]>-->
