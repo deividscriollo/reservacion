@@ -210,7 +210,7 @@ if(!isset($_SESSION))
 												<div>
 													<img class="pull-left" alt="Alex Doe's avatar" src="assets/avatars/avatar5.png" />
 													<a class="user" href="#"> Alex Doe </a>
-													changed his profile photo.
+													changed his profile
 													<a href="#">Take a look</a>
 
 													<div class="time">
