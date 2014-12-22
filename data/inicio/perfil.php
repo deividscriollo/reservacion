@@ -35,6 +35,9 @@ if(!isset($_SESSION))
 		<link rel="stylesheet" href="../assets/css/bootstrap-timepicker.css" />
 		<link rel="stylesheet" href="../assets/css/daterangepicker.css" />
 		<link rel="stylesheet" href="../assets/css/colorpicker.css" />
+		<link rel="stylesheet" href="../assets/css/select2.css" />
+		<link rel="stylesheet" href="../assets/css/bootstrap-editable.css" />
+
 
 
 
@@ -143,9 +146,10 @@ if(!isset($_SESSION))
 
 													<div class="profile-info-value">
 														<div class="row-fluid">
-															<div class="span3"><select class="span12"></select></div>
-															<div class="span3"><select class="span12"></select></div>
-															<div class="span3"><select class="span12"></select></div>
+															<i class="icon-map-marker light-orange bigger-110"></i>
+															<span class="editable" id="pais">Ecuador</span>
+															<span class="editable" id="pro">Imbabura</span>
+															<span class="editable" id="ciudad">Ibarra</span>
 														</div>
 														
 													</div>
@@ -154,7 +158,7 @@ if(!isset($_SESSION))
 												<div class="profile-info-row">
 													<div class="profile-info-name"> Edad : <span>18</span></div>													
 														<div class="profile-info-value">
-															<div class="control-group">
+							  								<div class="control-group">
 																<div class="row-fluid input-append">
 																	<input class="span2 date-picker" id="id-date-picker-1" type="text" data-date-format="dd-mm-yyyy" />
 																	<span class="add-on">
@@ -164,12 +168,10 @@ if(!isset($_SESSION))
 															</div>
 														</div>													
 												</div>
-
 												<div class="profile-info-row">
 													<div class="profile-info-name"> Telefono </div>
-
 													<div class="profile-info-value">
-														<input type="text" class="span3" value="<?php print($row[3]); ?>">
+														<input type="text" class="input-mask-phone span3" value="<?php print($row[3]); ?>">
 													</div>
 												</div>
 
@@ -1147,6 +1149,11 @@ if(!isset($_SESSION))
 		<script src="../assets/js/jquery.inputlimiter.1.3.1.min.js"></script>
 		<script src="../assets/js/jquery.maskedinput.min.js"></script>
 		<script src="../assets/js/bootstrap-tag.min.js"></script>
+		<script src="../assets/js/x-editable/bootstrap-editable.min.js"></script>
+		<script src="../assets/js/x-editable/ace-editable.min.js"></script>
+		<script src="../assets/js/select2.min.js"></script>
+		<script src="../assets/js/jquery.hotkeys.min.js"></script>
+
 
 
 		<!--ace scripts-->
@@ -1157,10 +1164,138 @@ if(!isset($_SESSION))
 		<!--inline scripts related to this page-->
 		<script type="text/javascript">
 			$(function(){
+				//Enviar datos extras
+				function acupais(){
+					var acu;
+					var person = 
+					$.ajax({
+					    url: "../localizacion/pais.php",					   
+					    async: false,
+					    type: "POST",
+					    data:{pais:"pasi"},
+					    success: function(data)
+					    {			    	
+					    	acu = data;	    						    						    	
+					    }					    
+					});	
+					return acu;														
+				}				
+					
+				//editables on first profile page
+				$.fn.editable.defaults.mode = 'inline';
+				$.fn.editableform.loading = "<div class='editableform-loading'><i class='light-blue icon-2x icon-spinner icon-spin'></i></div>";
+			    $.fn.editableform.buttons = '<button type="submit" class="btn btn-info editable-submit"><i class="icon-ok icon-white"></i></button>'+
+			                                '<button type="button" class="btn editable-cancel"><i class="icon-remove"></i></button>';    
+
+				//formato pais
+				
+				var carga_pais = [];
+				h=JSON.parse(acupais());
+			    $.each(h, function(k, v) {
+			        carga_pais.push({id: k, text: v});
+			    });
+			    var ciudad = [];
+				ciudad["1"] = [];
+				$.each(["Ibarra", "Otavalo", "Atuntaqui", "Pimampiro"] , function(k, v){
+					ciudad["1"].push({id: v, text: v});
+				});
+
+				var pro = [];
+				pro["1"] = [];
+				$.each(["Ipiales", "Medellin", "Bogota", "Cali"] , function(k, v){
+					pro["1"].push({id: v, text: v});
+				});	
+
+				var currentValue = "1";
+			    $('#pais').editable({
+					type: 'select2',
+					value : 'NL',
+			        source: carga_pais,
+					success: function(response, newValue) {
+						alert(newValue);
+						if(currentValue == newValue) return;
+						currentValue = newValue;						
+						var source = (!newValue || newValue == "") ? [] : pro[newValue];
+						$('#pro').editable('destroy').editable({
+							type: 'select2',
+							source: source
+						}).editable('setValue', null);
+					}
+			    });
+
+			    var currentValue = "1";
+			    $('#pro').editable({
+					type: 'select2',
+					value : 'NL',
+			        source: carga_pais,
+					success: function(response, newValue) {
+						alert(newValue);
+						if(currentValue == newValue) return;
+						currentValue = newValue;						
+						var source = (!newValue || newValue == "") ? [] : ciudad[newValue];
+						$('#pro').editable('destroy').editable({
+							type: 'select2',
+							source: source
+						}).editable('setValue', null);
+					}
+			    });
+			
+				$('#pro').editable({
+					type: 'select2',
+					value : 'IMBABURA',
+			        source: pro[currentValue]
+			    });
+
+				$('#ciudad').editable({
+					type: 'select2',
+					value : 'Ibarra',
+			        source: ciudad[currentValue]
+			    });
+
+				//formato inicializacion formato entrada telefono
+				$('.input-mask-phone').mask('(999) 999-9999');
+
+				//Formato inicializacion fecha de nacimiento campo
 				$('.date-picker').datepicker().next().on(ace.click_event, function(){
 					$(this).prev().focus();
 				});
+				// Llamar carga de datos en select pais
+				//cargar_p();
+				$('#sel_p').change(function(){					
+					var pais=$('#sel_p').val();					
+					cargar_pro(pais);
+				});
+				$('#sel_pro').change(function(){
+					var pro=$('#sel_pro').val();
+					cargar_c(pro);
+				});
 			});
+			
+			function cargar_pro(id){				
+				$.ajax({
+				    url: "../localizacion/pais.php",
+				    type: "POST",
+				    data: {pro:'pro',registro:id},        
+				    success: function(data)
+				    {
+				    	
+				       $('#sel_pro').html(data);
+				    }	        
+				});					
+			}
+			function cargar_c(id){				
+				$.ajax({
+				    url: "../localizacion/pais.php",
+				    type: "POST",
+				    data: {c:'pro',registro:id},        
+				    success: function(data)
+				    {
+				    	
+				       $('#sel_c').html(data);
+				    }	        
+				});
+
+			}
 		</script>
 		
 	</body>

@@ -18,7 +18,7 @@ $acus=split('/', $acus);
 					<li ';if ($acus[3]=='inicio') {print("class=active");}print'>
 						<a href="../inicio/">
 							<i class="icon-desktop pink"></i>
-							<span class="menu-text pink"> Escritorio </span>
+							<span class="menu-text pink"> Home </span>
 						</a>
 					</li>
 					<li ';if ($acus[3]=='servicios') {print("class=active");}print'>
