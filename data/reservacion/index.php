@@ -49,6 +49,19 @@ if(!isset($_SESSION))
 			<?php menu(); ?>
 
 			<div class="main-content">
+				<div class="breadcrumbs" id="breadcrumbs">
+					<ul class="breadcrumb">
+						<li>
+							<i class="icon-check check-icon"></i>
+							<a href="#">Reservación</a>
+
+							<span class="divider">
+								<i class="icon-angle-right arrow-icon"></i>
+							</span>
+						</li>
+						<li class="active">Menu Principal</li>
+					</ul><!--.breadcrumb-->
+				</div>
 				<div class="page-content">
 					<div class="row-fluid">
 						<div class="span3">

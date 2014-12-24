@@ -47,6 +47,13 @@ $acus=split('/', $acus);
 							<span class="menu-text green"> Reservación </span>
 						</a>
 					</li>
+
+					<li ';if ($acus[3]=='usuario') {print("class=active");}print'>
+						<a href="../usuario/">
+							<i class="icon-user orange"></i>
+							<span class="menu-text orange"> Usuario </span>
+						</a>
+					</li>
 				</ul><!--/.nav-list-->
 				<div class="sidebar-collapse" id="sidebar-collapse">
 					<i class="icon-double-angle-left"></i>
