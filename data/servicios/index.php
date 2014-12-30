@@ -93,7 +93,7 @@ if(!isset($_SESSION))
 											<li >
 												<a data-toggle="tab" href="#info" id="btn_servicos">
 													<i class="icon-coffee orange"></i>	
-													Servicios 
+													Servicios
 												</a>
 											</li>
 										</ul>
@@ -121,10 +121,11 @@ if(!isset($_SESSION))
 													</div>
 													<div class="span8">
 														<div class="profile-user-info profile-user-info-striped">
+														<span class="editable" id="lbl_id_servicio" style='display:none;'>Servicios</span>
 															<div class="profile-info-row">
 																<div class="profile-info-name"> Servicios </div>
 
-																<div class="profile-info-value">
+																<div class="profile-info-value">																	
 																	<span class="editable" id="lbl_servicios">Servicios</span>
 																</div>
 															</div>
@@ -179,6 +180,20 @@ if(!isset($_SESSION))
 																		<div class="hidden-phone visible-desktop action-buttons">
 																			<a href="#modal-table" data-toggle="modal">
 																				<i class="icon-time bigger-230 blue" id="bootbox-regular" >
+																					
+																				</i>
+																			</a>
+																		</div>
+																	</span>
+																</div>
+															</div>
+															<div class="profile-info-row">
+																<div class="profile-info-name"> Tarifas:</div>
+																<div class="profile-info-value">
+																	<span class="editable" id="lbl_stado">
+																		<div class="hidden-phone visible-desktop action-buttons">
+																			<a href="#modal-tarifa"  data-toggle="modal">
+																				<i class="icon-money bigger-230 blue"  id="bootbox-regular" >
 																					
 																				</i>
 																			</a>
@@ -273,6 +288,134 @@ if(!isset($_SESSION))
 				</div>
 			</div><!--/.main-content-->
 		</div><!--/.main-container-->
+		<!-- ventana emergente horario -->
+		<div id="modal-table" class="modal hide fade" tabindex="-1">
+			<div class="modal-header no-padding">
+				<div class="table-header">
+					<div type="button" class="close" data-dismiss="modal">&times;</div>
+					Horarios Dinámico
+				</div>
+			</div>
+
+			<div class="modal-body no-padding">
+				<div class="row-fluid">
+					<div class="widget-main" id="obj_contenedor" >
+					</div>
+					<div class="hr hr-dotted"></div>
+						<table id="tabla_horario" class="table table-striped table-bordered table-hover no-margin-bottom no-border-top">
+							<thead>
+								<tr>
+									<th>Num</th>
+									<th>Dias</th>
+									<th><i class="icon-time bigger-110"></i> Inicio</th>
+
+									<th><i class="icon-time bigger-110"></i> Final</th>
+									<th>Acción</th>
+								</tr>
+							</thead>
+
+							<tbody>
+								
+							</tbody>
+						</table>			
+				</div>									
+			</div>			
+			<div class="modal-footer">
+				<button class="btn btn-small btn-danger pull-left" data-dismiss="modal">
+					<i class="icon-remove"></i>
+					Cerrar
+				</button>
+				<button class="btn btn-small btn-success pull-left" data-dismiss="modal" id="btn_guardar_horario">
+					<i class="icon-save"></i>
+					Guardar
+				</button>
+				
+				<div class="pagination pull-center no-margin">
+					
+					<div class="hidden-phone visible-desktop action-buttons" >
+						<a id="btn_m">
+							<i class="icon-zoom-in bigger-130 blue pointer"></i>
+						</a>
+					</div>
+						
+				</div>												
+			</div>
+		</div><!--modal horario ENDS-->
+		<!-- modal tarifa -->
+		<div id="modal-tarifa" class="modal hide fade" tabindex="-1">
+			<div class="modal-header no-padding">
+				<div class="table-header">
+					<div type="button" class="close" data-dismiss="modal">&times;</div>
+					Tarifa de serivicio
+				</div>
+			</div>
+
+			<div class="modal-body no-padding">
+				<div class="row-fluid">
+					<div class="widget-main" id="obj_contenedor">
+						<form class="form-horizontal" id="form-tarifa"/>
+							<div class="row-fluid">					
+								<div class="span10">
+									<div class="control-group">
+										<label class="control-label" for="name">TARIFA:</label>
+										<div class="controls">
+											<span class="span12">
+												<input class="span12" type="text" id="t_nombre" name="t_nombre" />
+											</span>
+										</div>
+									</div>
+									<div class="control-group">
+										<label class="control-label" for="name">PRECIO:</label>
+										<div class="controls">
+											<span class="span12">
+												<input class="span12" type="text" id="t_precio" name="t_precio" />
+											</span>
+										</div>									
+									</div>
+								</div>
+								<div class="span2">
+									<div class="pagination pull-center no-margin">					
+										<div class="hidden-phone visible-desktop action-buttons" >
+											<input type="submit" value="+" class="icon-zoom-in bigger-130 blue pointer">
+										</div>										
+									</div>
+								</div>
+							</div>
+							
+						</form>
+						<div class="hr hr-dotted"></div>
+						<table id="tabla_tarifa" class="table table-striped table-bordered table-hover no-margin-bottom no-border-top">
+							<thead>
+								<tr>
+									<th>Num</th>
+									<th>Nombre Tarifa</th>
+									<th><i class="icon-money bigger-110"></i>Precio</th>
+
+									<th>
+										<i class="icon-time bigger-110"></i>
+										Fecha
+									</th>
+									<th>Acción</th>
+								</tr>
+							</thead>
+
+							<tbody>
+								
+							</tbody>
+						</table>
+					</div>					
+				</div>									
+			</div>			
+			<div class="modal-footer">
+				<button class="btn btn-small btn-danger pull-left" data-dismiss="modal">
+					<i class="icon-remove"></i>
+					Cerrar
+				</button>
+																	
+			</div>
+		</div>
+		<!--PAGE CONTENT ENDS-->
+
 
 		<a href="#" id="btn-scroll-up" class="btn-scroll-up btn btn-small btn-inverse">
 			<i class="icon-double-angle-up icon-only bigger-110"></i>
@@ -355,44 +498,9 @@ if(!isset($_SESSION))
 		<script src="../assets/js/ace-elements.min.js"></script>
 		<script src="../assets/js/ace.min.js"></script>
 		<script type="text/javascript" src="js/horario.js"></script>
+		<script type="text/javascript" src="js/tarifa.js"></script>
 
 		<!--inline scripts related to this page-->
-		<div id="modal-table" class="modal hide fade" tabindex="-1">
-			<div class="modal-header no-padding">
-				<div class="table-header">
-					<div type="button" class="close" data-dismiss="modal">&times;</div>
-					Horarios Dinámico
-				</div>
-			</div>
-
-			<div class="modal-body no-padding">
-				<div class="row-fluid">
-					<div class="widget-main" id="obj_contenedor" style="height:350px;">
-					</div>					
-				</div>									
-			</div>			
-			<div class="modal-footer">
-				<button class="btn btn-small btn-danger pull-left" data-dismiss="modal">
-					<i class="icon-remove"></i>
-					Cerrar
-				</button>
-				<button class="btn btn-small btn-success pull-left" data-dismiss="modal">
-					<i class="icon-save"></i>
-					Guardar
-				</button>	
-				<div class="pagination pull-center no-margin">
-					
-					<div class="hidden-phone visible-desktop action-buttons" >
-						<a id="btn_m">
-							<i class="icon-zoom-in bigger-130 blue pointer"></i>
-						</a>
-					</div>
-						
-				</div>												
-			</div>
-		</div><!--PAGE CONTENT ENDS-->
-
-		
 	</body>
 </html>
 <script type="text/javascript">

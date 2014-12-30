@@ -16,22 +16,25 @@ function guardar_id(x){
 		text: 'Datos Seleccionados <i class="icon-spinner icon-spin green bigger-230"></i> ',						
 		//image: 'http://a0.twimg.com/profile_images/59268975/jquery_avatar_bigger.png',						
 		sticky: false,						
-		time: 1000,
-		class_name: 'gritter-center'
+		time: 600,
+		//class_name: 'gritter-center'
 	});
 	g_edicion('#lbl_servicios',1,x);
-
+	$('#lbl_id_servicio').html(x);
 	g_edicion('#lbl_descripcion',2,x);
 	g_edicion('#lbl_otros',3,x);
 	g_edicion('#lbl_fecha',5,x);
 	g_edicion('#lbl_stado',6,x);
 	//imagenes
+
 	g_edicion_img(4, x);
 	//active 
 	$("#btn_servicos").parent().removeClass("active");
 	$("#btn_perfil").parent().addClass("active");
 	/**/
 	
+	mostrar_tarifa(x)
+	mostrar_horario(x)
 }
 
 function g_edicion(elemento, pos, x){

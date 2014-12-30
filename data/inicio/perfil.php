@@ -29,6 +29,8 @@ if(!isset($_SESSION))
 		<link rel="stylesheet" href="../assets/css/ace.min.css" />
 		<link rel="stylesheet" href="../assets/css/ace-responsive.min.css" />
 		<link rel="stylesheet" href="../assets/css/ace-skins.min.css" />
+		<link rel="stylesheet" href="../assets/css/chosen.css" />
+
 
 		<link rel="stylesheet" href="../assets/css/chosen.css"/>
 		<link rel="stylesheet" href="../assets/css/datepicker.css" />
@@ -66,7 +68,8 @@ if(!isset($_SESSION))
 						require('../../admin/class.php');
 						$class=new constante();
 						$id=$_SESSION['id'];						
-						$resultado = $class->consulta("SELECT * FROM SEG.USUARIO WHERE id='$id' and stado='1'");	
+						$resultado = $class->consulta("SELECT ID,CEDULA,NOMBRE,
+															PG_CATALOG.DATE(EDAD),extract(day from age(now(),edad)),FONO,CORREO,FECHA,DIRECCION FROM SEG.USUARIO WHERE id='$id' and stado='1'");	
 						while ($row=$class->fetch_array($resultado)) {
 
 						
@@ -81,7 +84,7 @@ if(!isset($_SESSION))
 									</a>
 								</li>
 
-								<li>
+								<!-- <li>
 									<a data-toggle="tab" href="#feed">
 										<i class="orange icon-rss bigger-120"></i>
 										Actividad
@@ -100,7 +103,7 @@ if(!isset($_SESSION))
 										<i class="pink icon-picture bigger-120"></i>
 										Otros
 									</a>
-								</li>
+								</li> -->
 							</ul>
 
 							<div class="tab-content no-border padding-24">
@@ -145,33 +148,44 @@ if(!isset($_SESSION))
 													<div class="profile-info-name"> Localizacion </div>
 
 													<div class="profile-info-value">
-														<div class="row-fluid">
-															<i class="icon-map-marker light-orange bigger-110"></i>
-															<span class="editable" id="pais">Ecuador</span>
-															<span class="editable" id="pro">Imbabura</span>
-															<span class="editable" id="ciudad">Ibarra</span>
-														</div>
-														
+								
+															<select class="select2 span3" id="sel_pais" placeholder="Seleccione Pais">
+																
+															</select>														
+															<select class="select2 span3" id="sel_provincia" placeholder="Seleccione Provincia">
+																
+															</select>														
+															<select class="select2 span3" id="sel_ciudad" placeholder="Seleccione Ciudad">
+																
+															</select>														
+																										
 													</div>
 												</div>
 
 												<div class="profile-info-row">
-													<div class="profile-info-name"> Edad : <span>18</span></div>													
-														<div class="profile-info-value">
-							  								<div class="control-group">
-																<div class="row-fluid input-append">
-																	<input class="span2 date-picker" id="id-date-picker-1" type="text" data-date-format="dd-mm-yyyy" />
-																	<span class="add-on">
-																		<i class="icon-calendar"></i>
-																	</span>
-																</div>
-															</div>
+													<div class="profile-info-name"> F. Nacimiento</div>													
+														<div class="profile-info-value">						  								
+															<span class="editable" id="txt_fna"><?php 
+																									if ($row[4]!=0) {
+																										print($row[3]);	
+																									}?>
+															</span>
 														</div>													
 												</div>
+												<?php if ($row[4]!=0){?>
+													<div class="profile-info-row">
+													<div class="profile-info-name"> Edad :</div>													
+														<div class="profile-info-value">							  								
+															<span id="signup"><?php print($row[4]); ?></span>
+
+														</div>													
+													</div>
+												<?php } ?>												
+
 												<div class="profile-info-row">
 													<div class="profile-info-name"> Telefono </div>
 													<div class="profile-info-value">
-														<input type="text" class="input-mask-phone span3" value="<?php print($row[3]); ?>">
+														<span id="txt_telefono"><?php print($row[5]); ?></span>
 													</div>
 												</div>
 
@@ -179,25 +193,29 @@ if(!isset($_SESSION))
 													<div class="profile-info-name"> Dirección: </div>
 
 													<div class="profile-info-value">
-														<input type="text">
+														<span id="lbl_pais"></span>
+														<span id="lbl_pro"></span>
+														<span id="lbl_ciu"></span>
+														<span class="editable" id="txt_direccion"><?php print($row[8]); ?></span>
 													</div>
+
 												</div>
 												<div class="profile-info-row">
 													<div class="profile-info-name"> Correo: </div>
 
 													<div class="profile-info-value">
-														<span><?php print($row[5]); ?></span>
+														<span ><?php print($row[6]); ?></span>
 													</div>
 												</div>
 												<div class="profile-info-row">
 													<div class="profile-info-name"> F. Suscripción: </div>
 
 													<div class="profile-info-value">
-														<span><?php print($row[9]); ?></span>
+														<span><?php print($row[7]); ?></span>
 													</div>
 												</div>
 											</div>
-
+											<div class="btn btn-app btn-small btn-success" id="btn_actualizar">Actualizar</div>
 											<div class="hr hr-8 dotted"></div>
 
 											
@@ -210,7 +228,7 @@ if(!isset($_SESSION))
 										<div class="span6">
 											<div class="profile-activity clearfix">
 												<div>
-													<img class="pull-left" alt="Alex Doe's avatar" src="assets/avatars/avatar5.png" />
+													<img class="pull-left" alt="Alex Doe's avatar" src="../assets/avatars/avatar5.png" />
 													<a class="user" href="#"> Alex Doe </a>
 													changed his profile
 													<a href="#">Take a look</a>
@@ -234,7 +252,7 @@ if(!isset($_SESSION))
 
 											<div class="profile-activity clearfix">
 												<div>
-													<img class="pull-left" alt="Susan Smith's avatar" src="assets/avatars/avatar1.png" />
+													<img class="pull-left" alt="Susan Smith's avatar" src="../assets/avatars/avatar1.png" />
 													<a class="user" href="#"> Susan Smith </a>
 
 													is now friends with Alex Doe.
@@ -306,7 +324,7 @@ if(!isset($_SESSION))
 
 											<div class="profile-activity clearfix">
 												<div>
-													<img class="pull-left" alt="David Palms's avatar" src="assets/avatars/avatar4.png" />
+													<img class="pull-left" alt="David Palms's avatar" src="../assets/avatars/avatar4.png" />
 													<a class="user" href="#"> David Palms </a>
 
 													left a comment on Alex's wall.
@@ -355,7 +373,7 @@ if(!isset($_SESSION))
 
 											<div class="profile-activity clearfix">
 												<div>
-													<img class="pull-left" alt="Alex Doe's avatar" src="assets/avatars/avatar5.png" />
+													<img class="pull-left" alt="Alex Doe's avatar" src="../assets/avatars/avatar5.png" />
 													<a class="user" href="#"> Alex Doe </a>
 
 													upgraded his skills.
@@ -465,7 +483,7 @@ if(!isset($_SESSION))
 											<div class="inline position-relative">
 												<div class="user">
 													<a href="#">
-														<img src="assets/avatars/avatar4.png" alt="Bob Doe's avatar" />
+														<img src="../assets/avatars/avatar4.png" alt="Bob Doe's avatar" />
 													</a>
 												</div>
 
@@ -513,7 +531,7 @@ if(!isset($_SESSION))
 											<div class="inline position-relative">
 												<div class="user">
 													<a href="#">
-														<img src="assets/avatars/avatar1.png" alt="Rose Doe's avatar" />
+														<img src="../assets/avatars/avatar1.png" alt="Rose Doe's avatar" />
 													</a>
 												</div>
 
@@ -561,7 +579,7 @@ if(!isset($_SESSION))
 											<div class="inline position-relative">
 												<div class="user">
 													<a href="#">
-														<img src="assets/avatars/avatar.png" alt="Jim Doe's avatar" />
+														<img src="../assets/avatars/avatar.png" alt="Jim Doe's avatar" />
 													</a>
 												</div>
 
@@ -609,7 +627,7 @@ if(!isset($_SESSION))
 											<div class="inline position-relative">
 												<div class="user">
 													<a href="#">
-														<img src="assets/avatars/avatar5.png" alt="Alex Doe's avatar" />
+														<img src="../assets/avatars/avatar5.png" alt="Alex Doe's avatar" />
 													</a>
 												</div>
 
@@ -657,7 +675,7 @@ if(!isset($_SESSION))
 											<div class="inline position-relative">
 												<div class="user">
 													<a href="#">
-														<img src="assets/avatars/avatar2.png" alt="Phil Doe's avatar" />
+														<img src="../assets/avatars/avatar2.png" alt="Phil Doe's avatar" />
 													</a>
 												</div>
 
@@ -705,7 +723,7 @@ if(!isset($_SESSION))
 											<div class="inline position-relative">
 												<div class="user">
 													<a href="#">
-														<img src="assets/avatars/avatar3.png" alt="Susan Doe's avatar" />
+														<img src="../assets/avatars/avatar3.png" alt="Susan Doe's avatar" />
 													</a>
 												</div>
 
@@ -753,7 +771,7 @@ if(!isset($_SESSION))
 											<div class="inline position-relative">
 												<div class="user">
 													<a href="#">
-														<img src="assets/avatars/avatar1.png" alt="Jennifer Doe's avatar" />
+														<img src="../assets/avatars/avatar1.png" alt="Jennifer Doe's avatar" />
 													</a>
 												</div>
 
@@ -801,7 +819,7 @@ if(!isset($_SESSION))
 											<div class="inline position-relative">
 												<div class="user">
 													<a href="#">
-														<img src="assets/avatars/avatar3.png" alt="Alexa Doe's avatar" />
+														<img src="../assets/avatars/avatar3.png" alt="Alexa Doe's avatar" />
 													</a>
 												</div>
 
@@ -863,7 +881,7 @@ if(!isset($_SESSION))
 									<ul class="ace-thumbnails">
 										<li>
 											<a href="#" data-rel="colorbox">
-												<img alt="150x150" src="assets/images/gallery/thumb-1.jpg" />
+												<img alt="150x150" src="../assets/images/gallery/thumb-1.jpg" />
 												<div class="text">
 													<div class="inner">Sample Caption on Hover</div>
 												</div>
@@ -890,7 +908,7 @@ if(!isset($_SESSION))
 
 										<li>
 											<a href="#" data-rel="colorbox">
-												<img alt="150x150" src="assets/images/gallery/thumb-2.jpg" />
+												<img alt="150x150" src="../assets/images/gallery/thumb-2.jpg" />
 												<div class="text">
 													<div class="inner">Sample Caption on Hover</div>
 												</div>
@@ -917,7 +935,7 @@ if(!isset($_SESSION))
 
 										<li>
 											<a href="#" data-rel="colorbox">
-												<img alt="150x150" src="assets/images/gallery/thumb-3.jpg" />
+												<img alt="150x150" src="../assets/images/gallery/thumb-3.jpg" />
 												<div class="text">
 													<div class="inner">Sample Caption on Hover</div>
 												</div>
@@ -944,7 +962,7 @@ if(!isset($_SESSION))
 
 										<li>
 											<a href="#" data-rel="colorbox">
-												<img alt="150x150" src="assets/images/gallery/thumb-4.jpg" />
+												<img alt="150x150" src="../assets/images/gallery/thumb-4.jpg" />
 												<div class="text">
 													<div class="inner">Sample Caption on Hover</div>
 												</div>
@@ -971,7 +989,7 @@ if(!isset($_SESSION))
 
 										<li>
 											<a href="#" data-rel="colorbox">
-												<img alt="150x150" src="assets/images/gallery/thumb-5.jpg" />
+												<img alt="150x150" src="../assets/images/gallery/thumb-5.jpg" />
 												<div class="text">
 													<div class="inner">Sample Caption on Hover</div>
 												</div>
@@ -998,7 +1016,7 @@ if(!isset($_SESSION))
 
 										<li>
 											<a href="#" data-rel="colorbox">
-												<img alt="150x150" src="assets/images/gallery/thumb-6.jpg" />
+												<img alt="150x150" src="../assets/images/gallery/thumb-6.jpg" />
 												<div class="text">
 													<div class="inner">Sample Caption on Hover</div>
 												</div>
@@ -1025,7 +1043,7 @@ if(!isset($_SESSION))
 
 										<li>
 											<a href="#" data-rel="colorbox">
-												<img alt="150x150" src="assets/images/gallery/thumb-1.jpg" />
+												<img alt="150x150" src="../assets/images/gallery/thumb-1.jpg" />
 												<div class="text">
 													<div class="inner">Sample Caption on Hover</div>
 												</div>
@@ -1052,7 +1070,7 @@ if(!isset($_SESSION))
 
 										<li>
 											<a href="#" data-rel="colorbox">
-												<img alt="150x150" src="assets/images/gallery/thumb-2.jpg" />
+												<img alt="150x150" src="../assets/images/gallery/thumb-2.jpg" />
 												<div class="text">
 													<div class="inner">Sample Caption on Hover</div>
 												</div>
@@ -1162,24 +1180,10 @@ if(!isset($_SESSION))
 		<script src="../assets/js/ace.min.js"></script>
 
 		<!--inline scripts related to this page-->
-		<script type="text/javascript">
+		<script type="text/javascript">			
 			$(function(){
 				//Enviar datos extras
-				function acupais(){
-					var acu;
-					var person = 
-					$.ajax({
-					    url: "../localizacion/pais.php",					   
-					    async: false,
-					    type: "POST",
-					    data:{pais:"pasi"},
-					    success: function(data)
-					    {			    	
-					    	acu = data;	    						    						    	
-					    }					    
-					});	
-					return acu;														
-				}				
+				acupais()	
 					
 				//editables on first profile page
 				$.fn.editable.defaults.mode = 'inline';
@@ -1189,69 +1193,10 @@ if(!isset($_SESSION))
 
 				//formato pais
 				
-				var carga_pais = [];
-				h=JSON.parse(acupais());
-			    $.each(h, function(k, v) {
-			        carga_pais.push({id: k, text: v});
-			    });
-			    var ciudad = [];
-				ciudad["1"] = [];
-				$.each(["Ibarra", "Otavalo", "Atuntaqui", "Pimampiro"] , function(k, v){
-					ciudad["1"].push({id: v, text: v});
-				});
+				
+				// $(".select2").chosen();
 
-				var pro = [];
-				pro["1"] = [];
-				$.each(["Ipiales", "Medellin", "Bogota", "Cali"] , function(k, v){
-					pro["1"].push({id: v, text: v});
-				});	
-
-				var currentValue = "1";
-			    $('#pais').editable({
-					type: 'select2',
-					value : 'NL',
-			        source: carga_pais,
-					success: function(response, newValue) {
-						alert(newValue);
-						if(currentValue == newValue) return;
-						currentValue = newValue;						
-						var source = (!newValue || newValue == "") ? [] : pro[newValue];
-						$('#pro').editable('destroy').editable({
-							type: 'select2',
-							source: source
-						}).editable('setValue', null);
-					}
-			    });
-
-			    var currentValue = "1";
-			    $('#pro').editable({
-					type: 'select2',
-					value : 'NL',
-			        source: carga_pais,
-					success: function(response, newValue) {
-						alert(newValue);
-						if(currentValue == newValue) return;
-						currentValue = newValue;						
-						var source = (!newValue || newValue == "") ? [] : ciudad[newValue];
-						$('#pro').editable('destroy').editable({
-							type: 'select2',
-							source: source
-						}).editable('setValue', null);
-					}
-			    });
 			
-				$('#pro').editable({
-					type: 'select2',
-					value : 'IMBABURA',
-			        source: pro[currentValue]
-			    });
-
-				$('#ciudad').editable({
-					type: 'select2',
-					value : 'Ibarra',
-			        source: ciudad[currentValue]
-			    });
-
 				//formato inicializacion formato entrada telefono
 				$('.input-mask-phone').mask('(999) 999-9999');
 
@@ -1259,27 +1204,123 @@ if(!isset($_SESSION))
 				$('.date-picker').datepicker().next().on(ace.click_event, function(){
 					$(this).prev().focus();
 				});
-				// Llamar carga de datos en select pais
-				//cargar_p();
-				$('#sel_p').change(function(){					
-					var pais=$('#sel_p').val();					
-					cargar_pro(pais);
+
+				$('#txt_fna').editable({
+					type: 'date',
+					format: 'yyyy-mm-dd',
+					viewformat: 'dd/mm/yyyy',
+					value: new Date(),
+					datepicker: {
+						minDate: new Date(),
+						endDate: new Date(),
+						startDate: '01/12/1950',
+						weekStart: 1
+					}
 				});
-				$('#sel_pro').change(function(){
-					var pro=$('#sel_pro').val();
+				$('#txt_direccion').editable({
+			           type: 'text',
+			           name: 'txt_direccion'
+			    });
+
+				$('#txt_telefono').editable({
+				    type: 'text',
+				    name: 'txt_telefono',
+				    tpl: '<input type="text" id ="zipiddemo" class="mask form-control    input-sm dd" style="padding-right: 24px;">'
+				});
+
+				$(document).on("focus", ".mask", function () {
+				    $(this).mask("(999) 999-9999");
+				});
+				
+				$('#txt_ direccion').editable({
+					type: 'text',
+				    name: 'txt_direccion',
+				});
+				// Llamar carga de datos en select pais				
+				$('#sel_pais').change(function(){					
+					var pais=$('#sel_pais').val();
+					cargar_pro(pais);
+					$('#lbl_pais').html(busca_reg_valor(pais));	
+					//console.log($('#sel_pais').options.length)
+				});
+				$('#sel_provincia').change(function(){
+					var pro=$('#sel_provincia').val();
+					$('#lbl_pro').html(busca_reg_valorp(pro));	
 					cargar_c(pro);
 				});
+				$('#sel_ciudad').change(function(){
+					var ciu=$('#sel_ciudad').val();
+					$('#lbl_ciu').html(busca_reg_valorc(ciu));						
+				});
+
 			});
-			
+			function busca_reg_valor(id){
+				var regi='';
+				$.ajax({
+				    url: "../localizacion/pais.php",
+				    type: "POST",
+				    async:false,
+				    data: {nom_pais:'pro',registro:id},        
+				    success: function(data)
+				    {	
+				       regi=data;			       
+				    }	        
+				});
+				return regi;
+			}
+			function busca_reg_valorp(id){
+				var regi='';
+				$.ajax({
+				    url: "../localizacion/pais.php",
+				    type: "POST",
+				    async:false,
+				    data: {nom_pro:'pro',registro:id},        
+				    success: function(data)
+				    {	
+				       regi=data;			       
+				    }	        
+				});
+				return regi;
+			}
+			function busca_reg_valorc(id){
+				var regi='';
+				$.ajax({
+				    url: "../localizacion/pais.php",
+				    type: "POST",
+				    async:false,
+				    data: {nom_ciu:'pro',registro:id},        
+				    success: function(data)
+				    {	
+				       regi=data;			       
+				    }	        
+				});
+				return regi;
+			}
+			function msm_cod(){
+				alert('hola')				
+			}
+			function acupais(){
+					$.ajax({
+					    url: "../localizacion/pais.php",					   
+					    async: false,
+					    type: "POST",
+					    data:{pais:"pasi"},
+					    success: function(data)
+					    {			
+					    	// console.log(data);
+					    	$('#sel_pais').html(data);
+
+					    }					    
+					});																		
+			}		
 			function cargar_pro(id){				
 				$.ajax({
 				    url: "../localizacion/pais.php",
 				    type: "POST",
 				    data: {pro:'pro',registro:id},        
 				    success: function(data)
-				    {
-				    	
-				       $('#sel_pro').html(data);
+				    {	
+				       $('#sel_provincia').html(data);				       
 				    }	        
 				});					
 			}
@@ -1289,9 +1330,8 @@ if(!isset($_SESSION))
 				    type: "POST",
 				    data: {c:'pro',registro:id},        
 				    success: function(data)
-				    {
-				    	
-				       $('#sel_c').html(data);
+				    {				    	
+				       $('#sel_ciudad').html(data);
 				    }	        
 				});
 
@@ -1300,3 +1340,27 @@ if(!isset($_SESSION))
 		
 	</body>
 </html>
+<script type="text/javascript">
+	$('#btn_actualizar').click(function(){
+		var tele=$('#txt_telefono').html()
+		var f_n=$('#txt_fna').html()
+		var dir=$('#txt_direccion').html()
+		var ciudad=$('#sel_ciudad').val()
+		
+		$.ajax({
+			url: "../localizacion/pais.php",
+		    type: "POST",
+		    data: {guardar_perfil:'ok',txt_1:tele,txt_2:f_n,txt_3:dir,txt_4:ciudad},        
+		    success: function(data)
+		    {				    	
+		       $.gritter.add({						
+				title: '..Mensaje..!',						
+				text: 'OK: <br><i class="icon-cloud purple bigger-230"></i>  Sus datos fueron actualizados correctamente. <br><i class="icon-spinner icon-spin green bigger-230"></i>',						
+				//image: 'http://a0.twimg.com/profile_images/59268975/jquery_avatar_bigger.png',						
+				sticky: false,						
+				time: 2000
+			});
+		    }	
+		});
+	});
+</script>

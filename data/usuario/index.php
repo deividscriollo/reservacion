@@ -51,27 +51,12 @@ if(!isset($_SESSION))
 			<?php menu(); ?>
 
 			<div class="main-content">
-				<div class="breadcrumbs" id="breadcrumbs">
-					<ul class="breadcrumb">
-						<li>
-							<i class="icon-home home-icon"></i>
-							<a href="#">Usuario</a>
-
-							<span class="divider">
-								<i class="icon-angle-right arrow-icon"></i>
-							</span>
-						</li>
-						<li class="active">Menu Principal</li>
-					</ul><!--.breadcrumb-->
-				</div>
-
 				<div class="page-content">
 					<div class="row-fluid">
 						<div class="span12">
 							<div class="widget-box">
 								<div class="widget-header">
 									<h5 class="smaller">Proceso Usuario</h5>
-
 									<div class="widget-toolbar no-border">
 										<ul class="nav nav-tabs" id="myTab">
 											<li class="active">
@@ -86,13 +71,13 @@ if(!isset($_SESSION))
 
 											<li>
 												<a data-toggle="tab" href="#info">
-												<i class="icon-envelope red"></i> Mensajes</a>
+												<i class="icon-envelope red" onclick="mostrar_mensajes();"></i> Mensajes</a>
 											</li>
 										</ul>
 									</div>
 								</div>
 
-								<div class="widget-body">
+								<div class="widget-body ">
 									<div class="widget-main padding-6">
 										<div class="tab-content">
 											<div id="home" class="tab-pane in active">
@@ -139,30 +124,90 @@ if(!isset($_SESSION))
 												</table>
 											</div>
 
-											<div id="info" class="tab-pane">
-												<table id="tbt_mensajes" class="table table-striped table-bordered table-hover">
-													<thead>
-														<tr>
-															<th class="center">Cedula</th>
-															<th>Nombre</th>
-															<th>Telefono</th>
-															<th>Correo</th>
-															<th class="center">Edad</th>
-															<th>Fecha Reg.</th>
-															<th>Estado</th>															
-														</tr>
-													</thead>
+											<div id="info" class="tab-pane ">
+												<div class="row-fluid">
+													<div class="span4">
+														<div class="widget-box">
+															<div class="widget-header">
+																<h4>
+																	<i class="icon-tint"></i>
+																	FORMULARIO ENVIO CORREO
+																</h4>
+															</div>
 
-													<tbody>
-														
-													</tbody>
-												</table>
+															<div class="widget-body">
+																<div class="widget-main">
+																<form id="form-mensajes">
+																	<div class="row-fluid">
+																		<div class="span9">
+																			<h8 class="header green clearfix">Aquien desea enviar.?</h8>
+																			<div class="control-group">
+																				
+
+																				<div class="controls">
+																					<span class="span12">
+																						<label class="blue">
+																							<input name="gender" value="1" type="radio" id="btn_todos" />
+																							<span class="lbl">  A Todos</span>
+																						</label>
+																						<label class="blue">
+																							<input name="gender" value="2" type="radio" id="btn_usuario" />
+																							<span class="lbl"> A Clientes / Usuarios</span>
+																						</label>
+																						<label class="blue">
+																							<input name="gender" value="3" type="radio" id="btn_admin" />
+																							<span class="lbl"> Solo Usuarios Administradores</span>
+																						</label>
+																					</span>
+																					<span class="alert-error" id="btn_error_msm">Seleccione una de las opciones</span>
+																				</div>
+																			</div>																		
+																		</div>
+																		<div class="span3">																			
+																			<div class="span12 btn btn-primary " id="btn_enviar_mensaje"> Enviar </div>
+																		</div>																	
+																	</div>
+																	<div class="row-fluid">
+																	<h4 class="header green clearfix">Mensaje</h4>
+
+																	<div class="wysiwyg-editor" id="editor1" name="editor1"></div>
+																	<span class="alert-error" id="btn_error_msm2">Por favor, Digíte el Mensaje</span>
+																	<div class="hr hr-double dotted"></div>
+
+																	</div>
+																</form>
+																</div>
+															</div>
+														</div>
+													</div>
+													<div class="span8">
+														<table id="tbt_mensajes" class="table table-striped table-bordered table-hover">
+															<thead>
+																<tr>
+																	<th class="center">Cedula</th>
+																	<th>Nombre</th>																	
+																	<th>Correo</th>
+																	<th class="center">Edad</th>																	
+																	<th>Privilegio</th>
+																	<th class="center">
+																		
+																	</th>
+
+																</tr>
+															</thead>
+
+															<tbody>
+																
+															</tbody>
+														</table>
+
+													</div>
+												</div>												
 											</div>
-											
 										</div>
 									</div>
-
-
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -220,6 +265,11 @@ if(!isset($_SESSION))
 		<script src="../../assets/js/flot/jquery.flot.resize.min.js"></script>
 		<script src="../assets/js/jquery.dataTables.min.js"></script>
 		<script src="../assets/js/jquery.gritter.min.js"></script>
+		<script src="../../assets/js/markdown/markdown.min.js"></script>
+		<script src="../../assets/js/markdown/bootstrap-markdown.min.js"></script>
+		<script src="../../assets/js/jquery.hotkeys.min.js"></script>
+
+
 
 		<script src="../../assets/js/jquery.dataTables.bootstrap.js"></script>
 		<script type="text/javascript" src="js/mostrar_usuario.js"></script>
@@ -230,12 +280,151 @@ if(!isset($_SESSION))
 		<!--ace scripts-->
 
 		<script src="../../assets/js/ace-elements.min.js"></script>
+		<script src="../../assets/js/bootstrap-wysiwyg.min.js"></script>
+
 		<script src="../../assets/js/ace.min.js"></script>
+		<script src="../../assets/js/blockui.js"></script>
 
 		<!--inline scripts related to this page-->
 		<script type="text/javascript">
+			$(function(){
+	
+	function showErrorAlert (reason, detail) {
+		var msg='';
+		if (reason==='unsupported-file-type') { msg = "Unsupported format " +detail; }
+		else {
+			console.log("error uploading file", reason, detail);
+		}
+		$('<div class="alert"> <button type="button" class="close" data-dismiss="alert">&times;</button>'+ 
+		 '<strong>File upload error</strong> '+msg+' </div>').prependTo('#alerts');
+	}
 
-			
+	//$('#editor1').ace_wysiwyg();//this will create the default editor will all buttons
+
+	//but we want to change a few buttons colors for the third style
+	$('#editor1').ace_wysiwyg({
+		toolbar:
+		[
+			'font',
+			null,
+			'fontSize',
+			null,
+			{name:'bold', className:'btn-info'},
+			{name:'italic', className:'btn-info'},
+			{name:'strikethrough', className:'btn-info'},
+			{name:'underline', className:'btn-info'},
+			null,
+			{name:'insertunorderedlist', className:'btn-success'},
+			{name:'insertorderedlist', className:'btn-success'},
+			{name:'outdent', className:'btn-purple'},
+			{name:'indent', className:'btn-purple'},
+			null,
+			{name:'justifyleft', className:'btn-primary'},
+			{name:'justifycenter', className:'btn-primary'},
+			{name:'justifyright', className:'btn-primary'},
+			{name:'justifyfull', className:'btn-inverse'},
+			null,
+			{name:'createLink', className:'btn-pink'},
+			{name:'unlink', className:'btn-pink'},
+			null,
+			{name:'insertImage', className:'btn-success'},
+			null,
+			'foreColor',
+			null,
+			{name:'undo', className:'btn-grey'},
+			{name:'redo', className:'btn-grey'}
+		],
+		'wysiwyg': {
+			fileUploadError: showErrorAlert
+		}
+	}).prev().addClass('wysiwyg-style2');
+
+	
+
+	
+
+
+	$('[data-toggle="buttons-radio"]').on('click', function(e){
+		var target = $(e.target);
+		var which = parseInt($.trim(target.text()));
+		var toolbar = $('#editor1').prev().get(0);
+		if(which == 1 || which == 2 || which == 3) {
+			toolbar.className = toolbar.className.replace(/wysiwyg\-style(1|2)/g , '');
+			if(which == 1) $(toolbar).addClass('wysiwyg-style1');
+			else if(which == 2) $(toolbar).addClass('wysiwyg-style2');
+		}
+	});
+
+
+
+
+
+	//Add Image Resize Functionality to Chrome and Safari
+	//webkit browsers don't have image resize functionality when content is editable
+	//so let's add something using jQuery UI resizable
+	//another option would be opening a dialog for user to enter dimensions.
+	if ( typeof jQuery.ui !== 'undefined' && /applewebkit/.test(navigator.userAgent.toLowerCase()) ) {
+		
+		var lastResizableImg = null;
+		function destroyResizable() {
+			if(lastResizableImg == null) return;
+			lastResizableImg.resizable( "destroy" );
+			lastResizableImg.removeData('resizable');
+			lastResizableImg = null;
+		}
+
+		var enableImageResize = function() {
+			$('.wysiwyg-editor')
+			.on('mousedown', function(e) {
+				var target = $(e.target);
+				if( e.target instanceof HTMLImageElement ) {
+					if( !target.data('resizable') ) {
+						target.resizable({
+							aspectRatio: e.target.width / e.target.height,
+						});
+						target.data('resizable', true);
+						
+						if( lastResizableImg != null ) {//disable previous resizable image
+							lastResizableImg.resizable( "destroy" );
+							lastResizableImg.removeData('resizable');
+						}
+						lastResizableImg = target;
+					}
+				}
+			})
+			.on('click', function(e) {
+				if( lastResizableImg != null && !(e.target instanceof HTMLImageElement) ) {
+					destroyResizable();
+				}
+			})
+			.on('keydown', function() {
+				destroyResizable();
+			});
+	    }
+		
+		enableImageResize();
+
+		/**
+		//or we can load the jQuery UI dynamically only if needed
+		if (typeof jQuery.ui !== 'undefined') enableImageResize();
+		else {//load jQuery UI if not loaded
+			$.getScript($assets+"/js/jquery-ui-1.10.3.custom.min.js", function(data, textStatus, jqxhr) {
+				if('ontouchend' in document) {//also load touch-punch for touch devices
+					$.getScript($assets+"/js/jquery.ui.touch-punch.min.js", function(data, textStatus, jqxhr) {
+						enableImageResize();
+					});
+				} else	enableImageResize();
+			});
+		}
+		*/
+	}
+
+
+});
+		</script>
+
+		<script type="text/javascript">
+
 			//envio a cambiar usuario en estado
 
 			$(document).ready(function() {

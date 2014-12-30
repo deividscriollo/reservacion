@@ -2,6 +2,17 @@
 require('../../../admin/class.php');
 $class=new constante();
 
+if (isset($_POST['mostrar_mensajes'])) {	
+	$resultado = $class->consulta("SELECT 
+									CEDULA, NOMBRE, CORREO,extract(day from age(now(),edad)),NIVEL,
+										lower('<label><input type=checkbox /><span class=lbl></span></label>')		
+									FROM SEG.USUARIO U, SEG.NIVEL N WHERE N.ID_USUARIO=U.ID");
+	$data = array();	
+	while ($row=$class->fetch_array($resultado)) {				
+		$output['data'][]= $row;
+ 	} 	 	
+ 	echo json_encode($output); 		
+}
 if (isset($_POST['mostrar'])) {	
 	$resultado = $class->consulta("SELECT 
 									CEDULA, NOMBRE, FONO, CORREO,extract(day from age(now(),edad)),FECHA,NIVEL,
@@ -9,7 +20,7 @@ if (isset($_POST['mostrar'])) {
 											WHEN stado='1' 
 											THEN 'ACTIVOS' 
 											ELSE 'NO ACTIVO' 
-										END 
+										END
 									FROM SEG.USUARIO U, SEG.NIVEL N WHERE N.ID_USUARIO=U.ID");
 	$data = array();	
 	while ($row=$class->fetch_array($resultado)) {				
