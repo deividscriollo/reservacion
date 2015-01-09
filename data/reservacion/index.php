@@ -305,8 +305,7 @@ if(!isset($_SESSION))
 					<div class="span8">
 						<table id="tabla_horas_acu" class="table">
 							<thead>
-								<tr>
-									<th>Nro</th>
+								<tr>									
 									<th>H. Inicio</th>
 									<th>H. Fin</th>
 									<th>fecha</th>
@@ -314,7 +313,7 @@ if(!isset($_SESSION))
 								</tr>
 							</thead>
 							<tbody>
-								
+
 								
 							</tbody>
 						</table>

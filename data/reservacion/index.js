@@ -126,25 +126,49 @@ function btn_select_servicio(id){
     $('#id_servicio').html(id)
 };
     function info_tabla(){
+        $("#tabla_horas_acu tbody").html('');
         $("#tabla_horas tbody tr").each(function (index) {             
-            var campo0, campo1, campo2, campo3;
+            var campo0, campo1, campo2, campo3,campo4;
             $(this).children("td").each(function (index2) {
-                switch (index2) { 
-                    case 0:
-                        campo0 = $(this).children().children('input').is(":checked");
-                        if (campo0==true) {  
-                                                    
-                        };
-                        break;                
+                switch (index2) {                                 
                     case 1:
-                        campo1 = $(this).html();
+                        campo1 = $(this).text();
                         break;
                     case 2:
-                        campo2 = $(this).html();
+                        campo2 = $(this).text();
                         break;
+                    case 3:
+                        campo3 = $(this).text();
+                        break;
+                    case 4:
+                        campo4 = $(this).text();
+                        break;
+                    case 0:
+                        campo0 = $(this).children().children('input').is(":checked");
+                        if (campo0==true) { 
+                            var a,b,c,d;
+                            $(this).parent().children().each(function(e){
+                                switch(e){
+                                    case 1: 
+                                        a=$(this).text();
+                                        break;
+                                    case 2: 
+                                        b=$(this).text();
+                                        break;
+                                    case 3: 
+                                        c=$(this).text();
+                                        break;
+                                    case 4: 
+                                        d=$(this).text();
+                                        break;
+                                }
+                            });                            
+                            $('#tabla_horas_acu tbody').append('<tr><td>'+a+'</td><td>'+b+'</td><td>'+c+'</td><td>'+d+'</td></tr>');                      
+                        };
+                        break;   
                 }                
             });
-            console.log(campo0+' '+campo1+' '+campo2)
+            // console.log(campo0+' '+campo1+' '+campo2)
         });
     }
 //Recibe fecha en formato DD/MM/YYYY  
