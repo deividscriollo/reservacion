@@ -66,4 +66,12 @@ if (isset($_POST['mostrar_horario'])) {
 if (isset($_POST['h_eliminar'])) {
 	print $class->consulta("UPDATE HORARIO_SERVICIOS SET STADO='0' WHERE ID='$_POST[id]'");	
 }
+if (isset($_POST['eliminar_servicio'])) {
+	$acu=$class->consulta("UPDATE SERVICIOS SET STADO='0' WHERE ID='$_POST[id]'");
+	if(!$acu)
+		print(0);
+	else
+		print(1);
+}
+
 ?>

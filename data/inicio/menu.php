@@ -8,8 +8,8 @@ function menu(){
 $url = $_SERVER['PHP_SELF'];
 $acus=parse_url($url, PHP_URL_PATH);
 $acus=split('/', $acus);
-
-	print'<div class="sidebar" id="sidebar">
+	if ($_SESSION['nivel']!='cliente') {
+		print'<div class="sidebar" id="sidebar">
 				<div class="sidebar-shortcuts" id="sidebar-shortcuts">
 					
 				</div><!--#sidebar-shortcuts-->
@@ -59,6 +59,34 @@ $acus=split('/', $acus);
 					<i class="icon-double-angle-left"></i>
 				</div>
 			</div>';
+	}
+if ($_SESSION['nivel']=='cliente') {
+	print'<div class="sidebar" id="sidebar">
+				<div class="sidebar-shortcuts" id="sidebar-shortcuts">
+					
+				</div><!--#sidebar-shortcuts-->
+
+				<ul class="nav nav-list blue">
+					<li ';if ($acus[3]=='inicio') {print("class=active");}print'>
+						<a href="../inicio/">
+							<i class="icon-desktop pink"></i>
+							<span class="menu-text pink"> Home </span>
+						</a>
+					</li>
+					<li ';if ($acus[3]=='reservacion') {print("class=active");}print'>
+						<a href="../reservacion/">
+							<i class="icon-check green"></i>
+							<span class="menu-text green"> Reservación </span>
+						</a>
+					</li>
+				</ul><!--/.nav-list-->
+				<div class="sidebar-collapse" id="sidebar-collapse">
+					<i class="icon-double-angle-left"></i>
+				</div>
+			</div>';
+}
+	
+
 }
 function menunav(){
 

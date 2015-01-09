@@ -169,8 +169,7 @@ $('#btn_enviar_mensaje').click(function(){
 		if (mensaje.length==0) {
 			$('#btn_error_msm2').show(500);
 		};
-		if (mensaje.length!=0) {	
-			
+		if (mensaje.length!=0) {			
 			$('#btn_error_msm2').hide(500);
 			$("#tbt_mensajes tbody tr").each(function (index) {				
 		        $(this).children("td").each(function (index2) {
@@ -192,32 +191,51 @@ $('#btn_enviar_mensaje').click(function(){
 								$(this).parent().css("background-color", "#BFCFFF");								
 									$.ajax({
 								        url: "php/correo_masivo.php",
-								        type: "POST",
-								        async: false,
+								        type: "POST",								        
 								        data: {correo:campo2,html:mensaje},
 								        beforeSend: function (index3) {								        	
-								        	    
-										   
+								        	$.blockUI({
+												message:'<i id="icon-tiempo" class="width-10 icon-spinner red icon-spin bigger-125"></i> El envió de correos masivos desde forma local tienen su tiempo de espera de 1 a 2 segundos por mensaje tenga paciencia. Espere un momento...',
+												css: { 
+										            border: 'none', 
+										            padding: '15px', 
+										            backgroundColor: '#000', 
+										            '-webkit-border-radius': '10px', 
+										            '-moz-border-radius': '10px', 
+										            opacity: .5, 
+										            color: '#fff'
+										        }
+										    })  
 							            },			                
 								        success: function(data)
 								        {
-								           //console.log($.unblockUI())								           
-
-								           if (data=10) {	
-								           				                   		
-												//$('#txt_archivo').ace_file_input();
-												
-								           };				                   
-								           
+								           	$.unblockUI();
+								           	console.log(data)
+								           	if (data==1) {
+								           		$.gritter.add({
+													title: '<h1 class="icon-ok" style="color: #336699;">Usuario</h1>',
+													text: 'Correo publicitario enviado con exito <br>Email: '+campo2,
+													time: 4000
+													//class_name: 'gritter-info')
+												});	
+								           	};
+								           	if (data!=1) {
+								           		$.gritter.add({
+													title: '<h1 style="color: #336699;">Mensaje</h1>',
+													text: 'MMM.. tenemos Algunos Inconvenientes LO SENTIMOS te sugerimos intentar mas tarde...',
+													time: 4000
+													//class_name: 'gritter-info')
+												});	
+								           	};
 								        }					                 	        
 								    });
 							};
 							
 		            }
 		        	        
-		        });	
-		               
+		        });			               
 		    })
+			
 		};
 	};	
 });

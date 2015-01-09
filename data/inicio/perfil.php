@@ -31,7 +31,7 @@ if(!isset($_SESSION))
 		<link rel="stylesheet" href="../assets/css/ace-skins.min.css" />
 		<link rel="stylesheet" href="../assets/css/chosen.css" />
 
-
+		<link rel="stylesheet" href="../assets/css/jquery.gritter.css" />
 		<link rel="stylesheet" href="../assets/css/chosen.css"/>
 		<link rel="stylesheet" href="../assets/css/datepicker.css" />
 		<link rel="stylesheet" href="../assets/css/bootstrap-timepicker.css" />
@@ -68,8 +68,13 @@ if(!isset($_SESSION))
 						require('../../admin/class.php');
 						$class=new constante();
 						$id=$_SESSION['id'];						
-						$resultado = $class->consulta("SELECT ID,CEDULA,NOMBRE,
-															PG_CATALOG.DATE(EDAD),extract(day from age(now(),edad)),FONO,CORREO,FECHA,DIRECCION FROM SEG.USUARIO WHERE id='$id' and stado='1'");	
+						$resultado = $class->consulta("SELECT U.ID,CEDULA,NOMBRE,
+											PG_CATALOG.DATE(EDAD),extract(day from age(now(),edad)),FONO,CORREO,U.FECHA,DIRECCION ,NOM_CIUDAD,NOM_PROVINCIA, NOM_PAIS,P.ID,C.ID
+											FROM SEG.USUARIO U,LOCALIZACION.CIUDAD C, LOCALIZACION.PROVINCIA P, LOCALIZACION.PAIS PA  WHERE U.id='$id' 
+																				AND C.ID=U.ID_CIUDAD 
+																				AND P.ID=C.ID_PROVINCIA
+																				AND PA.ID=P.ID_PAIS 
+																				AND U.stado='1'");	
 						while ($row=$class->fetch_array($resultado)) {
 
 						
@@ -150,13 +155,14 @@ if(!isset($_SESSION))
 													<div class="profile-info-value">
 								
 															<select class="select2 span3" id="sel_pais" placeholder="Seleccione Pais">
-																
+															
+															
 															</select>														
 															<select class="select2 span3" id="sel_provincia" placeholder="Seleccione Provincia">
-																
+															<option value="<?php print$row[12]; ?>"><?php print$row[10]; ?></option>
 															</select>														
 															<select class="select2 span3" id="sel_ciudad" placeholder="Seleccione Ciudad">
-																
+															<option value="<?php print$row[13]; ?>"><?php print$row[9]; ?></option>
 															</select>														
 																										
 													</div>
@@ -193,9 +199,9 @@ if(!isset($_SESSION))
 													<div class="profile-info-name"> Dirección: </div>
 
 													<div class="profile-info-value">
-														<span id="lbl_pais"></span>
-														<span id="lbl_pro"></span>
-														<span id="lbl_ciu"></span>
+														<span id="lbl_pais"><?php print($row[11]); ?></span>
+														<span id="lbl_pro"><?php print($row[10]); ?></span>
+														<span id="lbl_ciu"><?php print($row[9]); ?></span>
 														<span class="editable" id="txt_direccion"><?php print($row[8]); ?></span>
 													</div>
 
@@ -1171,6 +1177,7 @@ if(!isset($_SESSION))
 		<script src="../assets/js/x-editable/ace-editable.min.js"></script>
 		<script src="../assets/js/select2.min.js"></script>
 		<script src="../assets/js/jquery.hotkeys.min.js"></script>
+		<script src="../assets/js/jquery.gritter.min.js"></script>
 
 
 
@@ -1352,14 +1359,15 @@ if(!isset($_SESSION))
 		    type: "POST",
 		    data: {guardar_perfil:'ok',txt_1:tele,txt_2:f_n,txt_3:dir,txt_4:ciudad},        
 		    success: function(data)
-		    {				    	
-		       $.gritter.add({						
-				title: '..Mensaje..!',						
-				text: 'OK: <br><i class="icon-cloud purple bigger-230"></i>  Sus datos fueron actualizados correctamente. <br><i class="icon-spinner icon-spin green bigger-230"></i>',						
-				//image: 'http://a0.twimg.com/profile_images/59268975/jquery_avatar_bigger.png',						
-				sticky: false,						
-				time: 2000
-			});
+		    {	
+		    	alert('Datos almacenados')		    	
+		 	//  $.gritter.add({						
+			// 	title: '..Mensaje..!',						
+			// 	text: 'OK: <br><i class="icon-cloud purple bigger-230"></i>  Sus datos fueron actualizados correctamente. <br><i class="icon-spinner icon-spin green bigger-230"></i>',						
+			// 	//image: 'http://a0.twimg.com/profile_images/59268975/jquery_avatar_bigger.png',						
+			// 	sticky: false,						
+			// 	time: 2000
+			// });
 		    }	
 		});
 	});

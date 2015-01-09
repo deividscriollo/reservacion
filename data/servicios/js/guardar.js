@@ -81,8 +81,7 @@ $(function(){
 
 		submitHandler: function (form) {	
 
-			var formObj = new FormData(form); 	
-			alert(formObj)
+			var formObj = new FormData(form); 				
 			$.ajax({
                 url: "php/guardar.php",
                 type: "POST",
@@ -93,7 +92,7 @@ $(function(){
                 processData:false,
                 success: function(data)
                 {
-                   alert(data)
+                   
                    if (data==0) {
                    		$.gritter.add({						
 							title: '..Mensaje..!',						

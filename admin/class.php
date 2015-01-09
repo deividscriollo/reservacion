@@ -67,8 +67,32 @@ class constante
     $edad = (int)((time()-$dias)/31556926 );
     return $edad;
     }
-   
-  
+
+    function diaSemana($ano,$mes,$dia)
+    {
+        // 0->domingo     | 6->sabado
+        $dia= date("w",mktime(0, 0, 0, $mes, $dia, $ano));
+        if ($dia==1) {
+          return 'LUNES';
+        }elseif ($dia==1) {
+          return 'LUNES';
+        }elseif ($dia==2) {
+          return 'MARTES';
+        }elseif ($dia==3) {
+          return 'MIERCOLES';
+        }elseif ($dia==4) {
+          return 'JUEVES';
+        }elseif ($dia==5) {
+          return 'VIERNES';
+        }elseif ($dia==6) {
+          return 'SABADO';
+        }elseif ($dia==7) {
+          return 'DOMINGO';
+        }
+      
+    }
+    //$diaSemana = diaSemana("2014", "12", "03");
+    
 
     public function fecha(){
      $fecha=date("d-m-Y");
@@ -88,7 +112,7 @@ class constante
    public function fecha2(){
      $fecha=date("Y-m-d");
      return $fecha;
-    } 
+    }
 }
 ?>
 

@@ -62,7 +62,7 @@ if (isset($_POST['nom_ciu'])) {
 if (isset($_POST['guardar_perfil'])) {
 	//$id=$_POST['registro'];
 	$acu=$class->hora();
-	$acu=$_POST['txt_2'].' '.$acu;
+	print $acu=$_POST['txt_2'].' '.$acu;
 	//ID !! PROCESOS !! USUARIO !! TABLA !! CAMPO !! ID REGISTRO !! FECHA !! OTROS
 	$resultado=$class->consulta("UPDATE SEG.USUARIO SET EDAD='$acu', ID_CIUDAD='$_POST[txt_4]',DIRECCION='$_POST[txt_3]',FONO='$_POST[txt_1]' WHERE ID='$_SESSION[id]'");
 	if (!$resultado) {

@@ -187,9 +187,10 @@ if(!isset($_SESSION))
 							</div><!--/span-->
 						</div>
 					</div>
-					<?php } ?>
+					<?php }?>
 					<h3 class="header smaller lighter green">Navegación</h3>
-					<div class="row-fluid">					
+					<div class="row-fluid">
+						<?php if ($_SESSION['nivel']!='cliente') {?>				
 						<div class="span3">
 							<div class="widget-box">
 								<div class="widget-header">
@@ -211,13 +212,15 @@ if(!isset($_SESSION))
 										
 										<div class="row-fluid">
 											<img src="../assets/empresa/servicio.fw.png">
-
+											<a href="../servicios/">
 											<button class="btn btn-primary btn-block">Administración Servicios</button>
+											</a>
 										</div>
 									</div>
 								</div>
 							</div>
 						</div>
+						<?php } if ($_SESSION['nivel']!='cliente') {?>
 						<div class="span3">
 							<div class="widget-box">
 								<div class="widget-header">
@@ -239,13 +242,15 @@ if(!isset($_SESSION))
 										
 										<div class="row-fluid">
 											<img src="../assets/empresa/calendario.fw.png" >
-
+											<a href="../agenda/">
 											<button class="btn btn-purple btn-block">Administracion Agenda</button>
+											</a>
 										</div>
 									</div>
 								</div>
 							</div>
 						</div>
+						<?php }?>
 						<div class="span3">
 							<div class="widget-box">
 								<div class="widget-header">
@@ -267,13 +272,47 @@ if(!isset($_SESSION))
 										
 										<div class="row-fluid">
 											<img src="../assets/empresa/reservacion.fw.png" >
-
+											<a href="../reservacion/">
 											<button class="btn btn-success btn-block">Administracion Reservaciones</button>
+											</a>
 										</div>
 									</div>
 								</div>
 							</div>
 						</div>
+						<?php if ($_SESSION['nivel']!='cliente') {?>
+						<div class="span3">
+							<div class="widget-box">
+								<div class="widget-header">
+									<h4 class="orange">Usuario / Correo</h4>
+
+									<span class="widget-toolbar">
+										<a href="#" data-action="collapse">
+											<i class="icon-chevron-up"></i>
+										</a>
+
+										<a href="#" data-action="close">
+											<i class="icon-remove"></i>
+										</a>
+									</span>
+								</div>
+
+								<div class="widget-body">
+									<div class="widget-main">										
+										
+										<div class="row-fluid">
+											<img src="../assets/empresa/usuarios.fw.png" >
+											<a href="../usuario/">
+											<button class="btn btn-warning btn-block">Administracion Usuario</button>
+											</a>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<?php } if ($_SESSION['nivel']!='cliente') {?>
+					<div class="row-fluid">
 						<div class="span3">
 							<div class="widget-box">
 								<div class="widget-header">
@@ -295,14 +334,16 @@ if(!isset($_SESSION))
 										
 										<div class="row-fluid">
 											<img src="../assets/empresa/otros.fw.png" >
-
+											<a href="">
 											<button class="btn btn-warning btn-block">Administracion Otros</button>
+											</a>
 										</div>
 									</div>
 								</div>
 							</div>
 						</div>
 					</div>
+					<?php }?>
 				</div>
 			</div><!--/.main-content-->
 		</div><!--/.main-container-->

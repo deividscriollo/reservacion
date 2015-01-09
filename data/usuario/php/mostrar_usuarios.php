@@ -15,12 +15,12 @@ if (isset($_POST['mostrar_mensajes'])) {
 }
 if (isset($_POST['mostrar'])) {	
 	$resultado = $class->consulta("SELECT 
-									CEDULA, NOMBRE, FONO, CORREO,extract(day from age(now(),edad)),FECHA,NIVEL,
-										CASE 
-											WHEN stado='1' 
-											THEN 'ACTIVOS' 
-											ELSE 'NO ACTIVO' 
-										END
+									CEDULA, NOMBRE, FONO, CORREO,extract(day from age(now(),edad)),U.FECHA,NIVEL,
+									CASE 
+										WHEN U.stado='1' 
+										THEN 'ACTIVOS' 
+										ELSE 'NO ACTIVO' 
+									END
 									FROM SEG.USUARIO U, SEG.NIVEL N WHERE N.ID_USUARIO=U.ID");
 	$data = array();	
 	while ($row=$class->fetch_array($resultado)) {				
@@ -31,9 +31,9 @@ if (isset($_POST['mostrar'])) {
 if (isset($_POST['privilegios'])) {
 	$string ='hola mundo';
 	$resultado = $class->consulta("SELECT 
-									CEDULA, NOMBRE, FONO, CORREO,extract(year from age(now(),edad)),FECHA, 
+									U.CEDULA, NOMBRE, FONO, CORREO,extract(year from age(now(),edad)),U.FECHA, 
 										CASE 
-											WHEN stado='1' 
+											WHEN U.stado='1' 
 											THEN 'ACTIVOS' 
 											ELSE 'NO ACTIVO' 
 										END,
@@ -44,7 +44,7 @@ if (isset($_POST['privilegios'])) {
 														<option value=ADMINISTRADOR>Administrador</option>
 														<option value=CLIENTE>Usuario-Cliente</option>
 													</select>')										
-									FROM SEG.USUARIO U, SEG.NIVEL N WHERE N.ID_USUARIO=U.ID AND STADO=1 ");
+									FROM SEG.USUARIO U, SEG.NIVEL N WHERE N.ID_USUARIO=U.ID AND U.STADO=1 ");
 	$data = array();	
 	while ($row=$class->fetch_array($resultado)) {				
 		$output['data'][]= $row;

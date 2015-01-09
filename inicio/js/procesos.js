@@ -207,7 +207,9 @@
 							    })
 				            },
 				            success : function ( data )  {	
-				            	//alert(data)			            		            	
+				            	//alert(data)	
+				            	console.log(data)
+				            	$.unblockUI();		            		            	;
 				            	if(data==1){
 				            		$.unblockUI();
 					            	$.gritter.add({

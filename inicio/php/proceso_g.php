@@ -11,6 +11,7 @@ $r=$class->consulta("INSERT INTO SEG.AUDITORIA VALUES('".$class->idz().
                                                     "','SEG.USUARIO','TODOS','".$id."','".
                                                     $class->fecha_hora().
                                                     "','REGISTRO CUENTA USUARIO')");
+
 if (!$r) 
 	$acu=1;
 else 
@@ -66,7 +67,18 @@ class email  extends PHPMailer{
 
 /* == se emplea la clase email == */
 
-$contenido_html =  '<p>Hola, te saluda <em><strong>FABRICA IMBABURA</strong></em> te has regristrado y te pedimos 
+$contenido_html =  '
+<style type="text/css">
+  .sm{
+    width: 100%;
+    height: 250px;
+    text-align: center;
+  }
+</style>
+<div class="sm">
+  <img src="https://pbs.twimg.com/profile_images/433244544574832641/95i7f8n-.jpeg" width: "100%"">
+</div>
+<p>Hola, te saluda <em><strong>FABRICA IMBABURA</strong></em> te has regristrado y te pedimos 
 que actives tu cuenta accediendo <a href="http://localhost/reservacion/inicio/activacion.php?id='.$id.'">AQUI</a>. </p>';
 
 $email = new email();
@@ -81,9 +93,15 @@ $email = new email();
                                                                     "','".$_POST['txt_2'].
                                                                     "',md5('".$_POST['txt_3'].
                                                                     "'),'".''.
-                                                                    "','".''.
+                                                                    "','".'1'.
                                                                     "','".$class->fecha_hora().
                                                                     "','".'0'.
+                                                                    "')");
+      $resultado = $class->consulta("INSERT INTO SEG.NIVEL VALUES('".$class->idz()
+                                                                    ."','".$id.
+                                                                    "','".'cliente'.                                                                    
+                                                                    "','".$class->fecha_hora().
+                                                                    "','".'1'.
                                                                     "')");
       if (!$resultado) 
         print('0');

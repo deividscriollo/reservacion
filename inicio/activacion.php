@@ -86,16 +86,16 @@
 									while ($row=$class->fetch_array($resultado)) {
 											$existencia=1;											
 											//valores a consumir											
-											$nom = $row[1];
-											$correo = $row[3];
+											$nom = $row[2];
+											$correo = $row[5];
 											$stado=1;
 									}
 									$resultado = $class->consulta("SELECT * FROM SEG.USUARIO WHERE ID='".$_GET['id']."' and stado=1");
 									while ($row=$class->fetch_array($resultado)) {
 											$existencia=1;											
 											//valores a consumir											
-											$nom = $row[1];
-											$correo = $row[3];
+											$nom = $row[2];
+											$correo = $row[5];
 											$stado=2;
 									}								
 								}

@@ -11,7 +11,7 @@ $usu=$_POST['u'];
 $pass=$_POST['p'];
 $existencia=0;
 
-$resultado = $class->consulta("SELECT * FROM SEG.USUARIO WHERE correo='$usu' and pass=md5('$pass') and stado='1'");	
+$resultado = $class->consulta("SELECT * FROM SEG.USUARIO U, SEG.NIVEL N WHERE correo='$usu' and pass=md5('$pass') AND U.ID=N.ID_USUARIO AND U.stado='1'");	
 	while ($row=$class->fetch_array($resultado)) {
 			$existencia=1;			
 			//Dando valor a variables de session
@@ -19,6 +19,7 @@ $resultado = $class->consulta("SELECT * FROM SEG.USUARIO WHERE correo='$usu' and
 			$_SESSION['nom'] = $row[2];
 			$_SESSION['usu'] = $row[5];
 			$_SESSION['pass'] = $row[6];
+			$_SESSION['nivel'] = $row['nivel'];
 
 
 			//ID !! PROCESOS !! USUARIO !! TABLA !! CAMPO !! ID REGISTRO !! FECHA !! OTROS

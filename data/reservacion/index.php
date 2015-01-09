@@ -35,13 +35,9 @@ if(!isset($_SESSION))
 		<link rel="stylesheet" href="../assets/css/bootstrap-timepicker.css" />
 		<link rel="stylesheet" href="../assets/css/daterangepicker.css" />
 		<link rel="stylesheet" href="../assets/css/colorpicker.css" />
+		<!--page specific plugin styles-->
 
-		
-		
-		
-		
-
-
+		<!--ace styles-->
 
 		<link rel="stylesheet" href="../assets/css/fontdc.css" />
 
@@ -94,46 +90,56 @@ if(!isset($_SESSION))
 												<div class="widget-body">
 													<div class="widget-main">
 														<div class="row-fluid">
-															<div class="span8">
-																<div class="row-fluid">
-																	<label for="id-date-picker-1">Seleccione fecha:</label>
-																</div>
-																<div class="control-group">
+															<div class="span3">
+																<div id="id_servicio" class="hidden"></div>
+																<label for="id-date-picker-1">Seleccione fecha:</label>
+															</div>
+															<div class="span4">																										
+																<div class="control-group">																	
 																	<div class="row-fluid input-append">
-																		<input class="span10 date-picker" id="txt_fecha_origen" type="text" data-date-format="dd-mm-yyyy" />
+																		<input class="span8 date-picker" id="txt_fecha_origen" type="text" data-date-format="dd-mm-yyyy"/>
 																		<span class="add-on">
 																			<i class="icon-calendar"></i>
 																		</span>
 																	</div>
 																</div>
 															</div>
-															<div class="span4">
+															<div class="span3">
 																<div class="row-fluid">
 																	<label for="id-date-picker-1">Es el Día:</label>
 																</div>
-
-																<div class="control-group">
-																	<div id="lbl_dia" class="blue"></div>
-																</div>
+															</div>
+															<div class="1">
+																<div id="lbl_dia" class="blue"></div>
 															</div>
 														</div>
-														<div class="hr"></div>
+														<h4 class="smaller lighter green pull-right">
+															<i class="icon-list"></i>
+															Disponibilidad de Horario
+														</h4>
+														<!-- <div class="hr"></div> -->
 														<div class="row-fluid">
 															<div class="span12">
-																<table id="tabla_horas" class="table table-striped table-bordered table-hover no-margin-bottom no-border-top">
+																<table id="tabla_horas" class="table">
 																	<thead>
 																		<tr>
 																			<th>Nro</th>
-																			<th>Accion</th>
-																			<th>Hora</th>
+																			<th>H. Inicio</th>
+																			<th>H. Fin</th>
 																			<th>fecha</th>
+																			<th>Día</th>
 																		</tr>
 																	</thead>
-																	<tbody></tbody>
+																	<tbody>
+																		
+																	</tbody>
 																</table>
 															</div>
 														</div>
+														<div class="row-fluid">															
+															<button class="btn btn-success btn-block icon-user danger span12 " href="#modal-reservacion" data-toggle="modal" id="btn_reservar"> RESERVAR</button>																														
 
+														</div>														
 													</div>
 												</div>
 											</div>
@@ -187,6 +193,8 @@ if(!isset($_SESSION))
 												</div>
 											</div>
 										</div><!--/span-->
+										
+
 									</div>
 								</div>
 							</div>
@@ -240,9 +248,17 @@ if(!isset($_SESSION))
 			</div>
 
 			<div class="modal-body no-padding">
-				<div class="row-fluid">
-					<div class="span12">
-					Digitar Servicio: <input type="text" id="txt_b_servicio">	
+				<div class="row-fluid pull-right">
+					<div class="span12 pull-right">
+						<form class="form-horizontal">						
+							<div class="control-group">
+								<label class="control-label" for="form-field-1">Digitar Servicio</label>
+
+								<div class="controls">
+									<input type="text" id="txt_b_servicio" placeholder="Nombre del Servicio">
+								</div>
+							</div>
+						</form>								
 					</div>					
 					<div class="hr hr-dotted"></div>
 						<table id="tabla_servicios" class="table table-striped table-bordered table-hover no-margin-bottom no-border-top">
@@ -268,13 +284,65 @@ if(!isset($_SESSION))
 				</button>																		
 			</div>
 		</div>
+		<!-- modal reservacion  -->
+		<div id="modal-reservacion" class="modal hide fade" tabindex="-1">
+			<div class="modal-header no-padding">
+				<div class="table-header">
+					<div type="button" class="close" data-dismiss="modal">&times;</div>
+					Servicios de Reservación
+				</div>
+			</div>
+
+			<div class="modal-body no-padding">
+				<div class="row-fluid">
+					<div class="span12">
+						<form class="form-horizontal" id="form-v_reserva">					
+							
+						</form>									
+					</div>	
+				</div>
+				<div class="row-fluid">
+					<div class="span8">
+						<table id="tabla_horas_acu" class="table">
+							<thead>
+								<tr>
+									<th>Nro</th>
+									<th>H. Inicio</th>
+									<th>H. Fin</th>
+									<th>fecha</th>
+									<th>Día</th>
+								</tr>
+							</thead>
+							<tbody>
+								
+								
+							</tbody>
+						</table>
+					</div>
+					<div class="span4 pull-right">
+						<table class="table table-striped">
+							<tr><td class="pull-right">SubTotal: $</td><td><label id="lbl_subtotal">00.00</label></td></tr>
+							<tr><td class="pull-right">Iva: $</td><td><label id="lbl_iva">00.00</label></td></tr>
+							<tr><td class="pull-right">Total: $</td><td><label id="lbl_total">00.00</label></td></tr>
+						</table>
+					</div>
+				</div>								
+			</div>			
+			<div class="modal-footer">
+				<button class="btn btn-small btn-danger pull-left" data-dismiss="modal">
+					<i class="icon-remove"></i>
+					Cerrar
+				</button>
+				<button class="btn btn-small btn-success pull-right">
+					<i class="icon-ok"></i>
+					Reservar
+				</button>																		
+			</div>
+		</div>
 		<!--PAGE CONTENT ENDS-->
-
-
 		<a href="#" id="btn-scroll-up" class="btn-scroll-up btn btn-small btn-inverse">
 			<i class="icon-double-angle-up icon-only bigger-110"></i>
 		</a>
-
 		<!--basic scripts-->
 
 		<!--[if !IE]>-->
@@ -340,6 +408,10 @@ if(!isset($_SESSION))
 		<script src="../assets/js/bootstrap-tag.min.js"></script>
 		<script src="../assets/js/jquery.validate.min.js"></script>
 		<script src="../assets/js/additional-methods.min.js"></script>
+		<script src="../assets/js/jquery.slimscroll.min.js"></script>
+		<script src="../assets/js/fuelux/fuelux.spinner.min.js"></script>
+		
+
 
 
 		<!--personal scripts-->
@@ -356,12 +428,7 @@ if(!isset($_SESSION))
 <tr><td></td></tr>
 <script type="text/javascript">
 $(function(){
-	var campo='';
-	for (var i = 0; i <8; i++) {
-		campo=campo+'<tr><td><label><input type="checkbox" /><span class="lbl"></span></label></td><td>hola1</td><td>hola2</td><td>hola3</td></tr>';	
-	};
 	
-	$("#tabla_horas tbody").append(campo);
 	// sumando fechas a la actual
 	function sumaFecha(d, fecha)
 	{
@@ -394,70 +461,42 @@ $(function(){
 		
 $('#txt_fecha_origen').change(function(){
 	var fe=$(this).val()
-	// console.log(dia_semana(fe))
-	$('#lbl_dia').html(dia_semana(fe))
-})
-
-
-	//Recibe fecha en formato DD/MM/YYYY  
-function dia_semana(fecha){   
-    fecha=fecha.split('/');  
-    if(fecha.length!=3){  
-            return null;  
-    }  
-    //Vector para calcular día de la semana de un año regular.  
-    var regular =[0,3,3,6,1,4,6,2,5,0,3,5];   
-    //Vector para calcular día de la semana de un año bisiesto.  
-    var bisiesto=[0,3,4,0,2,5,0,3,6,1,4,6];   
-    //Vector para hacer la traducción de resultado en día de la semana.  
-    var semana=['DOMINGO', 'LUNES', 'MARTES', 'MIÉRCOLES', 'JUEVES', 'VIERNES', 'SÁBADO'];  
-    //Día especificado en la fecha recibida por parametro.  
-    var dia=fecha[0];  
-    //Módulo acumulado del mes especificado en la fecha recibida por parametro.  
-    var mes=fecha[1]-1;  
-    //Año especificado por la fecha recibida por parametros.  
-    var anno=fecha[2];  
-    //Comparación para saber si el año recibido es bisiesto.  
-    if((anno % 4 == 0) && !(anno % 100 == 0 && anno % 400 != 0))  
-        mes=bisiesto[mes];  
-    else  
-        mes=regular[mes];  
-    //Se retorna el resultado del calculo del día de la semana.  
-    return semana[Math.ceil(Math.ceil(Math.ceil((anno-1)%7)+Math.ceil((Math.floor((anno-1)/4)-Math.floor((3*(Math.floor((anno-1)/100)+1))/4))%7)+mes+dia%7)%7)];  
-} 
-// alert(dia_semana('03/12/2014'));  
+	$('#lbl_dia').html(dia_semana(fe));
+	var campo='';
+	var dia=$('#lbl_dia').html();
+	var horas=buscar_horas($('#id_servicio').html(),dia);
+	var a=horas.split(",");
+	if (a=='n') {
+		console.log('no existe')
+	};
+	if (a!='n') {
+		var f=$('#txt_fecha_origen').val();
+		for (var i = parseInt(a[0]); i <a[1]; i++) {
+			var h=i+':00';
+			var j=i+1+':00';
+			campo=campo+'<tr><td><label><input type="checkbox" /><span class="lbl"></span></label></td><td>'+h+'</td><td>'+j+'</td><td>'+f+'</td><td>'+dia+'</td></tr>';	
+		};
+	};
+	// console.log(horas)
+	
+	$("#tabla_horas tbody").html(campo);
+});
+// busca la hora que esta disponible en esa fecha
+function buscar_horas(reg,dia){
+	var res=':(';
+	$.ajax({
+        url: "reservacion.php",
+        type: "POST",
+        async:false,
+        data:{buscar_horas:'ok', id:reg,dia:dia},			               
+        success: function(data)
+        {			
+			res=data;
+			// $('#tabla_servicios tbody').html(data);
+        }	                	        
+    });
+    return res;
+}
+	
 });
 </script>
-<?php 
-
-function diaSemana($ano,$mes,$dia)
-{
-    // 0->domingo     | 6->sabado
-    $dia= date("w",mktime(0, 0, 0, $mes, $dia, $ano));
-    if ($dia==1) {
-    	return 'LUNES';
-    }elseif ($dia==1) {
-    	return 'LUNES';
-    }elseif ($dia==2) {
-    	return 'MARTES';
-    }elseif ($dia==3) {
-    	return 'MIERCOLES';
-    }elseif ($dia==4) {
-    	return 'JUEVES';
-    }elseif ($dia==5) {
-    	return 'VIERNES';
-    }elseif ($dia==6) {
-    	return 'SABADO';
-    }elseif ($dia==7) {
-    	return 'DOMINGO';
-    }
-       
-}
- 
-/**
- * Ejemplo de uso
- */
-$diaSemana = diaSemana("2014", "12", "03");
-// echo $diaSemana;
-
-?>

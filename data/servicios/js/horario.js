@@ -31,7 +31,7 @@ $(function(){
 					+'</div>'
 				+'</div>';
 		$("#obj_contenedor").append(campo);					
-		console.log('inputid: '+inputid)
+		// console.log('inputid: '+inputid)
 		//$('.chzn-select'+inputid+"").append("<option value='LUNES' />LUNES");						
 		var semana = [ 
 			    {"id": 'LUNES', "name": "LUNES"}, 

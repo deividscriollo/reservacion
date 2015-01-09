@@ -61,62 +61,108 @@ if(!isset($_SESSION))
 							<!--PAGE CONTENT BEGINS-->
 
 							<div class="row-fluid">
-								<div class="span9">
+								<div class="span7">
 									<div class="space"></div>
-
-									<div id="calendar"></div>
-								</div>
-
-								<div class="span3">
 									<div class="widget-box transparent">
-										<div class="widget-header">
-											<h4>Draggable events</h4>
+										<div class="widget-header widget-header-small">
+											<h4 class="blue smaller">
+												<i class="icon-rss orange"></i>
+												Actividades Recientes
+											</h4>
+
+											<div class="widget-toolbar action-buttons">
+												<a href="#" data-action="reload">
+													<i class="icon-refresh blue"></i>
+												</a>
+
+												&nbsp;
+												<a href="#" class="pink">
+													<i class="icon-trash"></i>
+												</a>
+											</div>
 										</div>
 
-										<div class="widget-main">
-											<div id="external-events">
-												<div class="external-event label-grey" data-class="label-grey">
-													<i class="icon-move"></i>
-													My Event 1
-												</div>
+										<div class="widget-body">
+											<div class="widget-main padding-8">
+												<div id="profile-feed-1" class="profile-feed">
+													<div class="profile-activity clearfix">
+														<div>
+															<i class="pull-left thumbicon icon-key btn-info no-hover"></i>
+															<a class="user" href="#"> Alex Doe </a>
 
-												<div class="external-event label-success" data-class="label-success">
-													<i class="icon-move"></i>
-													My Event 2
-												</div>
+															logged in.
+															<div class="time">
+																<i class="icon-time bigger-110"></i>
+																12 hours ago
+															</div>
+														</div>
 
-												<div class="external-event label-important" data-class="label-important">
-													<i class="icon-move"></i>
-													My Event 3
-												</div>
+														<div class="tools action-buttons">
+															<a href="#" class="blue">
+																<i class="icon-pencil bigger-125"></i>
+															</a>
 
-												<div class="external-event label-purple" data-class="label-purple">
-													<i class="icon-move"></i>
-													My Event 4
-												</div>
+															<a href="#" class="red">
+																<i class="icon-remove bigger-125"></i>
+															</a>
+														</div>
+													</div>
 
-												<div class="external-event label-yellow" data-class="label-yellow">
-													<i class="icon-move"></i>
-													My Event 5
-												</div>
+													<div class="profile-activity clearfix">
+														<div>
+															<i class="pull-left thumbicon icon-off btn-inverse no-hover"></i>
+															<a class="user" href="#"> Alex Doe </a>
 
-												<div class="external-event label-pink" data-class="label-pink">
-													<i class="icon-move"></i>
-													My Event 6
-												</div>
+															logged out.
+															<div class="time">
+																<i class="icon-time bigger-110"></i>
+																16 hours ago
+															</div>
+														</div>
 
-												<div class="external-event label-info" data-class="label-info">
-													<i class="icon-move"></i>
-													My Event 7
-												</div>
+														<div class="tools action-buttons">
+															<a href="#" class="blue">
+																<i class="icon-pencil bigger-125"></i>
+															</a>
 
-												<label>
-													<input type="checkbox" class="ace-checkbox" id="drop-remove" />
-													<span class="lbl"> Remove after drop</span>
-												</label>
+															<a href="#" class="red">
+																<i class="icon-remove bigger-125"></i>
+															</a>
+														</div>
+													</div>
+
+													<div class="profile-activity clearfix">
+														<div>
+															<i class="pull-left thumbicon icon-key btn-info no-hover"></i>
+															<a class="user" href="#"> Alex Doe </a>
+
+															logged in.
+															<div class="time">
+																<i class="icon-time bigger-110"></i>
+																16 hours ago
+															</div>
+														</div>
+
+														<div class="tools action-buttons">
+															<a href="#" class="blue">
+																<i class="icon-pencil bigger-125"></i>
+															</a>
+
+															<a href="#" class="red">
+																<i class="icon-remove bigger-125"></i>
+															</a>
+														</div>
+													</div>
+												</div>
 											</div>
 										</div>
 									</div>
+
+								</div>
+								<div class="span5">
+									<div class="space"></div>
+
+									<div id="calendar"></div>
 								</div>
 							</div>
 
@@ -188,11 +234,16 @@ if(!isset($_SESSION))
 
 		<script src="../../assets/js/ace-elements.min.js"></script>
 		<script src="../../assets/js/ace.min.js"></script>
-		<script src="../assets/js/lang-all.js"></script>
 
 		<!--inline scripts related to this page-->
 		<script type="text/javascript">
 			$(function() {
+
+				$('#profile-feed-1').slimScroll({
+				height: '250px',
+				alwaysVisible : true
+				});
+
 
 			/* initialize the external events
 				-----------------------------------------------------------------*/
