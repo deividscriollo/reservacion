@@ -1,6 +1,93 @@
 $(function(){
 
+    //
+    $('#btn_guardar_reservacion').click(function(){
+        $('#modal-reservacion').modal('hide'); 
+        var matriz= new Array();
+        var horas='';
+        //sacar valores de tarifas y otros elementos
+        for (var i = 1; i < 10; i++) {
+            if ( document.getElementById( 'txt_tarifa'+i+'' )) {               
+                var a ='txt_tarifa'+i+'';
+                var b ='lbl_tarifa'+i+'';
+                var c ='lbl_valores'+i+'';
+                var a1 =document.getElementById( 'txt_tarifa'+i+'' ).value;
+                var b1 =document.getElementById( 'lbl_tarifa'+i+'' ).innerHTML;
+                var c1 =document.getElementById( 'lbl_valores'+i+'' ).innerHTML;
+                matriz[i-1] = new Array(a+':'+a1,b+':'+b1,c+':'+c1);
+            }
+        };
+        var hinicio, hfinal, fecha, dia;
+        var acu_fh='';
+        var matriz1= new Array();
+        // sacar valores de la tabla horaras a reservar
+        var i=0;
+        $('#tabla_horas_acu tbody tr').each(function(index, element){
+            hinicio = $(element).find("td").eq(0).html();
+            hfinal = $(element).find("td").eq(1).html();
+            fecha = $(element).find("td").eq(2).html();
+            dia = $(element).find("td").eq(3).html();
+            matriz1[i]=new Array(hinicio,hfinal,fecha,dia);
+            i++;
+        });
+        //sacara valores de total de la reservacion       
+        $.ajax({
+            url: "reservacion.php",
+            type: "POST",
+            data:{guardar:'ok',matriz:matriz,horario:matriz1,subtotal:$('#lbl_subtotal').html(),id_servicio:$('#id_servicio').html()},                         
+            beforeSend: function () {                             
+                $.blockUI({
+                    message:'<i id="icon-tiempo" class="width-10 icon-spinner red icon-spin bigger-125"></i> Espere un momento...',
+                    css: { 
+                        border: 'none', 
+                        padding: '15px', 
+                        backgroundColor: '#000', 
+                        '-webkit-border-radius': '10px', 
+                        '-moz-border-radius': '10px', 
+                        opacity: .5, 
+                        color: '#fff'
+                    }
+                })
+            },
+            success: function(data)
+            {           
+                console.log(data) 
+                $.unblockUI();   
+                if (data==0) {
+                    $.gritter.add({                     
+                        title: '..Mensaje..!',                      
+                        text: 'OK: <br><i class="icon-cloud purple bigger-230"></i>  Su reservacion se ha realizado con exito. por favor verifique su correo y siga las instrucciones <br><i class="icon-spinner icon-spin green bigger-230"></i>',                      
+                        //image: 'http://a0.twimg.com/profile_images/59268975/jquery_avatar_bigger.png',                        
+                        sticky: false,                      
+                        time: 2000
+                    });
+                    
+                    //$('#txt_archivo').ace_file_input();
+                    // $('#txt_archivo').ace_file_input('reset_input');
+
+                    //redireccionar();
+               };
+               if(data!=0&&data!=1&&data!=2){
+                        $.gritter.add({                     
+                            title: '..Mensaje..!',                      
+                            text: 'Lo sentimos: '+$('#txt_usuario').val()+'<br><i class=" icon-cogs red bigger-230"></i>   Intente mas Tarde . <br><i class="icon-spinner icon-spin red bigger-230"></i>',                       
+                            //image: 'http://a0.twimg.com/profile_images/59268975/jquery_avatar_bigger.png',                        
+                            sticky: false,                      
+                            time: ''
+                        });
+                        //redireccionar();
+                    }; 
+            }                                       
+        });
+    
+    });
+    
+    function redireccionar() {
+        setTimeout("location.href='../reservacion/'", 2000);
+    }
     $('#btn_reservar').click(function(){
+        // cargar modal.. carga de tabla a a tabla b objetos
+        info_tabla();
         //inicializando variable de ojetos a crear : contenedor
         $('#form-v_reserva').html('');
         $.ajax({
@@ -52,7 +139,7 @@ $(function(){
                         document.getElementById('lbl_valores'+cantidad[10]+'').innerHTML='$: '+total.toFixed(2);
                         // var sutotal=$('#lbl_subtotal').html();   
                         resul_infor(i)
-                        info_tabla();
+                        
                     });
 
                     if (i==(limite-1)) {
@@ -68,8 +155,9 @@ $(function(){
 		var reg=$('#txt_b_servicio').val();
 		// console.log(reg);
 		bus_servicio(reg);
-	});    
+	});     
 });
+
 function resul_infor(lim){    
     //var subtotal=document.getElementById('lbl_subtotal').innerHTML;
     //f_total=total+parseFloat(subtotal);
@@ -123,7 +211,8 @@ function btn_select_servicio(id){
         }			                	        
     });
     // imprimiendo id
-    $('#id_servicio').html(id)
+    $('#id_servicio').html(id);
+    $('#txt_fecha_origen').popover('show');
 };
     function info_tabla(){
         $("#tabla_horas_acu tbody").html('');

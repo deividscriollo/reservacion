@@ -35,6 +35,7 @@ if(!isset($_SESSION))
 		<link rel="stylesheet" href="../assets/css/bootstrap-timepicker.css" />
 		<link rel="stylesheet" href="../assets/css/daterangepicker.css" />
 		<link rel="stylesheet" href="../assets/css/colorpicker.css" />
+
 		<!--page specific plugin styles-->
 
 		<!--ace styles-->
@@ -67,11 +68,16 @@ if(!isset($_SESSION))
 					<div class="row-fluid">	
 						<div class="widget-box">
 							<div class="widget-header">
-								<h4>Selecciones Servicio</h4>
-								<span class="widget-toolbar">
-									<a  href="#modal-servicio" data-toggle="modal">
+								<h4>Selecciones Servicio</h4>								
+								<span 	class="widget-toolbar tooltip-info icon-animated-vertical"
+										id="btn_buscar_servicios" 
+										data-rel="popover" data-placement="left" 
+										title="" 
+										data-content="Digite la búsqueda del servicio y seleccione el servicio." 
+										data-original-title="Realizar reservación: PASO 1 !!">
+									<span >
 										<i class="icon-search"></i>
-									</a>
+									</span>
 								</span>
 							</div>
 
@@ -97,7 +103,15 @@ if(!isset($_SESSION))
 															<div class="span4">																										
 																<div class="control-group">																	
 																	<div class="row-fluid input-append">
-																		<input class="span8 date-picker" id="txt_fecha_origen" type="text" data-date-format="dd-mm-yyyy"/>
+																		<input 	class="span8 date-picker" 
+																				id="txt_fecha_origen" 
+																				type="text" 
+																				data-date-format="dd-mm-yyyy"
+																				class="btn btn-success btn-small tooltip-success" 
+																				data-rel="popover"
+																				data-placement="right" 
+																				title="<i class='icon-ok green'></i> Realizar Reservacion: Paso 2" 
+																				data-content="Seleccione la fecha: Mostrara las horas disponibles para su reservación"/>
 																		<span class="add-on">
 																			<i class="icon-calendar"></i>
 																		</span>
@@ -250,12 +264,15 @@ if(!isset($_SESSION))
 			<div class="modal-body no-padding">
 				<div class="row-fluid pull-right">
 					<div class="span12 pull-right">
-						<form class="form-horizontal">						
-							<div class="control-group">
+						<form class="form-horizontal" id="form-reservacion">						
+							<div class="control-group warning">
 								<label class="control-label" for="form-field-1">Digitar Servicio</label>
-
 								<div class="controls">
-									<input type="text" id="txt_b_servicio" placeholder="Nombre del Servicio">
+									<input 	class="icon-animated-vertical" 
+											type="text" 
+											id="txt_b_servicio"
+											placeholder="Nombre del Servicio"
+									>
 								</div>
 							</div>
 						</form>								
@@ -270,9 +287,7 @@ if(!isset($_SESSION))
 									<th>Acción</th>
 								</tr>
 							</thead>
-
-							<tbody>
-								
+							<tbody>							
 							</tbody>
 						</table>		
 				</div>									
@@ -312,10 +327,7 @@ if(!isset($_SESSION))
 									<th>Día</th>
 								</tr>
 							</thead>
-							<tbody>
-
-								
-							</tbody>
+							<tbody></tbody>
 						</table>
 					</div>
 					<div class="span4 pull-right">
@@ -328,11 +340,11 @@ if(!isset($_SESSION))
 				</div>								
 			</div>			
 			<div class="modal-footer">
-				<button class="btn btn-small btn-danger pull-left" data-dismiss="modal">
+				<button class="btn btn-small btn-danger pull-left" id="btn_g_reservar" data-dismiss="modal">
 					<i class="icon-remove"></i>
 					Cerrar
 				</button>
-				<button class="btn btn-small btn-success pull-right">
+				<button class="btn btn-small btn-success pull-right" id="btn_guardar_reservacion">
 					<i class="icon-ok"></i>
 					Reservar
 				</button>																		
@@ -409,6 +421,7 @@ if(!isset($_SESSION))
 		<script src="../assets/js/additional-methods.min.js"></script>
 		<script src="../assets/js/jquery.slimscroll.min.js"></script>
 		<script src="../assets/js/fuelux/fuelux.spinner.min.js"></script>
+		<script src="../assets/js/blockui.js"></script>
 		
 
 
@@ -418,15 +431,49 @@ if(!isset($_SESSION))
 		<!--ace scripts-->
 
 		<script src="../assets/js/ace-elements.min.js"></script>
-		<script src="../assets/js/ace.min.js"></script>
-	
-
+		<script src="../assets/js/ace.min.js"></script>	
 		<!--inline scripts related to this page-->
-	</body>
+	</body>	
 </html>
-<tr><td></td></tr>
+
+
 <script type="text/javascript">
-$(function(){
+$(function(){	
+
+	bus_servicio(''); 
+	$('#btn_buscar_servicios').popover('show');
+	$('#btn_buscar_servicios').mouseover(function(){		
+		$(this).css({'cursor': 'pointer'});
+	});
+
+	// #modal-servicio
+	$('#btn_buscar_servicios').click(function(){			
+		$('#btn_buscar_servicios').popover('hide');		
+		$('#modal-servicio').modal('show');
+		$('#txt_b_servicio').popover('show');
+	});
+	$('#txt_fecha_origen').click(function(){
+		// console.log($('#txt_fecha_origen'));
+		// class="btn btn-success btn-small tooltip-success" 
+	});
+	$('#txt_b_servicio').click(function(){
+		
+		var valor=$(this);
+		var acu=valor.parent().parent();
+		$(acu).removeClass('warning');
+		$(acu).addClass('success');
+
+		
+	});
+	
+	
+	//$('#modal-servicio').modal('show');  
+	$('[data-rel=popover]').popover({html:true});
+
+	$('#my-btn').click(function () {
+       
+	     $('[data-toggle=popover]').popover('hide'); //EDIT: added this line to hide popover on button click.
+	});
 	
 	// sumando fechas a la actual
 	function sumaFecha(d, fecha)

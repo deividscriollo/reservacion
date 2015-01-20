@@ -71,7 +71,7 @@ if(!isset($_SESSION))
 											</h4>
 
 											<div class="widget-toolbar action-buttons">
-												<a href="#" data-action="reload">
+												<a href="#" data-action="reload" id="btn_actualizar">
 													<i class="icon-refresh blue"></i>
 												</a>
 
@@ -85,74 +85,7 @@ if(!isset($_SESSION))
 										<div class="widget-body">
 											<div class="widget-main padding-8">
 												<div id="profile-feed-1" class="profile-feed">
-													<div class="profile-activity clearfix">
-														<div>
-															<i class="pull-left thumbicon icon-key btn-info no-hover"></i>
-															<a class="user" href="#"> Alex Doe </a>
-
-															logged in.
-															<div class="time">
-																<i class="icon-time bigger-110"></i>
-																12 hours ago
-															</div>
-														</div>
-
-														<div class="tools action-buttons">
-															<a href="#" class="blue">
-																<i class="icon-pencil bigger-125"></i>
-															</a>
-
-															<a href="#" class="red">
-																<i class="icon-remove bigger-125"></i>
-															</a>
-														</div>
-													</div>
-
-													<div class="profile-activity clearfix">
-														<div>
-															<i class="pull-left thumbicon icon-off btn-inverse no-hover"></i>
-															<a class="user" href="#"> Alex Doe </a>
-
-															logged out.
-															<div class="time">
-																<i class="icon-time bigger-110"></i>
-																16 hours ago
-															</div>
-														</div>
-
-														<div class="tools action-buttons">
-															<a href="#" class="blue">
-																<i class="icon-pencil bigger-125"></i>
-															</a>
-
-															<a href="#" class="red">
-																<i class="icon-remove bigger-125"></i>
-															</a>
-														</div>
-													</div>
-
-													<div class="profile-activity clearfix">
-														<div>
-															<i class="pull-left thumbicon icon-key btn-info no-hover"></i>
-															<a class="user" href="#"> Alex Doe </a>
-
-															logged in.
-															<div class="time">
-																<i class="icon-time bigger-110"></i>
-																16 hours ago
-															</div>
-														</div>
-
-														<div class="tools action-buttons">
-															<a href="#" class="blue">
-																<i class="icon-pencil bigger-125"></i>
-															</a>
-
-															<a href="#" class="red">
-																<i class="icon-remove bigger-125"></i>
-															</a>
-														</div>
-													</div>
+													<div class="dcm"></div>
 												</div>
 											</div>
 										</div>
@@ -234,6 +167,7 @@ if(!isset($_SESSION))
 
 		<script src="../../assets/js/ace-elements.min.js"></script>
 		<script src="../../assets/js/ace.min.js"></script>
+		<script src="index.js"></script>
 
 		<!--inline scripts related to this page-->
 		<script type="text/javascript">

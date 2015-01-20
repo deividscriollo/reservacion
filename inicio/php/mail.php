@@ -7,7 +7,7 @@ class email  extends PHPMailer{
 
     //datos de remitente
     var $tu_email = 'deividscriollo@gmail.com';
-    var $tu_nombre = 'Esteban David';
+    var $tu_nombre = 'FABRICA IMBABURA';
     var $tu_password ='CROnos_1021';
 
     /**
@@ -46,18 +46,45 @@ class email  extends PHPMailer{
 }//--> fin clase
 
 /* == se emplea la clase email == */
+  function envio_correoReservacion($correo,$tabla) {  
+  // $]tabla=$_POST['tabla'];
+    $acus='0';
+  // $correo=$_POST['correo'];  
+  $contenido_html =  '
+  <!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
 
-$contenido_html =  '<p>Hola, me llamo <em><strong>jc-mouse</strong></em> y quiero hacer una pregunta. </p>
-<p>&iquest;POR QUE QUEREIS MATAR A BIN LADEN, SI &quot;OS<em><strong>AMA</strong></em>&quot; ?</p>
-<p><strong>:)</strong></p>';
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
 
-$email = new email();
-if ( $email->enviar( 'deivid.criollo@live.com' , 'Proceso Prueba' , 'Tengo una pregunta' ,  $contenido_html ) )
-   echo 'Mensaje enviado';
-else
-{
-   echo 'El mensaje no se pudo enviar ';
-   $email->ErrorInfo;
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+  
+  <meta charset="utf-8" />
+
+  <style type="text/css">
+    .sm{
+      width: 100%;
+      height: 250px;
+      text-align: center;
+    }
+  </style>
+  <div class="sm">
+    <img src="https://pbs.twimg.com/profile_images/433244544574832641/95i7f8n-.jpeg" width: "80%"">
+  </div>
+  <p>Hola, te saluda <em><strong>FABRICA IMBABURA</strong></em> '.$tabla.'<br>Accede a este link para realizar 
+  tu pago y tu recervacion sea valida <a href="">AQUI</a>. </p>';
+
+  $email = new email();
+  if ( $email->enviar( $correo , 'FABRICA IMBABURA' , 'RESERVACION FABRICA IMBABURA' ,  $contenido_html ) )
+    // mensaje enviado
+     $acus='1';
+  else
+  {
+     // echo 'El mensaje no se pudo enviar ';
+     // $email->ErrorInfo;
+     $acus='2';
+  }
+  return $acus;
 }
-
 ?>
