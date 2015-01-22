@@ -148,7 +148,7 @@ if(!isset($_SESSION))
 																		
 																	</tbody>
 																</table>
-				<img src="https://raw.githubusercontent.com/deividscriollo/reservacion/master/data/assets/images/banner.jpg">
+				
 
 															</div>
 														</div>

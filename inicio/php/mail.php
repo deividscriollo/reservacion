@@ -69,9 +69,9 @@ class email  extends PHPMailer{
       text-align: center;
     }
   </style>
-  <div class="sm">
-    <img src="https://pbs.twimg.com/profile_images/433244544574832641/95i7f8n-.jpeg" width: "80%"">
-  </div>
+  <table aling="center">
+    <img src="https://raw.githubusercontent.com/deividscriollo/reservacion/master/data/assets/images/banner.jpg" width: "100%"">
+  </table>
   <p>Hola, te saluda <em><strong>FABRICA IMBABURA</strong></em> '.$tabla.'<br>Accede a este link para realizar 
   tu pago y tu recervacion sea valida <a href="">AQUI</a>. </p>';
 
