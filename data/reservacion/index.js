@@ -2,6 +2,10 @@ $(function(){
 
     //
     $('#btn_guardar_reservacion').click(function(){
+        $('#lbl_subtotal').html('');
+        $('#lbl_iva').html('');
+        $('#lbl_total').html('');
+
         $('#modal-reservacion').modal('hide'); 
         var matriz= new Array();
         var horas='';
