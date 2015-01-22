@@ -65,7 +65,6 @@ if(!isset($_SESSION))
 
 			<div class="main-content">
 				<div class="page-content">
-				<img src="https://github.com/deividscriollo/reservacion/blob/master/data/assets/images/banner.fw.png">
 					<div class="row-fluid">	
 						<div class="widget-box">
 							<div class="widget-header">
@@ -149,6 +148,8 @@ if(!isset($_SESSION))
 																		
 																	</tbody>
 																</table>
+				<img src="https://raw.githubusercontent.com/deividscriollo/reservacion/master/data/assets/images/banner.jpg">
+
 															</div>
 														</div>
 														<div class="row-fluid">															
