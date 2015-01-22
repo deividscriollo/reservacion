@@ -135,7 +135,7 @@ if(!isset($_SESSION))
 														<div class="row-fluid">
 															<div class="span12">
 																<table id="tabla_horas" class="table">
-																	<thead>
+																	<thead style>
 																		<tr>
 																			<th>Nro</th>
 																			<th>H. Inicio</th>
@@ -440,6 +440,33 @@ if(!isset($_SESSION))
 
 
 <script type="text/javascript">
+function reconstruir(i){	
+	$("#tabla_horas tbody tr").each(function (index) {
+        var campo1, axus=0, campo3;
+        $(this).children("td").each(function (index2) {
+            switch (index2) {            	        	
+                case 0:                	
+                    $(this).children().children().removeAttr('checked');                    
+                    break;                
+            }        
+        });       
+    });
+
+	$("#tabla_horas tbody tr").each(function (index) {        
+        if (i==index) {
+        	$(this).children("td").each(function (index2) {
+	            switch (index2) {            	        	
+	                case 0:                	
+	                    $(this).children().children().prop("checked", "checked");                    
+	                    break;                
+	            }        
+	        }); 
+        }              
+    });
+
+
+}
+
 $(function(){	
 
 	bus_servicio(''); 
@@ -519,16 +546,20 @@ $('#txt_fecha_origen').change(function(){
 	};
 	if (a!='n') {
 		var f=$('#txt_fecha_origen').val();
+		var max_i=0;
 		for (var i = parseInt(a[0]); i <a[1]; i++) {
 			var h=i+':00';
 			var j=i+1+':00';
-			campo=campo+'<tr><td><label><input type="checkbox" /><span class="lbl"></span></label></td><td>'+h+'</td><td>'+j+'</td><td>'+f+'</td><td>'+dia+'</td></tr>';	
-		};
+			campo=campo+'<tr><td><label><input type="checkbox" onclick="reconstruir('+max_i+')"/><span class="lbl"></span></label></td><td>'+h+'</td><td>'+j+'</td><td>'+f+'</td><td>'+dia+'</td></tr>';	
+			max_i++;
+		};		
 	};
 	// console.log(horas)
 	
 	$("#tabla_horas tbody").html(campo);
 });
+
+
 // busca la hora que esta disponible en esa fecha
 function buscar_horas(reg,dia){
 	var res=':(';

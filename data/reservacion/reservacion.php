@@ -16,8 +16,16 @@
 		$id=$class->idz();
 		$sericio='';
 		$id_ser=$_POST['id_servicio'];
-		$tabla='<table class="table table-bordered" border="1" padding="3px" align="center">';
-		$tabla=$tabla.'<tr><td>Servicios</td><td>cantidad</td><td>precio</td><td>Total</td></tr>';
+		$nom_servicio='';
+		$res1=$class->consulta("SELECT nom FROM SERVICIOS WHERE ID='$id_ser'");
+		while ($row=$class->fetch_array($res1)) {					
+					$nom_servicio=$row[0];
+	 	}
+
+		$tabla='<table style="float: right;" class="dca" align="right" width="60%" style="padding: 2px;   border:1px #FFFFFF; color:#FFFFFF;">';
+		$tabla=$tabla.'<thead style="display: table-header-group;   vertical-align: middle;    border-color: inherit;">
+        <tr style="background: #8FBC1D;"><td>SERVICIO</td><td>TARIFA</td><td>cantidad</td><td>precio</td><td>Total</td></tr>
+            </thead><tbody>';
 		$res=$class->consulta("INSERT INTO RESERVACION VALUES('$id','$_SESSION[id]','$id_ser','$subtotal','$fecha','0')");
 		for ($i=0; $i < count($mat); $i++) { 
 				$ida=$class->idz();
@@ -33,28 +41,31 @@
 				$c=$mat[$i][2];
 				$sum1=split(':', $c);
 				$t=$sum1[2];
-				$tabla=$tabla.'<tr><td>'.$servicios.'</td><td>'.$cantidad.'</td><td>'.$p_cantidad.'</td><td>'.$t.'</td></tr>';
+				if ($i==0) {					
+					$tabla=$tabla.'<tr><td>'.$nom_servicio.'</td><td>'.$servicios.'</td><td>'.$cantidad.'</td><td>'.$p_cantidad.'</td><td>'.$t.'</td></tr>';
+				}else				
+				$tabla=$tabla.'<tr><td></td><td>'.$servicios.'</td><td>'.$cantidad.'</td><td>'.$p_cantidad.'</td><td>'.$t.'</td></tr>';
 
 				$res=$class->consulta("INSERT INTO RESERVACION_TARIFA VALUES('$ida','$id','$servicios','$cantidad','$p_cantidad','$t','$fecha','0')");			
 		}		
-		$tabla=$tabla.'<tr><td></td><td></td><td>Sub Total</td><td>'.$subtotal.'</td></tr>';
-		$tabla=$tabla.'<tr><td></td><td></td><td>Iva</td><td>0.00</td></tr>';
-		$tabla=$tabla.'<tr><td></td><td></td><td>Total</td><td>'.$subtotal.'</td></tr>';
-		$tabla=$tabla.'<tr><td>INICIO H.</td><td>FINAL H.</td><td>FECHA</td><td>DIA</td></tr>';
+		$tabla=$tabla.'<tr><td></td><td></td><td></td><td>Sub Total</td><td>'.$subtotal.'</td></tr>';
+		$tabla=$tabla.'<tr><td></td><td></td><td></td><td>Iva</td><td>0.00</td></tr>';
+		$tabla=$tabla.'<tr><td></td><td></td><td></td><td>Total</td><td>'.$subtotal.'</td></tr>';
+		$tabla=$tabla.'<tr style="background: #8FBC1D;"><td></td><td>INICIO H.</td><td>FINAL H.</td><td>FECHA</td><td>DIA</td></tr>';
 		for ($i=0; $i <count($horario); $i++) {
 			$idb=$class->idz(); 			
 			$hi=$horario[$i][0];
 			$hf=$horario[$i][1];
 			$f=$horario[$i][2];
 			$d=$horario[$i][3];
-			$tabla=$tabla.'<tr><td>'.$hi.'</td><td>'.$hf.'</td><td>'.$f.'</td><td>'.$d.'</td></tr>';
+			$tabla=$tabla.'<tr><td></td><td>'.$hi.'</td><td>'.$hf.'</td><td>'.$f.'</td><td>'.$d.'</td></tr>';
 			$res=$class->consulta("INSERT INTO RESERVACION_HORARIOS VALUES('$idb','$id','$hi','$hf','$f','$d','$fecha','0')");
 		}		
 		if (!$res) {
 			print 1;
 		}else print 0;
 		// envio del correo a la reservacion
-		$tabla=$tabla.'</table>';		
+		$tabla=$tabla.'</tbody></table>';		
 		$resultado = $class->consulta("SELECT * FROM SEG.USUARIO WHERE ID='$_SESSION[id]'");		
 		while ($row=$class->fetch_array($resultado)) {					
 			envio_correoReservacion($row['correo'],$tabla);				

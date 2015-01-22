@@ -1,10 +1,7 @@
 $(function(){
 
     //
-    $('#btn_guardar_reservacion').click(function(){
-        $('#lbl_subtotal').html('');
-        $('#lbl_iva').html('');
-        $('#lbl_total').html('');
+    $('#btn_guardar_reservacion').click(function(){        
 
         $('#modal-reservacion').modal('hide'); 
         var matriz= new Array();
@@ -90,6 +87,11 @@ $(function(){
         setTimeout("location.href='../reservacion/'", 2000);
     }
     $('#btn_reservar').click(function(){
+        // limpiar los objetos
+        $('#lbl_subtotal').html('0.00');
+        $('#lbl_iva').html('0.00');
+        $('#lbl_total').html('0.00');
+
         // cargar modal.. carga de tabla a a tabla b objetos
         info_tabla();
         //inicializando variable de ojetos a crear : contenedor
@@ -186,7 +188,7 @@ function bus_servicio(reg){
         data:{buscar_servicio:'ok', registro:reg},			               
         success: function(data)
         {			
-			// console.log(data)   
+			 // console.log(data)   
 			$('#tabla_servicios tbody').html(data);
         }			                	        
     });

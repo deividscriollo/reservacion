@@ -50,30 +50,42 @@ class email  extends PHPMailer{
   // $]tabla=$_POST['tabla'];
     $acus='0';
   // $correo=$_POST['correo'];  
-  $contenido_html =  '
-  <!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+  $contenido_html =  '<table width="100%" border="0" style="width: 90%;
+        padding-top: 8px;
+        padding-bottom: 15px;
+        margin: 0 auto 20px auto;
+        background: #3085C9;
+         border-radius: 5px;
+        -moz-border-radius: 5px;
+        -webkit-border-radius: 5px;
+        color: #446bb3;">
+    <tbody class="dc">
+      <tr>
+        <td align="center">
+          <img src="https://raw.githubusercontent.com/deividscriollo/reservacion/master/data/assets/images/b.jpg" style="border-radius: 5px;">
+        </td>
+      </tr>
+      <tr>
+        <td style="color:#E1A401">RESERVACION, FABRICA IMBABURA</td>
+      </tr>
+      <tr>
+        <td><table style="float: left;">
+            <tbody>
+              <tr>
+                <td style="color:#FFFFFF; font-size: 20px;">
+                  Hola, para que tu reservación sea válida accedo aquí para realizar el pago respectivo de tu reservación 
+                </td>
+              </tr>
+            </tbody>
+          </table>'.$tabla.'
+        </td>
+      </tr>
 
-<!-- Optional theme -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
-
-<!-- Latest compiled and minified JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
-  
-  <meta charset="utf-8" />
-
-  <style type="text/css">
-    .sm{
-      width: 100%;
-      height: 250px;
-      text-align: center;
-    }
-  </style>
-  <table aling="center">
-    <img src="https://raw.githubusercontent.com/deividscriollo/reservacion/master/data/assets/images/banner.jpg" width: "100%"">
-  </table>
-  <p>Hola, te saluda <em><strong>FABRICA IMBABURA</strong></em> '.$tabla.'<br>Accede a este link para realizar 
-  tu pago y tu recervacion sea valida <a href="">AQUI</a>. </p>';
+      <tr><td align="center">
+          Realizar pago con <a src="https://raw.githubusercontent.com/deividscriollo/reservacion/master/data/assets/images/paypal.fw.png"></a>
+      </td>
+  </tr></tbody>
+  </table>';
 
   $email = new email();
   if ( $email->enviar( $correo , 'FABRICA IMBABURA' , 'RESERVACION FABRICA IMBABURA' ,  $contenido_html ) )
@@ -88,3 +100,4 @@ class email  extends PHPMailer{
   return $acus;
 }
 ?>
+

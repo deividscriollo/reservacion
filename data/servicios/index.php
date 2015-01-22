@@ -325,7 +325,7 @@ if(!isset($_SESSION))
 					<i class="icon-remove"></i>
 					Cerrar
 				</button>
-				<button class="btn btn-small btn-success pull-left" data-dismiss="modal" id="btn_guardar_horario">
+				<button class="btn btn-small btn-success pull-left" id="btn_guardar_horario">
 					<i class="icon-save"></i>
 					Guardar
 				</button>
