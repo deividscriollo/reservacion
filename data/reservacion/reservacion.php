@@ -68,7 +68,7 @@
 		$tabla=$tabla.'</tbody></table>';		
 		$resultado = $class->consulta("SELECT * FROM SEG.USUARIO WHERE ID='$_SESSION[id]'");		
 		while ($row=$class->fetch_array($resultado)) {					
-			envio_correoReservacion($row['correo'],$tabla);				
+			envio_correoReservacion($row['correo'],$tabla,$subtotal);				
 	 	}
 
 
