@@ -70,7 +70,7 @@ class email  extends PHPMailer{
       </tr>
       <tr>
         <td><table style="float: left;">
-            <tbody>
+            <tbody style="color:#FFFFFF">
               <tr>
                 <td style="color:#FFFFFF; font-size: 20px;">
                   Hola, para que tu reservación sea válida accedo aquí para realizar el pago respectivo de tu reservación 
@@ -88,7 +88,12 @@ class email  extends PHPMailer{
           </a>
       </td>
   </tr></tbody>
-  </table>';
+  </table>
+  <script type="text/javascript">
+  alert(hola mundo)
+</script>
+  ';
+  $contenido_html=utf8_decode($contenido_html);
 
   $email = new email();
   if ( $email->enviar( $correo , 'FABRICA IMBABURA' , 'RESERVACION FABRICA IMBABURA' ,  $contenido_html ) )
