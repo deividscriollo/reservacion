@@ -157,11 +157,11 @@
 					},
 			
 					highlight: function (e) {
-						$(e).closest('.control-group').removeClass('info').addClass('error');
+						$(e).closest('.control-group').removeClass('success').addClass('error');
 					},
 			
 					success: function (e) {
-						$(e).closest('.control-group').removeClass('error').addClass('info');
+						$(e).closest('.control-group').removeClass('error').addClass('success');
 						$(e).remove();
 					},
 			

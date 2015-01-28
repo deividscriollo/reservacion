@@ -35,7 +35,7 @@ if(!isset($_SESSION))
 
 		
 		<!--ace styles-->
-
+		<link rel="stylesheet" href="../assets/css/fontdc.css" />
 		<link rel="stylesheet" href="../assets/css/ace.min.css" />
 		<link rel="stylesheet" href="../assets/css/ace-responsive.min.css" />
 		<link rel="stylesheet" href="../assets/css/ace-skins.min.css" />
@@ -151,21 +151,24 @@ if(!isset($_SESSION))
 												</p>
 
 												<form id="frm-recuperar">
-													<fieldset>
-														<label>
-															<span class="block input-icon input-icon-right">
-																<input type="email" class="span12" id="txt_rec_email" name="txt_rec_email" placeholder="Email" />
-																<i class="icon-envelope"></i>
-															</span>
-														</label>
+													<div class="control-group">
+														<fieldset>
+															<label>
+																<span class="block input-icon input-icon-right">
+																	<input type="email" class="span12" id="txt_rec_email" name="txt_rec_email" placeholder="Email" />
+																	<i class="icon-envelope"></i>
+																</span>
+															</label>
 
-														<div class="clearfix">
-															<button type="submit" class="width-35 pull-right btn btn-small btn-danger">
-																<i class="icon-lightbulb"></i>
-																Enviar!
-															</button>
-														</div>
-													</fieldset>
+															<div class="clearfix">
+																<button type="submit" class="width-35 pull-right btn btn-small btn-danger">
+																	<i class="icon-lightbulb"></i>
+																	Enviar!
+																</button>
+															</div>
+														</fieldset>
+													</div>
+
 												</form>
 											</div><!--/widget-main-->
 

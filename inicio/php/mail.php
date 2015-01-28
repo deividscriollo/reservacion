@@ -47,65 +47,123 @@ class email  extends PHPMailer{
 
 /* == se emplea la clase email == */
   function envio_correoReservacion($correo, $tabla, $subtotal) {  
-  // $]tabla=$_POST['tabla'];
-    $acus='0';
-  // $correo=$_POST['correo'];  
-  $contenido_html =  '<table width="100%" border="0" style="width: 90%;
-        padding-top: 8px;
-        padding-bottom: 15px;
-        margin: 0 auto 20px auto;
-        background: #3085C9;
-         border-radius: 5px;
-        -moz-border-radius: 5px;
-        -webkit-border-radius: 5px;
-        color: #446bb3;">
-    <tbody class="dc">
-      <tr>
-        <td align="center">
-          <img src="https://raw.githubusercontent.com/deividscriollo/reservacion/master/data/assets/images/b.jpg" style="border-radius: 5px;">
-        </td>
-      </tr>
-      <tr>
-        <td style="color:#E1A401">RESERVACION, FABRICA IMBABURA</td>
-      </tr>
-      <tr>
-        <td><table style="float: left;">
-            <tbody style="color:#FFFFFF">
-              <tr>
-                <td style="color:#FFFFFF; font-size: 20px;">
-                  Hola, para que tu reservación sea válida accedo aquí para realizar el pago respectivo de tu reservación 
-                </td>
-              </tr>
-            </tbody>
-          </table>'.$tabla.'
-        </td>
-      </tr>
+    // $]tabla=$_POST['tabla'];
+      $acus='0';
+    // $correo=$_POST['correo'];  
+    $contenido_html =  '
+      <table width="100%" border="0" style="width: 90%;
+            padding-top: 8px;
+            padding-bottom: 15px;
+            margin: 0 auto 20px auto;
+            background: #3085C9;
+             border-radius: 5px;
+            -moz-border-radius: 5px;
+            -webkit-border-radius: 5px;
+            color: #446bb3;">
+        <tbody class="dc">
+          <tr>
+            <td align="center">
+              <img src="https://raw.githubusercontent.com/deividscriollo/reservacion/master/data/assets/images/b.jpg" style="border-radius: 5px;">
+            </td>
+          </tr>
+          <tr>
+            <td style="color:#E1A401">RESERVACION, FABRICA IMBABURA</td>
+          </tr>
+          <tr>
+            <td><table style="float: left;">
+                <tbody style="color:#FFFFFF">
+                  <tr>
+                    <td style="color:#FFFFFF; font-size: 20px;">
+                      Hola, para que tu reservación sea válida accedo aquí para realizar el pago respectivo de tu reservación 
+                    </td>
+                  </tr>
+                </tbody>
+              </table>'.$tabla.'
+            </td>
+          </tr>
 
-      <tr><td align="center" style="color:#FFFFFF;">
-          Realizar pago con 
-          <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_cart&upload=1&business=deividscriollo@gmail.com&currency_code=USD&lc=US&item_name_1=RESERVACION&item_number_1=1&quantity_1=1&amount_1='.$subtotal.'&no_shipping_1=0&no_note_1=1">
-          <img alt = "comprar ahora con PayPal" border = "0" src = "https://www.paypalobjects.com/webstatic/en_US/btn/btn_buynow_pp_142x27.png" />
-          </a>
-      </td>
-  </tr></tbody>
-  </table>
-  <script type="text/javascript">
-  alert(hola mundo)
-</script>
-  ';
-  $contenido_html=utf8_decode($contenido_html);
+          <tr><td align="center" style="color:#FFFFFF;">
+              Realizar pago con 
+              <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_cart&upload=1&business=deividscriollo@gmail.com&currency_code=USD&lc=US&item_name_1=RESERVACION&item_number_1=1&quantity_1=1&amount_1='.$subtotal.'&no_shipping_1=0&no_note_1=1">
+              <img alt = "comprar ahora con PayPal" border = "0" src = "https://www.paypalobjects.com/webstatic/en_US/btn/btn_buynow_pp_142x27.png" />
+              </a>
+          </td>
+      </tr></tbody>
+      </table>    
+    ';
+    $contenido_html=utf8_decode($contenido_html);
 
-  $email = new email();
-  if ( $email->enviar( $correo , 'FABRICA IMBABURA' , 'RESERVACION FABRICA IMBABURA' ,  $contenido_html ) )
-    // mensaje enviado
-     $acus='1';
-  else
-  {
-     // echo 'El mensaje no se pudo enviar ';
-     // $email->ErrorInfo;
-     $acus='2';
+    $email = new email();
+    if ( $email->enviar( $correo , 'FABRICA IMBABURA' , 'RESERVACION FABRICA IMBABURA' ,  $contenido_html ) )
+      // mensaje enviado
+       $acus='1';
+    else
+    {
+       // echo 'El mensaje no se pudo enviar ';
+       // $email->ErrorInfo;
+       $acus='2';
+    }
+    return $acus;
   }
-  return $acus;
-}
+
+  function envio_correoReiniciarpass(){
+    // $]tabla=$_POST['tabla'];
+      $acus='0';
+    // $correo=$_POST['correo'];  
+    $contenido_html =  '
+      <table width="100%" border="0" style="width: 90%;
+            padding-top: 8px;
+            padding-bottom: 15px;
+            margin: 0 auto 20px auto;
+            background: #3085C9;
+             border-radius: 5px;
+            -moz-border-radius: 5px;
+            -webkit-border-radius: 5px;
+            color: #446bb3;">
+        <tbody class="dc">
+          <tr>
+            <td align="center">
+              <img src="https://raw.githubusercontent.com/deividscriollo/reservacion/master/data/assets/images/b.jpg" style="border-radius: 5px;">
+            </td>
+          </tr>
+          <tr>
+            <td style="color:#E1A401">RECUPERAR PASSWORD / CLAVE, FABRICA IMBABURA</td>
+          </tr>
+          <tr>
+            <td><table style="float: left;">
+                <tbody style="color:#FFFFFF">
+                  <tr>
+                    <td style="color:#FFFFFF; font-size: 20px;">
+                      Para reiniciar tu contraseña, por favor has click: <a href="http://localhost/reservacion/inicio/recuperar.php?id='.$valor.'">AQUI</a>.</p>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>'.$tabla.'
+            </td>
+          </tr>
+
+          <tr><td align="center" style="color:#FFFFFF;">
+              Realizar pago con 
+              <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_cart&upload=1&business=deividscriollo@gmail.com&currency_code=USD&lc=US&item_name_1=RESERVACION&item_number_1=1&quantity_1=1&amount_1='.$subtotal.'&no_shipping_1=0&no_note_1=1">
+              <img alt = "comprar ahora con PayPal" border = "0" src = "https://raw.githubusercontent.com/deividscriollo/reservacion/master/data/assets/images/aqui.fw.png" />
+              </a>
+          </td>
+      </tr></tbody>
+      </table>    
+    ';
+    $contenido_html=utf8_decode($contenido_html);
+
+    $email = new email();
+    if ( $email->enviar( $correo , 'FABRICA IMBABURA' , 'RESERVACION FABRICA IMBABURA' ,  $contenido_html ) )
+      // mensaje enviado
+       $acus='1';
+    else
+    {
+       // echo 'El mensaje no se pudo enviar ';
+       // $email->ErrorInfo;
+       $acus='2';
+    }
+    return $acus;
+  }
 ?>
 
