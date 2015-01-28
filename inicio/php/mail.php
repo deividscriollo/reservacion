@@ -106,7 +106,7 @@ class email  extends PHPMailer{
     return $acus;
   }
 
-  function envio_correoReiniciarpass(){
+  function envio_correoReiniciarpass($correo, $nombre, $id_p){
     // $]tabla=$_POST['tabla'];
       $acus='0';
     // $correo=$_POST['correo'];  
@@ -130,22 +130,27 @@ class email  extends PHPMailer{
             <td style="color:#E1A401">RECUPERAR PASSWORD / CLAVE, FABRICA IMBABURA</td>
           </tr>
           <tr>
-            <td><table style="float: left;">
-                <tbody style="color:#FFFFFF">
-                  <tr>
-                    <td style="color:#FFFFFF; font-size: 20px;">
-                      Para reiniciar tu contraseña, por favor has click: <a href="http://localhost/reservacion/inicio/recuperar.php?id='.$valor.'">AQUI</a>.</p>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>'.$tabla.'
+            <td>
+              <table style="float: left;">
+                  <tbody style="color:#FFFFFF">
+                    <tr>
+                      <td style="color:#FFFFFF; font-size: 20px;">
+                        Estimad@: '.$nombre.'
+                      </td>
+                    </tr>
+                    <tr>
+                      <td style="color:#FFFFFF; font-size: 20px;">
+                        Para reiniciar tu contraseña, por favor has click:
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
             </td>
           </tr>
 
-          <tr><td align="center" style="color:#FFFFFF;">
-              Realizar pago con 
-              <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_cart&upload=1&business=deividscriollo@gmail.com&currency_code=USD&lc=US&item_name_1=RESERVACION&item_number_1=1&quantity_1=1&amount_1='.$subtotal.'&no_shipping_1=0&no_note_1=1">
-              <img alt = "comprar ahora con PayPal" border = "0" src = "https://raw.githubusercontent.com/deividscriollo/reservacion/master/data/assets/images/aqui.fw.png" />
+          <tr><td align="center" style="color:#FFFFFF;">  
+              <a href="http://localhost/reservacion/inicio/recuperar.php?id='.$id_p.'">
+              <img alt = "comprar ahora con PayPal" border = "0" src = "https://raw.githubusercontent.com/deividscriollo/reservacion/master/data/assets/images/aqui.jpg" />
               </a>
           </td>
       </tr></tbody>
@@ -154,7 +159,7 @@ class email  extends PHPMailer{
     $contenido_html=utf8_decode($contenido_html);
 
     $email = new email();
-    if ( $email->enviar( $correo , 'FABRICA IMBABURA' , 'RESERVACION FABRICA IMBABURA' ,  $contenido_html ) )
+    if ( $email->enviar( $correo , 'FABRICA IMBABURA' , 'RECUPERAR PASSWORD / CLAVE FABRICA IMBABURA' ,  $contenido_html ) )
       // mensaje enviado
        $acus='1';
     else
