@@ -6,6 +6,7 @@ if(!isset($_SESSION))
 
 require('../../admin/class.php');
 $class=new constante();
+if (isset($_POST['validar_acceso'])) {
 //obtencion d campos usuario y password
 $usu=$_POST['u'];
 $pass=$_POST['p'];
@@ -36,8 +37,14 @@ $resultado = $class->consulta("SELECT * FROM SEG.USUARIO WHERE correo='$usu' and
 	while ($row=$class->fetch_array($resultado)) {
 			$existencia=2;						
 }
-
-
 print($existencia);
+}
+if (isset($_POST['servicios'])) {
+	print'<option value>Seleccione Servicio</option>';
+	$resultado = $class->consulta("SELECT * FROM SEG.CATEGORIA_SERVICIO WHERE STADO='1'");	
+	while ($row=$class->fetch_array($resultado)) {
+		print'<option value="'.$row[0].'">'.$row[1].'</option>';
+	}
+}
 
 ?>

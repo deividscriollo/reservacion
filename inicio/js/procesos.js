@@ -1,3 +1,18 @@
+			// llamar funcion dcar4gar datos select
+			servicio_categoria();
+			// cargar datos de servicio categoria
+			function servicio_categoria(){			
+				var result = "" ; 					
+				$.ajax({
+						url:'php/acceso.php',
+			            async :  false ,   
+			            type:  'post',
+			            data: {servicios:'ok'},
+			            success : function ( data )  {	
+			            	$('#sel_servicio').html(data)
+					    } 
+					});	
+			}
 			// Buscando registros seccion nombre usuario
 			function buscando(registro){			
 				var result = "" ; 					
@@ -118,7 +133,8 @@
 						},
 						agree:{
 							required:true
-						}
+						},
+						sel_servicio:{required:true}
 						
 					},
 			
@@ -148,7 +164,8 @@
 							required:"Por favor, Digite nombre de usuario",
 							
 						},
-						agree:'Términos y Condiciones para Registro'
+						agree:'Términos y Condiciones para Registro',
+						sel_servicio:'Por favor, Seleccione la categoría'
 						
 					},
 			
@@ -188,7 +205,8 @@
 				            	txt_0:$('#txt_reg_ced').val(),
 				            	txt_1:$('#txt_reg_nom_usuario').val(),
 				            	txt_2:$('#txt_reg_email').val(),
-				            	txt_3:$('#txt_reg_pass').val()	
+				            	txt_3:$('#txt_reg_pass').val(),
+				            	txt_3:$('#sel_servicio').val()	
 				            },
 				            beforeSend: function () {
 								$('#icon-tiempo').show();

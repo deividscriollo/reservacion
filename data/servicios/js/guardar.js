@@ -21,13 +21,40 @@ $(function(){
 	    }
 	    return doc;
  	}
+ 	// existencia de datos en la tabla
+	function buscando(registro){			
+		var result = "" ; 					
+		$.ajax({
+	            url:'php/tarifa.php',
+	            async :  false ,   
+	            type:  'post',
+	            data: {existencia_ser:'ok',reg:registro},            
+	            success : function ( data )  {
+	            	//$("#icon_b_usuario").addClass("icon-user");		                						         
+			         result = data ;  
+			    } 		                
+	    	});
+		return result ; 
+	}
+	//Validación Existencia correo electronico
+		jQuery.validator.addMethod("existe_serv", function (value, element) {
+			var a=value;
+			var reg=$('#txt_servicio').val();					
+			if (buscando(reg,0)==0) {						
+				return true;
+			};
+			if(buscando(reg,0)!=0){						
+				return false;
+			};
+		}, "Por favor, Digite otro servicio ya existe!!!.");
 	$('#form-servicios').validate({
 		errorElement: 'span',
 		errorClass: 'help-inline',
 		focusInvalid: false,
 		rules: {
 			txt_servicio: {
-				required: true				
+				required: true,
+				existe_serv: true			
 			},
 			txt_descripcion: {
 				required: true				
@@ -42,7 +69,8 @@ $(function(){
 
 		messages: {
 			txt_servicio: {
-				required: "Por favor, Digíte nombre del servicio."				
+				required: "Por favor, Digíte nombre del servicio.",
+				existe_serv:'Digite otro servicio ya existe!!!'			
 			},
 			txt_descripcion: {
 				required: "Por favor, Digíte descripcion del servicio."
@@ -92,7 +120,7 @@ $(function(){
                 processData:false,
                 success: function(data)
                 {
-                   
+                   mostrar_servicios();
                    if (data==0) {
                    		$.gritter.add({						
 							title: '..Mensaje..!',						

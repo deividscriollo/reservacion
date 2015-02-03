@@ -78,8 +78,9 @@
 				    })
 				},              
                 success:  function (data) { 
-                	$.unblockUI();
-                console.log(data)                             	
+                	$('#frm-recuperar').each (function(){
+						  this.reset();
+						});                             	
                 	if (data==0) {
                 		$.unblockUI();
                 		$.gritter.add({						
@@ -88,7 +89,7 @@
 							//image: 'http://a0.twimg.com/profile_images/59268975/jquery_avatar_bigger.png',						
 							sticky: false,						
 							time: ''
-						});
+						});						
                 	};
                 	if (data==1) {
                 		$.unblockUI();

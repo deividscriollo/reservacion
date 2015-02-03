@@ -1,5 +1,5 @@
-$(function(){
-
+$(function(){   
+    
     //
     $('#btn_guardar_reservacion').click(function(){        
 
@@ -189,7 +189,7 @@ function bus_servicio(reg){
         success: function(data)
         {			
 			 // console.log(data)   
-			$('#tabla_servicios tbody').html(data);
+			$('#obj_contenedor_servicios').html(data);
         }			                	        
     });
 };
@@ -219,6 +219,7 @@ function btn_select_servicio(id){
     // imprimiendo id
     $('#id_servicio').html(id);
     $('#txt_fecha_origen').popover('show');
+    $('#modal-servicio').modal('hide');
 };
     function info_tabla(){
         $("#tabla_horas_acu tbody").html('');

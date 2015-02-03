@@ -29,7 +29,7 @@ else
 
 if($acu==0){
 require 'mail.php';
-print 'salio esto:'.envio_correoReiniciarpass($_POST['txt_1'],$nombre,$valor);
+print envio_correoReiniciarpass($_POST['txt_1'],$nombre,$valor);
 }
 ?>
 

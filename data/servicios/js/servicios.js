@@ -1,3 +1,238 @@
+mostrar_categoria();               
+mostrar_servicios();
+// existencia de datos en la tabla
+function buscando_cat(registro){
+	var result = "" ; 					
+	$.ajax({
+            url:'php/tarifa.php',
+            async: false,
+            type:  'post',
+            data: {existencia_categoria:'ok',reg:registro},            
+            success : function ( data )  {
+            	//$("#icon_b_usuario").addClass("icon-user");		                						         
+		         result = parseInt(data);  
+		         // console.log(result)
+		    } 		                
+    	});
+	return result ; 
+}
+//Validación Existencia correo electronico
+	jQuery.validator.addMethod("existe_cat", function (value, element) {
+		var a=value;
+		var reg=$('#txt_categoria').val();
+		if (buscando_cat(reg,0)==0) {						
+			return true;
+		};
+		if(buscando_cat(reg,0)!=0){						
+			return false;
+		};
+	}, "Por favor, Digite otro correo ya existe!!!.");
+$('#form-categoria').validate({
+	errorElement: 'span',
+	errorClass: 'help-inline',
+	focusInvalid: false,
+	rules: {
+		txt_categoria: {
+			required: true,
+			existe_cat:true			
+		}
+	},
+
+	messages: {
+		txt_categoria: {
+			required: "Por favor, Digíte nombre dela categoría.",
+			existe_cat: "La categoría ya existe, digíte otra."
+		}			
+	},
+
+	invalidHandler: function (event, validator) { //display error alert on form submit   
+		$('.alert-error', $('.login-form')).show();
+	},
+
+	highlight: function (e) {
+		$(e).closest('.control-group').removeClass('success').addClass('error');
+	},
+
+	success: function (e) {
+		$(e).closest('.control-group').removeClass('error').addClass('success');
+		$(e).remove();
+	},
+
+	errorPlacement: function (error, element) {
+		if(element.is(':checkbox') || element.is(':radio')) {
+			var controls = element.closest('.controls');
+			if(controls.find(':checkbox,:radio').length > 1) controls.append(error);
+			else error.insertAfter(element.nextAll('.lbl:eq(0)').eq(0));
+		}
+		else if(element.is('.select2')) {
+			error.insertAfter(element.siblings('[class*="select2-container"]:eq(0)'));
+		}
+		else if(element.is('.chzn-select')) {
+			error.insertAfter(element.siblings('[class*="chzn-container"]:eq(0)'));
+		}
+		else error.insertAfter(element);
+	},
+
+	submitHandler: function (form) {	
+
+		$.ajax({
+            url: "php/tarifa.php",
+            type: "POST",
+            data: {guardar_cat:'ok',txt_1:$('#txt_categoria').val()},
+            success: function(data)
+            {
+				mostrar_categoria();               
+               if (data==0) {
+               		$.gritter.add({						
+						title: '..Mensaje..!',						
+						text: 'OK: <br><i class="icon-cloud purple bigger-230"></i>  Sus datos fueron almacenados correctamente. <br><i class="icon-spinner icon-spin green bigger-230"></i>',						
+						//image: 'http://a0.twimg.com/profile_images/59268975/jquery_avatar_bigger.png',						
+						sticky: false,						
+						time: 2000
+					});
+					//$('#txt_archivo').ace_file_input();
+					$('#txt_archivo').ace_file_input('reset_input');
+
+					$('#form-categoria').each (function(){
+						this.reset();
+					});
+               };
+               if (data==1) {
+               		$.gritter.add({						
+						title: '..Mensaje..!',						
+						text: 'Ooooo: <br><i class="icon-cloud purple bigger-230"></i>   Lo sentimos intente mas tarde. <br><i class="icon-spinner icon-spin red bigger-230"></i> : [',						
+						//image: 'http://a0.twimg.com/profile_images/59268975/jquery_avatar_bigger.png',						
+						sticky: false,						
+						time: ''
+					});
+               };
+               if (data!=0&&data!=1) {
+               	$.gritter.add({						
+						title: '..Mensaje..!',						
+						text: 'TENEMOS INCONVENIENTES INTENTE MAS TARDE<br><i class="icon-cloud purple bigger-230"></i> comuniquese con el administrador <br><i class="icon-spinner icon-spin purple bigger-230"></i> : [',						
+						//image: 'http://a0.twimg.com/profile_images/59268975/jquery_avatar_bigger.png',						
+						sticky: false,						
+						time: ''
+					});
+               };
+               
+            },
+            error: function(jqXHR, textStatus, errorThrown) 
+            {
+            } 	        
+        });
+
+    	
+	},
+	invalidHandler: function (form) {
+		//alert('fallast')
+	}
+});
+
+// $('#form-categoria-modificar').validate({
+// 	errorElement: 'span',
+// 	errorClass: 'help-inline',
+// 	focusInvalid: false,
+// 	rules: {
+// 		txt_categoria: {
+// 			required: true,
+// 			existe_cat:true			
+// 		}
+// 	},
+
+// 	messages: {
+// 		txt_categoria: {
+// 			required: "Por favor, Digíte nombre dela categoría.",
+// 			existe_cat: "La categoría ya existe, digíte otra."
+// 		}			
+// 	},
+
+// 	invalidHandler: function (event, validator) { //display error alert on form submit   
+// 		$('.alert-error', $('.login-form')).show();
+// 	},
+
+// 	highlight: function (e) {
+// 		$(e).closest('.control-group').removeClass('success').addClass('error');
+// 	},
+
+// 	success: function (e) {
+// 		$(e).closest('.control-group').removeClass('error').addClass('success');
+// 		$(e).remove();
+// 	},
+
+// 	errorPlacement: function (error, element) {
+// 		if(element.is(':checkbox') || element.is(':radio')) {
+// 			var controls = element.closest('.controls');
+// 			if(controls.find(':checkbox,:radio').length > 1) controls.append(error);
+// 			else error.insertAfter(element.nextAll('.lbl:eq(0)').eq(0));
+// 		}
+// 		else if(element.is('.select2')) {
+// 			error.insertAfter(element.siblings('[class*="select2-container"]:eq(0)'));
+// 		}
+// 		else if(element.is('.chzn-select')) {
+// 			error.insertAfter(element.siblings('[class*="chzn-container"]:eq(0)'));
+// 		}
+// 		else error.insertAfter(element);
+// 	},
+
+// 	submitHandler: function (form) {	
+// 		alert(form)
+// 		var formObj = new FormData(form); 				
+// 		$.ajax({
+//             url: "php/tarifa.php",
+//             type: "POST",
+//             data: {modificar_cat:'ok',txt_1:$('#txt_categoria').val(),id:$('#lbl_id_categoria').html()},
+//             success: function(data)
+//             {
+// 				mostrar_categoria();
+// 				console.log(data)               
+//                if (data==0) {
+//                		$.gritter.add({						
+// 						title: '..Mensaje..!',						
+// 						text: 'OK: <br><i class="icon-cloud purple bigger-230"></i>  Sus datos fueron almacenados correctamente. <br><i class="icon-spinner icon-spin green bigger-230"></i>',						
+// 						//image: 'http://a0.twimg.com/profile_images/59268975/jquery_avatar_bigger.png',						
+// 						sticky: false,						
+// 						time: 2000
+// 					});
+// 					//$('#txt_archivo').ace_file_input();
+// 					$('#txt_archivo').ace_file_input('reset_input');
+
+// 					$('#form-categoria').each (function(){
+// 						this.reset();
+// 					});
+//                };
+//                if (data==1) {
+//                		$.gritter.add({						
+// 						title: '..Mensaje..!',						
+// 						text: 'Ooooo: <br><i class="icon-cloud purple bigger-230"></i>   Lo sentimos intente mas tarde. <br><i class="icon-spinner icon-spin red bigger-230"></i> : [',						
+// 						//image: 'http://a0.twimg.com/profile_images/59268975/jquery_avatar_bigger.png',						
+// 						sticky: false,						
+// 						time: ''
+// 					});
+//                };
+//                if (data!=0&&data!=1) {
+//                	$.gritter.add({						
+// 						title: '..Mensaje..!',						
+// 						text: 'TENEMOS INCONVENIENTES INTENTE MAS TARDE<br><i class="icon-cloud purple bigger-230"></i> comuniquese con el administrador <br><i class="icon-spinner icon-spin purple bigger-230"></i> : [',						
+// 						//image: 'http://a0.twimg.com/profile_images/59268975/jquery_avatar_bigger.png',						
+// 						sticky: false,						
+// 						time: ''
+// 					});
+//                };
+               
+//             },
+//             error: function(jqXHR, textStatus, errorThrown) 
+//             {
+//             } 	        
+//         });
+
+    	
+// 	},
+// 	invalidHandler: function (form) {
+// 		//alert('fallast')
+// 	}
+// });
+
 $('#btn_servicos').click(function(){
 	$.ajax({
 	    url: "php/mostrar.php",
@@ -35,8 +270,31 @@ function guardar_id(x){
 	
 	mostrar_tarifa(x)
 	mostrar_horario(x)
+	$('#btn_perfil').show();
 }
-
+// mostrando categoria en tabla
+function mostrar_categoria(){
+	$.ajax({
+	    url: "php/tarifa.php",
+	    type: "POST",
+	    data: {mostrar_categoria:'ok'},        
+	    success: function(data)
+	    {		
+	       	$('#tbl_categoria tbody').html(data);	       	
+	    }   
+	});
+}
+function mostrar_servicios(){
+	$.ajax({
+	    url: "php/tarifa.php",
+	    type: "POST",
+	    data: {mostrar_servicios:'ok'},        
+	    success: function(data)
+	    {		
+	       	$('#tbl_servicios tbody').html(data);	       	
+	    }   
+	});
+}
 function g_edicion(elemento, pos, x){
 	$.ajax({
 	    url: "php/buscar_p.php",
@@ -44,7 +302,7 @@ function g_edicion(elemento, pos, x){
 	    data: {id:x,pos:pos},        
 	    success: function(data)
 	    {		
-	       	$(elemento).html(data);	       	
+	       	$(elemento).html(data);	
 	    }   
 	});
 }
@@ -57,97 +315,7 @@ function g_edicion_img(pos, x){
 	    {	
 	    	var valor=data.split(" ");
 	    	
-	       	$('#img_foto').html('<img id="avatar" class="editable" src="img/'+valor[2]+'"/>'); 
-	       	try {//ie8 throws some harmless exception, so let's catch it
-			
-					//it seems that editable plugin calls appendChild, and as Image doesn't have it, it causes errors on IE at unpredicted points
-					//so let's have a fake appendChild for it!
-					if( /msie\s*(8|7|6)/.test(navigator.userAgent.toLowerCase()) ) Image.prototype.appendChild = function(el){}
-			
-					var last_gritter
-					$('#avatar').editable({
-						type: 'image',
-						name: 'avatar',
-						value: null,
-						image: {
-							//specify ace file input plugin's options here
-							btn_choose: 'Change Avatar',
-							droppable: true,
-							/**
-							//this will override the default before_change that only accepts image files
-							before_change: function(files, dropped) {
-								return true;
-							},
-							*/
-			
-							//and a few extra ones here
-							name: 'avatar',//put the field name here as well, will be used inside the custom plugin
-							max_size: 110000,//~100Kb
-							on_error : function(code) {//on_error function will be called when the selected file has a problem
-								if(last_gritter) $.gritter.remove(last_gritter);
-								if(code == 1) {//file format error
-									last_gritter = $.gritter.add({
-										title: 'File is not an image!',
-										text: 'Please choose a jpg|gif|png image!',
-										class_name: 'gritter-error gritter-center'
-									});
-								} else if(code == 2) {//file size rror
-									last_gritter = $.gritter.add({
-										title: 'File too big!',
-										text: 'Image size should not exceed 100Kb!',
-										class_name: 'gritter-error gritter-center'
-									});
-								}
-								else {//other error
-								}
-							},
-							on_success : function() {
-								$.gritter.removeAll();
-							}
-						},
-					    url: function(params) {
-							// ***UPDATE AVATAR HERE*** //
-							//You can replace the contents of this function with examples/profile-avatar-update.js for actual upload
-			
-			
-							var deferred = new $.Deferred
-			
-							//if value is empty, means no valid files were selected
-							//but it may still be submitted by the plugin, because "" (empty string) is different from previous non-empty value whatever it was
-							//so we return just here to prevent problems
-							var value = $('#avatar').next().find('input[type=hidden]:eq(0)').val();
-							if(!value || value.length == 0) {
-								deferred.resolve();
-								return deferred.promise();
-							}
-			
-			
-							//dummy upload
-							setTimeout(function(){
-								if("FileReader" in window) {
-									//for browsers that have a thumbnail of selected image
-									var thumb = $('#avatar').next().find('img').data('thumb');
-									if(thumb) $('#avatar').get(0).src = thumb;
-								}
-								
-								deferred.resolve({'status':'OK'});
-			
-								if(last_gritter) $.gritter.remove(last_gritter);
-								last_gritter = $.gritter.add({
-									title: 'Avatar Updated!',
-									text: 'Uploading to server can be easily implemented. A working example is included with the template.',
-									class_name: 'gritter-info gritter-center'
-								});
-								
-							 } , parseInt(Math.random() * 800 + 800))
-			
-							return deferred.promise();
-						},
-						
-						success: function(response, newValue) {
-						}
-					})
-				}catch(e) {}   	
+	       	$('#img_foto').html('<img id="avatar" src="img/'+valor[2]+'"/>'); 	       		
 	    }   
 	});
 	

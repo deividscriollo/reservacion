@@ -61,9 +61,9 @@ if(!isset($_SESSION))
 				<span class="menu-text"></span>
 			</a>
 
-			<?php  menu(); ?>
+			
 
-			<div class="main-content">
+			<div class="main-contents">
 				<div class="page-content">
 					<div class="row-fluid">	
 						<div class="widget-box">
@@ -160,17 +160,19 @@ if(!isset($_SESSION))
 												</div>
 											</div>
 										</div><!--/span-->
-										<div class="span6">
+										<div class="span6 widget-container-span">
 											<div class="widget-box">
-												<div class="widget-header">
-													<h4 class="smaller">
-														Información
-														<small>Días y horarios de atención</small>
-													</h4>
+												<div class="widget-header header-color-red3">
+													<h5 class="bigger lighter">
+														<i class="icon-table"></i> Información, Días y horarios de atención													
+													</h5>
+
+													<div class="widget-toolbar">														
+													</div>
 												</div>
 
 												<div class="widget-body">
-													<div class="widget-main">
+													<div class="widget-main no-padding">
 														<table id="tabla_h_ser" class="table table-striped table-bordered table-hover no-margin-bottom no-border-top">
 															<thead>
 																<tr>
@@ -181,20 +183,24 @@ if(!isset($_SESSION))
 																</tr>
 															</thead>
 															<tbody></tbody>
-														</table>														
+														</table>
 													</div>
 												</div>
 											</div>
+										</div><!--/span-->
+										<div class="span6 widget-container-span">
 											<div class="widget-box">
-												<div class="widget-header">
-													<h4 class="smaller">
-														Información
-														<small>Tarifas / Costos</small>
-													</h4>
+												<div class="widget-header header-color-orange">
+													<h5 class="bigger lighter">
+														<i class="icon-table"></i> Información, Tarifas / Costos													
+													</h5>
+
+													<div class="widget-toolbar">														
+													</div>
 												</div>
 
 												<div class="widget-body">
-													<div class="widget-main">
+													<div class="widget-main no-padding">
 														<table id="tabla_h_tarifa" class="table table-striped table-bordered table-hover no-margin-bottom no-border-top">
 															<thead>
 																<tr>
@@ -204,13 +210,13 @@ if(!isset($_SESSION))
 																</tr>
 															</thead>
 															<tbody></tbody>
-														</table>														
-													</div>
+														</table>
 												</div>
 											</div>
 										</div><!--/span-->
-										
 
+										
+										
 									</div>
 								</div>
 							</div>
@@ -259,7 +265,7 @@ if(!isset($_SESSION))
 			<div class="modal-header no-padding">
 				<div class="table-header">
 					<div type="button" class="close" data-dismiss="modal">&times;</div>
-					Servicios disponibles
+					SERVICIOS DISPONIBLES
 				</div>
 			</div>
 
@@ -278,20 +284,11 @@ if(!isset($_SESSION))
 								</div>
 							</div>
 						</form>								
-					</div>					
-					<div class="hr hr-dotted"></div>
-						<table id="tabla_servicios" class="table table-striped table-bordered table-hover no-margin-bottom no-border-top">
-							<thead>
-								<tr>
-									<th>Servicio</th>
-									<th>Descripción</th>
-									<th>Otros</th>
-									<th>Acción</th>
-								</tr>
-							</thead>
-							<tbody>							
-							</tbody>
-						</table>		
+					</div>
+					<div class="page-content center" id="obj_contenedor_servicios">
+														
+					</div>
+											
 				</div>									
 			</div>			
 			<div class="modal-footer">

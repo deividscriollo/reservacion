@@ -49,15 +49,7 @@ $(function(){
 		$("#obj_contenedor").append(campo);					
 		// console.log('inputid: '+inputid)
 		//$('.chzn-select'+inputid+"").append("<option value='LUNES' />LUNES");						
-		var semana = [ 
-			    {"id": 'LUNES', "name": "LUNES"}, 
-			    {"id": 'MARTES', "name": "MARTES"},
-			    {"id": 'MIERCOLES', "name": "MIERCOLES"},
-			    {"id": 'JUEVES', "name": "JUEVES"},
-			    {"id": 'VIERNES', "name": "VIERNES"},
-			    {"id": 'SABADO', "name": "SABADO"},
-			    {"id": 'DOMINGO', "name": "DOMINGO"}
-			];
+		
 
 		var myOptions = "<option value></option>";
 		for(var i=0; i<semana.length; i++){
@@ -105,24 +97,7 @@ $('#btn_guardar_horario').click(function(){
 			var horai=cadena[0];
 			var horaf=cadena[1];
 			horaf=horaf.replace(" ","");
-			$.ajax({
-		        url: "php/tarifa.php",
-		        type: "POST",
-		        data:{g_horario:'ok', id_servicio:id_servicio, dias:valor1,horai:horai,horaf:horaf},			               
-		        success: function(data)
-		        {			
-					// console.log(data)   
-					$.gritter.add({						
-						title: '..Mensaje..!',						
-						text: 'OK: <br><i class="icon-cloud purple bigger-230"></i>  Sus datos fueron almacenados correctamente. <br>',						
-						//image: 'http://a0.twimg.com/profile_images/59268975/jquery_avatar_bigger.png',						
-						sticky: false,						
-						time: 2000
-					});	
-					mostrar_horario(id_servicio)						
-					$('#obj_contenedor').html('');
-		        }			                	        
-		    });
+			
 		}else{
 		 break;
 		}
@@ -144,24 +119,77 @@ function mostrar_horario(id){
     });
 };
 
+function modificar_horario(id){
+	bootbox.confirm("<h1>EN PROCESO<h1>", function(result) {
+		if(result) {
+			// $.ajax({
+		 //        url: "php/tarifa.php",
+		 //        type: "POST",
+		 //        data:{id:id,h_eliminar:'ok'},			               
+		 //        success: function(data)
+		 //        {			
+			// 		//console.log(data)   
+			// 		$('#tabla_tarifa tbody').html(data);
+			// 		$.gritter.add({						
+			// 			title: '..Mensaje..!',						
+			// 			text: 'OK: <br><i class="icon-cloud purple bigger-230"></i>  Sus datos fueron eliminados . <br>',						
+			// 			//image: 'http://a0.twimg.com/profile_images/59268975/jquery_avatar_bigger.png',						
+			// 			sticky: false,						
+			// 			time: 2000
+			// 		});			
+			// 		mostrar_horario($('#lbl_id_servicio').html());
+		 //        }			                	        
+		 //    });
+		}
+	});		
+}
+
+function modificar_tarifa(id){
+	bootbox.confirm("<h1>EN PROCESO<h1>", function(result) {
+		if(result) {
+			// $.ajax({
+		 //        url: "php/tarifa.php",
+		 //        type: "POST",
+		 //        data:{id:id,h_eliminar:'ok'},			               
+		 //        success: function(data)
+		 //        {			
+			// 		//console.log(data)   
+			// 		$('#tabla_tarifa tbody').html(data);
+			// 		$.gritter.add({						
+			// 			title: '..Mensaje..!',						
+			// 			text: 'OK: <br><i class="icon-cloud purple bigger-230"></i>  Sus datos fueron eliminados . <br>',						
+			// 			//image: 'http://a0.twimg.com/profile_images/59268975/jquery_avatar_bigger.png',						
+			// 			sticky: false,						
+			// 			time: 2000
+			// 		});			
+			// 		mostrar_horario($('#lbl_id_servicio').html());
+		 //        }			                	        
+		 //    });
+		}
+	});		
+}
 // eliminar refgistro tarifa
 function h_eliminar(id){
-	$.ajax({
-        url: "php/tarifa.php",
-        type: "POST",
-        data:{id:id,h_eliminar:'ok'},			               
-        success: function(data)
-        {			
-			//console.log(data)   
-			$('#tabla_tarifa tbody').html(data);
-			$.gritter.add({						
-				title: '..Mensaje..!',						
-				text: 'OK: <br><i class="icon-cloud purple bigger-230"></i>  Sus datos fueron eliminados . <br>',						
-				//image: 'http://a0.twimg.com/profile_images/59268975/jquery_avatar_bigger.png',						
-				sticky: false,						
-				time: 2000
-			});			
-			mostrar_horario($('#lbl_id_servicio').html());
-        }			                	        
-    });
+	bootbox.confirm("<h1>Seguro desea eliminar<h1>", function(result) {
+		if(result) {
+			$.ajax({
+		        url: "php/tarifa.php",
+		        type: "POST",
+		        data:{id:id,h_eliminar:'ok'},			               
+		        success: function(data)
+		        {			
+					//console.log(data)   
+					$('#tabla_tarifa tbody').html(data);
+					$.gritter.add({						
+						title: '..Mensaje..!',						
+						text: 'OK: <br><i class="icon-cloud purple bigger-230"></i>  Sus datos fueron eliminados . <br>',						
+						//image: 'http://a0.twimg.com/profile_images/59268975/jquery_avatar_bigger.png',						
+						sticky: false,						
+						time: 2000
+					});			
+					mostrar_horario($('#lbl_id_servicio').html());
+		        }			                	        
+		    });
+		}
+	});		
 }

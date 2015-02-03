@@ -54,7 +54,7 @@ $('#form-acceso').validate({
 			$.ajax({
                 url: 'php/acceso.php',
 				type: 'POST',				
-				data: {u: $('#txt_usuario').val(), p:$('#txt_pass').val()},                
+				data: {validar_acceso:'ok', u: $('#txt_usuario').val(), p:$('#txt_pass').val()},                
                 success:  function (data) { 
                 //alert(data)               	
                 	if (data==0) {
