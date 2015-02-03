@@ -190,7 +190,7 @@ if(!isset($_SESSION))
 										</div><!--/span-->
 										<div class="span6 widget-container-span">
 											<div class="widget-box">
-												<div class="widget-header header-color-orange">
+												<div class="widget-header header-color-purple">
 													<h5 class="bigger lighter">
 														<i class="icon-table"></i> Información, Tarifas / Costos													
 													</h5>
