@@ -35,6 +35,8 @@ if(!isset($_SESSION))
 		<link rel="stylesheet" href="../assets/css/bootstrap-timepicker.css" />
 		<link rel="stylesheet" href="../assets/css/daterangepicker.css" />
 		<link rel="stylesheet" href="../assets/css/colorpicker.css" />
+		<link rel="stylesheet" href="../assets/css/colorbox.css" />
+		
 
 		<!--page specific plugin styles-->
 
@@ -52,20 +54,59 @@ if(!isset($_SESSION))
 
 		<!--inline styles related to this page-->
 	
-
-	<body>
+		<style type="text/css">
+			.dc_spm{
+				width: 30%;
+				height: 600px;
+				background: rgba(255,255,255,0.6);
+				float: right;
+				font-size: 50px;
+				padding-bottom: 10px;
+				padding-top:20px;
+			}
+		</style>
+	<body >
 		<?php require('../inicio/menu.php'); menunav(); ?>
 
 		<div class="main-container container-fluid">
 			<a class="menu-toggler" id="menu-toggler" href="#">
 				<span class="menu-text"></span>
 			</a>
-
+			<script type="text/javascript">
+				$(document).ready(function() {
+					var randomLinks = $('.random-color');
+					var original = randomLinks.css('color');
+					randomLinks.hover(function() { //mouseover
+						var col = 'rgb(' + (Math.floor(Math.random() * 256)) + ',' + (Math.floor(Math.random() * 256)) + ',' + (Math.floor(Math.random() * 256)) + ')';
+						$(this).animate({
+							'color': col,
+							'paddingLeft': '20px'
+						},1000);
+					},function() { //mouseout
+						$(this).animate({
+							'color': original,
+							'paddingLeft': '0'
+						},500);
+					});
+				});
+			</script>
 			
 
-			<div class="main-contents">
-				<div class="page-content">
-					<div class="row-fluid">	
+			<div class="main-contents" >
+				<div class="page-content" style="background: rgba(25,25,25,0.1);!important;">
+					<div class="row-fluid full-rigth">
+						<div class="span12">
+							<div class="dc_spm">
+								<div class="random-color">hola</div>
+								<div class="random-color">hola</div>
+								<div class="random-color">hola</div>
+								<div class="random-color">hola</div>
+								<div class="random-color">hola</div>
+							</div>
+						</div>
+						
+					</div>
+					<div class="row-fluid" id="inicio">	
 						<div class="widget-box">
 							<div class="widget-header">
 								<h4>Selecciones Servicio</h4>								
@@ -81,8 +122,9 @@ if(!isset($_SESSION))
 								</span>
 							</div>
 
-							<div class="widget-body">
+							<div class="widget-body" style="background: rgba(255,255,255,0.9);!important;">
 								<div class="widget-main">
+
 									<div class="row-fluid">
 										<div class="span6">
 											<div class="widget-box">
@@ -160,63 +202,141 @@ if(!isset($_SESSION))
 												</div>
 											</div>
 										</div><!--/span-->
-										<div class="span6 widget-container-span">
-											<div class="widget-box">
-												<div class="widget-header header-color-red3">
-													<h5 class="bigger lighter">
-														<i class="icon-table"></i> Información, Días y horarios de atención													
-													</h5>
+										<div class="span6">
+											<div class="row-fluid">
+												<div class="row-fluid">
+													<div class="span12 widget-container-span">
+														<div class="widget-box transparent">
+															<div class="widget-header">
+																<h4 class="lighter">Información del Servicio</h4>
 
-													<div class="widget-toolbar">														
-													</div>
-												</div>
+																<div class="widget-toolbar no-border">
+																	<ul class="nav nav-tabs" id="myTab2">
+																		<li class="active">
+																			<a data-toggle="tab" href="#galeria">Galería</a>
+																		</li>
 
-												<div class="widget-body">
-													<div class="widget-main no-padding">
-														<table id="tabla_h_ser" class="table table-striped table-bordered table-hover no-margin-bottom no-border-top">
-															<thead>
-																<tr>
-																	<th>Nro</th>
-																	<th>Días a reservar</th>
-																	<th><i class="icon-time"></i> Inicia</th>
-																	<th><i class="icon-time"></i> Finaliza</th>
-																</tr>
-															</thead>
-															<tbody></tbody>
-														</table>
+																		<li>
+																			<a data-toggle="tab" href="#descripcion">Descripción</a>
+																		</li>
+
+																		<li>
+																			<a data-toggle="tab" href="#otros">Otros</a>
+																		</li>
+																	</ul>
+																</div>
+															</div>
+
+															<div class="widget-body">
+																<div class="widget-main padding-12 no-padding-left no-padding-right">
+																	<div class="tab-content padding-4">
+																		<div id="galeria" class="tab-pane in active">
+																			<div class="slim-scroll" data-height="150">
+																				<div class="row-fluid">
+																					<div class="span12">
+																						<!--PAGE CONTENT BEGINS-->
+
+																						<div class="row-fluid" id="obj_cont_galeria">
+																							
+																						</div><!--PAGE CONTENT ENDS-->
+																					</div><!--/.span-->
+																				</div>
+																			</div>
+																		</div>
+
+																		<div id="descripcion" class="tab-pane">
+																			<div class="slim-scroll" data-height="150">
+																				<div class="row-fluid">
+																					<div class="span12">
+																						<!--PAGE CONTENT BEGINS-->
+
+																						<div class="row-fluid" id="obj_cont_descripcion">
+																							
+																						</div><!--PAGE CONTENT ENDS-->
+																					</div><!--/.span-->
+																				</div>
+																			</div>
+																		</div>
+
+																		<div id="otros" class="tab-pane">
+																			<div class="slim-scroll" data-height="150">
+																				<div class="row-fluid">
+																					<div class="span12">
+																						<!--PAGE CONTENT BEGINS-->
+
+																						<div class="row-fluid" id="obj_cont_otros">
+																							
+																						</div><!--PAGE CONTENT ENDS-->
+																					</div><!--/.span-->
+																				</div>
+																			</div>
+																		</div>
+																	</div>
+																</div>
+															</div>
+														</div>
 													</div>
-												</div>
+												</div><!--PAGE CONTENT ENDS-->
 											</div>
-										</div><!--/span-->
-										<div class="span6 widget-container-span">
-											<div class="widget-box">
-												<div class="widget-header header-color-purple">
-													<h5 class="bigger lighter">
-														<i class="icon-table"></i> Información, Tarifas / Costos													
-													</h5>
+											<div class="row-fluid">
+												<div class="span12 widget-container-span">
+													<div class="widget-box">
+														<div class="widget-header header-color-red3">
+															<h5 class="bigger lighter">
+																<i class="icon-table"></i> Información, Días y horarios de atención													
+															</h5>
 
-													<div class="widget-toolbar">														
+															<div class="widget-toolbar">														
+															</div>
+														</div>
+
+														<div class="widget-body">
+															<div class="widget-main no-padding">
+																<table id="tabla_h_ser" class="table table-striped table-bordered table-hover no-margin-bottom no-border-top">
+																	<thead>
+																		<tr>
+																			<th>Nro</th>
+																			<th>Días a reservar</th>
+																			<th><i class="icon-time"></i> Inicia</th>
+																			<th><i class="icon-time"></i> Finaliza</th>
+																		</tr>
+																	</thead>
+																	<tbody></tbody>
+																</table>
+															</div>
+														</div>
 													</div>
-												</div>
-
-												<div class="widget-body">
-													<div class="widget-main no-padding">
-														<table id="tabla_h_tarifa" class="table table-striped table-bordered table-hover no-margin-bottom no-border-top">
-															<thead>
-																<tr>
-																	<th>Nro</th>
-																	<th>Tarifa</th>
-																	<th><i class="icon-time"></i> Precio</th>																	
-																</tr>
-															</thead>
-															<tbody></tbody>
-														</table>
-												</div>
+												</div><!--/span-->
 											</div>
-										</div><!--/span-->
+											<div class="row-fluid">
+												<div class="span12 widget-container-span">
+													<div class="widget-box">
+														<div class="widget-header header-color-purple">
+															<h5 class="bigger lighter">
+																<i class="icon-table"></i> Información, Tarifas / Costos													
+															</h5>
 
-										
-										
+															<div class="widget-toolbar">														
+															</div>
+														</div>
+
+														<div class="widget-body">
+															<div class="widget-main no-padding">
+																<table id="tabla_h_tarifa" class="table table-striped table-bordered table-hover no-margin-bottom no-border-top">
+																	<thead>
+																		<tr>
+																			<th>Nro</th>
+																			<th>Tarifa</th>
+																			<th><i class="icon-time"></i> Precio</th>																	
+																		</tr>
+																	</thead>
+																	<tbody></tbody>
+																</table>
+														</div>
+													</div>
+												</div><!--/span-->	
+											</div>
+										</div>							
 									</div>
 								</div>
 							</div>
@@ -421,6 +541,9 @@ if(!isset($_SESSION))
 		<script src="../assets/js/jquery.slimscroll.min.js"></script>
 		<script src="../assets/js/fuelux/fuelux.spinner.min.js"></script>
 		<script src="../assets/js/blockui.js"></script>
+		<script src="../assets/js/jquery.slimscroll.min.js"></script>
+		<script src="../assets/js/jquery.colorbox-min.js"></script>
+		<script src="../assets/vegas/jquery.vegas.js"></script>
 		
 
 
@@ -437,6 +560,18 @@ if(!isset($_SESSION))
 
 
 <script type="text/javascript">
+
+$.vegas('slideshow', {
+  backgrounds:[
+    { src:'../assets/images/gallery/dc1.jpg', fade:1000 },
+    { src:'../assets/images/gallery/dc2.jpg', fade:1000 },
+    { src:'../assets/images/gallery/dc3.jpg', fade:1000 }
+  ]
+})('overlay', {
+  src:'../assets/vegas/overlays/11.png'
+});
+
+
 function reconstruir(i){	
 	$("#tabla_horas tbody tr").each(function (index) {
         var campo1, axus=0, campo3;
@@ -460,9 +595,40 @@ function reconstruir(i){
 	        }); 
         }              
     });
-
-
 }
+// funciones de galeria
+$(function() {
+	var colorbox_params = {
+		reposition:true,
+		scalePhotos:true,
+		scrolling:false,
+		previous:'<i class="icon-arrow-left"></i>',
+		next:'<i class="icon-arrow-right"></i>',
+		close:'&times;',
+		current:'{current} of {total}',
+		maxWidth:'100%',
+		maxHeight:'100%',
+		onOpen:function(){
+			document.body.style.overflow = 'hidden';
+		},
+		onClosed:function(){
+			document.body.style.overflow = 'auto';
+		},
+		onComplete:function(){
+			$.colorbox.resize();
+		}
+	};
+
+	$('.ace-thumbnails [data-rel="colorbox"]').colorbox(colorbox_params);
+	$("#cboxLoadingGraphic").append("<i class='icon-spinner orange'></i>");//let's add a custom loading icon
+
+	/**$(window).on('resize.colorbox', function() {
+		try {
+			//this function has been changed in recent versions of colorbox, so it won't work
+			$.fn.colorbox.load();//to redraw the current frame
+		} catch(e){}
+	});*/
+})
 
 $(function(){	
 
@@ -482,15 +648,22 @@ $(function(){
 		// console.log($('#txt_fecha_origen'));
 		// class="btn btn-success btn-small tooltip-success" 
 	});
-	$('#txt_b_servicio').click(function(){
-		
+	$('#txt_b_servicio').click(function(){		
 		var valor=$(this);
 		var acu=valor.parent().parent();
 		$(acu).removeClass('warning');
-		$(acu).addClass('success');
-
-		
+		$(acu).addClass('success');		
 	});
+
+	// scrollables
+	$('.slim-scroll').each(function () {
+		var $this = $(this);
+		$this.slimScroll({
+			height: $this.data('height') || 100,
+			railVisible:true
+		});
+	});
+
 	
 	
 	//$('#modal-servicio').modal('show');  

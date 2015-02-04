@@ -205,7 +205,7 @@ function btn_select_servicio(id){
 			$('#tabla_h_ser tbody').html(data);
         }			                	        
     });
-    // 
+    // mostrar tabla de tarifas existentes
     $.ajax({
         url: "reservacion.php",
         type: "POST",
@@ -216,6 +216,41 @@ function btn_select_servicio(id){
 			$('#tabla_h_tarifa tbody').html(data);
         }			                	        
     });
+    // mostrar galeria
+    $.ajax({
+        url: "reservacion.php",
+        type: "POST",
+        data:{mostrar_galeria:'ok', id:id},                         
+        success: function(data)
+        {           
+            // console.log(data)   
+            $('#obj_cont_galeria').html(data);
+        }                                       
+    });
+    // mostrar descripcion
+    $.ajax({
+        url: "reservacion.php",
+        type: "POST",
+        data:{mostrar_descripcion:'ok', id:id},                         
+        success: function(data)
+        {           
+            // console.log(data)   
+            $('#obj_cont_descripcion').html(data);
+        }                                       
+    });
+    // mostrar otros
+    $.ajax({
+        url: "reservacion.php",
+        type: "POST",
+        data:{mostrar_otros:'ok', id:id},                         
+        success: function(data)
+        {           
+            // console.log(data)   
+            $('#obj_cont_otros').html(data);
+        }                                       
+    });
+
+    
     // imprimiendo id
     $('#id_servicio').html(id);
     $('#txt_fecha_origen').popover('show');

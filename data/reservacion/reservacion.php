@@ -82,6 +82,54 @@
 				print $row[0].','.$row[1].',';				
 		 	}
 	}
+	if(isset($_POST['mostrar_galeria'])) {
+		//$pos=$_POST['pos'];			
+		$resultado = $class->consulta("SELECT * FROM SERVICIOS S WHERE  S.ID='$_POST[id]' ");
+			$acu=1;
+			while ($row=$class->fetch_array($resultado)) {					
+				print '<ul class="ace-thumbnails">
+						<li>
+							<a href="../servicios/img/'.$row[4].'" data-rel="colorbox" class="cboxElement">
+								<img alt="150x150" src="../servicios/img/'.$row[4].'">
+								<div class="text">
+									<div class="inner">'.$row[1].'</div>
+								</div>
+							</a>
+						</li>
+					</ul>';				
+		 	}
+	}
+	if(isset($_POST['mostrar_descripcion'])) {
+		//$pos=$_POST['pos'];			
+		$resultado = $class->consulta("SELECT * FROM SERVICIOS S WHERE  S.ID='$_POST[id]' ");
+			$acu=1;
+			while ($row=$class->fetch_array($resultado)) {					
+				print '<div class="pull-left alert alert-success inline no-margin">
+							<button type="button" class="close" data-dismiss="alert">
+								<i class="icon-remove"></i>
+							</button>
+
+							<i class="icon-umbrella bigger-120 blue"></i>
+							'.$row[2].'
+						</div>';				
+		 	}
+	}
+	if(isset($_POST['mostrar_otros'])) {
+		//$pos=$_POST['pos'];			
+		$resultado = $class->consulta("SELECT * FROM SERVICIOS S WHERE  S.ID='$_POST[id]' ");
+			$acu=1;
+			while ($row=$class->fetch_array($resultado)) {					
+				print '<div class="pull-left alert alert-success inline no-margin">
+							<button type="button" class="close" data-dismiss="alert">
+								<i class="icon-remove"></i>
+							</button>
+
+							<i class="icon-umbrella bigger-120 blue"></i>
+							'.$row[3].'
+						</div>';			
+		 	}
+	}
+	
 	if (isset($_POST['buscar_servicio'])) {
 		//$pos=$_POST['pos'];	
 		$reg=$_POST['registro'];

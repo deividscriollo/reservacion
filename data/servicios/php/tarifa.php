@@ -59,7 +59,7 @@ if (isset($_POST['mostrar_tarifa'])) {
 	$resultado = $class->consulta("SELECT * FROM TARIFA WHERE ID_SERVICIO='$_POST[id]' AND STADO='1'");
 	$id=1;
 	while ($row=$class->fetch_array($resultado)) {
-		print'<tr><td>'.$id++.'</td><td>'.$row[2].'</td><td>'.$row[3].'</td><td>'.$row[4].'</td><td>'.
+		print'<tr><td>'.$id++.'</td><td>'.$row[3].'</td><td>'.$row[4].'</td><td>'.$row[5].'</td><td>'.
 		'<div class="hidden-phone visible-desktop action-buttons" >
 							<a class="green" onclick=modificar_tarifa("'.$row[0].'")>
 								<i class="icon-pencil bigger-130"></i>
