@@ -56,10 +56,11 @@ if (isset($_POST['g_horario'])) {
 
 if (isset($_POST['mostrar_tarifa'])) {
 
-	$resultado = $class->consulta("SELECT * FROM TARIFA WHERE ID_SERVICIO='$_POST[id]' AND STADO='1'");
-	$id=1;
+	$resultado = $class->consulta("SELECT * FROM TARIFA T, SEG.CATEGORIA_SERVICIO C WHERE C.ID=T.ID_CATEGORIA AND  ID_SERVICIO='$_POST[id]' AND T.STADO='1'");
+	$id=1;	
 	while ($row=$class->fetch_array($resultado)) {
-		print'<tr><td>'.$id++.'</td><td>'.$row[3].'</td><td>'.$row[4].'</td><td>'.$row[5].'</td><td>'.
+		$x=number_format($row[4],2);
+		print'<tr><td>'.$id++.'</td><td class="text-success">'.$row[8].'</td><td class="text-info">'.$row[3].'</td><td class="text-error">'.$x.'</td><td>'.
 		'<div class="hidden-phone visible-desktop action-buttons" >
 							<a class="green" onclick=modificar_tarifa("'.$row[0].'")>
 								<i class="icon-pencil bigger-130"></i>

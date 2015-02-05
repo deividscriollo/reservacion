@@ -1,8 +1,4 @@
-$(function (){
-	mostrar_tarifa();
-	mostrar_categoria_select();
-
-	function mostrar_categoria_select(){
+function mostrar_categoria_select(){
 		$.ajax({
 			url:'php/tarifa.php',
 			type:'POST',
@@ -17,6 +13,11 @@ $(function (){
 			}
 		});
 	}
+$(function (){
+	mostrar_tarifa();
+	mostrar_categoria_select();
+
+	
 	function proceso_verificacion_dias_existencia(){
 		var id_servicio=$('#lbl_id_servicio').html();
 		$.ajax({

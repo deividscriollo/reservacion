@@ -78,7 +78,9 @@ $(function(){
 						$('#form-tarifa').each (function(){
 							this.reset();
 						});
+
 						mostrar_tarifa($('#lbl_id_servicio').html());
+						mostrar_categoria_select()
                    };
                    if (data==1) {
                    		$.gritter.add({						

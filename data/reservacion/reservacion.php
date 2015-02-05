@@ -75,8 +75,8 @@
 	}
 	if(isset($_POST['obj_tarifa'])) {
 		//$pos=$_POST['pos'];			
-		$resultado = $class->consulta("SELECT nom_tarifa, precio FROM SERVICIOS S, TARIFA T
-										WHERE S.ID=T.ID_SERVICIO AND S.ID='$_POST[id]' AND T.STADO ='1';");
+		$resultado = $class->consulta("SELECT nom_tarifa, precio FROM SERVICIOS S, TARIFA T, SEG.CATEGORIA_SERVICIO C, SEG.NIVEL N,SEG.USUARIO U WHERE
+ S.ID=T.ID_SERVICIO AND T.ID_CATEGORIA=C.ID AND U.ID=N.ID_USUARIO AND U.ID='$_SESSION[id]' AND N.ID_CATEGORIA_SERVICIO=C.ID AND S.ID='$_POST[id]' AND T.STADO ='1';");
 			$acu=1;
 			while ($row=$class->fetch_array($resultado)) {					
 				print $row[0].','.$row[1].',';				
@@ -174,27 +174,52 @@
 	}
 	if(isset($_POST['buscar_inf_serv_h2'])) {
 		//$pos=$_POST['pos'];			
-		$resultado = $class->consulta("SELECT nom_tarifa, precio FROM SERVICIOS S, TARIFA T
-										WHERE S.ID=T.ID_SERVICIO AND S.ID='$_POST[id]' AND T.STADO ='1'");
+		$resultado = $class->consulta("SELECT nom_tarifa, precio, C.NOM FROM SERVICIOS S, TARIFA T, SEG.CATEGORIA_SERVICIO C, SEG.NIVEL N,SEG.USUARIO U WHERE
+ S.ID=T.ID_SERVICIO AND T.ID_CATEGORIA=C.ID AND U.ID=N.ID_USUARIO AND U.ID='$_SESSION[id]' AND N.ID_CATEGORIA_SERVICIO=C.ID AND S.ID='$_POST[id]' AND T.STADO ='1';");
 			$acu=1;
-			while ($row=$class->fetch_array($resultado)) {					
-				print'<tr><td>'.$acu++.'</td><td>'.$row[0].'</td><td>'.$row[1].'</td></tr>';		
+			while ($row=$class->fetch_array($resultado)) {
+				$x=number_format($row[1],2);
+				print'<tr><td>'.$acu++.'</td><td>'.$row[2].'</td><td>'.$row[0].'</td><td class="text-error"> $ '.$x.'</td></tr>';		
 		 	}
 	}
 	if(isset($_POST['buscar_horas'])) {
 		$dia=$_POST['dia'];
 		$sum=0;
 		$a='';
-		$resultado = $class->consulta("SELECT horai, horaf, dias FROM HORARIO_SERVICIOS WHERE ID_SERVICIO='$_POST[id]' AND STADO ='1';");				
+		$resultado = $class->consulta("SELECT horai, horaf, dias, lapso FROM HORARIO_SERVICIOS WHERE ID_SERVICIO='$_POST[id]' AND STADO ='1';");				
 		while ($row=$class->fetch_array($resultado)) {
 			$encontrar=1;							
 			$acu=split(",", $row[2]);				
 			for ($i=0; $i < count($acu); $i++) {
 				$dc=strtoupper((String)$acu[$i]);
 				if((string)$dc==$dia){						
+					
 					$b=split(":", $row[0]);
 					$c=split(":", $row[1]);
-					$a=$b[0].','.$c[0];
+					$d=split(":", $row[3]);					
+					if ($sum==0) {
+						$max_i=0;
+						$horaInicial=$b[0].':'.$b[1];
+						for ($i=$b[0]; $i < 20; $i++) {
+							if ($max_i==0)
+							$horaInicial=$b[0].':'.$b[1];
+							$minutoAnadir=($d[0]*60)+$d[1];
+							$segundos_horaInicial=strtotime($horaInicial);
+							$segundos_minutoAnadir=$minutoAnadir*60;
+							$nuevaHora=date("H:i",$segundos_horaInicial+$segundos_minutoAnadir);
+							if ($max_i==0) {
+								print'<tr><td><label><input type="checkbox" onclick="reconstruir('.$max_i.')"/><span class="lbl"></span></label></td><td>'.$horaInicial.'</td><td>'.$nuevaHora.'</td><td>'.$_POST['f'].'</td><td>'.$dia.'</td></tr>';	
+							}else{
+								print'<tr><td><label><input type="checkbox" onclick="reconstruir('.$max_i.')"/><span class="lbl"></span></label></td><td>'.$horaInicial.'</td><td>'.$nuevaHora.'</td><td>'.$_POST['f'].'</td><td>'.$dia.'</td></tr>';	
+							}
+							$horaInicial=$nuevaHora;							
+							$max_i++;
+							$n=split(':',$horaInicial);
+							$n[0];
+							print $c[0]-2;
+							if($n[0]>=$c[0]){break;}
+						}
+					}
 					$sum=1;											
 				}
 			}		

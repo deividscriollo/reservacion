@@ -201,13 +201,12 @@ if(!isset($_SESSION))
 																						<thead>
 																							<tr>
 																								<th>Num</th>
-																								<th>Nombre Tarifa</th>
-																								<th><i class="icon-money bigger-110"></i>Precio</th>
-
 																								<th>
-																									<i class="icon-time bigger-110"></i>
-																									Fecha
+																									<i class="icon-list bigger-110"></i>
+																									Categoría
 																								</th>
+																								<th>Nombre Tarifa</th>
+																								<th><i class="icon-money bigger-110"></i>Precio</th>																								
 																								<th>Acción</th>
 																							</tr>
 																						</thead>
@@ -708,7 +707,7 @@ if(!isset($_SESSION))
 										<div class="controls">
 											<div class="span12" id="sel_categoria_mostrar">
 												<!-- <select multiple="" class="select2" id="txt_1_horario" name="txt_1_horario"> -->
-																						
+														<!-- 								
 											</div>
 										</div>
 									</div>
@@ -746,7 +745,7 @@ if(!isset($_SESSION))
 					Cerrar
 				</button>
 																	
-			</div>
+			</div> -->
 		<!-- </div> -->
 		<!--PAGE CONTENT ENDS-->
 

@@ -47,6 +47,7 @@ if(!isset($_SESSION))
 		<link rel="stylesheet" href="../assets/css/ace.min.css" />
 		<link rel="stylesheet" href="../assets/css/ace-responsive.min.css" />
 		<link rel="stylesheet" href="../assets/css/ace-skins.min.css" />
+		<link rel="stylesheet" href="../assets/css/animate.css" />
 
 		<!--[if lte IE 8]>
 		  <link rel="stylesheet" href="../assets/css/ace-ie.min.css" />
@@ -56,15 +57,54 @@ if(!isset($_SESSION))
 	
 		<style type="text/css">
 			.dc_spm{
-				width: 30%;
-				height: 600px;
+				width: 40%;
+				height: 500px;
 				background: rgba(255,255,255,0.6);
 				float: right;
-				font-size: 50px;
-				padding-bottom: 10px;
-				padding-top:20px;
 			}
-		</style>
+			.dc_btn{
+
+				width: 0;
+				height: 0;
+				border-style: solid;
+				border-width: 66px 100px 0 100px;
+				border-color: #007bff transparent transparent transparent;
+				display:block!important;
+			}
+			.dc_btn:hover{
+				cursor: pointer;
+							
+			}
+			.zoom{
+				transition: 2.5s ease;
+		 		-moz-transition: 2.5s ease; /* Firefox */
+		 		-webkit-transition: 2.5s ease; /* Chrome - Safari */
+		 		-o-transition: 2.5s ease; /* Opera */
+			}
+			.zoom:hover{
+				transform : scale(1.2);
+				-moz-transform : scale(1.2); /* Firefox */
+				-webkit-transform : scale(1.2); /* Chrome - Safari */
+				-o-transform : scale(1.2); /* Opera */
+				-ms-transform : scale(1.2); /* IE9 */
+			}
+			.dctexto{
+				padding-top: 100px;
+				padding-left: 20%;				
+			}
+			.dctexto h4{
+				font-size: 100px!important;
+			}
+			.dcm{
+
+				float: right;
+				width: 40%;
+			}
+			.dcespacio{
+				height: 200px;
+			}
+		</style>		
+
 	<body >
 		<?php require('../inicio/menu.php'); menunav(); ?>
 
@@ -72,41 +112,32 @@ if(!isset($_SESSION))
 			<a class="menu-toggler" id="menu-toggler" href="#">
 				<span class="menu-text"></span>
 			</a>
-			<script type="text/javascript">
-				$(document).ready(function() {
-					var randomLinks = $('.random-color');
-					var original = randomLinks.css('color');
-					randomLinks.hover(function() { //mouseover
-						var col = 'rgb(' + (Math.floor(Math.random() * 256)) + ',' + (Math.floor(Math.random() * 256)) + ',' + (Math.floor(Math.random() * 256)) + ')';
-						$(this).animate({
-							'color': col,
-							'paddingLeft': '20px'
-						},1000);
-					},function() { //mouseout
-						$(this).animate({
-							'color': original,
-							'paddingLeft': '0'
-						},500);
-					});
-				});
-			</script>
 			
-
 			<div class="main-contents" >
 				<div class="page-content" style="background: rgba(25,25,25,0.1);!important;">
-					<div class="row-fluid full-rigth">
-						<div class="span12">
+					<div class="row-fluid"><br><br><br><br><br></div>
+					<div class="row-fluid">
+						<div class="span11">
 							<div class="dc_spm">
-								<div class="random-color">hola</div>
-								<div class="random-color">hola</div>
-								<div class="random-color">hola</div>
-								<div class="random-color">hola</div>
-								<div class="random-color">hola</div>
-							</div>
-						</div>
-						
+								<div class="row-fluid">
+									<div class="dctexto zoom">
+										<h4 class="animated bounceInDown">Hola, </h4>
+									</div>
+									<div class="dctexto zoom">
+										
+										<h4 class="animated bounceInUp"><?php $m=split(' ', $_SESSION['nom']); print $m[0];?></h4>
+									</div>
+								</div>
+								<br><br><br>
+								<div class="row-fluid dcm" >
+									<a href="#inicio" class="animated bounceInRight zoom"><img src="../assets/images/abajo.fw.png"></a>
+								</div>								
+							</div>							
+						</div>						
 					</div>
-					<div class="row-fluid" id="inicio">	
+					<div class="dcespacio"></div>
+					<div class="row-fluid" id="inicio">
+
 						<div class="widget-box">
 							<div class="widget-header">
 								<h4>Selecciones Servicio</h4>								
@@ -195,7 +226,7 @@ if(!isset($_SESSION))
 															</div>
 														</div>
 														<div class="row-fluid">															
-															<button class="btn btn-success btn-block icon-user danger span12 " href="#modal-reservacion" data-toggle="modal" id="btn_reservar"> RESERVAR</button>																														
+															<button class="btn btn-success btn-block icon-user danger span12 " id="btn_reservar"> RESERVAR</button>
 
 														</div>														
 													</div>
@@ -295,7 +326,7 @@ if(!isset($_SESSION))
 																<table id="tabla_h_ser" class="table table-striped table-bordered table-hover no-margin-bottom no-border-top">
 																	<thead>
 																		<tr>
-																			<th>Nro</th>
+																			<th>#</th>																			
 																			<th>Días a reservar</th>
 																			<th><i class="icon-time"></i> Inicia</th>
 																			<th><i class="icon-time"></i> Finaliza</th>
@@ -326,6 +357,7 @@ if(!isset($_SESSION))
 																	<thead>
 																		<tr>
 																			<th>Nro</th>
+																			<th>Categoría</th>
 																			<th>Tarifa</th>
 																			<th><i class="icon-time"></i> Precio</th>																	
 																		</tr>
@@ -695,7 +727,7 @@ $(function(){
 	var fec=new Date();
 	var acufecha=fec.getDate() + "/" + (fec.getMonth() +1) + "/" + fec.getFullYear();
 	
-	 var fecha = sumaFecha(5,acufecha);
+	 var fecha = sumaFecha(7,acufecha);
 	 
 	$('.date-picker').datepicker({					
 		startDate: new Date(),
@@ -709,43 +741,65 @@ $('#txt_fecha_origen').change(function(){
 	$('#lbl_dia').html(dia_semana(fe));
 	var campo='';
 	var dia=$('#lbl_dia').html();
-	var horas=buscar_horas($('#id_servicio').html(),dia);
-	var a=horas.split(",");
-	if (a=='n') {
-		console.log('no existe')
-	};
-	if (a!='n') {
-		var f=$('#txt_fecha_origen').val();
-		var max_i=0;
-		for (var i = parseInt(a[0]); i <a[1]; i++) {
-			var h=i+':00';
-			var j=i+1+':00';
-			campo=campo+'<tr><td><label><input type="checkbox" onclick="reconstruir('+max_i+')"/><span class="lbl"></span></label></td><td>'+h+'</td><td>'+j+'</td><td>'+f+'</td><td>'+dia+'</td></tr>';	
-			max_i++;
-		};		
-	};
+	buscar_horas($('#id_servicio').html(),dia,fe);
+	// horas=horas.replace(" ","");
+	// var a=horas.split(";");	
+	// if (a=='n') {
+	// 	console.log('no existe')
+	// };
+	// if (a!='n') {
+	// 	// inicio de Horas
+	// 	var horas_inicio=a[0];
+	// 	// final de horas
+	// 	var horas_fin=a[1];
+	// 	// lpaso de horas
+	// 	var horas_lapso=a[2];
+	// 	// sacando horas
+	// 	var s=horas_inicio.split(":");
+	// 	var t=horas_fin.split(":");
+	// 	var u=horas_lapso.split(":");
+
+	// 	var f=$('#txt_fecha_origen').val();
+	// 	var max_i=0,z=0,hi=0,hf=0;
+	// 	for (var i = parseInt(s[0]); i <t[0]; i++) {					
+	// 		var sacando_hora=parseInt(s[0])+parseInt(u[0]);
+	// 		var sacando_minutos=parseInt(s[1])+parseInt(u[1]);
+	// 		var sacando_segundos=parseInt(s[2])+parseInt(u[2]);
+
+	// 		if (sacando_hora<=9) {
+	// 			sacando_hora='0'+sacando_hora;
+	// 		}
+	// 		var hi=sacando_hora+':'+sacando_minutos+':'+sacando_segundos;
+	// 		var hf=sacando_hora;
+	// 		campo=campo+'<tr><td><label><input type="checkbox" onclick="reconstruir('+max_i+')"/><span class="lbl"></span></label></td><td>'+hi+'</td><td>'+hf+'</td><td>'+f+'</td><td>'+dia+'</td></tr>';	
+	// 		max_i++;
+	// 	};		
+	// };
 	// console.log(horas)
 	
-	$("#tabla_horas tbody").html(campo);
+	//$("#tabla_horas tbody").html(campo);
 });
-
-
 // busca la hora que esta disponible en esa fecha
-function buscar_horas(reg,dia){
+function buscar_horas(reg,dia,fe){
 	var res=':(';
 	$.ajax({
         url: "reservacion.php",
         type: "POST",
-        async:false,
-        data:{buscar_horas:'ok', id:reg,dia:dia},			               
+        
+        data:{buscar_horas:'ok', id:reg,dia:dia,f:fe},			               
         success: function(data)
-        {			
-			res=data;
-			// $('#tabla_servicios tbody').html(data);
+        {	
+			$("#tabla_horas tbody").html(data);
         }	                	        
     });
-    return res;
+    //return res;
 }
 	
 });
 </script>
+<style type="text/css">
+	input[type=checkbox]:checked + label {
+  color: #f00;
+  font-style: normal;
+} 
+</style>
