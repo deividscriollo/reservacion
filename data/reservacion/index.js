@@ -2,8 +2,10 @@ $(function(){
     
     //
     $('#btn_guardar_reservacion').click(function(){        
-
-        $('#modal-reservacion').modal('hide'); 
+        var res_com=$('#lbl_total').html();
+        res_com=res_com+0;
+        if (res_com!=0) {
+            $('#modal-reservacion').modal('hide'); 
         var matriz= new Array();
         var horas='';
         //sacar valores de tarifas y otros elementos
@@ -62,11 +64,6 @@ $(function(){
                         sticky: false,                      
                         time: 2000
                     });
-                    
-                    //$('#txt_archivo').ace_file_input();
-                    // $('#txt_archivo').ace_file_input('reset_input');
-
-                    //redireccionar();
                };
                if(data!=0&&data!=1&&data!=2){
                         $.gritter.add({                     
@@ -79,8 +76,12 @@ $(function(){
                         //redireccionar();
                     }; 
             }                                       
-        });
-    
+        });   
+        };if (res_com==0) {
+                $('#txt_tarifa1').addClass('animated wobble');
+                $('#txt_tarifa2').addClass('animated wobble');
+                setTimeout ("renovar1()", 1000);
+        }
     });
     
     function redireccionar() {
@@ -186,12 +187,15 @@ $(function(){
 		bus_servicio(reg);
 	});     
 });
-function renovar() 
-{
+function renovar() {
     $('#tabla_horas tbody tr td label input').removeClass('animated bounceOut');
-    $('#tabla_horas tbody tr td label input').removeAttr('checked');
-    
+    $('#tabla_horas tbody tr td label input').removeAttr('checked');    
 } 
+function renovar1() {
+    $('#txt_tarifa1').removeClass('animated wobble');
+    $('#txt_tarifa2').removeClass('animated wobble');
+} 
+
 
 function resul_infor(lim){    
     //var subtotal=document.getElementById('lbl_subtotal').innerHTML;
@@ -284,6 +288,7 @@ function btn_select_servicio(id){
     $('#id_servicio').html(id);
     $('#txt_fecha_origen').popover('show');
     $('#modal-servicio').modal('hide');
+    $('html,body').animate({scrollTop:'1000px'}, 500);return false;
 };
     function info_tabla(){
         $("#tabla_horas_acu tbody").html('');

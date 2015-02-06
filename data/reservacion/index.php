@@ -130,7 +130,7 @@ if(!isset($_SESSION))
 								</div>
 								<br><br><br>
 								<div class="row-fluid dcm" >
-									<a href="#inicio" class="animated bounceInRight zoom"><img src="../assets/images/abajo.fw.png"></a>
+									<div id="btn_inicio" class="animated bounceInRight zoom"><img src="../assets/images/abajo.fw.png"></div>
 								</div>								
 							</div>							
 						</div>						
@@ -593,6 +593,24 @@ if(!isset($_SESSION))
 
 <script type="text/javascript">
 
+//$("#btn_inicio").animate({ scrollTop: $('#inicio')[0].scrollHeight}, 500);
+$("#btn_inicio").css({'cursor':'pointer'});
+$("#btn_inicio").click(function(){
+	$('html,body').animate({
+		scrollTop:'1000px'},
+		1000,
+		function(){
+		 	$('#btn_buscar_servicios').addClass('animated wobble');
+            setTimeout ("renovar1()", 1000);
+            $('#btn_buscar_servicios').css({'color':'red'});
+		});
+	return false;	
+});
+
+function renovar3() {
+    $('#btn_buscar_servicios').removeClass('animated wobble');        
+} 
+
 $.vegas('slideshow', {
   backgrounds:[
     { src:'../assets/images/gallery/dc1.jpg', fade:1000 },
@@ -663,11 +681,10 @@ $(function() {
 })
 
 $(function(){	
-
 	bus_servicio(''); 
 	$('#btn_buscar_servicios').popover('show');
 	$('#btn_buscar_servicios').mouseover(function(){		
-		$(this).css({'cursor': 'pointer'});
+		$(this).css({'cursor':'pointer'});
 	});
 
 	// #modal-servicio
@@ -741,43 +758,7 @@ $('#txt_fecha_origen').change(function(){
 	$('#lbl_dia').html(dia_semana(fe));
 	var campo='';
 	var dia=$('#lbl_dia').html();
-	buscar_horas($('#id_servicio').html(),dia,fe);
-	// horas=horas.replace(" ","");
-	// var a=horas.split(";");	
-	// if (a=='n') {
-	// 	console.log('no existe')
-	// };
-	// if (a!='n') {
-	// 	// inicio de Horas
-	// 	var horas_inicio=a[0];
-	// 	// final de horas
-	// 	var horas_fin=a[1];
-	// 	// lpaso de horas
-	// 	var horas_lapso=a[2];
-	// 	// sacando horas
-	// 	var s=horas_inicio.split(":");
-	// 	var t=horas_fin.split(":");
-	// 	var u=horas_lapso.split(":");
-
-	// 	var f=$('#txt_fecha_origen').val();
-	// 	var max_i=0,z=0,hi=0,hf=0;
-	// 	for (var i = parseInt(s[0]); i <t[0]; i++) {					
-	// 		var sacando_hora=parseInt(s[0])+parseInt(u[0]);
-	// 		var sacando_minutos=parseInt(s[1])+parseInt(u[1]);
-	// 		var sacando_segundos=parseInt(s[2])+parseInt(u[2]);
-
-	// 		if (sacando_hora<=9) {
-	// 			sacando_hora='0'+sacando_hora;
-	// 		}
-	// 		var hi=sacando_hora+':'+sacando_minutos+':'+sacando_segundos;
-	// 		var hf=sacando_hora;
-	// 		campo=campo+'<tr><td><label><input type="checkbox" onclick="reconstruir('+max_i+')"/><span class="lbl"></span></label></td><td>'+hi+'</td><td>'+hf+'</td><td>'+f+'</td><td>'+dia+'</td></tr>';	
-	// 		max_i++;
-	// 	};		
-	// };
-	// console.log(horas)
-	
-	//$("#tabla_horas tbody").html(campo);
+	buscar_horas($('#id_servicio').html(),dia,fe);	
 });
 // busca la hora que esta disponible en esa fecha
 function buscar_horas(reg,dia,fe){
@@ -797,9 +778,3 @@ function buscar_horas(reg,dia,fe){
 	
 });
 </script>
-<style type="text/css">
-	input[type=checkbox]:checked + label {
-  color: #f00;
-  font-style: normal;
-} 
-</style>
