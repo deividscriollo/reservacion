@@ -46,7 +46,7 @@ class email  extends PHPMailer{
 }//--> fin clase
 
 /* == se emplea la clase email == */
-  function envio_correoReservacion($correo, $tabla, $subtotal) {  
+  function envio_correoReservacion($correo, $tabla, $subtotal,$id) {  
     // $]tabla=$_POST['tabla'];
       $acus='0';
     // $correo=$_POST['correo'];  
@@ -81,11 +81,12 @@ class email  extends PHPMailer{
               </table>'.$tabla.'
             </td>
           </tr>
-
-          <tr><td align="center" style="color:#FFFFFF;">
-              Realizar pago con 
+          <tr><td align="center" style="color:#FFFFFF;">              
               <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_cart&upload=1&business=deividscriollo@gmail.com&currency_code=USD&lc=US&item_name_1=RESERVACION&item_number_1=1&quantity_1=1&amount_1='.$subtotal.'&no_shipping_1=0&no_note_1=1">
-              <img alt = "comprar ahora con PayPal" border = "0" src = "https://www.paypalobjects.com/webstatic/en_US/btn/btn_buynow_pp_142x27.png" />
+              <img src = "https://raw.githubusercontent.com/deividscriollo/reservacion/master/data/assets/images/p.fw.png" />
+              </a>
+              <a href="http://localhost/reservacion/inicio/recuperar.php?id='.$id.'">
+              <img src = "https://raw.githubusercontent.com/deividscriollo/reservacion/master/data/assets/images/b.fw.png" />
               </a>
           </td>
       </tr></tbody>

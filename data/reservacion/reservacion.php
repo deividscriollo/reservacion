@@ -68,7 +68,7 @@
 		$tabla=$tabla.'</tbody></table>';		
 		$resultado = $class->consulta("SELECT * FROM SEG.USUARIO WHERE ID='$_SESSION[id]'");		
 		while ($row=$class->fetch_array($resultado)) {					
-			envio_correoReservacion($row['correo'],$tabla,$subtotal);				
+			envio_correoReservacion($row['correo'],$tabla,$subtotal,$row[0]);				
 	 	}
 
 
@@ -208,15 +208,21 @@
 							$segundos_minutoAnadir=$minutoAnadir*60;
 							$nuevaHora=date("H:i",$segundos_horaInicial+$segundos_minutoAnadir);
 							if ($max_i==0) {
-								print'<tr><td><label><input type="checkbox" onclick="reconstruir('.$max_i.')"/><span class="lbl"></span></label></td><td>'.$horaInicial.'</td><td>'.$nuevaHora.'</td><td>'.$_POST['f'].'</td><td>'.$dia.'</td></tr>';	
+								
+								// if (buscar_horario($horaInicial,$nuevaHora)==0) {
+									print'<tr><td><label><input type="checkbox" onclick="reconstruir('.$max_i.')"/><span class="lbl"></span></label></td><td>'.$horaInicial.'</td><td>'.$nuevaHora.'</td><td>'.$_POST['f'].'</td><td>'.$dia.'</td></tr>';										
+								// }
 							}else{
-								print'<tr><td><label><input type="checkbox" onclick="reconstruir('.$max_i.')"/><span class="lbl"></span></label></td><td>'.$horaInicial.'</td><td>'.$nuevaHora.'</td><td>'.$_POST['f'].'</td><td>'.$dia.'</td></tr>';	
+								$sb=buscar_horario($horaInicial,$nuevaHora);
+								// if($sb==0) {
+									print'<tr><td><label><input type="checkbox" onclick="reconstruir('.$max_i.')"/><span class="lbl"></span></label></td><td>'.$horaInicial.'</td><td>'.$nuevaHora.'</td><td>'.$_POST['f'].'</td><td>'.$dia.'</td></tr>';	
+								// }
 							}
 							$horaInicial=$nuevaHora;							
 							$max_i++;
 							$n=split(':',$horaInicial);
 							$n[0];
-							print $c[0]-2;
+							$c[0]-2;
 							if($n[0]>=$c[0]){break;}
 						}
 					}
@@ -227,5 +233,15 @@
 		if ($sum==1) {
 			print($a);
 		}else print('n');
-	}	
+	}
+function buscar_horario($inicio,$fin){
+	$a=0;
+	print('dcdeivid'.$inicio.$fin);
+	$class=new constante();
+	$resultado = $class->consulta("SELECT * FROM RESERVACION_HORARIOS WHERE hinicio='$inicio' and hfin='$fin' AND STADO='0'");
+	while ($row=$class->fetch_array($resultado)) {		
+		$a=1;		
+	}
+	return $a;
+}	
 ?>
