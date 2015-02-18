@@ -74,7 +74,7 @@ $(function(){
         },
 
         submitHandler: function (form) {
-            alert('hola mundo')
+            alert('Datos Almacenados')
         }        
     });
 
