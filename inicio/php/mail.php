@@ -85,7 +85,7 @@ class email  extends PHPMailer{
               <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_cart&upload=1&business=deividscriollo@gmail.com&currency_code=USD&lc=US&item_name_1=RESERVACION&item_number_1=1&quantity_1=1&amount_1='.$subtotal.'&no_shipping_1=0&no_note_1=1">
               <img src = "https://raw.githubusercontent.com/deividscriollo/reservacion/master/data/assets/images/p.fw.png" />
               </a>
-              <a href="http://localhost/reservacion/inicio/recuperar.php?id='.$id.'">
+              <a href="http://localhost/reservacion/data//reserva_banco/index.php?id='.$id.'">
               <img src = "https://raw.githubusercontent.com/deividscriollo/reservacion/master/data/assets/images/b.fw.png" />
               </a>
           </td>

@@ -172,9 +172,9 @@ if(!isset($_SESSION))
 												<span class="span12">
 													<select>
 														<option value=""></option>
-														<option value="AL">CUENTA A</option>
-														<option value="AK">CUENTA B</option>
-														<option value="AZ">CUENTA C	</option>
+														<option value="AL">024563</option>
+														<option value="AK">397</option>
+														<option value="AZ">563	</option>
 													</select>
 												</span>
 											</div>
