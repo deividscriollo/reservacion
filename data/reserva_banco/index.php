@@ -142,7 +142,7 @@ if(!isset($_SESSION))
 										<h4 class="header green">Detalle de la reservación</h4>
 									</div>
 									<div class="widget-main">
-										<form class="form-horizontal">
+										<form class="form-horizontal" id="form-comprobante">
 										<h4 class="header green">Ingrese la informacion</h4>
 										<div class="control-group">
 											<label class="control-label" for="email">Valor a Pagar:</label>
@@ -156,7 +156,7 @@ if(!isset($_SESSION))
 													$id=$class->idz();
 													$valor="";
 													$nombre="";
-													$resultado=$class->consulta("SELECT * FROM RESERVACION WHERE ID_USUARIO='".$_GET['id']."'");
+													$resultado=$class->consulta("SELECT * FROM RESERVACION WHERE ID_USUARIO='".$_GET['id']."' AND STADO='0'");
 													while ($row=$class->fetch_array($resultado)) {
 													                       
 													    //valores a consumir                      
@@ -165,16 +165,15 @@ if(!isset($_SESSION))
 													    
 													}													 
 												?>
-
-													<input type="email" name="text_valor_pagar" id="text_valor_pagar" class="span6" value="<?php print($nombre); ?>">
+													<input type="email" name="txt_valor_pagar" id="txt_valor_pagar" class="span6 center" value="<?php print($nombre); ?>">
 												</div>
 											</div>
 										</div>
 										<div class="control-group">
-											<label class="control-label" for="s2id_autogen1">Banco</label>
+											<label class="control-label" for="s2id_autogen1">Seleccione Banco</label>
 											<div class="controls">
 												<span class="span12">
-													<select id="sel_banco" name="sel_banco">
+													<select id="sel_banco" name="sel_banco" class="select2">
 														<option value=""></option>
 														<?php 
 															$resultado=$class->consulta("SELECT * FROM BANCOS WHERE STADO='1'");
@@ -182,7 +181,6 @@ if(!isset($_SESSION))
 																print'<option value="'.$row[0].'">'.$row[1].'</option>';
 															}
 														?>
-														
 													</select>
 												</span>
 											</div>
@@ -197,7 +195,7 @@ if(!isset($_SESSION))
 											</div>
 										</div>
 										<div class="control-group">
-											<label class="control-label" for="email">Numero de comprobante:</label>
+											<label class="control-label" for="email">Num de comprobante:</label>
 
 											<div class="controls">
 												<div class="span12">												
@@ -207,7 +205,7 @@ if(!isset($_SESSION))
 										</div>
 										<div class="control-group">
 											<div class="controls">
-												<button class="btn btn-success btn-next" data-last="Finish ">
+												<button type="submit" class="btn btn-success btn-next" data-last="Finish ">
 													Enviar Pago
 													<i class="icon-arrow-right icon-on-right"></i>
 												</button>
@@ -438,6 +436,14 @@ if(!isset($_SESSION))
 
 
 <script type="text/javascript">
-
+	$.vegas('slideshow', {
+  backgrounds:[
+    { src:'../assets/images/gallery/dc1.jpg', fade:1000 },
+    { src:'../assets/images/gallery/dc2.jpg', fade:1000 },
+    { src:'../assets/images/gallery/dc3.jpg', fade:1000 }
+  ]
+})('overlay', {
+  src:'../assets/vegas/overlays/11.png'
+});
 
 </script>
