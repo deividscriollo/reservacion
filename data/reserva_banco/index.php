@@ -176,9 +176,13 @@ if(!isset($_SESSION))
 												<span class="span12">
 													<select>
 														<option value=""></option>
-														<option value="AL">banco A</option>
-														<option value="AK">Banco B</option>
-														<option value="AZ">Banco C	</option>
+														<?php 
+															$resultado=$class->consulta("SELECT * FROM BANCOS WHERE STADO='1'");
+															while ($row=$class->fetch_array($resultado)) {
+																print'<option value="'.$row[0].'">'.$row[1].'</option>';
+															}
+														?>
+														
 													</select>
 												</span>
 											</div>
