@@ -156,7 +156,7 @@ if(!isset($_SESSION))
 													$id=$class->idz();
 													$valor="";
 													$nombre="";
-													$resultado=$class->consulta("SELECT * FROM RESERVACION WHERE ID='".$_GET['id']."'");
+													$resultado=$class->consulta("SELECT * FROM RESERVACION WHERE ID_USUARIO='".$_GET['id']."'");
 													while ($row=$class->fetch_array($resultado)) {
 													                       
 													    //valores a consumir                      
