@@ -149,7 +149,24 @@ if(!isset($_SESSION))
 
 											<div class="controls">
 												<div class="span12">
-													<input type="email" name="email" id="email" class="span6">
+												<?php 
+													require('../../admin/class.php');
+													$class=new constante();
+													$acu=0;
+													$id=$class->idz();
+													$valor="";
+													$nombre="";
+													$resultado=$class->consulta("SELECT * FROM RESERVACION WHERE ID='".$_GET['id']."'");
+													while ($row=$class->fetch_array($resultado)) {
+													                       
+													    //valores a consumir                      
+													    $valor = $row[0];
+													    $nombre =$row[3];
+													    
+													}													 
+												?>
+
+													<input type="email" name="text_valor_pagar" id="text_valor_pagar" class="span6" value="<?php print($nombre); ?>">
 												</div>
 											</div>
 										</div>
@@ -173,13 +190,20 @@ if(!isset($_SESSION))
 													<select>
 														<option value=""></option>
 														<option value="AL">024563</option>
-														<option value="AK">397</option>
-														<option value="AZ">563	</option>
+														<option value="AK">39753543</option>
+														<option value="AZ">5634534	</option>
 													</select>
 												</span>
 											</div>
 										</div>
-
+										<div class="control-group">
+											<div class="controls">
+												<button class="btn btn-success btn-next" data-last="Finish ">
+													Enviar Pago
+													<i class="icon-arrow-right icon-on-right"></i>
+												</button>
+											</div>
+										</div>
 										</form>
 									</div>
 								</div>
