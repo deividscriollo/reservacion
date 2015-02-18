@@ -33,6 +33,12 @@ $acus=split('/', $acus);
 							<span class="menu-text blue"> Bancos </span>
 						</a>
 					</li>
+					<li ';if ($acus[3]=='reserva_banco') {print("class=active");}print'>
+						<a href="../reserva_banco/">
+							<i class=" icon-credit-card red"></i>
+							<span class="menu-text red"> Pago Bancos </span>
+						</a>
+					</li>
 
 					<li ';if ($acus[3]=='agenda') {print("class=active");}print'>
 						<a href="../agenda/">
