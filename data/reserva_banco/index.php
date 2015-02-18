@@ -191,13 +191,18 @@ if(!isset($_SESSION))
 											<label class="control-label" for="s2id_autogen1">Numero de Cuenta</label>
 											<div class="controls">
 												<span class="span12">
-													<select>
-														<option value=""></option>
-														<option value="AL">024563</option>
-														<option value="AK">39753543</option>
-														<option value="AZ">5634534	</option>
+													<select id="sel_cuenta" name="sel_cuenta">														
 													</select>
 												</span>
+											</div>
+										</div>
+										<div class="control-group">
+											<label class="control-label" for="email">Numero de comprobante:</label>
+
+											<div class="controls">
+												<div class="span12">												
+													<input type="email" name="txt_num_deposito" id="txt_num_deposito" class="span6" placeholder="Digíte num. comprobante">
+												</div>
 											</div>
 										</div>
 										<div class="control-group">
