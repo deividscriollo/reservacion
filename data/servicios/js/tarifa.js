@@ -1,15 +1,15 @@
 	// buscando existencia de tarifa en la categoria existente
-	function buscando_tar(registro,a,id){
-		var result = "" ; 					
+	function buscando_tar(registro,id_tar){
+		var result = "" ; 		
 		$.ajax({
 	            url:'php/tarifa.php',
 	            async: false,
 	            type:  'post',
-	            data: {existencia_tarifa:'ok',reg:registro,id:id},            
+	            data: {existencia_tarifa:'ok',reg:registro,id:id_tar},            
 	            success : function ( data )  {
 	            	//$("#icon_b_usuario").addClass("icon-user");		                						         
 			         result = parseInt(data);  
-			         console.log(result)
+			         console.log(data)
 			    } 		                
 	    	});
 		return result ; 
@@ -18,12 +18,11 @@ $(function(){
 	//Validación Existencia correo electronico
 	jQuery.validator.addMethod("existe_tar", function (value, element) {
 		var a=value;
-		var reg=$('#t_nombre').val();
-		var id=$('#sel_categoria').val();
-		if (buscando_tar(reg,0,id)==0) {						
+		var reg=$('#t_nombre').val();		
+		if (buscando_tar(reg,$('#sel_categoria').val())==0) {						
 			return true;
 		};
-		if(buscando_tar(reg,0,id)!=0){						
+		if(buscando_tar(reg,$('#sel_categoria').val())!=0){						
 			return false;
 		};
 	}, "Digite otra tarifa, ya existe!!!.");

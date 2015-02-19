@@ -188,7 +188,9 @@ if(!isset($_SESSION))
 						</div>
 					</div>
 					<?php }?>
+					<?php if ($_SESSION['nivel']!='cliente') {?>
 					<h3 class="header smaller lighter green">Navegación</h3>
+					<?php } ?>
 					<div class="row-fluid">
 						<?php if ($_SESSION['nivel']!='cliente') {?>				
 						<div class="span3">
@@ -250,7 +252,7 @@ if(!isset($_SESSION))
 								</div>
 							</div>
 						</div>
-						<?php }?>
+						<?php } if ($_SESSION['nivel']!='cliente') {?>
 						<div class="span3">
 							<div class="widget-box">
 								<div class="widget-header">
@@ -280,7 +282,7 @@ if(!isset($_SESSION))
 								</div>
 							</div>
 						</div>
-						<?php if ($_SESSION['nivel']!='cliente') {?>
+						<?php } if ($_SESSION['nivel']!='cliente') {?>
 						<div class="span3">
 							<div class="widget-box">
 								<div class="widget-header">
@@ -345,6 +347,15 @@ if(!isset($_SESSION))
 					</div>
 					<?php }?>
 				</div>
+				<?php if ($_SESSION['nivel']=='cliente') { ?>
+					<div class="page-content">
+						<div class="row-fluid">
+							<h3 class="header smaller lighter green">Reservaciones En Proceso de pagos Pendientes</h3>
+							<h3 class="header smaller lighter green">Reservaciones Realizadas</h3>
+							<h3 class="header smaller lighter green">Reservaciones Finalizadas</h3>
+						</div>
+					</div>
+				<?php } ?>
 			</div><!--/.main-content-->
 		</div><!--/.main-container-->
 
