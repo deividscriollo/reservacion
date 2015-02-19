@@ -80,6 +80,8 @@ $(function(){
         };if (res_com==0) {
                 $('#txt_tarifa1').addClass('animated wobble');
                 $('#txt_tarifa2').addClass('animated wobble');
+                $('#txt_tarifa3').addClass('animated wobble');
+                $('#txt_tarifa4').addClass('animated wobble');
                 setTimeout ("renovar1()", 1000);
         }
     });

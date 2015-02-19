@@ -80,6 +80,15 @@ if (isset($_POST['existencia_categoria'])) {
 	}
 	print $id;
 }
+if (isset($_POST['existencia_tarifa'])) {
+	$valor=strtoupper($_POST['reg']);
+	$resultado = $class->consulta("SELECT * FROM TARIFA WHERE ID_CATEGORIA='$_POST[id]' AND NOM_TARIFA='$valor' and STADO='1'");
+	$id=0;
+	while ($row=$class->fetch_array($resultado)) {
+		$id=1;
+	}
+	print $id;
+}
 if (isset($_POST['existencia_ser'])) {
 	$valor=strtoupper($_POST['reg']);
 	$resultado = $class->consulta("SELECT * FROM SERVICIOS WHERE NOM='$valor' AND STADO='1'");

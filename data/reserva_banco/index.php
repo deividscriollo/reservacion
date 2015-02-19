@@ -135,7 +135,7 @@ if(!isset($_SESSION))
 							</div>							
 						</div>
 						<div class="span6">
-							<div class="widget-box">
+							<div class="widget-box animated bounceInDown">
 								<div class="widget-header">
 									<h4>Detalle Factura / Realizar Pago</h4>							
 									
@@ -143,13 +143,17 @@ if(!isset($_SESSION))
 
 								<div class="widget-body" style="background: rgba(255,255,255,0.9);!important;">
 									<div class="widget-main">										
-										<h4 class="header green">Detalle de la reservación</h4>
 										<?php 
-											$resultado=$class->consulta("SELECT dia FROM RESERVACION_HORARIOS WHERE ID_RESERVACION='".$_GET['id']."' AND STADO='0'");
+											if (isset($_GET['id'])) {
+												$resultado=$class->consulta("SELECT DIA FROM RESERVACION_HORARIOS WHERE ID_RESERVACION='".$_GET['id']."' AND STADO='0'");
+											}else{
+												$resultado=$class->consulta("SELECT DIA FROM RESERVACION_HORARIOS H, RESERVACION R WHERE R.ID=H.ID_RESERVACION AND ID_USUARIO='".$_SESSION['id']."' AND H.STADO='0'");												
+											}
 											while ($row=$class->fetch_array($resultado)) {											                       
 											    //valores a consumir                      
-											    $dia = $row[0];											    
-											}	
+												    $dia = $row[0];											    
+												}
+												
 										?>
 
 										<table class="table table-striped table-bordered table-hover">
@@ -162,7 +166,9 @@ if(!isset($_SESSION))
 											</thead>
 											<tbody>
 												<tr>
-													<td><?php print$dia; ?></td>
+													<td class="btn-app btn-primary no-radius center no-radius"><?php if (isset($dia)) {
+														print$dia;
+													} ?></td>
 													<td>
 														<table class="table table-striped table-bordered table-hover">
 															<thead>
@@ -174,17 +180,38 @@ if(!isset($_SESSION))
 																</tr>
 															</thead>
 															<tbody>
+																<?php 													
+																$valor="";
+																$nombre="";
+																if (isset($_GET['id'])) {
+																	$resultado=$class->consulta("SELECT * FROM RESERVACION WHERE ID='".$_GET['id']."' AND STADO='0'");
+																}else{
+																	$resultado=$class->consulta("SELECT * FROM RESERVACION WHERE ID_USUARIO='".$_SESSION['id']."' AND STADO='0'");
+																}
+																while ($row=$class->fetch_array($resultado)) {
+																                       
+																    //valores a consumir                      
+																    $valor = $row[0];
+																    $nombre =$row[3];
+																    
+																}													 
+															?>
 																<?php 
-																	$resultado=$class->consulta("SELECT SERVICIOS, PRECIO, CANTIDAD,TOTAL FROM RESERVACION_TARIFA WHERE ID_RESERVACION='".$_GET['id']."' AND STADO='0'");
+																	if (isset($_GET['id'])) {
+																		$resultado=$class->consulta("SELECT SERVICIOS, PRECIO, CANTIDAD,TOTAL FROM RESERVACION_TARIFA WHERE ID_RESERVACION='".$_GET['id']."' AND STADO='0'");
+																	}else{
+																		$resultado=$class->consulta("SELECT SERVICIOS, PRECIO, CANTIDAD,TOTAL FROM RESERVACION_TARIFA T, RESERVACION R WHERE T.ID_RESERVACION=R.ID AND R.ID_USUARIO='".$_SESSION['id']."' AND T.STADO='0'");
+																	}
 																	while ($row=$class->fetch_array($resultado)) {											                       
-																	    //valores a consumir                      
+																	    //valores a consumir     
+																	    $t=$row[3];                 
 																	    print'<tr><td>'.$row[0].'</td><td>'.$row[1].'</td><td>'.$row[2].'</td><td>'.$row[3].'</td></tr>';											    
 																	}	
 																?>
 															</tbody>
 														</table>
 													</td>
-													<td></td>
+													<td class="btn-app btn-primary no-radius center"><?php print$nombre; ?></td>
 												</tr>
 											</tbody>
 										</table>
@@ -192,70 +219,58 @@ if(!isset($_SESSION))
 									</div>
 									<div class="widget-main">
 										<form class="form-horizontal" id="form-comprobante">
-										<h4 class="header green">Ingrese la informacion</h4>
-										<div class="control-group">
-											<label class="control-label" for="email">Valor a Pagar:</label>
+											<div class="row-fluid">
+												<div class="span8">
+													<div class="control-group">
+														<label class="control-label" for="email">Valor a Pagar:</label>
 
-											<div class="controls">
-												<div class="span12">
-												<?php 													
-													$valor="";
-													$nombre="";
-													$resultado=$class->consulta("SELECT * FROM RESERVACION WHERE ID='".$_GET['id']."' AND STADO='0'");
-													while ($row=$class->fetch_array($resultado)) {
-													                       
-													    //valores a consumir                      
-													    $valor = $row[0];
-													    $nombre =$row[3];
-													    
-													}													 
-												?>
-													<input type="text" name="txt_valor_pagar" id="txt_valor_pagar" class="span6 center" value="<?php print($nombre); ?>">
-												</div>
-											</div>
-										</div>
-										<div class="control-group">
-											<label class="control-label" for="s2id_autogen1">Seleccione Banco</label>
-											<div class="controls">
-												<span class="span12">
-													<select id="sel_banco" name="sel_banco">
-														<option value=""></option>
-														<?php 
-															$resultado=$class->consulta("SELECT * FROM BANCOS WHERE STADO='1'");
-															while ($row=$class->fetch_array($resultado)) {
-																print'<option value="'.$row[0].'">'.$row[1].'</option>';
-															}
-														?>
-													</select>
-												</span>
-											</div>
-										</div>
-										<div class="control-group">
-											<label class="control-label" for="s2id_autogen1">Numero de Cuenta</label>
-											<div class="controls">
-												<span class="span12">
-													<select id="sel_cuenta" name="sel_cuenta">														
-													</select>
-												</span>
-											</div>
-										</div>
-										<div class="control-group">
-											<label class="control-label" for="email">Num de comprobante:</label>
+														<div class="controls">
+															<div class="span12">															
+																<input type="text" name="txt_valor_pagar" id="txt_valor_pagar" class="center" value="<?php print($nombre); ?>">
+															</div>
+														</div>
+													</div>
+													<div class="control-group">
+														<label class="control-label" for="s2id_autogen1">Seleccione Banco</label>
+														<div class="controls">
+															<span class="span12">
+																<select id="sel_banco" name="sel_banco">
+																	<option value=""></option>
+																	<?php 
+																		$resultado=$class->consulta("SELECT * FROM BANCOS WHERE STADO='1'");
+																		while ($row=$class->fetch_array($resultado)) {
+																			print'<option value="'.$row[0].'">'.$row[1].'</option>';
+																		}
+																	?>
+																</select>
+															</span>
+														</div>
+													</div>
+													<div class="control-group">
+														<label class="control-label" for="s2id_autogen1">Numero de Cuenta</label>
+														<div class="controls">
+															<span class="span12">
+																<select id="sel_cuenta" name="sel_cuenta">														
+																</select>
+															</span>
+														</div>
+													</div>
+													<div class="control-group">
+														<label class="control-label" for="email">Num de comprobante:</label>
 
-											<div class="controls">
-												<div class="span12">												
-													<input type="number" name="txt_num_deposito" id="txt_num_deposito" class="span6" placeholder="Digíte num. comprobante">
+														<div class="controls">
+															<div class="span12">												
+																<input type="number" name="txt_num_deposito" id="txt_num_deposito" placeholder="Digíte num. comprobante">
+															</div>
+														</div>
+													</div>													
 												</div>
-											</div>
-										</div>
-										<div class="control-group">
-											<div class="controls">
-												<button type="submit" class="btn btn-success btn-next" data-last="Finish ">
-													Enviar Pago
-													<i class="icon-arrow-right icon-on-right"></i>
-												</button>
-											</div>
-										</div>
+												<div class="span4 center">
+													<button type="submit" class="btn btn-app btn-success no-radius" data-last="Finish ">														
+														<i class=" icon-usd"></i> Enviar
+													</button>
+												</div>
+											</div>											
 										</form>
 									</div>
 								</div>

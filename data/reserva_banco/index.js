@@ -1,4 +1,19 @@
 $(function(){   
+
+        var inp = $('#txt_valor_pagar').get(0);
+        if(inp.hasAttribute('disabled')) {
+            inp.setAttribute('readonly' , 'true');
+            inp.removeAttribute('disabled');
+            inp.value="This text field is readonly!";
+        }
+        else {
+            inp.setAttribute('disabled' , 'disabled');
+            inp.removeAttribute('readonly');
+            
+        }
+    
+
+
     //proceso de accion cselect bancos
     $('#sel_banco').change(function(){
         var valor_select=$('#sel_banco').val();
@@ -27,7 +42,7 @@ $(function(){
 
         messages: {
             txt_num_deposito:{
-                required:"Por favor, Digíte numero de comprobante.",
+                required:"Digíte numero de comprobante.",
                 number:'Por favor, Digite solo numeros'
             }, 
             sel_banco:"Por favor, Seleccione Banco.",

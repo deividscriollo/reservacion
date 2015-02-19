@@ -91,6 +91,12 @@ if ($_SESSION['nivel']=='cliente') {
 							<span class="menu-text green"> Reservación </span>
 						</a>
 					</li>
+					<li ';if ($acus[3]=='reserva_banco') {print("class=active");}print'>
+						<a href="../reserva_banco/">
+							<i class=" icon-credit-card red"></i>
+							<span class="menu-text red"> Pago Bancos </span>
+						</a>
+					</li>
 				</ul><!--/.nav-list-->
 				<div class="sidebar-collapse" id="sidebar-collapse">
 					<i class="icon-double-angle-left"></i>
@@ -105,7 +111,7 @@ function menunav(){
 	print('<div class="navbar">
 			<div class="red navbar-inner">
 				<div class="container-fluid">
-					<a href="#" class="brand">
+					<a href="../inicio/" class="brand">
 						<small>
 							<i class="icon-home"></i>
 							Fabrica Imbabura

@@ -1,4 +1,32 @@
-$(function(){
+	// buscando existencia de tarifa en la categoria existente
+	function buscando_tar(registro,a,id){
+		var result = "" ; 					
+		$.ajax({
+	            url:'php/tarifa.php',
+	            async: false,
+	            type:  'post',
+	            data: {existencia_tarifa:'ok',reg:registro,id:id},            
+	            success : function ( data )  {
+	            	//$("#icon_b_usuario").addClass("icon-user");		                						         
+			         result = parseInt(data);  
+			         console.log(result)
+			    } 		                
+	    	});
+		return result ; 
+	}
+$(function(){	
+	//Validación Existencia correo electronico
+	jQuery.validator.addMethod("existe_tar", function (value, element) {
+		var a=value;
+		var reg=$('#t_nombre').val();
+		var id=$('#sel_categoria').val();
+		if (buscando_tar(reg,0,id)==0) {						
+			return true;
+		};
+		if(buscando_tar(reg,0,id)!=0){						
+			return false;
+		};
+	}, "Digite otra tarifa, ya existe!!!.");
 	$('#form-tarifa').validate({
 		errorElement: 'span',
 		errorClass: 'help-inline',
@@ -8,7 +36,8 @@ $(function(){
 				required:true
 			},
 			t_nombre: {
-				required: true						
+				required: true,
+				existe_tar: true					
 			},						
 			t_precio: {
 				required: true,
