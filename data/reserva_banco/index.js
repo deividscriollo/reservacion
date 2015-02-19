@@ -18,31 +18,20 @@ $(function(){
         errorElement: 'span',
         errorClass: 'help-inline',
         focusInvalid: false,
-        rules: {            
-            txt_num_deposito: {
-                required: true
-            },
-            platform: {
-                required: true
-            },
-            subscription: {
-                required: true
-            },
-            gender: 'required',
-            agree: 'required'
+        rules: { 
+            txt_num_deposito: {required: true,number: true},
+            sel_banco: {required: true},
+            sel_cuenta: {required: true}
+
         },
 
         messages: {
-            txt_num_deposito: {
-                required: "Por favor, Digíte numero de comprobante.",                
-            },
-            password: {
-                required: "Please specify a password.",
-                minlength: "Please specify a secure password."
-            },
-            subscription: "Please choose at least one option",
-            gender: "Please choose gender",
-            agree: "Please accept our policy"
+            txt_num_deposito:{
+                required:"Por favor, Digíte numero de comprobante.",
+                number:'Por favor, Digite solo numeros'
+            }, 
+            sel_banco:"Por favor, Seleccione Banco.",
+            sel_cuenta: "Por favor, seleccione numero cuenta"
         },
 
         invalidHandler: function (event, validator) { //display error alert on form submit   

@@ -7,6 +7,10 @@ if(!isset($_SESSION))
 
 		header('Location: ../inicio');
 	}
+	require('../../admin/class.php');
+	$class=new constante();
+	$acu=0;
+	$id=$class->idz();
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -140,6 +144,51 @@ if(!isset($_SESSION))
 								<div class="widget-body" style="background: rgba(255,255,255,0.9);!important;">
 									<div class="widget-main">										
 										<h4 class="header green">Detalle de la reservación</h4>
+										<?php 
+											$resultado=$class->consulta("SELECT dia FROM RESERVACION_HORARIOS WHERE ID_RESERVACION='".$_GET['id']."' AND STADO='0'");
+											while ($row=$class->fetch_array($resultado)) {											                       
+											    //valores a consumir                      
+											    $dia = $row[0];											    
+											}	
+										?>
+
+										<table class="table table-striped table-bordered table-hover">
+											<thead>
+												<tr>
+													<th>Día de Reservación</th>
+													<th>Categorias</th>
+													<th>Total</th>														
+												</tr>
+											</thead>
+											<tbody>
+												<tr>
+													<td><?php print$dia; ?></td>
+													<td>
+														<table class="table table-striped table-bordered table-hover">
+															<thead>
+																<tr>
+																	<td>Tarifa</td>
+																	<td>Precio</td>
+																	<td>Cantidad</td>
+																	<td>Total</td>
+																</tr>
+															</thead>
+															<tbody>
+																<?php 
+																	$resultado=$class->consulta("SELECT SERVICIOS, PRECIO, CANTIDAD,TOTAL FROM RESERVACION_TARIFA WHERE ID_RESERVACION='".$_GET['id']."' AND STADO='0'");
+																	while ($row=$class->fetch_array($resultado)) {											                       
+																	    //valores a consumir                      
+																	    print'<tr><td>'.$row[0].'</td><td>'.$row[1].'</td><td>'.$row[2].'</td><td>'.$row[3].'</td></tr>';											    
+																	}	
+																?>
+															</tbody>
+														</table>
+													</td>
+													<td></td>
+												</tr>
+											</tbody>
+										</table>
+										
 									</div>
 									<div class="widget-main">
 										<form class="form-horizontal" id="form-comprobante">
@@ -149,14 +198,10 @@ if(!isset($_SESSION))
 
 											<div class="controls">
 												<div class="span12">
-												<?php 
-													require('../../admin/class.php');
-													$class=new constante();
-													$acu=0;
-													$id=$class->idz();
+												<?php 													
 													$valor="";
 													$nombre="";
-													$resultado=$class->consulta("SELECT * FROM RESERVACION WHERE ID_USUARIO='".$_GET['id']."' AND STADO='0'");
+													$resultado=$class->consulta("SELECT * FROM RESERVACION WHERE ID='".$_GET['id']."' AND STADO='0'");
 													while ($row=$class->fetch_array($resultado)) {
 													                       
 													    //valores a consumir                      
@@ -165,7 +210,7 @@ if(!isset($_SESSION))
 													    
 													}													 
 												?>
-													<input type="email" name="txt_valor_pagar" id="txt_valor_pagar" class="span6 center" value="<?php print($nombre); ?>">
+													<input type="text" name="txt_valor_pagar" id="txt_valor_pagar" class="span6 center" value="<?php print($nombre); ?>">
 												</div>
 											</div>
 										</div>
@@ -173,7 +218,7 @@ if(!isset($_SESSION))
 											<label class="control-label" for="s2id_autogen1">Seleccione Banco</label>
 											<div class="controls">
 												<span class="span12">
-													<select id="sel_banco" name="sel_banco" class="select2">
+													<select id="sel_banco" name="sel_banco">
 														<option value=""></option>
 														<?php 
 															$resultado=$class->consulta("SELECT * FROM BANCOS WHERE STADO='1'");
@@ -199,7 +244,7 @@ if(!isset($_SESSION))
 
 											<div class="controls">
 												<div class="span12">												
-													<input type="email" name="txt_num_deposito" id="txt_num_deposito" class="span6" placeholder="Digíte num. comprobante">
+													<input type="number" name="txt_num_deposito" id="txt_num_deposito" class="span6" placeholder="Digíte num. comprobante">
 												</div>
 											</div>
 										</div>

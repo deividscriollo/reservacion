@@ -46,7 +46,7 @@
 				}else				
 				$tabla=$tabla.'<tr><td></td><td>'.$servicios.'</td><td>'.$cantidad.'</td><td>'.$p_cantidad.'</td><td>'.$t.'</td></tr>';
 
-				$res=$class->consulta("INSERT INTO RESERVACION_TARIFA VALUES('$ida','$id','$servicios','$cantidad','$p_cantidad','$t','$fecha','0')");			
+				$res=$class->consulta("INSERT INTO RESERVACION_TARIFA VALUES('$ida','$id','$servicios','$p_cantidad','$cantidad','$t','$fecha','0')");			
 		}		
 		$tabla=$tabla.'<tr><td></td><td></td><td></td><td>Sub Total</td><td>'.$subtotal.'</td></tr>';
 		$tabla=$tabla.'<tr><td></td><td></td><td></td><td>Iva</td><td>0.00</td></tr>';
@@ -68,7 +68,7 @@
 		$tabla=$tabla.'</tbody></table>';		
 		$resultado = $class->consulta("SELECT * FROM SEG.USUARIO WHERE ID='$_SESSION[id]'");		
 		while ($row=$class->fetch_array($resultado)) {					
-			envio_correoReservacion($row['correo'],$tabla,$subtotal,$row[0]);				
+			envio_correoReservacion($row['correo'],$tabla,$subtotal,$id);				
 	 	}
 
 
