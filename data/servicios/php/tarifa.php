@@ -81,13 +81,13 @@ if (isset($_POST['existencia_categoria'])) {
 	print $id;
 }
 if (isset($_POST['existencia_tarifa'])) {
-	print $valor=strtoupper($_POST['reg']);	
-	// $resultado = $class->consulta("SELECT * FROM TARIFA WHERE ID_CATEGORIA='$_POST[id]' AND NOM_TARIFA='$valor' and STADO='1'");
-	// $id=0;
-	// while ($row=$class->fetch_array($resultado)) {
-	// 	$id=1;
-	// }
-	// print $id;
+	$valor=strtoupper($_POST['reg']);
+	$resultado = $class->consulta("SELECT * FROM TARIFA WHERE ID_SERVICIO='$_POST[id_ser]' AND ID_CATEGORIA='$_POST[id]' AND NOM_TARIFA='$valor' and STADO='1'");
+	$id=0;
+	while ($row=$class->fetch_array($resultado)) {
+		$id=1;
+	}
+	print $id;
 }
 if (isset($_POST['existencia_ser'])) {
 	$valor=strtoupper($_POST['reg']);

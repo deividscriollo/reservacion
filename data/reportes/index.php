@@ -67,55 +67,42 @@ if(!isset($_SESSION))
 				</div>
 				<div class="page-content">
 					<div class="row-fluid">
-						<div class="span12">
-							<div class="widget-box transparent">
-								<div class="widget-header">
-									<h4 class="lighter">Reportes</h4>
+						<div class="span9">
+							<h3 class="header smaller lighter green">
+								<i class="icon-bullhorn"></i>
+								Resultado información reportes
+							</h3>
+							<style type="text/css">iframe{border: 0px;}</style>
+							<iframe src="reportes/index.php" name="chat" width="100%" border="0" height="550"></iframe>
+						</div>
+						<div class="span3">
+							<div class="row">
+								<h3 class="header smaller lighter blue">
+									<i class="icon-th-large"></i>
+									Opciones
+								</h3>
+							</div>
+							
+							<div class="row">
+								<div class="span12">
+									<div class="dropdown dropdown-preview">
+								<ul class="dropdown-menu">
+									<li>
+										<a href="reportes/index.php" target="chat" tabindex="-1">
+											<i class="icon-bar-chart bigger-130 "></i> SERVICIOS MÁS RESERVADOS
+										</a>
+									</li>
 
-									<div class="widget-toolbar no-border">
-										<ul class="nav nav-tabs" id="myTab2">
-											<li class="active">
-												<a data-toggle="tab" href="#home2">
-													<i class="icon-print green"></i>
-													Servicio más reservado
-												</a>
-											</li>
-
-											<li>
-												<a data-toggle="tab" href="#profile2">
-												<i class="icon-print purple"></i>
-													Reserva a la Semana
-												</a>
-											</li>
-										</ul>
-									</div>
-								</div>
-								<style type="text/css">
-									iframe{
-										border:0px;
-									}
-								</style>
-								<div class="widget-body">
-									<div class="widget-main padding-12 no-padding-left no-padding-right">
-										<div class="tab-content padding-4">
-											<div id="home2" class="tab-pane in active">
-												<div class="slim-scroll" data-height="590">
-													<iframe src="reportes" width="100%" border="0" height="550"></iframe>
-												</div>
-											</div>
-
-											<div id="profile2" class="tab-pane">
-												<div class="slim-scroll" data-height="550">
-													<b>TAB # 2</b>
-													Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque commodo massa sed ipsum porttitor facilisis. Nullam interdum massa vel nisl fringilla sed viverra erat tincidunt. Phasellus in ipsum velit. Maecenas id erat vel sem convallis blandit. Nunc aliquam enim ut arcu aliquet adipiscing. Fusce dignissim volutpat justo non consectetur.
-													Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque commodo massa sed ipsum porttitor facilisis. Nullam interdum massa vel nisl fringilla sed viverra erat tincidunt. Phasellus in ipsum velit. Maecenas id erat vel sem convallis blandit. Nunc aliquam enim ut arcu aliquet adipiscing. Fusce dignissim volutpat justo non consectetur.
-													Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque commodo massa sed ipsum porttitor facilisis. Nullam interdum massa vel nisl fringilla sed viverra erat tincidunt. Phasellus in ipsum velit. Maecenas id erat vel sem convallis blandit. Nunc aliquam enim ut arcu aliquet adipiscing. Fusce dignissim volutpat justo non consectetur.
-												</div>
-											</div>
-										</div>
-									</div>
+									<li>
+										<a href="reportes/index1.php" target="chat"  tabindex="-1">
+											<i class="icon-bar-chart bigger-130"></i> RESERVACIONES POR FECHA
+										</a>
+									</li>
+								</ul>
+							</div>
 								</div>
 							</div>
+							
 						</div>						
 					</div>
 				</div>

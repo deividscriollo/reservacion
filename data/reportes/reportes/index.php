@@ -1,4 +1,4 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<!DOCTYPE html>
 <html>
 	<head>
 	 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -10,62 +10,51 @@
 		<!-- Este archivo es para poder exportar losd atos que obtengamos -->
 		<script type="text/javascript" src="js/modules/exporting.js"></script>
 	
-		<script type="text/javascript">
-		
-			var chart;
-			$(document).ready(function() {
-				chart = new Highcharts.Chart({
-					chart: {
-						renderTo: 'container_amd',
-						plotBackgroundColor: null,
-						plotBorderWidth: null,
-						plotShadow: false
-					},
-					title: {
-						text: 'Servicios más reservados'
-					},
-					tooltip: {
-						formatter: function() {
-							return '<b>'+ this.point.name +'</b>: '+ this.y +' %';
-						}
-					},
-					plotOptions: {
-						pie: {
-							allowPointSelect: true,
-							cursor: 'pointer',
-							dataLabels: {
-								enabled: false
-							},
-							showInLegend: true
-						}
-					},
-				    series: [{
-						type: 'pie',
-						name: 'SERVICIOS FABRICA IMBABURA',
-						data: [
-							{
-								name:'MUSEO',
-								y:45.0,
-								sliced: true,
-								selected: true
-							},
-							['CENTRO DE CONVENCIONES “LOS ARRIEROS”',       26.8],							
-							['RESTAURANTE “LAS POSADAS”',    8.5],
-							['TEATRO AUDITORIO “CLUB L.I.A.”',     6.2]							
-						]
-					}]
-				});
-			});
-				
+		<script type="text/javascript">				
+		$(document).ready(function() {
+            var options = {
+                chart: {
+                    renderTo: 'container_amd',
+                    plotBackgroundColor: null,
+                    plotBorderWidth: null,
+                    plotShadow: false
+                },
+                title: {
+                    text: 'Servicios Mas reservados'
+                },
+                tooltip: {
+                    formatter: function() {
+                        return '<b>'+ this.point.name +'</b>: '+ this.percentage +' %';
+                    }
+                },
+                plotOptions: {
+                	pie: {
+						allowPointSelect: true,
+						cursor: 'pointer',
+						dataLabels: {
+							enabled: false,
+							formatter: function() {
+                                return '<b>'+ this.point.name +'</b>: '+ this.percentage +' %';
+                            }
+						},
+						showInLegend: true
+					}
+                },
+                series: [{
+                    type: 'pie',
+                    name: 'Browser share',
+                    data: []
+                }]
+            }            
+            $.getJSON("../reportes.php", {servicio_reservado:'ok'} , function(json) {
+                options.series[0].data = json;
+                chart = new Highcharts.Chart(options);
+            });            
+        });   
 		</script>
 		
 	</head>
 <body>
-
-
-	
-	
-	
 	<center><img src="../b_reportes.fw.png"></center>
 	<div id="container_amd" style="width: 800px; height: 400px; margin: 0 auto">
 		

@@ -1,11 +1,12 @@
 	// buscando existencia de tarifa en la categoria existente
 	function buscando_tar(registro,id_tar){
-		var result = "" ; 		
+		var result = "" ; 	
+
 		$.ajax({
 	            url:'php/tarifa.php',
 	            async: false,
 	            type:  'post',
-	            data: {existencia_tarifa:'ok',reg:registro,id:id_tar},            
+	            data: {existencia_tarifa:'ok',reg:registro,id:id_tar, id_ser:$('#lbl_id_servicio').html()},            
 	            success : function ( data )  {
 	            	//$("#icon_b_usuario").addClass("icon-user");		                						         
 			         result = parseInt(data);  
