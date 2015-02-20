@@ -67,42 +67,80 @@ if(!isset($_SESSION))
 				</div>
 				<div class="page-content">
 					<div class="row-fluid">
-						<div class="span9">
-							<h3 class="header smaller lighter green">
-								<i class="icon-bullhorn"></i>
-								Resultado información reportes
-							</h3>
-							<style type="text/css">iframe{border: 0px;}</style>
-							<iframe src="reportes/index.php" name="chat" width="100%" border="0" height="550"></iframe>
-						</div>
-						<div class="span3">
-							<div class="row">
-								<h3 class="header smaller lighter blue">
-									<i class="icon-th-large"></i>
-									Opciones
-								</h3>
-							</div>
-							
-							<div class="row">
-								<div class="span12">
-									<div class="dropdown dropdown-preview">
-								<ul class="dropdown-menu">
-									<li>
-										<a href="reportes/index.php" target="chat" tabindex="-1">
-											<i class="icon-bar-chart bigger-130 "></i> SERVICIOS MÁS RESERVADOS
-										</a>
-									</li>
+						<div class="span12">
+							<div class="widget-box transparent">
+								<div class="widget-header">
+									<h4 class="lighter">Reportes</h4>
 
-									<li>
-										<a href="reportes/index1.php" target="chat"  tabindex="-1">
-											<i class="icon-bar-chart bigger-130"></i> RESERVACIONES POR FECHA
-										</a>
-									</li>
-								</ul>
-							</div>
+									<div class="widget-toolbar no-border">
+										<ul class="nav nav-tabs" id="myTab2">
+											<li class="active">
+												<a data-toggle="tab" href="#home2">
+													<i class="icon-print green"></i>
+													Servicio más reservado
+												</a>
+											</li>
+
+											<li>
+												<a data-toggle="tab" href="#profile2">
+												<i class="icon-print purple"></i>
+													Reserva a la Semana
+												</a>
+											</li>
+										</ul>
+									</div>
+								</div>
+								<style type="text/css">
+									iframe{
+										border:0px;
+									}
+								</style>
+								<div class="widget-body">
+									<div class="widget-main padding-12 no-padding-left no-padding-right">
+										<div class="tab-content padding-4">
+											<div id="home2" class="tab-pane in active">
+												<div class="slim-scroll" data-height="590">
+													<iframe src="reportes" width="100%" border="0" height="550"></iframe>
+												</div>
+											</div>
+
+											<div id="profile2" class="tab-pane">
+												<div class="slim-scroll" data-height="550">
+													<form class="form-horizontal">
+									                    <div class="row-fluid">
+									                        <div class="span6">
+									                            <div class="control-group">
+									                                <label class="control-label" for="form-field-1">Seleccione Fechas</label>
+									                                <div class="controls">
+									                                    <div class="row-fluid input-prepend">
+									                                        <span class="add-on">
+									                                            <i class="icon-calendar"></i>
+									                                        </span>
+									                                        <input class="span7" type="text" name="date-range-picker" id="id-date-range-picker-1" />
+									                                    </div>
+									                                </div>
+									                            </div>
+									                        </div>
+									                        <div class="span6">
+									                        	<div class="control-group">
+									                                
+									                                <div class="controls">
+									                                    <button class="btn btn-info" type="button">
+											                                <i class="icon-ok bigger-110"></i>
+											                                Submit
+											                            </button>
+									                                </div>
+									                            </div>									                            
+									                        </div>
+									                    </div>                                        
+									                </form>
+													
+												</div>
+											</div>
+										</div>
+									</div>
 								</div>
 							</div>
-							
 						</div>						
 					</div>
 				</div>
