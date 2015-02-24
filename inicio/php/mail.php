@@ -240,4 +240,66 @@ class email  extends PHPMailer{
     }
     return $acus;
   }
+  function envio_confirmacion_reservacion($correo, $nombre){
+    // $]tabla=$_POST['tabla'];
+      $acus='0';
+    // $correo=$_POST['correo'];  
+    $contenido_html =  '
+      <table width="100%" border="0" style="width: 90%;
+            padding-top: 8px;
+            padding-bottom: 15px;
+            margin: 0 auto 20px auto;
+            background: #3085C9;
+             border-radius: 5px;
+            -moz-border-radius: 5px;
+            -webkit-border-radius: 5px;
+            color: #446bb3;">
+        <tbody class="dc">
+          <tr>
+            <td align="center">
+              <img src="https://raw.githubusercontent.com/deividscriollo/reservacion/master/data/assets/images/b.jpg" style="border-radius: 5px;">
+            </td>
+          </tr>
+          <tr>
+            <td style="color:#E1A401">PROCESO CONFIRMACIÓN</td>
+          </tr>
+          <tr>
+            <td>
+              <table style="float: left;">
+                  <tbody style="color:#FFFFFF">
+                    <tr>
+                      <td style="color:#FFFFFF; font-size: 20px;">
+                        Estimad@: '.$nombre.'
+                      </td>
+                    </tr>
+                    <tr>
+                      <td style="color:#FFFFFF; font-size: 20px;">
+                        SU RESERVACION SE HA REALIZADO CON EXITO
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+            </td>
+          </tr>
+
+          <tr><td align="center" style="color:#FFFFFF;">  
+              
+          </td>
+      </tr></tbody>
+      </table>    
+    ';
+    $contenido_html=utf8_decode($contenido_html);
+
+    $email = new email();
+    if ( $email->enviar( $correo , 'FABRICA IMBABURA' , 'RESPUESTA CONFIRMACION RESERVACION' ,  $contenido_html ) )
+      // mensaje enviado
+       $acus='1';
+    else
+    {
+       // echo 'El mensaje no se pudo enviar ';
+       // $email->ErrorInfo;
+       $acus='0';
+    }
+    return $acus;
+  }
 ?>

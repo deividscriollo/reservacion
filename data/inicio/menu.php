@@ -65,6 +65,12 @@ $acus=split('/', $acus);
 							<span class="menu-text pink"> Reportes </span>
 						</a>
 					</li>
+					<li ';if ($acus[3]=='confirmacion') {print("class=active");}print'>
+						<a href="../confirmacion/">
+							<i class="icon-laptop purple"></i>
+							<span class="menu-text purple"> Confirmación </span>
+						</a>
+					</li>
 
 					<li ';if ($acus[3]=='usuario') {print("class=active");}print'>
 						<a href="../usuario/">

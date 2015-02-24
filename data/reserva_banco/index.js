@@ -35,9 +35,9 @@ $(function(){
         focusInvalid: false,
         rules: { 
             txt_num_deposito: {required: true,number: true},
+            txt_val_deposito: {required: true,number: true,equalTo: "#txt_valor_pagar"},
             sel_banco: {required: true},
             sel_cuenta: {required: true}
-
         },
 
         messages: {
@@ -45,6 +45,7 @@ $(function(){
                 required:"Digíte numero de comprobante.",
                 number:'Por favor, Digite solo numeros'
             }, 
+            txt_val_deposito:{required:'Por favor, Digíte el valor de su deposito',equalTo:'Su monto debe ser igual'},
             sel_banco:"Por favor, Seleccione Banco.",
             sel_cuenta: "Por favor, seleccione numero cuenta"
         },
@@ -78,7 +79,35 @@ $(function(){
         },
 
         submitHandler: function (form) {
-            alert('Datos Almacenados')
+            $.ajax({
+                url:'reserva_banco.php',
+                type:'POST',
+                data:{guardar:'ok',num_cuenta:$("#sel_cuenta").val(),num_deposito:$('#txt_num_deposito').val(),id:$('#txt_id_reservacion').val()},
+                success:function(data){
+                    // console.log(data);
+                    if (data==0) {
+                        $.gritter.add({                     
+                            title: '..Mensaje..!',                      
+                            text: 'OK: <br><i class="icon-cloud purple bigger-230"></i>  Sus datos se almacenaron con exito. por favor espere un periodo de 24 horas para la confirmación de su reservación <br><i class="icon-spinner icon-spin green bigger-230"></i>',                      
+                            //image: 'http://a0.twimg.com/profile_images/59268975/jquery_avatar_bigger.png',                        
+                            sticky: false,                      
+                            time: 2000
+                        });
+                    };
+                     if(data!=0&&data!=1){
+                         $.gritter.add({                     
+                            title: '..Mensaje..!',                      
+                            text: 'Lo sentimos: <br><i class=" icon-cogs red bigger-230"></i>   Intente mas Tarde . <br><i class="icon-spinner icon-spin red bigger-230"></i>',                       
+                            //image: 'http://a0.twimg.com/profile_images/59268975/jquery_avatar_bigger.png',                        
+                            sticky: false,                      
+                            time: ''
+                        });
+                     };
+                     $('#form-comprobante').each (function(){
+                            this.reset();
+                        });
+                }
+            });
         }        
     });
 

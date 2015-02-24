@@ -144,16 +144,16 @@ if(!isset($_SESSION))
 								<div class="widget-body" style="background: rgba(255,255,255,0.9);!important;">
 									<div class="widget-main">										
 										<?php 
+										$id_reservacion=0;
 											if (isset($_GET['id'])) {
 												$resultado=$class->consulta("SELECT DIA FROM RESERVACION_HORARIOS WHERE ID_RESERVACION='".$_GET['id']."' AND STADO='0'");
 											}else{
-												$resultado=$class->consulta("SELECT DIA FROM RESERVACION_HORARIOS H, RESERVACION R WHERE R.ID=H.ID_RESERVACION AND ID_USUARIO='".$_SESSION['id']."' AND H.STADO='0'");												
+												$resultado=$class->consulta("SELECT DIA, R.ID FROM RESERVACION_HORARIOS H, RESERVACION R WHERE R.ID=H.ID_RESERVACION AND ID_USUARIO='".$_SESSION['id']."' AND H.STADO='0'");												
 											}
 											while ($row=$class->fetch_array($resultado)) {											                       
-											    //valores a consumir                      
-												    $dia = $row[0];											    
-												}
-												
+												    $dia = $row[0];	
+												    $id_reservacion=$row[1];										    
+												}												
 										?>
 
 										<table class="table table-striped table-bordered table-hover">
@@ -188,9 +188,7 @@ if(!isset($_SESSION))
 																}else{
 																	$resultado=$class->consulta("SELECT * FROM RESERVACION WHERE ID_USUARIO='".$_SESSION['id']."' AND STADO='0'");
 																}
-																while ($row=$class->fetch_array($resultado)) {
-																                       
-																    //valores a consumir                      
+																while ($row=$class->fetch_array($resultado)) {																                       
 																    $valor = $row[0];
 																    $nombre =$row[3];
 																    
@@ -225,7 +223,8 @@ if(!isset($_SESSION))
 														<label class="control-label" for="email">Valor a Pagar:</label>
 
 														<div class="controls">
-															<div class="span12">															
+															<div class="span12">
+																<input type="text" class="hide" id="txt_id_reservacion" value="<?php print $id_reservacion; ?>" >															
 																<input type="text" name="txt_valor_pagar" id="txt_valor_pagar" class="center" value="<?php print($nombre); ?>">
 															</div>
 														</div>
@@ -261,6 +260,15 @@ if(!isset($_SESSION))
 														<div class="controls">
 															<div class="span12">												
 																<input type="number" name="txt_num_deposito" id="txt_num_deposito" placeholder="Digíte num. comprobante">
+															</div>
+														</div>
+													</div>
+													<div class="control-group">
+														<label class="control-label" for="email">Valor de Deposito:</label>
+
+														<div class="controls">
+															<div class="span12">												
+																<input type="number" name="txt_val_deposito" id="txt_val_deposito" placeholder="Digíte num. comprobante">
 															</div>
 														</div>
 													</div>													
