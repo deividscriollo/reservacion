@@ -146,7 +146,7 @@ if(!isset($_SESSION))
 										<?php 
 										$id_reservacion=0;
 											if (isset($_GET['id'])) {
-												$resultado=$class->consulta("SELECT DIA FROM RESERVACION_HORARIOS WHERE ID_RESERVACION='".$_GET['id']."' AND STADO='0'");
+												$resultado=$class->consulta("SELECT DIA, R.ID FROM RESERVACION_HORARIOS H, RESERVACION R WHERE R.ID=H.ID_RESERVACION AND H.ID_RESERVACION='".$_GET['id']."' AND H.STADO='0'");
 											}else{
 												$resultado=$class->consulta("SELECT DIA, R.ID FROM RESERVACION_HORARIOS H, RESERVACION R WHERE R.ID=H.ID_RESERVACION AND ID_USUARIO='".$_SESSION['id']."' AND H.STADO='0'");												
 											}

@@ -206,7 +206,7 @@
 				            	txt_1:$('#txt_reg_nom_usuario').val(),
 				            	txt_2:$('#txt_reg_email').val(),
 				            	txt_3:$('#txt_reg_pass').val(),
-				            	txt_3:$('#sel_servicio').val()	
+				            	txt_4:$('#sel_servicio').val()	
 				            },
 				            beforeSend: function () {
 								$('#icon-tiempo').show();
