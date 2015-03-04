@@ -131,13 +131,8 @@
 						txt_reg_nom_usuario: {
 							required: true							
 						},
-						agree:{
-							required:true
-						},
-						sel_servicio:{required:true}
-						
-					},
-			
+						agree:{	required:true	}						
+					},			
 					messages: {
 						txt_reg_ced: {
 							required: "Por favor, Digite cedula.",
@@ -164,9 +159,7 @@
 							required:"Por favor, Digite nombre de usuario",
 							
 						},
-						agree:'Términos y Condiciones para Registro',
-						sel_servicio:'Por favor, Seleccione la categoría'
-						
+						agree:'Términos y Condiciones para Registro'						
 					},
 			
 					invalidHandler: function (event, validator) { //display error alert on form submit   
@@ -205,8 +198,7 @@
 				            	txt_0:$('#txt_reg_ced').val(),
 				            	txt_1:$('#txt_reg_nom_usuario').val(),
 				            	txt_2:$('#txt_reg_email').val(),
-				            	txt_3:$('#txt_reg_pass').val(),
-				            	txt_4:$('#sel_servicio').val()	
+				            	txt_3:$('#txt_reg_pass').val()				            	
 				            },
 				            beforeSend: function () {
 								$('#icon-tiempo').show();

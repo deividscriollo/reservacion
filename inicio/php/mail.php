@@ -48,6 +48,7 @@ class email  extends PHPMailer{
 /* == se emplea la clase email == */
   function envio_correoReservacion($correo, $tabla, $subtotal,$id) {  
     // $]tabla=$_POST['tabla'];
+    $link='https://www.paypal.com/cgi-bin/webscr?cmd=_cart&upload=1&business=deividscriollo@gmail.com&currency_code=USD&lc=US&item_name_1=RESERVACION&item_number_1=1&quantity_1=1&amount_1='.$subtotal.'&no_shipping_1=0&no_note_1=1';
       $acus='0';
     // $correo=$_POST['correo'];  
     $contenido_html =  '
@@ -82,11 +83,14 @@ class email  extends PHPMailer{
             </td>
           </tr>
           <tr><td align="center" style="color:#FFFFFF;">              
-              <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_cart&upload=1&business=deividscriollo@gmail.com&currency_code=USD&lc=US&item_name_1=RESERVACION&item_number_1=1&quantity_1=1&amount_1='.$subtotal.'&no_shipping_1=0&no_note_1=1">
+            <a href="http://localhost/reservacion/data//reserva_banco/index.php?banco=ok&id='.$id.'">              
               <img src = "https://raw.githubusercontent.com/deividscriollo/reservacion/master/data/assets/images/p.fw.png" />
               </a>
-              <a href="http://localhost/reservacion/data//reserva_banco/index.php?id='.$id.'">
+              <a href="http://localhost/reservacion/data//reserva_banco/index.php?banco=ok&id='.$id.'">
               <img src = "https://raw.githubusercontent.com/deividscriollo/reservacion/master/data/assets/images/b.fw.png" />
+              </a>
+              <a href="http://localhost/reservacion/data//reserva_banco/index.php?targeta=ok&id='.$id.'">
+              <img src = "https://raw.githubusercontent.com/deividscriollo/reservacion/master/data/assets/images/t.fw.png" />
               </a>
           </td>
       </tr></tbody>

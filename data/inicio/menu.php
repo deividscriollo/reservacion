@@ -8,7 +8,7 @@ function menu(){
 $url = $_SERVER['PHP_SELF'];
 $acus=parse_url($url, PHP_URL_PATH);
 $acus=split('/', $acus);
-	if ($_SESSION['nivel']!='cliente') {
+	if ($_SESSION['nivel']!='CLIENTE') {
 		print'<div class="sidebar" id="sidebar">
 				<div class="sidebar-shortcuts" id="sidebar-shortcuts">
 					
@@ -84,7 +84,7 @@ $acus=split('/', $acus);
 				</div>
 			</div>';
 	}
-if ($_SESSION['nivel']=='cliente') {
+if ($_SESSION['nivel']=='CLIENTE') {
 	print'<div class="sidebar" id="sidebar">
 				<div class="sidebar-shortcuts" id="sidebar-shortcuts">
 					

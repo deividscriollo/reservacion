@@ -63,15 +63,17 @@ if(!isset($_SESSION))
 												<a data-toggle="tab" href="#home">
 												<i class="icon-user green" onclick="mostrar_usr();"></i> Usuarios</a>
 											</li>
-
 											<li>
 												<a data-toggle="tab" href="#profile">
 												<i class="icon-unlock blue"></i> Privilegios</a>
 											</li>
-
 											<li>
 												<a data-toggle="tab" href="#info">
 												<i class="icon-envelope red" onclick="mostrar_mensajes();"></i> Mensajes</a>
+											</li>
+											<li>
+												<a data-toggle="tab" href="#privilegios">
+												<i class="icon-cogs purple"></i> Configuración Privilegios</a>
 											</li>
 										</ul>
 									</div>
@@ -80,7 +82,7 @@ if(!isset($_SESSION))
 								<div class="widget-body ">
 									<div class="widget-main padding-6">
 										<div class="tab-content">
-											<div id="home" class="tab-pane in active">
+											<div id="home" class="tab-pane">
 												<table id="tbt_mostrar_usuarios" class="table table-striped table-bordered table-hover">
 													<thead >
 														<tr >
@@ -99,9 +101,7 @@ if(!isset($_SESSION))
 														
 													</tbody>
 												</table>
-
 											</div>
-
 											<div id="profile" class="tab-pane">
 												<table id="tbt_privilegios" class="table table-striped table-bordered table-hover">
 													<thead>
@@ -123,7 +123,6 @@ if(!isset($_SESSION))
 													</tbody>
 												</table>
 											</div>
-
 											<div id="info" class="tab-pane ">
 												<div class="row-fluid">
 													<div class="span4">
@@ -204,6 +203,74 @@ if(!isset($_SESSION))
 													</div>
 												</div>												
 											</div>
+											<div  id="privilegios" class="tab-pane in active">
+												<div class="row-fluid">
+													<div class="span3">
+														
+													</div>
+													<div class="span5">													
+														<form class="form-horizontal" id="form-segmento-usuario">
+															<div class="control-group">
+																<label class="control-label" for="form-field-1">Digíte Segmento</label>
+
+																<div class="controls">
+																	<input type="text" id="txt_1" name="txt_1" placeholder="Nombre Segmento">
+																</div>
+															</div>
+															<div class="form-actions">
+																<button class="btn btn-info" type="submit">
+																	<i class="icon-ok bigger-110"></i>
+																	Enviar
+																</button>
+
+																&nbsp; &nbsp; &nbsp;
+																<button class="btn" type="reset">
+																	<i class="icon-undo bigger-110"></i>
+																	Limpiar
+																</button>
+															</div>
+														</form>
+													</div>
+												</div>
+												<div id="con_obj_segmentos">
+													<div class="row-fluid">
+														<div class="widget-box span4">
+															<div class="widget-header header-color-blue2">
+																<h4 class="lighter smaller">Admin</h4>
+															</div>
+
+															<div class="widget-body">
+																<div class="widget-main padding-8">
+																	<div id="tree1" class="tree"></div>
+																</div>
+															</div>
+														</div>
+														<div class="widget-box span4">
+															<div class="widget-header header-color-green2">
+																<h4 class="lighter smaller">Administrador</h4>
+															</div>
+
+															<div class="widget-body">
+																<div class="widget-main padding-8">
+																	<div id="tree2" class="tree"></div>
+																</div>
+															</div>
+														</div>
+														<div class="widget-box span4">
+															<div class="widget-header header-color-green">
+																<h4 class="lighter smaller">Cliente Usuario</h4>
+															</div>
+
+															<div class="widget-body">
+																<div class="widget-main padding-8">
+																	<div id="tree3" class="tree"></div>
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
+												
+											</div>
 										</div>
 									</div>
 								</div>
@@ -268,6 +335,11 @@ if(!isset($_SESSION))
 		<script src="../../assets/js/markdown/markdown.min.js"></script>
 		<script src="../../assets/js/markdown/bootstrap-markdown.min.js"></script>
 		<script src="../../assets/js/jquery.hotkeys.min.js"></script>
+		<script src="../../assets/js/fuelux/data/fuelux.tree-sampledata.js"></script>
+		<script src="../../assets/js/fuelux/fuelux.tree.min.js"></script>
+		<script src="../../assets/js/jquery.validate.min.js"></script>
+		<script src="../../assets/js/additional-methods.min.js"></script>
+
 
 
 
@@ -284,6 +356,11 @@ if(!isset($_SESSION))
 
 		<script src="../../assets/js/ace.min.js"></script>
 		<script src="../../assets/js/blockui.js"></script>
+		<script type="text/javascript" src="js/segmento.js"></script>
+
+
+		
+
 
 		<!--inline scripts related to this page-->
 		<script type="text/javascript">

@@ -35,7 +35,11 @@ $(document).ready(function() {
 		});
 	}
 });
+function cargar_combos_tipe(){
+	console.log('test');
+}
 function s_privilegio(event){
+	cargar_combos_tipe()
 	var valor=event.target.value;
 	var tar = event.target;
 	var ob_valor;

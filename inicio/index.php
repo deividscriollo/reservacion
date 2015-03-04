@@ -243,15 +243,6 @@ if(!isset($_SESSION))
 														</div>
 													</div>
 													<div class="control-group">
-														<div class="controls">
-															<span class="span12">
-																<select class="span12" id="sel_servicio" name="sel_servicio">																	
-																</select>
-															</span>
-														</div>
-													</div>
-
-													<div class="control-group">
 														<div class="span12">
 															<label>
 																<input type="checkbox" name="agree" id="agree" />
