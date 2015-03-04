@@ -1,5 +1,55 @@
-$(function(){   
+$(function(){  
+    $('#obj_2').hide();
+    $('#obj_dia_semana').hide();
+    $('#obj_tabla_ho_dis').hide();
+    $('#obj_btn_informacion').hide();
+    cargar_select();
+    function cargar_select(){
+        $.ajax({
+            url: "reservacion.php",
+            type: "POST",
+            data:{cargar_tipo:'ok'},
+            success:function(data){
+                $('#selec_tipo').html(data);
+            }
+        });
+    }    
+    $('#btn_mostrar_servicios').click(function(){
+        $('#modal-servicio').modal('show');
+    });
+    $('#btn_modal_tarifa').click(function(){
+        $('#modal-tarifa').modal('show');        
+    });
+    $('#btn_modal_informacion').click(function(){
+        $('#modal-informacion').modal('show');        
+    });
+    $('#btn_modal_horarios').click(function(){
+        $('#modal-horarios').modal('show');        
+    });
     
+    $('#btn_atras_ob1').click(function(){
+        $('#obj_2').removeClass().addClass('zoomOut animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function(){
+              $(this).removeClass();
+            },function(){
+                $('#obj_2').hide();
+                $('#obj_1').show();
+                $('#obj_1').removeClass().addClass('zoomIn animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function(){
+                  $(this).removeClass();
+                });
+            });
+    });
+    
+    
+    $('#selec_tipo').change(function(){
+        var select=$(this).val();
+        if (select!='') {
+            $('#modal-servicio').modal('show'); 
+        }else{
+            $('#selec_tipo').removeClass().addClass('shake animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function(){
+              $(this).removeClass();
+            });
+        }
+    });
     //
     $('#btn_guardar_reservacion').click(function(){        
         var res_com=$('#lbl_total').html();
@@ -228,7 +278,18 @@ function bus_servicio(reg){
         }			                	        
     });
 };
-function btn_select_servicio(id){	
+function btn_select_servicio(id){
+
+    $('#obj_1').removeClass().addClass('zoomOut animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function(){
+          $(this).removeClass();
+        },function(){
+            $('#obj_1').hide();
+            $('#obj_2').show();
+            $('#obj_2').removeClass().addClass('zoomIn animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function(){
+              $(this).removeClass();
+            });
+    });
+    var tipo=$('#selec_tipo').val();
 	//  buscar_inf_serv_h
 	$.ajax({
         url: "reservacion.php",
@@ -244,7 +305,7 @@ function btn_select_servicio(id){
     $.ajax({
         url: "reservacion.php",
         type: "POST",
-        data:{buscar_inf_serv_h2:'ok', id:id},			               
+        data:{buscar_inf_serv_h2:'ok', id:id,tipo:tipo},			               
         success: function(data)
         {			
 			// console.log(data)   
@@ -288,9 +349,9 @@ function btn_select_servicio(id){
     
     // imprimiendo id
     $('#id_servicio').html(id);
-    $('#txt_fecha_origen').popover('show');
+    
     $('#modal-servicio').modal('hide');
-    $('html,body').animate({scrollTop:'1000px'}, 500);return false;
+    //$('html,body').animate({scrollTop:'1000px'}, 500);return false;
 };
     function info_tabla(){
         $("#tabla_horas_acu tbody").html('');

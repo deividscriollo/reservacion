@@ -82,6 +82,32 @@
 				print $row[0].','.$row[1].',';				
 		 	}
 	}
+	if(isset($_POST['cargar_tipo'])) {
+		//$pos=$_POST['pos'];			
+		$resultado = $class->consulta("SELECT * FROM SEG.CATEGORIA_SERVICIO WHERE  STADO='1'");
+			$acu=1;
+			print'<option value>TIPO DE RESERVACIÓN</option>';
+			while ($row=$class->fetch_array($resultado)) {					
+				print '<option value="'.$row[0].'">'.$row[1].'</option>';				
+		 	}
+	}
+	if(isset($_POST['mostrar_galeria'])) {
+		//$pos=$_POST['pos'];			
+		$resultado = $class->consulta("SELECT * FROM SERVICIOS S WHERE  S.ID='$_POST[id]' ");
+			$acu=1;
+			while ($row=$class->fetch_array($resultado)) {					
+				print '<ul class="ace-thumbnails">
+						<li>
+							<a href="../servicios/img/'.$row[4].'" data-rel="colorbox" class="cboxElement">
+								<img alt="150x150" src="../servicios/img/'.$row[4].'">
+								<div class="text">
+									<div class="inner">'.$row[1].'</div>
+								</div>
+							</a>
+						</li>
+					</ul>';				
+		 	}
+	}
 	if(isset($_POST['mostrar_galeria'])) {
 		//$pos=$_POST['pos'];			
 		$resultado = $class->consulta("SELECT * FROM SERVICIOS S WHERE  S.ID='$_POST[id]' ");
@@ -174,8 +200,8 @@
 	}
 	if(isset($_POST['buscar_inf_serv_h2'])) {
 		//$pos=$_POST['pos'];			
-		$resultado = $class->consulta("SELECT nom_tarifa, precio, C.NOM FROM SERVICIOS S, TARIFA T, SEG.CATEGORIA_SERVICIO C, SEG.NIVEL N,SEG.USUARIO U WHERE
- S.ID=T.ID_SERVICIO AND T.ID_CATEGORIA=C.ID AND U.ID=N.ID_USUARIO AND U.ID='$_SESSION[id]' AND N.ID_CATEGORIA_SERVICIO=C.ID AND S.ID='$_POST[id]' AND T.STADO ='1';");
+		$resultado = $class->consulta("SELECT nom_tarifa, precio, C.NOM,* FROM SERVICIOS S, TARIFA T, SEG.CATEGORIA_SERVICIO C WHERE
+ S.ID=T.ID_SERVICIO AND T.ID_CATEGORIA=C.ID AND S.ID='$_POST[id]' AND C.ID='$_POST[tipo]' AND T.STADO ='1';");
 			$acu=1;
 			while ($row=$class->fetch_array($resultado)) {
 				$x=number_format($row[1],2);
@@ -200,6 +226,7 @@
 					if ($sum==0) {
 						$max_i=0;
 						$horaInicial=$b[0].':'.$b[1];
+						$dc_sum=0;
 						for ($i=$b[0]; $i < 20; $i++) {
 							if ($max_i==0)
 							$horaInicial=$b[0].':'.$b[1];
@@ -207,16 +234,17 @@
 							$segundos_horaInicial=strtotime($horaInicial);
 							$segundos_minutoAnadir=$minutoAnadir*60;
 							$nuevaHora=date("H:i",$segundos_horaInicial+$segundos_minutoAnadir);
-							if ($max_i==0) {
-								
-								// if (buscar_horario($horaInicial,$nuevaHora)==0) {
-									print'<tr><td><label><input type="checkbox" onclick="reconstruir('.$max_i.')"/><span class="lbl"></span></label></td><td>'.$horaInicial.'</td><td>'.$nuevaHora.'</td><td>'.$_POST['f'].'</td><td>'.$dia.'</td></tr>';										
-								// }
-							}else{
+							if ($max_i==0) {								
+								if (buscar_horario($horaInicial,$nuevaHora)==0) {
+									print'<tr><td><label><input type="checkbox" onclick="reconstruir(0)"/><span class="lbl"></span></label></td><td>'.$horaInicial.'</td><td>'.$nuevaHora.'</td><td>'.$_POST['f'].'</td><td>'.$dia.'</td></tr>';										
+								}
+							};
+							if ($max_i>=0){
 								$sb=buscar_horario($horaInicial,$nuevaHora);
-								// if($sb==0) {
-									print'<tr><td><label><input type="checkbox" onclick="reconstruir('.$max_i.')"/><span class="lbl"></span></label></td><td>'.$horaInicial.'</td><td>'.$nuevaHora.'</td><td>'.$_POST['f'].'</td><td>'.$dia.'</td></tr>';	
-								// }
+								if($sb==0) {
+									$dc_sum=$dc_sum+1;
+									print'<tr><td><label><input type="checkbox" onclick="reconstruir('.$dc_sum.')"/><span class="lbl"></span></label></td><td>'.$horaInicial.'</td><td>'.$nuevaHora.'</td><td>'.$_POST['f'].'</td><td>'.$dia.'</td></tr>';	
+								}
 							}
 							$horaInicial=$nuevaHora;							
 							$max_i++;
@@ -232,11 +260,11 @@
 		}
 		if ($sum==1) {
 			print($a);
-		}else print('n');
+		}else print('NO DISPONEMOS HORARIOS EN ESTE DIA');
 	}
 function buscar_horario($inicio,$fin){
 	$a=0;
-	print('dcdeivid'.$inicio.$fin);
+	print('gb'.$inicio.$fin);
 	$class=new constante();
 	$resultado = $class->consulta("SELECT * FROM RESERVACION_HORARIOS WHERE hinicio='$inicio' and hfin='$fin' AND STADO='0'");
 	while ($row=$class->fetch_array($resultado)) {		

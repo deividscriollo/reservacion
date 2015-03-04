@@ -83,7 +83,7 @@ class email  extends PHPMailer{
             </td>
           </tr>
           <tr><td align="center" style="color:#FFFFFF;">              
-            <a href="http://localhost/reservacion/data//reserva_banco/index.php?banco=ok&id='.$id.'">              
+            <a href="http://localhost/reservacion/data//reserva_banco/index.php?banco=ok&id='.$id.'&link='.$link.'">              
               <img src = "https://raw.githubusercontent.com/deividscriollo/reservacion/master/data/assets/images/p.fw.png" />
               </a>
               <a href="http://localhost/reservacion/data//reserva_banco/index.php?banco=ok&id='.$id.'">

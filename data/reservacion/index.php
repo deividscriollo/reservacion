@@ -56,14 +56,8 @@ if(!isset($_SESSION))
 		<!--inline styles related to this page-->
 	
 		<style type="text/css">
-			.dc_spm{
-				width: 40%;
-				height: 500px;
-				background: rgba(255,255,255,0.6);
-				float: right;
-			}
+			
 			.dc_btn{
-
 				width: 0;
 				height: 0;
 				border-style: solid;
@@ -72,8 +66,7 @@ if(!isset($_SESSION))
 				display:block!important;
 			}
 			.dc_btn:hover{
-				cursor: pointer;
-							
+				cursor: pointer;							
 			}
 			.zoom{
 				transition: 2.5s ease;
@@ -87,21 +80,79 @@ if(!isset($_SESSION))
 				-webkit-transform : scale(1.2); /* Chrome - Safari */
 				-o-transform : scale(1.2); /* Opera */
 				-ms-transform : scale(1.2); /* IE9 */
+				cursor: pointer;
 			}
-			.dctexto{
-				padding-top: 100px;
-				padding-left: 20%;				
+			.dc_text{
+				font-size: 100px;				
 			}
-			.dctexto h4{
-				font-size: 100px!important;
+			.txt_zise{
+				font-size: 40px;					
 			}
-			.dcm{
-
-				float: right;
-				width: 40%;
+			.dc_padding{
+				padding-top: 2%;
+			}
+			.dc_estandar_usuario{
+				font-size: 80px;
+				height: 500px;
+				padding-top: 10%;
+				padding-left: 5px;
+				padding-bottom: 20px;
+				background: rgba(255,255,255,0.8);
+			}
+			.dc_estandar_reserva{
+				height: 500px;
+				padding-top: 5%;
+				background: rgba(255,255,255,0.8);
+				padding-left: 5%;
+				padding-right: 2%;
+				padding-bottom: 1px;
 			}
 			.dcespacio{
 				height: 200px;
+			}
+			.dc_dise_redondo{
+				background: rgba(255,255,255,0.6);
+				height: 200px;
+				border-radius: 200px 200px 200px 200px;
+				-moz-border-radius: 200px 200px 200px 200px;
+				-webkit-border-radius: 200px 200px 200px 200px;
+				border: 0px solid #000000;
+				padding-top: 20px;
+			}
+			.texto p{
+				font-size: 50px;
+			}
+			.texto2 h4{
+				font-size: 30px;
+			}
+			select{
+				width: 350px;
+				padding-top: 15px;
+				/*padding-bottom: 15px;*/
+				
+			    -webkit-border-radius:4px;
+			    -moz-border-radius:4px;
+			    border-radius:4px;
+			    
+			    background: rgba(255,255,255,0.4);
+			    color:#888;
+			    cursor:pointer;
+			    font-size: 18px;
+			    height: 63px!important;
+			}
+			.dc_fecha{
+
+				background: rgba(255,255,255,0.4)!important;
+				padding-top: 10px !important;
+				padding-bottom: 10px !important;
+				padding-left: 10px !important;
+				border-radius: 3px !important;
+				text-align: center;
+			}
+			.table{
+				background: rgba(255,255,255,0.4)!important;
+				font-size: 20px;
+				color: #3085C9;
 			}
 		</style>		
 
@@ -112,270 +163,129 @@ if(!isset($_SESSION))
 			<a class="menu-toggler" id="menu-toggler" href="#">
 				<span class="menu-text"></span>
 			</a>
-			
-			<div class="main-contents" >
-				<div class="page-content" style="background: rgba(25,25,25,0.1);!important;">
-					<div class="row-fluid"><br><br><br><br><br></div>
-					<div class="row-fluid">
-						<div class="span11">
-							<div class="dc_spm">
-								<div class="row-fluid">
-									<div class="dctexto zoom">
-										<h4 class="animated bounceInDown">Hola, </h4>
-									</div>
-									<div class="dctexto zoom">
-										
-										<h4 class="animated bounceInUp"><?php $m=split(' ', $_SESSION['nom']); print $m[0];?></h4>
-									</div>
-								</div>
-								<br><br><br>
-								<div class="row-fluid dcm" >
-									<div id="btn_inicio" class="animated bounceInRight zoom"><img src="../assets/images/abajo.fw.png"></div>
-								</div>								
-							</div>							
-						</div>						
+			<div class="main-contents">
+				<div class="row-fluid dc_padding">
+					<div class="span4">
+						<div class="dc_estandar_usuario">
+							<div class="blue smaller zoom dc_text">								
+								Hola,
+							</div>
+							<br/><br/>
+							<i class="icon-user purple  zoom">
+								<?php $m=split(' ', $_SESSION['nom']); print $m[0];?>
+							</i>												
+						</div>
 					</div>
-					<div class="dcespacio"></div>
-					<div class="row-fluid" id="inicio">
-
-						<div class="widget-box">
-							<div class="widget-header">
-								<h4>Selecciones Servicio</h4>								
-								<span 	class="widget-toolbar tooltip-info icon-animated-vertical"
-										id="btn_buscar_servicios" 
-										data-rel="popover" data-placement="left" 
-										title="" 
-										data-content="Digite la búsqueda del servicio y seleccione el servicio." 
-										data-original-title="Realizar reservación: PASO 1 !!">
-									<span >
-										<i class="icon-search"></i>
-									</span>
-								</span>
-							</div>
-
-							<div class="widget-body" style="background: rgba(255,255,255,0.9);!important;">
-								<div class="widget-main">
-
-									<div class="row-fluid">
-										<div class="span6">
-											<div class="widget-box">
-												<div class="widget-header">
-													<h4 class="smaller">
-														Información
-														<small>Disponibilidad de horarios</small>
-													</h4>
-												</div>
-
-												<div class="widget-body">
-													<div class="widget-main">
-														<div class="row-fluid">
-															<div class="span3">
-																<div id="id_servicio" class="hidden"></div>
-																<label for="id-date-picker-1">Seleccione fecha:</label>
-															</div>
-															<div class="span4">																										
-																<div class="control-group">																	
-																	<div class="row-fluid input-append">
-																		<input 	class="span8 date-picker" 
-																				id="txt_fecha_origen" 
-																				type="text" 
-																				data-date-format="dd-mm-yyyy"
-																				class="btn btn-success btn-small tooltip-success" 
-																				data-rel="popover"
-																				data-placement="right" 
-																				title="<i class='icon-ok green'></i> Realizar Reservacion: Paso 2" 
-																				data-content="Seleccione la fecha: Mostrara las horas disponibles para su reservación"/>
-																		<span class="add-on">
-																			<i class="icon-calendar"></i>
-																		</span>
-																	</div>
-																</div>
-															</div>
-															<div class="span3">
-																<div class="row-fluid">
-																	<label for="id-date-picker-1">Es el Día:</label>
-																</div>
-															</div>
-															<div class="1">
-																<div id="lbl_dia" class="blue"></div>
-															</div>
-														</div>
-														<h4 class="smaller lighter green pull-right">
-															<i class="icon-list"></i>
-															Disponibilidad de Horario
-														</h4>
-														<!-- <div class="hr"></div> -->
-														<div class="row-fluid">
-															<div class="span12">
-																<table id="tabla_horas" class="table">
-																	<thead style>
-																		<tr>
-																			<th>Nro</th>
-																			<th>H. Inicio</th>
-																			<th>H. Fin</th>
-																			<th>fecha</th>
-																			<th>Día</th>
-																		</tr>
-																	</thead>
-																	<tbody>
-																		
-																	</tbody>
-																</table>
-				
-
-															</div>
-														</div>
-														<div class="row-fluid">															
-															<button class="btn btn-success btn-block icon-user danger span12 " id="btn_reservar"> RESERVAR</button>
-
-														</div>														
-													</div>
-												</div>
-											</div>
-										</div><!--/span-->
-										<div class="span6">
-											<div class="row-fluid">
-												<div class="row-fluid">
-													<div class="span12 widget-container-span">
-														<div class="widget-box transparent">
-															<div class="widget-header">
-																<h4 class="lighter">Información del Servicio</h4>
-
-																<div class="widget-toolbar no-border">
-																	<ul class="nav nav-tabs" id="myTab2">
-																		<li class="active">
-																			<a data-toggle="tab" href="#galeria">Galería</a>
-																		</li>
-
-																		<li>
-																			<a data-toggle="tab" href="#descripcion">Descripción</a>
-																		</li>
-
-																		<li>
-																			<a data-toggle="tab" href="#otros">Otros</a>
-																		</li>
-																	</ul>
-																</div>
-															</div>
-
-															<div class="widget-body">
-																<div class="widget-main padding-12 no-padding-left no-padding-right">
-																	<div class="tab-content padding-4">
-																		<div id="galeria" class="tab-pane in active">
-																			<div class="slim-scroll" data-height="150">
-																				<div class="row-fluid">
-																					<div class="span12">
-																						<!--PAGE CONTENT BEGINS-->
-
-																						<div class="row-fluid" id="obj_cont_galeria">
-																							
-																						</div><!--PAGE CONTENT ENDS-->
-																					</div><!--/.span-->
-																				</div>
-																			</div>
-																		</div>
-
-																		<div id="descripcion" class="tab-pane">
-																			<div class="slim-scroll" data-height="150">
-																				<div class="row-fluid">
-																					<div class="span12">
-																						<!--PAGE CONTENT BEGINS-->
-
-																						<div class="row-fluid" id="obj_cont_descripcion">
-																							
-																						</div><!--PAGE CONTENT ENDS-->
-																					</div><!--/.span-->
-																				</div>
-																			</div>
-																		</div>
-
-																		<div id="otros" class="tab-pane">
-																			<div class="slim-scroll" data-height="150">
-																				<div class="row-fluid">
-																					<div class="span12">
-																						<!--PAGE CONTENT BEGINS-->
-
-																						<div class="row-fluid" id="obj_cont_otros">
-																							
-																						</div><!--PAGE CONTENT ENDS-->
-																					</div><!--/.span-->
-																				</div>
-																			</div>
-																		</div>
-																	</div>
-																</div>
-															</div>
-														</div>
-													</div>
-												</div><!--PAGE CONTENT ENDS-->
-											</div>
-											<div class="row-fluid">
-												<div class="span12 widget-container-span">
-													<div class="widget-box">
-														<div class="widget-header header-color-red3">
-															<h5 class="bigger lighter">
-																<i class="icon-table"></i> Información, Días y horarios de atención													
-															</h5>
-
-															<div class="widget-toolbar">														
-															</div>
-														</div>
-
-														<div class="widget-body">
-															<div class="widget-main no-padding">
-																<table id="tabla_h_ser" class="table table-striped table-bordered table-hover no-margin-bottom no-border-top">
-																	<thead>
-																		<tr>
-																			<th>#</th>																			
-																			<th>Días a reservar</th>
-																			<th><i class="icon-time"></i> Inicia</th>
-																			<th><i class="icon-time"></i> Finaliza</th>
-																		</tr>
-																	</thead>
-																	<tbody></tbody>
-																</table>
-															</div>
-														</div>
-													</div>
-												</div><!--/span-->
-											</div>
-											<div class="row-fluid">
-												<div class="span12 widget-container-span">
-													<div class="widget-box">
-														<div class="widget-header header-color-purple">
-															<h5 class="bigger lighter">
-																<i class="icon-table"></i> Información, Tarifas / Costos													
-															</h5>
-
-															<div class="widget-toolbar">														
-															</div>
-														</div>
-
-														<div class="widget-body">
-															<div class="widget-main no-padding">
-																<table id="tabla_h_tarifa" class="table table-striped table-bordered table-hover no-margin-bottom no-border-top">
-																	<thead>
-																		<tr>
-																			<th>Nro</th>
-																			<th>Categoría</th>
-																			<th>Tarifa</th>
-																			<th><i class="icon-time"></i> Precio</th>																	
-																		</tr>
-																	</thead>
-																	<tbody></tbody>
-																</table>
-														</div>
-													</div>
-												</div><!--/span-->	
-											</div>
-										</div>							
+					<div class="span8">
+						<div class="dc_estandar_reserva">
+							<div class="row-fluid" id="obj_1">
+								<div class="span12 center">
+									<div class="texto blue">
+										<h4 class="animated bounceInDown txt_zise">Seleccione tipo de reservación</h4>
 									</div>
+									<br>
+									<div class="row">
+										<select id="selec_tipo"></select>	
+									</div>																																					
 								</div>
 							</div>
+							<div class="row-fluid" id="obj_2">
+								<div class="row center">
+									<div class="span4">
+										<div id="obj_btn_informacion">
+											<div class="row">
+												<div class="texto2 blue">
+													<h4 class="animated bounceInDown txt_zise">Información</h4>
+												</div>
+											</div>
+											<div class="row">
+												<p>
+													<button class="btn btn-app btn-danger btn-mini radius-4" id="btn_atras_ob1">
+														<i class="icon-angle-left bigger-160"></i>
+														Atras												
+													</button>
+													<button class="btn btn-app btn-info btn-mini radius-4" id="btn_modal_informacion">
+														<i class="icon-info bigger-160"></i>
+														Servicios												
+													</button>
+													<button class="btn btn-app btn-success btn-mini radius-4" id="btn_modal_tarifa">
+														<i class="icon-money bigger-160"></i>
+														Tarifas												
+													</button>
+													<button class="btn btn-app btn-warning btn-mini radius-4" id="btn_modal_horarios">
+														<i class="icon-time bigger-160"></i>
+														Horarios											
+													</button>
+												</p>
+											</div>
+										</div>
+									</div>	
+									<div class="span4">
+										<div class="row">
+											<div class="texto2 blue">
+												<h4 class="animated bounceInDown txt_zise">Seleccione fecha</h4>
+											</div>
+										</div>
+										<div class="row">
+											<div class="span12">
+												<div class="row-fluid input-append">
+													<input 	class="dc_fecha date-picker" 
+															id="txt_fecha_origen" 
+															type="text" 
+															data-date-format="dd-mm-yyyy">
+															
+													<span class="add-on bigger-260">
+														<i class="icon-calendar"></i>
+													</span>
+												</div>
+											</div>
+											<div id="id_servicio" class="hidden"></div>											
+										</div>
+									</div>
+									<div class="span4">
+										<div class="row" id="obj_dia_semana">
+											<div class="texto2 blue">
+												<h4 class="animated bounceInDown txt_zise">Día de la semana</h4>
+											</div>
+										</div>
+										<div class="row">
+											<div class="texto blue">
+												<h4 class="animated bounceInDown txt_zise" id="lbl_dia"></h4>
+											</div>
+										</div>
+									</div>														
+								</div>
+								<h4 class="smaller lighter green pull-right">
+									<i class="icon-list"></i>
+									Disponibilidad de Horario
+								</h4>
+								<div class="row" id="obj_tabla_ho_dis">
+									<div class="span12">
+										<div class="slim-scroll" data-height="300">
+										<table id="tabla_horas" class="table">
+											<thead style>
+												<tr>
+													<th>Nro</th>
+													<th>H. Inicio</th>
+													<th>H. Fin</th>
+													<th>fecha</th>
+													<th>Día</th>
+												</tr>
+											</thead>											
+											<tbody></tbody>											
+										</table>
+										</div>
+
+									</div>
+								</div>
+								<div class="row">
+									<button class="btn btn-success btn-block icon-user danger span12 " id="btn_reservar"> RESERVAR</button>									
+								</div>
+							</div>						
 						</div>
 					</div>
 				</div>
-			</div><!--/.main-content-->
+			</div>			
 		</div><!--/.main-container-->
 		<!-- ventana emergente horario -->
 		<div id="modal-table" class="modal hide fade" tabindex="-1">
@@ -439,8 +349,7 @@ if(!isset($_SESSION))
 					</div>
 					<div class="page-content center" id="obj_contenedor_servicios">
 														
-					</div>
-											
+					</div>											
 				</div>									
 			</div>			
 			<div class="modal-footer">
@@ -499,6 +408,192 @@ if(!isset($_SESSION))
 					<i class="icon-ok"></i>
 					Reservar
 				</button>																		
+			</div>
+		</div>
+
+		<!-- modal tarifa -->
+		<div id="modal-tarifa" class="modal hide fade" tabindex="-1">
+			<div class="modal-header no-padding">
+				<div class="table-header">
+					<div type="button" class="close" data-dismiss="modal">&times;</div>
+					Informacion de las Tarifas
+				</div>
+			</div>
+
+			<div class="modal-body no-padding">
+				<div class="row-fluid">
+					<div class="widget-container-span">
+						<div class="widget-box">
+							<div class="widget-header header-color-purple">
+								<h5 class="bigger lighter">
+									<i class="icon-table"></i> Información, Tarifas / Costos													
+								</h5>
+
+								<div class="widget-toolbar">														
+								</div>
+							</div>
+							<div class="widget-body">
+								<div class="widget-main no-padding">
+									<table id="tabla_h_tarifa" class="table table-striped table-bordered table-hover no-margin-bottom no-border-top">
+										<thead>
+											<tr>
+												<th>Nro</th>
+												<th>Categoría</th>
+												<th>Tarifa</th>
+												<th><i class="icon-time"></i> Precio</th>																	
+											</tr>
+										</thead>
+										<tbody></tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+					</div><!--/span-->	
+				</div>										
+			</div>			
+			<div class="modal-footer">
+				<button class="btn btn-small btn-danger pull-right" data-dismiss="modal">
+					<i class="icon-remove"></i>
+					Cerrar
+				</button>																					
+			</div>
+		</div>
+		<!-- modal informacion -->
+		<div id="modal-informacion" class="modal hide fade" tabindex="-1">
+			<div class="modal-header no-padding">
+				<div class="table-header">
+					<div type="button" class="close" data-dismiss="modal">&times;</div>
+					Informacion del Servicio
+				</div>
+			</div>
+			<div class="modal-body no-padding">
+				<div class="row-fluid">
+					<div class="span12 widget-container-span">
+						<div class="widget-box transparent">
+							<div class="widget-header">
+								<h4 class="lighter">Información del Servicio</h4>
+
+								<div class="widget-toolbar no-border">
+									<ul class="nav nav-tabs" id="myTab2">
+										<li class="active">
+											<a data-toggle="tab" href="#galeria">Galería</a>
+										</li>
+
+										<li>
+											<a data-toggle="tab" href="#descripcion">Descripción</a>
+										</li>
+
+										<li>
+											<a data-toggle="tab" href="#otros">Otros</a>
+										</li>
+									</ul>
+								</div>
+							</div>
+
+							<div class="widget-body">
+								<div class="widget-main padding-12 no-padding-left no-padding-right">
+									<div class="tab-content padding-4">
+										<div id="galeria" class="tab-pane in active">
+											<div class="slim-scroll" data-height="250">
+												<div class="row-fluid">
+													<div class="span12">
+														<!--PAGE CONTENT BEGINS-->
+
+														<div class="row-fluid" id="obj_cont_galeria">
+															
+														</div><!--PAGE CONTENT ENDS-->
+													</div><!--/.span-->
+												</div>
+											</div>
+										</div>
+
+										<div id="descripcion" class="tab-pane">
+											<div class="slim-scroll" data-height="150">
+												<div class="row-fluid">
+													<div class="span12">
+														<!--PAGE CONTENT BEGINS-->
+
+														<div class="row-fluid" id="obj_cont_descripcion">
+															
+														</div><!--PAGE CONTENT ENDS-->
+													</div><!--/.span-->
+												</div>
+											</div>
+										</div>
+
+										<div id="otros" class="tab-pane">
+											<div class="slim-scroll" data-height="150">
+												<div class="row-fluid">
+													<div class="span12">
+														<!--PAGE CONTENT BEGINS-->
+
+														<div class="row-fluid" id="obj_cont_otros">
+															
+														</div><!--PAGE CONTENT ENDS-->
+													</div><!--/.span-->
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>										
+			</div>			
+			<div class="modal-footer">
+				<button class="btn btn-small btn-danger pull-right" data-dismiss="modal">
+					<i class="icon-remove"></i>
+					Cerrar
+				</button>																					
+			</div>
+		</div>
+		<!-- modal tarifa -->
+		<div id="modal-horarios" class="modal hide fade" tabindex="-1">
+			<div class="modal-header no-padding">
+				<div class="table-header">
+					<div type="button" class="close" data-dismiss="modal">&times;</div>
+					Informacion de horarios
+				</div>
+			</div>
+
+			<div class="modal-body no-padding">
+				<div class="row-fluid">
+					<div class="span12 widget-container-span">
+						<div class="widget-box">
+							<div class="widget-header header-color-red3">
+								<h5 class="bigger lighter">
+									<i class="icon-table"></i> Información, Días y horarios de atención													
+								</h5>
+
+								<div class="widget-toolbar">														
+								</div>
+							</div>
+
+							<div class="widget-body">
+								<div class="widget-main no-padding">
+									<table id="tabla_h_ser" class="table table-striped table-bordered table-hover no-margin-bottom no-border-top">
+										<thead>
+											<tr>
+												<th>#</th>																			
+												<th>Días a reservar</th>
+												<th><i class="icon-time"></i> Inicia</th>
+												<th><i class="icon-time"></i> Finaliza</th>
+											</tr>
+										</thead>
+										<tbody></tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+					</div><!--/span-->
+				</div>				
+			</div>			
+			<div class="modal-footer">
+				<button class="btn btn-small btn-danger pull-right" data-dismiss="modal">
+					<i class="icon-remove"></i>
+					Cerrar
+				</button>																					
 			</div>
 		</div>
 		<!--PAGE CONTENT ENDS-->
@@ -576,7 +671,7 @@ if(!isset($_SESSION))
 		<script src="../assets/js/jquery.slimscroll.min.js"></script>
 		<script src="../assets/js/jquery.colorbox-min.js"></script>
 		<script src="../assets/vegas/jquery.vegas.js"></script>
-		
+
 
 
 
@@ -692,11 +787,7 @@ $(function(){
 		$('#btn_buscar_servicios').popover('hide');		
 		$('#modal-servicio').modal('show');
 		$('#txt_b_servicio').popover('show');
-	});
-	$('#txt_fecha_origen').click(function(){
-		// console.log($('#txt_fecha_origen'));
-		// class="btn btn-success btn-small tooltip-success" 
-	});
+	});	
 	$('#txt_b_servicio').click(function(){		
 		var valor=$(this);
 		var acu=valor.parent().parent();
@@ -752,8 +843,31 @@ $(function(){
 		format: 'dd/mm/yyyy',
 		weekStart: 1
 	});
+
+	// scrollables
+	$('.slim-scroll').each(function () {
+		var $this = $(this);
+		$this.slimScroll({
+			height: $this.data('height') || 100,
+			railVisible:true
+		});
+	});
+
 		
 $('#txt_fecha_origen').change(function(){
+	//mostradon contenido objetos
+	$('#obj_dia_semana').show();
+	$('#obj_dia_semana').removeClass().addClass('zoomIn animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function(){
+      $(this).removeClass();
+    });
+    $('#obj_tabla_ho_dis').show();
+    $('#obj_tabla_ho_dis').removeClass().addClass('fadeInUp animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function(){
+      $(this).removeClass();
+    });
+    $('#obj_btn_informacion').show();
+	$('#obj_btn_informacion').removeClass().addClass('zoomInUp animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function(){
+          $(this).removeClass();       
+    });
 	var fe=$(this).val()
 	$('#lbl_dia').html(dia_semana(fe));
 	var campo='';
