@@ -8,10 +8,11 @@ function seleccion_cliente(id){
             $('#lbl_ced').html(data[0])         
             $('#lbl_nom').html(data[1])         
             $('#lbl_tel').html(data[2])         
-            $('#lbl_dir').html(data[3])            
+            $('#lbl_dir').html(data[3])  
+            $('#lbl_id_cliente').html(data[4]);          
         }
     });
-    $('#lbl_id_cliente').html(id);
+    
     $('#modal-cliente').modal('hide');
 }
 $(function(){ 
@@ -97,19 +98,8 @@ $(function(){
             });
     });
     
-    
-    // $('#selec_tipo').change(function(){
-    //     var select=$(this).val();
-    //     if (select!='') {
-    //         $('#modal-servicio').modal('show'); 
-    //     }else{
-    //         $('#selec_tipo').removeClass().addClass('shake animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function(){
-    //           $(this).removeClass();
-    //         });
-    //     }
-    // });
-    //
     $('#btn_guardar_reservacion').click(function(){     
+        console.log($('#lbl_id_cliente').html());
         $('#form-guardar').validate({
             errorElement: 'span',
             errorClass: 'help-inline',
@@ -152,7 +142,7 @@ $(function(){
                 else error.insertAfter(element);
             },            
             submitHandler: function (form) {
-                console.log('yap')
+               
                 var res_com=$('#lbl_total').html();
                 res_com=res_com+0;
                 if (res_com!=0) {
@@ -188,7 +178,7 @@ $(function(){
                 $.ajax({
                     url: "reservacion.php",
                     type: "POST",
-                    data:{guardar:'ok',matriz:matriz,horario:matriz1,subtotal:$('#lbl_subtotal').html(),id_servicio:$('#id_servicio').val(),id_cliente:$('#lbl_id_cliente').html()},                         
+                    data:{guardar:'ok',matriz:matriz,horario:matriz1,subtotal:$('#lbl_subtotal').html(),id_servicio:$('#selec_servicio').val(),id_cliente:$('#lbl_id_cliente').html()},                         
                     beforeSend: function () {                             
                         $.blockUI({
                             message:'<i id="icon-tiempo" class="width-10 icon-spinner red icon-spin bigger-125"></i> Espere un momento...',

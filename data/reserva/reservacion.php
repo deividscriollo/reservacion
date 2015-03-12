@@ -48,7 +48,7 @@
 		$tabla=$tabla.'<thead style="display: table-header-group;   vertical-align: middle;    border-color: inherit;">
         <tr style="background: #8FBC1D;"><td>SERVICIO</td><td>TARIFA</td><td>cantidad</td><td>precio</td><td>Total</td></tr>
             </thead><tbody style="color:#FFFFFF;">';
-		$res=$class->consulta("INSERT INTO RESERVACION VALUES('$id','$_SESSION[id_cliente]','$id_ser','$subtotal','$fecha','0')");
+		$res=$class->consulta("INSERT INTO RESERVACION VALUES('$id','$_POST[id_cliente]','$id_ser','$subtotal','$fecha','0')");
 		for ($i=0; $i < count($mat); $i++) { 
 				$ida=$class->idz();
 				$a=$mat[$i][1];
@@ -88,7 +88,7 @@
 		}else print 0;
 		// envio del correo a la reservacion
 		$tabla=$tabla.'</tbody></table>';		
-		$resultado = $class->consulta("SELECT * FROM SEG.USUARIO WHERE ID='$_SESSION[id_cliente]'");		
+		$resultado = $class->consulta("SELECT * FROM SEG.USUARIO WHERE ID='$_POST[id_cliente]'");		
 		while ($row=$class->fetch_array($resultado)) {					
 			//envio_correoReservacion($row['correo'],$tabla,$subtotal,$id);				
 	 	}
@@ -122,12 +122,13 @@
 	}
 	if (isset($_POST['llenar_clientes_datos'])) {
 
-		$resultado = $class->consulta("SELECT CEDULA,NOMBRE,FONO,DIRECCION FROM SEG.USUARIO  WHERE ID='".$_POST['id']."'");				
+		$resultado = $class->consulta("SELECT CEDULA,NOMBRE,FONO,DIRECCION, ID FROM SEG.USUARIO  WHERE ID='".$_POST['id']."'");				
 		while ($row=$class->fetch_array($resultado)) {					
 			$acu[]=$row[0];
 			$acu[]=$row[1];
 			$acu[]=$row[2];
 			$acu[]=$row[3];
+			$acu[]=$row[4];
 	 	}
 	 	print_r(json_encode($acu));
 	}
