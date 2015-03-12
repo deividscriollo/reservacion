@@ -190,7 +190,7 @@ if(!isset($_SESSION))
 																					<a href="#" data-action="collapse">
 																						<i class="1 icon-chevron-up"></i>
 																					</a>
-																					<a href="#modal-tarifa" data-action="settings" data-toggle="modal">
+																					<a href="#modal-tarifa" data-action="settings" data-toggle="modal" id="btn_modal_tarifa">
 																						<i class="icon-money"></i>
 																					</a>																																										
 																				</div>
@@ -582,7 +582,7 @@ if(!isset($_SESSION))
 
 			<div class="modal-body no-padding">
 				<div class="row-fluid">
-					<div class="widget-main" id="obj_contenedor">
+					<div class="widget-main">
 						<form class="form-horizontal" id="form-tarifa"/>
 							<div class="row-fluid">
 								<div class="span8">
@@ -631,123 +631,7 @@ if(!isset($_SESSION))
 																	
 			</div>
 		</div>
-		<!-- modal galeria -->
-		<!-- <div id="modal-galeria" class="modal hide fade" tabindex="-1">
-			<div class="modal-header no-padding">
-				<div class="table-header">
-					<div type="button" class="close" data-dismiss="modal">&times;</div>
-					Galeria de Servicio
-				</div>
-			</div>
-
-			<div class="modal-body no-padding">
-				<div class="row-fluid">
-					<div class="widget-main" id="obj_contenedor">
-						<form class="form-horizontal" id="form-servicios" enctype="multipart/form-data" novalidate="novalidate">
-							<div class="row-fluid">
-								<div class="ace-file-input ace-file-multiple">
-									<input type="file" name="txt_archivo1" id="txt_archivo1" accept="image/*">
-									<label data-title="Seleccionar Imagen">
-									<span data-title="No seleccionado...">
-									<i class="icon-picture"></i>
-									</span>
-									</label>
-									<a class="remove" href="#">
-										<i class="icon-remove"></i>
-									</a>
-								</div> 
-							</div>
-							<div class="row-fluid">																
-								<div class="span12">																	
-									<div class="control-group">
-										<label class="control-label" for="Servicio">Titulo Imagen:</label>
-										<div class="controls">
-											<div class="span12">
-												<input type="text" name="txt_servicio" id="txt_servicio" class="span12">
-											</div>
-										</div>
-									</div>									
-								</div>																
-							</div>
-							<div class="row-fluid wizard-actions">
-								<button class="btn btn-success btn-next" type="submit">
-									<i class="icon-save icon-on-right"></i>
-									Guardar
-								</button>
-							</div>
-						</form>
-					</div>					
-				</div>									
-			</div>			
-			<div class="modal-footer">
-				<button class="btn btn-small btn-danger pull-rigth" data-dismiss="modal">
-					<i class="icon-remove"></i>
-					Cerrar
-				</button>
-																	
-			</div>
-		</div> -->
-		<!-- modal descripcion -->
-		<!-- <div id="modal-descripcion" class="modal hide fade" tabindex="-1">
-			<div class="modal-header no-padding">
-				<div class="table-header">
-					<div type="button" class="close" data-dismiss="modal">&times;</div>
-					Descripcion de Servicio
-				</div>
-			</div>
-
-			<div class="modal-body no-padding">
-				<div class="row-fluid">
-					<div class="widget-main" id="obj_contenedor">
-						<form class="form-horizontal" id="form-tarifa"/>
-							<div class="row-fluid">
-								<div class="span8">
-									<div class="control-group">
-										<label class="control-label" for="Servicio">Seleccione Categoría:</label>
-										<div class="controls">
-											<div class="span12" id="sel_categoria_mostrar">
-												<!-- <select multiple="" class="select2" id="txt_1_horario" name="txt_1_horario"> -->
-														<!-- 								
-											</div>
-										</div>
-									</div>
-									<div class="control-group">
-										<label class="control-label" for="name">TARIFA:</label>
-										<div class="controls">
-											<span class="span12">
-												<input class="span12" type="text" id="t_nombre" name="t_nombre" />
-											</span>
-										</div>
-									</div>
-									<div class="control-group">
-										<label class="control-label" for="name">PRECIO:</label>
-										<div class="controls">
-											<span class="span12">
-												<input class="span12" type="text" id="t_precio" name="t_precio" />
-											</span>
-										</div>									
-									</div>
-									<div class="controls">
-										<button class="btn btn-small btn-success" type="submit">
-											<i class="icon-save"></i>
-											Guardar
-										</button>
-									</div>	
-								</div>
-							</div>
-						</form>
-					</div>					
-				</div>									
-			</div>			
-			<div class="modal-footer">
-				<button class="btn btn-small btn-danger pull-rigth" data-dismiss="modal">
-					<i class="icon-remove"></i>
-					Cerrar
-				</button>
-																	
-			</div> -->
-		<!-- </div> -->
-		<!--PAGE CONTENT ENDS-->
+		
 
 
 		<a href="#" id="btn-scroll-up" class="btn-scroll-up btn btn-small btn-inverse">

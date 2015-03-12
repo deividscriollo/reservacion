@@ -106,6 +106,119 @@ $(function(){
 			});
 		}		
 	});
+
+
+	$('#form-usuario').validate({
+		errorElement: 'span',
+		errorClass: 'help-inline',
+		focusInvalid: false,
+		rules: {			
+			txt_cedula: {
+				required: true
+				//existe_seg:true
+			},
+			txt_correo: {
+				required: true,
+				email: true
+				//existe_seg:true
+			},
+			txt_nombre: {
+				required: true
+				//existe_seg:true
+			},
+			txt_pass: {
+				required: true
+				//existe_seg:true
+			},
+			txt_pass1: {
+				required: true,
+				equalTo: "#txt_pass"
+			}			
+		},
+		messages: {
+			txt_cedula: {
+				required: "Por favor, Digíte numero de cedula."
+				//email: "Please provide a valid email."
+			},
+			txt_correo: {
+				required: "Por favor, Digíte correo electronico.",
+				email: "Por favor, Digíte correo valido."
+			},
+			txt_nombre: {
+				required: "Por favor, Digíte su nombre."
+				//email: "Please provide a valid email."
+			},
+			txt_pass: {
+				required: "Por favor, Digíte password / clave."
+				//email: "Please provide a valid email."
+			},
+			txt_pass1: {
+				required: "Por favor, Repita Password."
+				//email: "Please provide a valid email."
+			}
+		},
+
+		invalidHandler: function (event, validator) { //display error alert on form submit   
+			$('.alert-error', $('.login-form')).show();
+		},
+
+		highlight: function (e) {
+			$(e).closest('.control-group').removeClass('success').addClass('error');
+		},
+
+		success: function (e) {
+			$(e).closest('.control-group').removeClass('error').addClass('success');
+			$(e).remove();
+		},
+
+		errorPlacement: function (error, element) {
+			if(element.is(':checkbox') || element.is(':radio')) {
+				var controls = element.closest('.controls');
+				if(controls.find(':checkbox,:radio').length > 1) controls.append(error);
+				else error.insertAfter(element.nextAll('.lbl:eq(0)').eq(0));
+			}
+			else if(element.is('.select2')) {
+				error.insertAfter(element.siblings('[class*="select2-container"]:eq(0)'));
+			}
+			else if(element.is('.chzn-select')) {
+				error.insertAfter(element.siblings('[class*="chzn-container"]:eq(0)'));
+			}
+			else error.insertAfter(element);
+		},
+
+		submitHandler: function (form) {
+			$.ajax({
+				url:'php/mostrar_usuarios.php',
+				type:'POST',
+				data:{guardar_segmento:'ok',txt_1:$('#txt_1').val()},
+				success:function(data){
+					console.log(data)
+					if (data==0) {
+                        $.gritter.add({                     
+                            title: '..Mensaje..!',                      
+                            text: 'OK: <br><i class="icon-cloud purple bigger-230"></i>  Sus datos se almacenaron con exito. <br><i class="icon-spinner icon-spin green bigger-230"></i>',                      
+                            //image: 'http://a0.twimg.com/profile_images/59268975/jquery_avatar_bigger.png',                        
+                            sticky: false,                      
+                            time: 2000
+                        });
+                    };
+                     if(data!=0&&data!=1){
+                         $.gritter.add({                     
+                            title: '..Mensaje..!',                      
+                            text: 'Lo sentimos: <br><i class=" icon-cogs red bigger-230"></i>   Intente mas Tarde . <br><i class="icon-spinner icon-spin red bigger-230"></i>',                       
+                            //image: 'http://a0.twimg.com/profile_images/59268975/jquery_avatar_bigger.png',                        
+                            sticky: false,                      
+                            time: ''
+                        });
+                     };
+                    $('#form-segmento-usuario').each (function(){
+                        this.reset();
+                    });
+                    mostrar_segmentos();
+				}
+			});
+		}		
+	});
 });
 mostrar_segmentos();
 function mostrar_segmentos(){

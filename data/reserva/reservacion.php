@@ -7,6 +7,28 @@
 	require('../../inicio/php/mail.php');
 	$class=new constante();
 
+	if (isset($_POST['guardar_cliente'])) {
+		$id=$class->idz();
+		$resultado = $class->consulta("INSERT INTO SEG.USUARIO VALUES('".$id
+                                                                    ."','".$_POST['txt_0'].
+                                                                    "','".$_POST['txt_1'].
+                                                                    "','".$_POST['txt_4'].
+                                                                    "','".$class->fecha_hora().
+                                                                    "','".$_POST['txt_2'].
+                                                                    "','".
+                                                                    "','".$_POST['txt_3'].
+                                                                    "','".'1'.
+                                                                    "','".$class->fecha_hora().
+                                                                    "','".'1'.
+                                                                    "')");
+      $resultado = $class->consulta("INSERT INTO SEG.NIVEL VALUES('".$class->idz()
+                                                                    ."','".$id.
+                                                                    "','".'Cliente'.                                                                    
+                                                                    "','".$class->fecha_hora().
+                                                                    "','".'1'.
+                                                                    "')");
+        print '1';
+	}
 	if(isset($_POST['guardar'])) {
 		// guardar:'ok',matriz:matriz,acu_fh:acu_fh,subtotal:lbl_subtotal
 		$mat=$_POST['matriz'];		
@@ -26,7 +48,7 @@
 		$tabla=$tabla.'<thead style="display: table-header-group;   vertical-align: middle;    border-color: inherit;">
         <tr style="background: #8FBC1D;"><td>SERVICIO</td><td>TARIFA</td><td>cantidad</td><td>precio</td><td>Total</td></tr>
             </thead><tbody style="color:#FFFFFF;">';
-		$res=$class->consulta("INSERT INTO RESERVACION VALUES('$id','$_SESSION[id]','$id_ser','$subtotal','$fecha','0')");
+		$res=$class->consulta("INSERT INTO RESERVACION VALUES('$id','$_SESSION[id_cliente]','$id_ser','$subtotal','$fecha','0')");
 		for ($i=0; $i < count($mat); $i++) { 
 				$ida=$class->idz();
 				$a=$mat[$i][1];
@@ -66,9 +88,9 @@
 		}else print 0;
 		// envio del correo a la reservacion
 		$tabla=$tabla.'</tbody></table>';		
-		$resultado = $class->consulta("SELECT * FROM SEG.USUARIO WHERE ID='$_SESSION[id]'");		
+		$resultado = $class->consulta("SELECT * FROM SEG.USUARIO WHERE ID='$_SESSION[id_cliente]'");		
 		while ($row=$class->fetch_array($resultado)) {					
-			envio_correoReservacion($row['correo'],$tabla,$subtotal,$id);				
+			//envio_correoReservacion($row['correo'],$tabla,$subtotal,$id);				
 	 	}
 
 
@@ -82,11 +104,47 @@
 				print $row[0].','.$row[1].',';				
 		 	}
 	}
+	if (isset($_POST['llenar_clientes'])) {
+
+		$resultado = $class->consulta("SELECT CEDULA,NOMBRE,FONO,DIRECCION,U.ID FROM SEG.USUARIO U,SEG.NIVEL N WHERE NIVEL='Cliente' AND N.ID_USUARIO=U.ID  AND U.STADO='1'");		
+		$acu;
+		while ($row=$class->fetch_array($resultado)) {					
+			$acu[]=$row[0];
+			$acu[]=$row[1];
+			$acu[]=$row[2];
+			$acu[]=$row[3];
+			$acu[]='<button class="btn btn-mini btn-danger" onclick="seleccion_cliente('."'".$row[4]."'".')">
+						<i class="icon-arrow-right  icon-on-right"></i>
+					</button>									
+					';
+	 	}
+	 	print_r(json_encode($acu));
+	}
+	if (isset($_POST['llenar_clientes_datos'])) {
+
+		$resultado = $class->consulta("SELECT CEDULA,NOMBRE,FONO,DIRECCION FROM SEG.USUARIO  WHERE ID='".$_POST['id']."'");				
+		while ($row=$class->fetch_array($resultado)) {					
+			$acu[]=$row[0];
+			$acu[]=$row[1];
+			$acu[]=$row[2];
+			$acu[]=$row[3];
+	 	}
+	 	print_r(json_encode($acu));
+	}
 	if(isset($_POST['cargar_tipo'])) {
 		//$pos=$_POST['pos'];			
 		$resultado = $class->consulta("SELECT * FROM SEG.CATEGORIA_SERVICIO WHERE  STADO='1'");
 			$acu=1;
-			print'<option value>TIPO DE RESERVACIÓN</option>';
+			print'<option value="">Tipo de reservación</option>';
+			while ($row=$class->fetch_array($resultado)) {					
+				print '<option value="'.$row[0].'">'.$row[1].'</option>';				
+		 	}
+	}
+	if(isset($_POST['cargar_servicios'])) {
+		//$pos=$_POST['pos'];			
+		$resultado = $class->consulta("SELECT * FROM SERVICIOS WHERE  STADO='1'");
+			$acu=1;
+			print'<option value="">Seleccione Servicio</option>';
 			while ($row=$class->fetch_array($resultado)) {					
 				print '<option value="'.$row[0].'">'.$row[1].'</option>';				
 		 	}

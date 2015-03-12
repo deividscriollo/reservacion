@@ -1,50 +1,31 @@
 			// llamar funcion dcar4gar datos select
-			servicio_categoria();
-			// cargar datos de servicio categoria
-			function servicio_categoria(){			
-				var result = "" ; 					
-				$.ajax({
-						url:'php/acceso.php',
-			            async :  false ,   
-			            type:  'post',
-			            data: {servicios:'ok'},
-			            success : function ( data )  {	
-			            	$('#sel_servicio').html(data)
-					    } 
-					});	
-			}
+			servicio_categoria();			
 			// Buscando registros seccion nombre usuario
 			function buscando(registro){			
 				var result = "" ; 					
 				$.ajax({
-			            url:'php/rev_usu_exi.php',
-			            async :  false ,   
-			            type:  'post',
-			            data: {reg:registro},
-			            beforeSend: function () {
-			                //$("#icon_b_usuario").addClass("icon-spinner icon-spin orange bigger-125");
-			            },
-			            success : function ( data )  {
-			            	
-			            	//$("#icon_b_usuario").addClass("icon-user");		                						         
-					         result = data ;  
-					    } 		                
-			    	});
+		            url:'php/rev_usu_exi.php',
+		            async :  false ,   
+		            type:  'post',
+		            data: {existencia_correo:':)',reg:registro},			            
+		            success : function ( data )  {
+				         result = data ;  
+				    } 		                
+		    	});
 				return result ; 
 			}
-
 			// verificacion robustes de contraseña
 			function pass_seguro(reg){			
 				var result = "" ; 					
 				$.ajax({
-						url:'../utilidades/cedula.php',
-			            async :  false ,   
-			            type:  'post',
-			            data: {registro:reg, pass:reg},
-			            success : function ( data )  {	
-			            	result=data; 
-					    } 
-					});	
+					url:'../utilidades/cedula.php',
+		            async :  false ,   
+		            type:  'post',
+		            data: {registro:reg, pass:reg},
+		            success : function ( data )  {	
+		            	result=data; 
+				    } 
+				});	
 				return result ; 
 			}
 			// Validacion de sedula
@@ -56,14 +37,38 @@
 			            type:  'post',
 			            data: {registro:reg, cedula:reg},
 			            success : function ( data )  {	
-			            	//alert(data)
 			            	result=data; 
 					    } 
 					});	
 				return result ; 
 			}
-			
+			// Existencia de sedula
+			function existencia_cedula(reg){			
+				var result = "" ; 					
+				$.ajax({
+		            url:'php/rev_usu_exi.php',						
+		            async:  false ,   
+		            type:  'post',
+		            data: {existencia_cedula:':)',reg:reg},
+		            success : function ( data )  {	
+		            	result=data; 
+				    } 
+				});	
+				return result ; 
+			}
 			$(function(){				
+				//Validación existencia cedula valida
+				jQuery.validator.addMethod("existencia_ced", function (value, element) {
+					
+					var reg=$('#txt_reg_ced').val();
+					if (existencia_cedula(reg)==1) {						
+						return false;
+					};
+					if (existencia_cedula(reg)!=1) {						
+						return true;
+					};
+					//return false;		
+				}, "El numero de cedula Ya EXISTE !!!. :(");
 				//Validación cedula valida
 				jQuery.validator.addMethod("ced", function (value, element) {
 					
@@ -111,7 +116,8 @@
 							required:true,
 							ced:true,
 							minlength: 10,
-							maxlength:10
+							maxlength:10,
+							existencia_ced:true
 						},
 						txt_reg_email: {
 							required: true,

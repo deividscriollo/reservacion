@@ -22,8 +22,7 @@ if($acu==0){
 require 'mail.php';
   $sum=envio_correoNuevousuario($_POST['txt_2'],$_POST['txt_1'],$id);  
     if ($sum==1){
-
-      //Envio valido guardado en la baSE DE DATOS
+      //Envio valido guardado en la baSE DE DATOS      
       $resultado = $class->consulta("INSERT INTO SEG.USUARIO VALUES('".$id
                                                                     ."','".$_POST['txt_0'].
                                                                     "','".$_POST['txt_1'].
@@ -36,7 +35,7 @@ require 'mail.php';
                                                                     "','".$class->fecha_hora().
                                                                     "','".'0'.
                                                                     "')");
-      $resultado = $class->consulta("INSERT INTO SEG.NIVEL VALUES('".$class->idz()
+        $resultado = $class->consulta("INSERT INTO SEG.NIVEL VALUES('".$class->idz()
                                                                     ."','".$id.
                                                                     "','".'Cliente'.                                                                    
                                                                     "','".$class->fecha_hora().

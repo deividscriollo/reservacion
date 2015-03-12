@@ -149,7 +149,7 @@ if(!isset($_SESSION))
 				border-radius: 3px !important;
 				text-align: center;
 			}
-			.table{
+			#tabla_horas{
 				background: rgba(255,255,255,0.4)!important;
 				font-size: 20px;
 				color: #3085C9;

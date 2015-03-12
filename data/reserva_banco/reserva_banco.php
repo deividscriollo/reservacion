@@ -11,7 +11,7 @@
 		// guardar:'ok',matriz:matriz,acu_fh:acu_fh,subtotal:lbl_subtotal
 		$fecha=$class->fecha_hora();
 		$id=$class->idz();
-		$res=$class->consulta("INSERT INTO CONFIRMACION VALUES('".$id."','$_POST[id]','$_POST[num_cuenta]','$_POST[num_deposito]','$fecha','0')");
+		$res=$class->consulta("INSERT INTO CONFIRMACION VALUES('".$id."','$_POST[id]','$_POST[num_cuenta]','$_POST[num_deposito]','CUENTA BANCO','','$fecha','0')");
 		if (!$res) {
 			print 1;
 		}else{

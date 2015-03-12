@@ -53,6 +53,19 @@ $acus=split('/', $acus);
 						</a>
 					</li>
 
+					<li ';if ($acus[3]=='reserva') {print("class=active");}print'>
+						<a href="../reserva/">
+							<i class="icon-building blue"></i>
+
+							<span class="menu-text blue">
+								Reservar
+								<span class="badge badge-transparent tooltip-error">
+									
+								</span>
+							</span>
+						</a>
+					</li>
+
 					<li ';if ($acus[3]=='reservacion') {print("class=active");}print'>
 						<a href="../reservacion/">
 							<i class="icon-check green"></i>
@@ -132,7 +145,15 @@ function menunav(){
 
 					<ul class="nav ace-nav pull-right">
 						
+						<li class="light-blue">
+							<a data-toggle="dropdown" href="#" class="dropdown-toggle">
+								<span class="user-info">
+									<small>Bienvenido,</small>
+									'.strtolower($_SESSION["nivel"]).'
+								</span>
 
+							</a>							
+						</li>
 						<li class="light-blue">
 							<a data-toggle="dropdown" href="#" class="dropdown-toggle">
 								<img class="nav-user-photo" src="../assets/avatars/user.jpg" alt="'.$_SESSION['nom'].'" />
