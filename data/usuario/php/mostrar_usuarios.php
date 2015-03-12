@@ -39,7 +39,9 @@ if (isset($_POST['privilegios'])) {
 										END,
 										NIVEL,
 										lower(' <select class=span12 id=select_cost onchange= s_privilegio(event)>
-														
+														<option value=admin>admin</option>
+														<option value=cliente>cliente</option>
+														<option value=administrador>administrador</option>
 													</select>')										
 									FROM SEG.USUARIO U, SEG.NIVEL N WHERE N.ID_USUARIO=U.ID AND U.STADO=1 ");
 	$data = array();	
