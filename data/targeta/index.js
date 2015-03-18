@@ -14,24 +14,24 @@ $(function(){
     function buscando(registro){            
         var result = "" ;                   
         $.ajax({
-                url:'reserva_banco.php',
+                url:'../../utilidades/tarjeta_credito.php',
                 async :  false ,   
                 type:  'post',
+                dataType:'json',
                 data: {validar_targeta:'ok',tarjeta:registro},            
                 success : function ( data )  {
                     //$("#icon_b_usuario").addClass("icon-user");                                                        
-                     result = data ;  
+                     result = data['valid'];  
                 }                       
             });
         return result ; 
     }
-    jQuery.validator.addMethod("valicacion_tarjeta", function (value, element) {
+    jQuery.validator.addMethod("validacion_tarjeta", function (value, element) {
             var a=value;
             var reg=$('#txt_num_deposito').val();                   
-                console.log(buscando(reg,0));       
                 return buscando(reg,0);
            
-        }, "Por favor, Revise el numero no es correcto.");
+    }, "Por favor, Revise el numero la TARJETA DE CREDITO NO ES VALIDA.");
     // proceso de guardar la reservacion
     $('#form-comprobante').validate({
         errorElement: 'span',
@@ -40,8 +40,8 @@ $(function(){
         rules: { 
             txt_num_deposito: {
                 required: true,
-                number: true
-                //valicacion_tarjeta:true
+                number: true,
+                validacion_tarjeta:true
             },
             txt_val_deposito: {required: true,number: true,equalTo: "#txt_valor_pagar"},            
         },
