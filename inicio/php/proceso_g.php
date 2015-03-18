@@ -37,7 +37,7 @@ require 'mail.php';
                                                                     "')");
         $resultado = $class->consulta("INSERT INTO SEG.NIVEL VALUES('".$class->idz()
                                                                     ."','".$id.
-                                                                    "','".'Cliente'.                                                                    
+                                                                    "','".'CLIENTE'.                                                                    
                                                                     "','".$class->fecha_hora().
                                                                     "','".'1'.
                                                                     "')");

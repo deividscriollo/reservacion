@@ -53,7 +53,7 @@ if (isset($_POST['privilegios'])) {
 //indicadores en proceso de modificacion
 if (isset($_POST['modificar'])) {
 	$cedula=$_POST['ced'];
-	$valor=$_POST['valor'];
+	$valor=strtoupper($_POST['valor']);
 	$cont=$class->idz();
 	$acu=$class->consulta("	UPDATE seg.nivel
 						   	SET NIVEL='$valor' 

@@ -1,5 +1,4 @@
 			// llamar funcion dcar4gar datos select
-			servicio_categoria();			
 			// Buscando registros seccion nombre usuario
 			function buscando(registro){			
 				var result = "" ; 					

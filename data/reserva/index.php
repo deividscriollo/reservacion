@@ -333,8 +333,7 @@ if(!isset($_SESSION))
 		<!-- ventana emergente horario -->
 		
 		<!-- modal cliente -->
-		
-		<!-- modal tarifa -->
+
 		<div id="modal-cliente" class="modal hide fade" tabindex="-1">
 			<div class="modal-header no-padding">
 				<div class="table-header">
@@ -354,7 +353,7 @@ if(!isset($_SESSION))
 										<th>Nombre</th>																	
 										<th>Telefono</th>
 										<th>Direccion</th>
-										<th class="centerS">Accion</th>
+										<th class="center">Accion</th>
 									</tr>
 								</thead>
 								<tbody>

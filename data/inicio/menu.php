@@ -91,6 +91,12 @@ $acus=split('/', $acus);
 							<span class="menu-text orange"> Usuario </span>
 						</a>
 					</li>
+					<li ';if ($acus[3]=='factura') {print("class=active");}print'>
+						<a href="../factura/">
+							<i class="icon-book blue"></i>
+							<span class="menu-text blue"> Factura </span>
+						</a>
+					</li>
 				</ul><!--/.nav-list-->
 				<div class="sidebar-collapse" id="sidebar-collapse">
 					<i class="icon-double-angle-left"></i>
