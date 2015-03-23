@@ -14,18 +14,15 @@ function seleccion_cliente(id){
         }
     });    
     $('#modal-cliente').modal('hide');
+
     $.ajax({
         url:'factura.php',
         type:'POST',
-        dataType:'json',
         data:{llenar_reservacion_datos:':)',id:id},
         success:function(data){
-            $('#lbl_ced').html(data[0])         
-            $('#lbl_nom').html(data[1])         
-            $('#lbl_tel').html(data[2])         
-            $('#lbl_dir').html(data[3])  
-            $('#lbl_id_cliente').html(data[4]);          
-            $('#lbl_cor').html(data[5]);          
+            console.log(data)  
+            $('#reservacion_cliente tbody').html(data);
+            
         }
     });   
 }
@@ -114,7 +111,7 @@ $('#btn_buscar_cliente').click(function(){
         dataType:'json',
         data:{llenar_reservacion:':)'},
         success:function(data){
-            //console.log(data)
+            // console.log(data)
             var a=0;
             for (var i=0; i<(data.length); i=i+7) { 
                 a++;            
