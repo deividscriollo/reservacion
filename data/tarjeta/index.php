@@ -230,6 +230,23 @@ if(!isset($_SESSION))
 														</div>
 													</div>
 													<div class="control-group">
+														<label class="control-label" for="email">Seleccione Targeta:</label>
+														<div class="controls">
+															<div class="span12">												
+																<select>
+																	<option value="Seleccione Targeta">Seleccione Targeta</option>
+																	<option value="VISA">VISA</option>
+																	<option value="MASTERCARD">MASTERCARD</option>
+																	<option value="DISCOVER">DISCOVER</option>
+																	<option value="DINERS CLUB">DINERS CLUB</option>
+																	<option value="BANKCARD">BANKCARD</option>
+																	<option value="JCB CARD">JCB CARD</option>
+																	<option value="AMEX CARD">AMEX CARD</option>
+																</select>
+															</div>
+														</div>
+													</div>
+													<div class="control-group">
 														<label class="control-label" for="email">Num Targeta de credito:</label>
 														<div class="controls">
 															<div class="span12">												
@@ -241,8 +258,8 @@ if(!isset($_SESSION))
 														<label class="control-label" for="email">Valor de Deposito:</label>
 
 														<div class="controls">
-															<div class="span12">												
-																<input type="number" name="txt_val_deposito" id="txt_val_deposito" placeholder="Digíte num. comprobante">
+															<div class="span4">												
+																<input type="number" class="span12" name="txt_val_deposito" id="txt_val_deposito" placeholder="Digíte num. comprobante">
 															</div>
 														</div>
 													</div>													

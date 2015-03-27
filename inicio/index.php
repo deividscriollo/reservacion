@@ -69,6 +69,11 @@ if(!isset($_SESSION))
 									<div id="login-box" class="login-box visible widget-box no-border">
 										<div class="widget-body">
 											<div class="widget-main">
+												<div class="ayuda">
+													<div class="dcbtn">
+														<i class="icon-info-sign"></i> Ayuda
+													</div>
+												</div>
 												<h4 class="header blue lighter bigger">
 													<i class="icon-coffee green"></i>
 													Por favor,Digite tu información
@@ -137,9 +142,37 @@ if(!isset($_SESSION))
 											</div>
 										</div><!--/widget-body-->
 									</div><!--/login-box-->
+									<style type="text/css">
+										.ayuda{
+											position: absolute;
+											left: 320px;
+											top: 10px;
+										}
+										.dcbtn{
+											background: #C16050;
+											color: #F7F7F7;
+											padding: 5px;
+											border-top-left-radius: 5px;
+											border-bottom-left-radius: 5px;
+										}
+										.ayuda :hover{
+											background: #C16050;
+											cursor: pointer;
+											-moz-transform: scale(1.1);
+											-webkit-transform: scale(1.1);
+											-o-transform: scale(1.1);
+											-ms-transform: scale(1.1);
+											transform: scale(1.1)
+										}
+									</style>
 									<div id="forgot-box" class="forgot-box widget-box no-border">
 										<div class="widget-body">
 											<div class="widget-main">
+												<div class="ayuda">
+														<div class="dcbtn">
+															<i class="icon-info-sign"></i> Ayuda
+														</div>
+												</div>
 												<h4 class="header red lighter bigger">
 													<i class="icon-key"></i>
 													Recuperar Contraseña
@@ -183,15 +216,20 @@ if(!isset($_SESSION))
 									<div id="signup-box" class="signup-box widget-box no-border">
 										<div class="widget-body">
 											<div class="widget-main">
+												<div class="ayuda">
+													<div class="dcbtn">
+														<i class="icon-info-sign"></i> Ayuda
+													</div>
+												</div>
 												<h4 class="header green lighter bigger">
 													<i class="icon-group blue"></i>
-													Registrar Nuevo Usuario
+													Registrar Nuevo Cliente
 												</h4>
 
 												<div class="space-6"></div>
 												<p> Digite, su informacion para comenzar: </p>
 												<fieldset>
-												<form id="frm-registro">												
+												<form id="frm-registro">																									
 													<div class="control-group">														
 														<span class="span12">
 															<label>
@@ -232,6 +270,8 @@ if(!isset($_SESSION))
 															</label>
 														</div>
 													</div>
+													
+													
 													<div class="control-group">
 														<div class="span12">
 															<label>
@@ -248,7 +288,7 @@ if(!isset($_SESSION))
 																<input type="checkbox" name="agree" id="agree" />
 																<span class="lbl">
 																	Acepto el
-																	<a href="#modal-form" data-toggle="modal">Acuerdo de Usuario</a>
+																	<a href="#modal-form" data-toggle="modal">Acuerdo</a>
 																</span>
 															</label>
 														</div>
@@ -303,11 +343,11 @@ if(!isset($_SESSION))
 						<blockquote>
 							<p>
 							El  acceso a esta aplicacion y la utilización de la clave autorizada,
-							conllevan la aceptación del usuario a todas las estipulaciones de este 
+							conllevan la aceptación del cliente a todas las estipulaciones de este 
 							documento y las condiciones aplicables. Este documento constituye un 
 							acuerdo para el acceso ala aplicacion web de reservaciones de la FABRICA IMBABURA, 
-							entre el cliente, intermediario o usuario, en adelante denominado el 
-							USUARIO que accede a esta aplicacion web, en adelante FABRICA IMBABURA.</p>
+							entre el cliente, intermediario o cliente, en adelante denominado el 
+							CLIENTE que accede a esta aplicacion web, en adelante FABRICA IMBABURA.</p>
 							<small>
 								FABRICA IMBABURA
 								<cite title="Source Title">Política Empresarial</cite>
@@ -336,10 +376,10 @@ if(!isset($_SESSION))
 					<div class="span12" style="text-align: justify;">
 						<blockquote>
 							<p>
-							La contraseña de acceso, es la prueba irrefutable de que es el usuario quien accedió ala 
+							La contraseña de acceso, es la prueba irrefutable de que es el cliente quien accedió ala 
 							 aplicacion y que todas las operaciones realizadas a través de este 
 							 medio han sido aceptadas consciente y voluntariamente por él.  
-							 Es por esta razón que el usuario se obliga a no compartir su contraseña con otra persona, 
+							 Es por esta razón que el cliente se obliga a no compartir su contraseña con otra persona, 
 							 de hacerlo, asumirá la responsabilidad por el uso que esta persona le de, 
 							 relevando a FABRICA IMBABURA de toda responsabilidad por tal hecho.
  

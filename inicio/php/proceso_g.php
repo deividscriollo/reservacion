@@ -41,6 +41,12 @@ require 'mail.php';
                                                                     "','".$class->fecha_hora().
                                                                     "','".'1'.
                                                                     "')");
+        $class->consulta("INSERT INTO SEG.INFO VALUES('".$class->idz()
+                                                                    ."','".$id.
+                                                                    "','".''.                                                                    
+                                                                    "','".$class->fecha_hora().
+                                                                    "','".'0'.
+                                                                    "')");
       if (!$resultado) 
         print('0');
       else 

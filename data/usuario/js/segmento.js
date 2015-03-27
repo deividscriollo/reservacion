@@ -190,7 +190,7 @@ $(function(){
 			$.ajax({
 				url:'php/mostrar_usuarios.php',
 				type:'POST',
-				data:{guardar_segmento:'ok',txt_1:$('#txt_1').val()},
+				data:{guardar_usuario:'ok',cedula:$('#txt_cedula').val(),correo:$('#txt_correo').val(),nombre:$('#txt_nombre').val(),pass:$('#txt_pass').val()},
 				success:function(data){
 					console.log(data)
 					if (data==0) {

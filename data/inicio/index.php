@@ -7,6 +7,13 @@ if(!isset($_SESSION))
 
 		header('Location: ../../index.php');
 	}
+	require('../../admin/class.php');
+	$class=new constante();
+	$id=$_SESSION['id'];
+	$resultado = $class->consulta("SELECT * FROM SEG.USUARIO U,SEG.INFO I WHERE I.ID_USUARIO=U.ID AND U.ID='$id' and I.stado='0'");
+	while ($row=$class->fetch_array($resultado)) {
+		header('Location: index2.php');
+	}
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -65,8 +72,7 @@ if(!isset($_SESSION))
 				</div>
 				<div class="page-content">
 					<?php 
-						require('../../admin/class.php');
-						$class=new constante();
+						
 						$id=$_SESSION['id'];
 						$acu=0;
 						$cedula='';
@@ -78,6 +84,7 @@ if(!isset($_SESSION))
 						$direccion='';
 						$resultado = $class->consulta("SELECT * FROM SEG.USUARIO WHERE id='$id' and stado='1'");	
 							while ($row=$class->fetch_array($resultado)) {
+
 								if ($row[3]=="0900000000") {
 									$acu++;
 								}if ($row[7]=='') {

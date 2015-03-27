@@ -89,7 +89,7 @@ class email  extends PHPMailer{
               <a href="http://localhost/reservacion/data/reserva_banco/index.php?banco=ok&id='.$id.'">
               <img src = "https://raw.githubusercontent.com/deividscriollo/reservacion/master/data/assets/images/b.fw.png" />
               </a>
-              <a href="http://localhost/reservacion/data/targeta/index.php?targeta=ok&id='.$id.'">
+              <a href="http://localhost/reservacion/data/tarjeta/index.php?targeta=ok&id='.$id.'">
               <img src = "https://raw.githubusercontent.com/deividscriollo/reservacion/master/data/assets/images/t.fw.png" />
               </a>
           </td>
@@ -104,7 +104,6 @@ class email  extends PHPMailer{
        $acus='1';
     else
     {
-       // echo 'El mensaje no se pudo enviar ';
        // $email->ErrorInfo;
        $acus='2';
     }

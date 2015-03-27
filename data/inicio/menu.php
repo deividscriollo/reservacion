@@ -18,7 +18,7 @@ $acus=split('/', $acus);
 					<li ';if ($acus[3]=='inicio') {print("class=active");}print'>
 						<a href="../inicio/">
 							<i class="icon-desktop pink"></i>
-							<span class="menu-text pink"> Home </span>
+							<span class="menu-text pink"> Inicio </span>
 						</a>
 					</li>
 					<li ';if ($acus[3]=='servicios') {print("class=active");}print'>
@@ -150,7 +150,12 @@ function menunav(){
 					</a><!--/.brand-->
 
 					<ul class="nav ace-nav pull-right">
-						
+						<li class="red">
+							<a data-toggle="dropdown" class="dropdown-toggle" href="#">
+								<i class=" icon-info-sign icon-animated-bell"></i> Ayuda
+							</a>
+							
+						</li>
 						<li class="light-blue">
 							<a data-toggle="dropdown" href="#" class="dropdown-toggle">
 								<span class="user-info">

@@ -77,6 +77,28 @@ if (isset($_POST['guardar_segmento'])) {
 	}
 
 }
+// guardar datos en usuario
+if (isset($_POST['guardar_usuario'])) {
+	$id=$class->idz();
+	$fecha=$class->fecha_hora();
+	$acu=$class->consulta("	INSERT INTO SEG.USUARIO VALUES('$id',
+														'$_POST[cedula]',
+														'$_POST[nombre]',
+														'','$fecha',
+														'$_POST[correo]',
+														MD5('$_POST[pass]'),
+														'','',
+														'$fecha'
+														,'1')");
+	$acu=$class->consulta("	INSERT INTO SEG.NIVEL VALUES('".$class->idz()."','$id','ADMIN','$fecha','1')");
+	$acu=$class->consulta("	INSERT INTO SEG.INFO VALUES('".$class->idz()."','$id','','$fecha','0')");
+	if (!$acu) {
+		print '1';
+	}else{
+		print '0';
+	}
+
+}
 // verifica existencia de segmento
 if (isset($_POST['existencia_seg'])) {
 	$valor=strtoupper($_POST['reg']);

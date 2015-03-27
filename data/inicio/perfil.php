@@ -7,6 +7,31 @@ if(!isset($_SESSION))
 
 		header('Location: ../../index.php');
 	}
+	require('../../admin/class.php');
+	$class=new constante();
+	if (isset($_POST['btn_perfil'])) {
+		$extension = explode(".", $_FILES["id-input-file-2"]["name"]);
+		$extension = end($extension);
+		$fecha=$class->fecha_hora();
+		$cont=$class->idz();
+		$nombre = basename($_FILES["id-input-file-2"]["name"],".".$extension);
+		$foto = $cont.'.'.$extension;
+		move_uploaded_file($_FILES["id-input-file-2"]["tmp_name"],"img/".$foto);
+		$acu=$class->consulta("INSERT INTO SEG.IMG values('".$cont."','$_SESSION[id]',
+ 															'$foto',
+ 															'$fecha',
+ 															'1'
+ 															)");
+		if (!$acu) {
+			?>
+
+			<?php
+		}else{
+			?>
+
+			<?php
+		}
+	}
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -65,11 +90,15 @@ if(!isset($_SESSION))
 				<div class="page-content">
 
 				<?php 
-						require('../../admin/class.php');
-						$class=new constante();
-						$id=$_SESSION['id'];						
+						
+						$id=$_SESSION['id'];
+						$fotografia='';	
+						$resultado = $class->consulta("SELECT * FROM SEG.IMG WHERE ID_USUARIO='$_SESSION[id]'");
+						while ($row=$class->fetch_array($resultado)) {
+							$fotografia=$row[2];
+						}										
 						$resultado = $class->consulta("SELECT U.ID,CEDULA,NOMBRE,
-											PG_CATALOG.DATE(EDAD),extract(day from age(now(),edad)),FONO,CORREO,U.FECHA,DIRECCION ,NOM_CIUDAD,NOM_PROVINCIA, NOM_PAIS,P.ID,C.ID
+											PG_CATALOG.DATE(EDAD),extract(year from age(now(),edad)),FONO,CORREO,U.FECHA,DIRECCION ,NOM_CIUDAD,NOM_PROVINCIA, NOM_PAIS,P.ID,C.ID
 											FROM SEG.USUARIO U,LOCALIZACION.CIUDAD C, LOCALIZACION.PROVINCIA P, LOCALIZACION.PAIS PA  WHERE U.id='$id' 
 																				AND C.ID=U.ID_CIUDAD 
 																				AND P.ID=C.ID_PROVINCIA
@@ -85,54 +114,54 @@ if(!isset($_SESSION))
 								<li class="active">
 									<a data-toggle="tab" href="#home">
 										<i class="green icon-user bigger-120"></i>
-										Perfil
+										Perfil Cliente
 									</a>
 								</li>
-
-								<!-- <li>
-									<a data-toggle="tab" href="#feed">
-										<i class="orange icon-rss bigger-120"></i>
-										Actividad
+								<li >
+									<a data-toggle="tab" href="#clave">
+										<i class="orange icon-user bigger-120"></i>
+										Cambiar Password / Clave
 									</a>
 								</li>
-
-								<li>
-									<a data-toggle="tab" href="#friends">
-										<i class="blue icon-group bigger-120"></i>
-										Historial
+								<li >
+									<a data-toggle="tab" href="#historial">
+										<i class="blue icon-user bigger-120"></i>
+										Historial de Reservaciones
 									</a>
 								</li>
-
-								<li>
-									<a data-toggle="tab" href="#pictures">
-										<i class="pink icon-picture bigger-120"></i>
-										Otros
-									</a>
-								</li> -->
 							</ul>
 
 							<div class="tab-content no-border padding-24">
 								<div id="home" class="tab-pane in active">
 									<div class="row-fluid">
-										<div class="span3 center">
-											<span class="profile-picture">
-												<img class="editable" alt="Alex's Avatar" id="avatar2" src="../../assets/avatars/avatar2.png" />
-											</span>
+										<div class="span2 center">
+											<form action="perfil.php" method="POST" enctype="multipart/form-data">
+												<span class="profile-picture">
+													<?php 
+														if ($fotografia=='') {
+															print'<img src="img/avatar2.png"/>';
+														}else{
+															print'<img src="img/'.$fotografia.'" />';
+														} 
+													?>
+													
+												</span>
+												<input type="file" name="id-input-file-2" id="id-input-file-2" accept="image/*" required/>
+												<input class="btn btn-primary" type="submit" value="Guardar" name="btn_perfil">
+											</form>
 
 											<div class="space space-4"></div>
 											
 										</div><!--/span-->
-
-										<div class="span9">
+										<div class="span5">
 											<h4 class="blue">
-												<span class="middle"><?php print($row[2]); ?></span>
+												<span class="middle">Perfil</span>
 
 												<span class="label label-success arrowed-in-right">
 													<i class="icon-circle smaller-80"></i>
 													enlinea
 												</span>
 											</h4>
-
 											<div class="profile-user-info">
 												<div class="profile-info-row">
 													<div class="profile-info-name"> Cedula: </div>
@@ -148,24 +177,14 @@ if(!isset($_SESSION))
 														<span><?php print($row[2]); ?></span>
 													</div>
 												</div>
-
 												<div class="profile-info-row">
 													<div class="profile-info-name"> Localizacion </div>
-
-													<div class="profile-info-value">
-								
-															<select class="select2 span3" id="sel_pais" placeholder="Seleccione Pais">
-															
-															
-															</select>														
-															<select class="select2 span3" id="sel_provincia" placeholder="Seleccione Provincia">
-															<option value="<?php print$row[12]; ?>"><?php print$row[10]; ?></option>
-															</select>														
-															<select class="select2 span3" id="sel_ciudad" placeholder="Seleccione Ciudad">
-															<option value="<?php print$row[13]; ?>"><?php print$row[9]; ?></option>
-															</select>														
-																										
+													<div class="profile-info-value">														
+														<span id="lbl_pais"><?php print($row[11]); ?></span>
+														<span id="lbl_pro"><?php print($row[10]); ?></span>
+														<span id="lbl_ciu"><?php print($row[9]); ?></span>
 													</div>
+														
 												</div>
 
 												<div class="profile-info-row">
@@ -177,12 +196,23 @@ if(!isset($_SESSION))
 																									}?>
 															</span>
 														</div>													
-												</div>
+												</div>												
+												
+											</div>
+										</div><!--/span-->
+										<div class="span5">
+											<h4 class="blue">
+												<span class="middle"></span>
+												<span class="label label-success">													
+												</span>
+											</h4>
+											<div class="profile-user-info">
+												
 												<?php if ($row[4]!=0){?>
 													<div class="profile-info-row">
 													<div class="profile-info-name"> Edad :</div>													
 														<div class="profile-info-value">							  								
-															<span id="signup"><?php print($row[4]); ?></span>
+															<span id="signup"><?php print($row[4].' Años'); ?></span>
 
 														</div>													
 													</div>
@@ -198,10 +228,7 @@ if(!isset($_SESSION))
 												<div class="profile-info-row">
 													<div class="profile-info-name"> Dirección: </div>
 
-													<div class="profile-info-value">
-														<span id="lbl_pais"><?php print($row[11]); ?></span>
-														<span id="lbl_pro"><?php print($row[10]); ?></span>
-														<span id="lbl_ciu"><?php print($row[9]); ?></span>
+													<div class="profile-info-value">														
 														<span class="editable" id="txt_direccion"><?php print($row[8]); ?></span>
 													</div>
 
@@ -213,895 +240,56 @@ if(!isset($_SESSION))
 														<span ><?php print($row[6]); ?></span>
 													</div>
 												</div>
-												<div class="profile-info-row">
-													<div class="profile-info-name"> F. Suscripción: </div>
-
-													<div class="profile-info-value">
-														<span><?php print($row[7]); ?></span>
-													</div>
-												</div>
+												
 											</div>
-											<div class="btn btn-app btn-small btn-success" id="btn_actualizar">Actualizar</div>
-											<div class="hr hr-8 dotted"></div>
-
-											
 										</div><!--/span-->
 									</div><!--/row-fluid-->									
 								</div><!--#home-->
 
-								<div id="feed" class="tab-pane">
-									<div class="profile-feed row-fluid">
-										<div class="span6">
-											<div class="profile-activity clearfix">
-												<div>
-													<img class="pull-left" alt="Alex Doe's avatar" src="../assets/avatars/avatar5.png" />
-													<a class="user" href="#"> Alex Doe </a>
-													changed his profile
-													<a href="#">Take a look</a>
-
-													<div class="time">
-														<i class="icon-time bigger-110"></i>
-														an hour ago
-													</div>
-												</div>
-
-												<div class="tools action-buttons">
-													<a href="#" class="blue">
-														<i class="icon-pencil bigger-125"></i>
-													</a>
-
-													<a href="#" class="red">
-														<i class="icon-remove bigger-125"></i>
-													</a>
-												</div>
+								<div id="clave" class="tab-pane">
+									<div class="span3"></div>
+									<div class="span5">
+										<div class="widget-box">
+											<div class="widget-header">
+												<h5>Cambiar Password / Clave</h5>											
 											</div>
 
-											<div class="profile-activity clearfix">
-												<div>
-													<img class="pull-left" alt="Susan Smith's avatar" src="../assets/avatars/avatar1.png" />
-													<a class="user" href="#"> Susan Smith </a>
-
-													is now friends with Alex Doe.
-													<div class="time">
-														<i class="icon-time bigger-110"></i>
-														2 hours ago
-													</div>
-												</div>
-
-												<div class="tools action-buttons">
-													<a href="#" class="blue">
-														<i class="icon-pencil bigger-125"></i>
-													</a>
-
-													<a href="#" class="red">
-														<i class="icon-remove bigger-125"></i>
-													</a>
-												</div>
-											</div>
-
-											<div class="profile-activity clearfix">
-												<div>
-													<i class="pull-left thumbicon icon-ok btn-success no-hover"></i>
-													<a class="user" href="#"> Alex Doe </a>
-													joined
-													<a href="#">Country Music</a>
-
-													group.
-													<div class="time">
-														<i class="icon-time bigger-110"></i>
-														5 hours ago
-													</div>
-												</div>
-
-												<div class="tools action-buttons">
-													<a href="#" class="blue">
-														<i class="icon-pencil bigger-125"></i>
-													</a>
-
-													<a href="#" class="red">
-														<i class="icon-remove bigger-125"></i>
-													</a>
+											<div class="widget-body">
+												<div class="widget-main">
+													<form class="form-horizontal" id="form-perfil-pass">
+														<div class="control-group">
+															<label class="control-label" for="form-field-1">Clave Actual</label>
+															<div class="controls">
+																<input type="password" id="txt_1" name="txt_1" placeholder="Clave / Actual Actual">
+															</div>
+														</div>
+														<div class="control-group">
+															<label class="control-label" for="form-field-1">Nuevo Password</label>
+															<div class="controls">
+																<input type="password" id="txt_2" name="txt_2" placeholder="Digíte Password">
+															</div>
+														</div>
+														<div class="control-group">
+															<label class="control-label" for="form-field-1">Repita Password</label>
+															<div class="controls">
+																<input type="password" id="txt_3" name="txt_3" placeholder="Repita Password">
+															</div>
+														</div>
+														<div class="control-group pull-rigth">
+															<div class="controls">																
+																<input class="btn btn-info icon-ok bigger-110" type="submit" value="Guardar">
+															</div>
+														</div>
+													</form>
 												</div>
 											</div>
-
-											<div class="profile-activity clearfix">
-												<div>
-													<i class="pull-left thumbicon icon-picture btn-info no-hover"></i>
-													<a class="user" href="#"> Alex Doe </a>
-													uploaded a new photo.
-													<a href="#">Take a look</a>
-
-													<div class="time">
-														<i class="icon-time bigger-110"></i>
-														5 hours ago
-													</div>
-												</div>
-
-												<div class="tools action-buttons">
-													<a href="#" class="blue">
-														<i class="icon-pencil bigger-125"></i>
-													</a>
-
-													<a href="#" class="red">
-														<i class="icon-remove bigger-125"></i>
-													</a>
-												</div>
-											</div>
-
-											<div class="profile-activity clearfix">
-												<div>
-													<img class="pull-left" alt="David Palms's avatar" src="../assets/avatars/avatar4.png" />
-													<a class="user" href="#"> David Palms </a>
-
-													left a comment on Alex's wall.
-													<div class="time">
-														<i class="icon-time bigger-110"></i>
-														8 hours ago
-													</div>
-												</div>
-
-												<div class="tools action-buttons">
-													<a href="#" class="blue">
-														<i class="icon-pencil bigger-125"></i>
-													</a>
-
-													<a href="#" class="red">
-														<i class="icon-remove bigger-125"></i>
-													</a>
-												</div>
-											</div>
-										</div><!--/span-->
-
-										<div class="span6">
-											<div class="profile-activity clearfix">
-												<div>
-													<i class="pull-left thumbicon icon-edit btn-pink no-hover"></i>
-													<a class="user" href="#"> Alex Doe </a>
-													published a new blog post.
-													<a href="#">Read now</a>
-
-													<div class="time">
-														<i class="icon-time bigger-110"></i>
-														11 hours ago
-													</div>
-												</div>
-
-												<div class="tools action-buttons">
-													<a href="#" class="blue">
-														<i class="icon-pencil bigger-125"></i>
-													</a>
-
-													<a href="#" class="red">
-														<i class="icon-remove bigger-125"></i>
-													</a>
-												</div>
-											</div>
-
-											<div class="profile-activity clearfix">
-												<div>
-													<img class="pull-left" alt="Alex Doe's avatar" src="../assets/avatars/avatar5.png" />
-													<a class="user" href="#"> Alex Doe </a>
-
-													upgraded his skills.
-													<div class="time">
-														<i class="icon-time bigger-110"></i>
-														12 hours ago
-													</div>
-												</div>
-
-												<div class="tools action-buttons">
-													<a href="#" class="blue">
-														<i class="icon-pencil bigger-125"></i>
-													</a>
-
-													<a href="#" class="red">
-														<i class="icon-remove bigger-125"></i>
-													</a>
-												</div>
-											</div>
-
-											<div class="profile-activity clearfix">
-												<div>
-													<i class="pull-left thumbicon icon-key btn-info no-hover"></i>
-													<a class="user" href="#"> Alex Doe </a>
-
-													logged in.
-													<div class="time">
-														<i class="icon-time bigger-110"></i>
-														12 hours ago
-													</div>
-												</div>
-
-												<div class="tools action-buttons">
-													<a href="#" class="blue">
-														<i class="icon-pencil bigger-125"></i>
-													</a>
-
-													<a href="#" class="red">
-														<i class="icon-remove bigger-125"></i>
-													</a>
-												</div>
-											</div>
-
-											<div class="profile-activity clearfix">
-												<div>
-													<i class="pull-left thumbicon icon-off btn-inverse no-hover"></i>
-													<a class="user" href="#"> Alex Doe </a>
-
-													logged out.
-													<div class="time">
-														<i class="icon-time bigger-110"></i>
-														16 hours ago
-													</div>
-												</div>
-
-												<div class="tools action-buttons">
-													<a href="#" class="blue">
-														<i class="icon-pencil bigger-125"></i>
-													</a>
-
-													<a href="#" class="red">
-														<i class="icon-remove bigger-125"></i>
-													</a>
-												</div>
-											</div>
-
-											<div class="profile-activity clearfix">
-												<div>
-													<i class="pull-left thumbicon icon-key btn-info no-hover"></i>
-													<a class="user" href="#"> Alex Doe </a>
-
-													logged in.
-													<div class="time">
-														<i class="icon-time bigger-110"></i>
-														16 hours ago
-													</div>
-												</div>
-
-												<div class="tools action-buttons">
-													<a href="#" class="blue">
-														<i class="icon-pencil bigger-125"></i>
-													</a>
-
-													<a href="#" class="red">
-														<i class="icon-remove bigger-125"></i>
-													</a>
-												</div>
-											</div>
-										</div><!--/span-->
-									</div><!--/row-->
-
-									<div class="space-12"></div>
-
-									<div class="center">
-										<a href="#" class="btn btn-small btn-primary">
-											<i class="icon-rss bigger-150 middle"></i>
-
-											View more activities
-											<i class="icon-on-right icon-arrow-right"></i>
-										</a>
-									</div>
+										</div>
+									</div>									
 								</div><!--/#feed-->
 
-								<div id="friends" class="tab-pane">
-									<div class="profile-users clearfix">
-										<div class="itemdiv memberdiv">
-											<div class="inline position-relative">
-												<div class="user">
-													<a href="#">
-														<img src="../assets/avatars/avatar4.png" alt="Bob Doe's avatar" />
-													</a>
-												</div>
-
-												<div class="body">
-													<div class="name">
-														<a href="#">
-															<span class="user-status status-online"></span>
-															Bob Doe
-														</a>
-													</div>
-												</div>
-
-												<div class="popover">
-													<div class="arrow"></div>
-
-													<div class="popover-content">
-														<div class="bolder">Content Editor</div>
-
-														<div class="time">
-															<i class="icon-time middle bigger-120 orange"></i>
-															<span class="green"> 20 mins ago </span>
-														</div>
-
-														<div class="hr dotted hr-8"></div>
-
-														<div class="tools action-buttons">
-															<a href="#">
-																<i class="icon-facebook-sign blue bigger-150"></i>
-															</a>
-
-															<a href="#">
-																<i class="icon-twitter-sign light-blue bigger-150"></i>
-															</a>
-
-															<a href="#">
-																<i class="icon-google-plus-sign red bigger-150"></i>
-															</a>
-														</div>
-													</div>
-												</div>
-											</div>
-										</div>
-
-										<div class="itemdiv memberdiv">
-											<div class="inline position-relative">
-												<div class="user">
-													<a href="#">
-														<img src="../assets/avatars/avatar1.png" alt="Rose Doe's avatar" />
-													</a>
-												</div>
-
-												<div class="body">
-													<div class="name">
-														<a href="#">
-															<span class="user-status status-offline"></span>
-															Rose Doe
-														</a>
-													</div>
-												</div>
-
-												<div class="popover">
-													<div class="arrow"></div>
-
-													<div class="popover-content">
-														<div class="bolder">Graphic Designer</div>
-
-														<div class="time">
-															<i class="icon-time middle bigger-120 grey"></i>
-															<span class="grey"> 30 min ago </span>
-														</div>
-
-														<div class="hr dotted hr-8"></div>
-
-														<div class="tools action-buttons">
-															<a href="#">
-																<i class="icon-facebook-sign blue bigger-150"></i>
-															</a>
-
-															<a href="#">
-																<i class="icon-twitter-sign light-blue bigger-150"></i>
-															</a>
-
-															<a href="#">
-																<i class="icon-google-plus-sign red bigger-150"></i>
-															</a>
-														</div>
-													</div>
-												</div>
-											</div>
-										</div>
-
-										<div class="itemdiv memberdiv">
-											<div class="inline position-relative">
-												<div class="user">
-													<a href="#">
-														<img src="../assets/avatars/avatar.png" alt="Jim Doe's avatar" />
-													</a>
-												</div>
-
-												<div class="body">
-													<div class="name">
-														<a href="#">
-															<span class="user-status status-busy"></span>
-															Jim Doe
-														</a>
-													</div>
-												</div>
-
-												<div class="popover">
-													<div class="arrow"></div>
-
-													<div class="popover-content">
-														<div class="bolder">SEO &amp; Advertising</div>
-
-														<div class="time">
-															<i class="icon-time middle bigger-120 red"></i>
-															<span class="grey"> 1 hour ago </span>
-														</div>
-
-														<div class="hr dotted hr-8"></div>
-
-														<div class="tools action-buttons">
-															<a href="#">
-																<i class="icon-facebook-sign blue bigger-150"></i>
-															</a>
-
-															<a href="#">
-																<i class="icon-twitter-sign light-blue bigger-150"></i>
-															</a>
-
-															<a href="#">
-																<i class="icon-google-plus-sign red bigger-150"></i>
-															</a>
-														</div>
-													</div>
-												</div>
-											</div>
-										</div>
-
-										<div class="itemdiv memberdiv">
-											<div class="inline position-relative">
-												<div class="user">
-													<a href="#">
-														<img src="../assets/avatars/avatar5.png" alt="Alex Doe's avatar" />
-													</a>
-												</div>
-
-												<div class="body">
-													<div class="name">
-														<a href="#">
-															<span class="user-status status-idle"></span>
-															Alex Doe
-														</a>
-													</div>
-												</div>
-
-												<div class="popover">
-													<div class="arrow"></div>
-
-													<div class="popover-content">
-														<div class="bolder">Marketing</div>
-
-														<div class="time">
-															<i class="icon-time middle bigger-120 orange"></i>
-															<span class=""> 40 minutes idle </span>
-														</div>
-
-														<div class="hr dotted hr-8"></div>
-
-														<div class="tools action-buttons">
-															<a href="#">
-																<i class="icon-facebook-sign blue bigger-150"></i>
-															</a>
-
-															<a href="#">
-																<i class="icon-twitter-sign light-blue bigger-150"></i>
-															</a>
-
-															<a href="#">
-																<i class="icon-google-plus-sign red bigger-150"></i>
-															</a>
-														</div>
-													</div>
-												</div>
-											</div>
-										</div>
-
-										<div class="itemdiv memberdiv">
-											<div class="inline position-relative">
-												<div class="user">
-													<a href="#">
-														<img src="../assets/avatars/avatar2.png" alt="Phil Doe's avatar" />
-													</a>
-												</div>
-
-												<div class="body">
-													<div class="name">
-														<a href="#">
-															<span class="user-status status-online"></span>
-															Phil Doe
-														</a>
-													</div>
-												</div>
-
-												<div class="popover">
-													<div class="arrow"></div>
-
-													<div class="popover-content">
-														<div class="bolder">Public Relations</div>
-
-														<div class="time">
-															<i class="icon-time middle bigger-120 orange"></i>
-															<span class="green"> 2 hours ago </span>
-														</div>
-
-														<div class="hr dotted hr-8"></div>
-
-														<div class="tools action-buttons">
-															<a href="#">
-																<i class="icon-facebook-sign blue bigger-150"></i>
-															</a>
-
-															<a href="#">
-																<i class="icon-twitter-sign light-blue bigger-150"></i>
-															</a>
-
-															<a href="#">
-																<i class="icon-google-plus-sign red bigger-150"></i>
-															</a>
-														</div>
-													</div>
-												</div>
-											</div>
-										</div>
-
-										<div class="itemdiv memberdiv">
-											<div class="inline position-relative">
-												<div class="user">
-													<a href="#">
-														<img src="../assets/avatars/avatar3.png" alt="Susan Doe's avatar" />
-													</a>
-												</div>
-
-												<div class="body">
-													<div class="name">
-														<a href="#">
-															<span class="user-status status-online"></span>
-															Susan Doe
-														</a>
-													</div>
-												</div>
-
-												<div class="popover">
-													<div class="arrow"></div>
-
-													<div class="popover-content">
-														<div class="bolder">HR Management</div>
-
-														<div class="time">
-															<i class="icon-time middle bigger-120 orange"></i>
-															<span class="green"> 20 mins ago </span>
-														</div>
-
-														<div class="hr dotted hr-8"></div>
-
-														<div class="tools action-buttons">
-															<a href="#">
-																<i class="icon-facebook-sign blue bigger-150"></i>
-															</a>
-
-															<a href="#">
-																<i class="icon-twitter-sign light-blue bigger-150"></i>
-															</a>
-
-															<a href="#">
-																<i class="icon-google-plus-sign red bigger-150"></i>
-															</a>
-														</div>
-													</div>
-												</div>
-											</div>
-										</div>
-
-										<div class="itemdiv memberdiv">
-											<div class="inline position-relative">
-												<div class="user">
-													<a href="#">
-														<img src="../assets/avatars/avatar1.png" alt="Jennifer Doe's avatar" />
-													</a>
-												</div>
-
-												<div class="body">
-													<div class="name">
-														<a href="#">
-															<span class="user-status status-offline"></span>
-															Jennifer Doe
-														</a>
-													</div>
-												</div>
-
-												<div class="popover">
-													<div class="arrow"></div>
-
-													<div class="popover-content">
-														<div class="bolder">Graphic Designer</div>
-
-														<div class="time">
-															<i class="icon-time middle bigger-120 grey"></i>
-															<span class="grey"> 2 hours ago </span>
-														</div>
-
-														<div class="hr dotted hr-8"></div>
-
-														<div class="tools action-buttons">
-															<a href="#">
-																<i class="icon-facebook-sign blue bigger-150"></i>
-															</a>
-
-															<a href="#">
-																<i class="icon-twitter-sign light-blue bigger-150"></i>
-															</a>
-
-															<a href="#">
-																<i class="icon-google-plus-sign red bigger-150"></i>
-															</a>
-														</div>
-													</div>
-												</div>
-											</div>
-										</div>
-
-										<div class="itemdiv memberdiv">
-											<div class="inline position-relative">
-												<div class="user">
-													<a href="#">
-														<img src="../assets/avatars/avatar3.png" alt="Alexa Doe's avatar" />
-													</a>
-												</div>
-
-												<div class="body">
-													<div class="name">
-														<a href="#">
-															<span class="user-status status-offline"></span>
-															Alexa Doe
-														</a>
-													</div>
-												</div>
-
-												<div class="popover">
-													<div class="arrow"></div>
-
-													<div class="popover-content">
-														<div class="bolder">Accounting</div>
-
-														<div class="time">
-															<i class="icon-time middle bigger-120 grey"></i>
-															<span class="grey"> 4 hours ago </span>
-														</div>
-
-														<div class="hr dotted hr-8"></div>
-
-														<div class="tools action-buttons">
-															<a href="#">
-																<i class="icon-facebook-sign blue bigger-150"></i>
-															</a>
-
-															<a href="#">
-																<i class="icon-twitter-sign light-blue bigger-150"></i>
-															</a>
-
-															<a href="#">
-																<i class="icon-google-plus-sign red bigger-150"></i>
-															</a>
-														</div>
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>
-
-									<div class="hr hr10 hr-double"></div>
-
-									<ul class="pager pull-right">
-										<li class="previous disabled">
-											<a href="#">&larr; Prev</a>
-										</li>
-
-										<li class="next">
-											<a href="#">Next &rarr;</a>
-										</li>
-									</ul>
+								<div id="historial" class="tab-pane">
+									
 								</div><!--/#friends-->
-
-								<div id="pictures" class="tab-pane">
-									<ul class="ace-thumbnails">
-										<li>
-											<a href="#" data-rel="colorbox">
-												<img alt="150x150" src="../assets/images/gallery/thumb-1.jpg" />
-												<div class="text">
-													<div class="inner">Sample Caption on Hover</div>
-												</div>
-											</a>
-
-											<div class="tools tools-bottom">
-												<a href="#">
-													<i class="icon-link"></i>
-												</a>
-
-												<a href="#">
-													<i class="icon-paper-clip"></i>
-												</a>
-
-												<a href="#">
-													<i class="icon-pencil"></i>
-												</a>
-
-												<a href="#">
-													<i class="icon-remove red"></i>
-												</a>
-											</div>
-										</li>
-
-										<li>
-											<a href="#" data-rel="colorbox">
-												<img alt="150x150" src="../assets/images/gallery/thumb-2.jpg" />
-												<div class="text">
-													<div class="inner">Sample Caption on Hover</div>
-												</div>
-											</a>
-
-											<div class="tools tools-bottom">
-												<a href="#">
-													<i class="icon-link"></i>
-												</a>
-
-												<a href="#">
-													<i class="icon-paper-clip"></i>
-												</a>
-
-												<a href="#">
-													<i class="icon-pencil"></i>
-												</a>
-
-												<a href="#">
-													<i class="icon-remove red"></i>
-												</a>
-											</div>
-										</li>
-
-										<li>
-											<a href="#" data-rel="colorbox">
-												<img alt="150x150" src="../assets/images/gallery/thumb-3.jpg" />
-												<div class="text">
-													<div class="inner">Sample Caption on Hover</div>
-												</div>
-											</a>
-
-											<div class="tools tools-bottom">
-												<a href="#">
-													<i class="icon-link"></i>
-												</a>
-
-												<a href="#">
-													<i class="icon-paper-clip"></i>
-												</a>
-
-												<a href="#">
-													<i class="icon-pencil"></i>
-												</a>
-
-												<a href="#">
-													<i class="icon-remove red"></i>
-												</a>
-											</div>
-										</li>
-
-										<li>
-											<a href="#" data-rel="colorbox">
-												<img alt="150x150" src="../assets/images/gallery/thumb-4.jpg" />
-												<div class="text">
-													<div class="inner">Sample Caption on Hover</div>
-												</div>
-											</a>
-
-											<div class="tools tools-bottom">
-												<a href="#">
-													<i class="icon-link"></i>
-												</a>
-
-												<a href="#">
-													<i class="icon-paper-clip"></i>
-												</a>
-
-												<a href="#">
-													<i class="icon-pencil"></i>
-												</a>
-
-												<a href="#">
-													<i class="icon-remove red"></i>
-												</a>
-											</div>
-										</li>
-
-										<li>
-											<a href="#" data-rel="colorbox">
-												<img alt="150x150" src="../assets/images/gallery/thumb-5.jpg" />
-												<div class="text">
-													<div class="inner">Sample Caption on Hover</div>
-												</div>
-											</a>
-
-											<div class="tools tools-bottom">
-												<a href="#">
-													<i class="icon-link"></i>
-												</a>
-
-												<a href="#">
-													<i class="icon-paper-clip"></i>
-												</a>
-
-												<a href="#">
-													<i class="icon-pencil"></i>
-												</a>
-
-												<a href="#">
-													<i class="icon-remove red"></i>
-												</a>
-											</div>
-										</li>
-
-										<li>
-											<a href="#" data-rel="colorbox">
-												<img alt="150x150" src="../assets/images/gallery/thumb-6.jpg" />
-												<div class="text">
-													<div class="inner">Sample Caption on Hover</div>
-												</div>
-											</a>
-
-											<div class="tools tools-bottom">
-												<a href="#">
-													<i class="icon-link"></i>
-												</a>
-
-												<a href="#">
-													<i class="icon-paper-clip"></i>
-												</a>
-
-												<a href="#">
-													<i class="icon-pencil"></i>
-												</a>
-
-												<a href="#">
-													<i class="icon-remove red"></i>
-												</a>
-											</div>
-										</li>
-
-										<li>
-											<a href="#" data-rel="colorbox">
-												<img alt="150x150" src="../assets/images/gallery/thumb-1.jpg" />
-												<div class="text">
-													<div class="inner">Sample Caption on Hover</div>
-												</div>
-											</a>
-
-											<div class="tools tools-bottom">
-												<a href="#">
-													<i class="icon-link"></i>
-												</a>
-
-												<a href="#">
-													<i class="icon-paper-clip"></i>
-												</a>
-
-												<a href="#">
-													<i class="icon-pencil"></i>
-												</a>
-
-												<a href="#">
-													<i class="icon-remove red"></i>
-												</a>
-											</div>
-										</li>
-
-										<li>
-											<a href="#" data-rel="colorbox">
-												<img alt="150x150" src="../assets/images/gallery/thumb-2.jpg" />
-												<div class="text">
-													<div class="inner">Sample Caption on Hover</div>
-												</div>
-											</a>
-
-											<div class="tools tools-bottom">
-												<a href="#">
-													<i class="icon-link"></i>
-												</a>
-
-												<a href="#">
-													<i class="icon-paper-clip"></i>
-												</a>
-
-												<a href="#">
-													<i class="icon-pencil"></i>
-												</a>
-
-												<a href="#">
-													<i class="icon-remove red"></i>
-												</a>
-											</div>
-										</li>
-									</ul>
-								</div><!--/#pictures-->
 							</div>
 						</div>						
 					</div>
@@ -1178,6 +366,8 @@ if(!isset($_SESSION))
 		<script src="../assets/js/select2.min.js"></script>
 		<script src="../assets/js/jquery.hotkeys.min.js"></script>
 		<script src="../assets/js/jquery.gritter.min.js"></script>
+		<script src="../../assets/js/jquery.validate.min.js"></script>
+		<script src="../../assets/js/additional-methods.min.js"></script>
 
 
 
@@ -1190,8 +380,19 @@ if(!isset($_SESSION))
 		<script type="text/javascript">			
 			$(function(){
 				//Enviar datos extras
-				acupais()	
-					
+				$('#id-input-file-2').ace_file_input({
+					no_file:'Seleccionar',
+					btn_choose:'Ver',
+					btn_change:'Cambiar',
+					droppable:false,
+					onchange:null,
+					thumbnail:false, //| true | large
+					whitelist:'gif|png|jpg|jpeg'
+					//blacklist:'exe|php'
+					//onchange:''
+					//
+				});
+
 				//editables on first profile page
 				$.fn.editable.defaults.mode = 'inline';
 				$.fn.editableform.loading = "<div class='editableform-loading'><i class='light-blue icon-2x icon-spinner icon-spin'></i></div>";
@@ -1259,116 +460,163 @@ if(!isset($_SESSION))
 					var ciu=$('#sel_ciudad').val();
 					$('#lbl_ciu').html(busca_reg_valorc(ciu));						
 				});
-
 			});
-			function busca_reg_valor(id){
-				var regi='';
+			
+			// verificacion robustes de contraseña
+			function pass_seguro(reg){			
+				var result = "" ; 					
 				$.ajax({
-				    url: "../localizacion/pais.php",
-				    type: "POST",
-				    async:false,
-				    data: {nom_pais:'pro',registro:id},        
-				    success: function(data)
-				    {	
-				       regi=data;			       
-				    }	        
-				});
-				return regi;
+					url:'../../utilidades/cedula.php',
+		            async :  false ,   
+		            type:  'post',
+		            data: {registro:reg, pass:reg},
+		            success : function ( data )  {	
+		            	result=data; 
+				    } 
+				});	
+				return result ; 
 			}
-			function busca_reg_valorp(id){
-				var regi='';
+			//Validación pass robusto
+				jQuery.validator.addMethod("pass_r", function (value, element) {
+					
+					var reg=$('#txt_2').val();
+					if (pass_seguro(reg)==0) {						
+						return false;
+					};
+					if (pass_seguro(reg)!=0) {						
+						return true;
+					};
+					//return false;		
+				}, "Password no seguro!!!. :(, Debe contener al menos una letra Mayuscula, minusculas, caracteres especiales y numeros, minimo 8 caracteres y maximo 16");
+
+			function buscando(registro){			
+				var result = "" ; 					
 				$.ajax({
-				    url: "../localizacion/pais.php",
-				    type: "POST",
-				    async:false,
-				    data: {nom_pro:'pro',registro:id},        
-				    success: function(data)
-				    {	
-				       regi=data;			       
-				    }	        
-				});
-				return regi;
+			            url:'../localizacion/pais.php',
+			            async :  false ,   
+			            type:  'post',
+			            data: {existencia_seg:':)',reg:registro},            
+			            success : function ( data )  {
+					         result = data ;  
+					    } 		                
+			    	});
+				return result ; 
 			}
-			function busca_reg_valorc(id){
-				var regi='';
-				$.ajax({
-				    url: "../localizacion/pais.php",
-				    type: "POST",
-				    async:false,
-				    data: {nom_ciu:'pro',registro:id},        
-				    success: function(data)
-				    {	
-				       regi=data;			       
-				    }	        
-				});
-				return regi;
-			}
-			function msm_cod(){
-				alert('hola')				
-			}
-			function acupais(){
+			//Validación Existencia correo electronico
+			jQuery.validator.addMethod("existe_seg", function (value, element) {
+				var a=value;
+				var reg=$('#txt_1').val();					
+				if (buscando(reg,0)==0) {						
+					return true;
+				};
+				if(buscando(reg,0)!=0){						
+					return false;
+				};
+			}, "Por favor, Digite otro segmento ya existe!!!.");
+			//almacenando informacion del nuevo pass
+			$('#form-perfil-pass').validate({
+				errorElement: 'span',
+				errorClass: 'help-inline',
+				focusInvalid: false,
+				rules: {			
+					txt_1: {
+						required: true,
+						existe_seg:true
+					},
+					txt_2: {
+						required: true,
+						pass_r:true,
+						minlength: 8,
+						maxlength: 16
+					},
+					txt_3: {
+						required: true,
+						equalTo: "#txt_2"
+					}
+				},
+
+				messages: {
+					txt_1: {
+						required:'Por favor, Digite su password actual',
+						existe_seg:'Su password no es el correcto'
+					},
+					txt_2: {
+						required: 'Por favor, Ingrese nuevo password',
+						//existe_seg:true,
+						minlength: 'Por favor, Digíte minimo 8 caracteres',
+						minlength: 'Por favor, Digíte maximo 16 caracteres'
+					},
+					txt_3: {
+						required: 'Por favor, Digite la informacion solicitada',
+						equalTo: "Su password no coincide"
+
+					},			
+				},
+
+				invalidHandler: function (event, validator) { //display error alert on form submit   
+					$('.alert-error', $('.login-form')).show();
+				},
+
+				highlight: function (e) {
+					$(e).closest('.control-group').removeClass('success').addClass('error');
+				},
+
+				success: function (e) {
+					$(e).closest('.control-group').removeClass('error').addClass('success');
+					$(e).remove();
+				},
+
+				errorPlacement: function (error, element) {
+					if(element.is(':checkbox') || element.is(':radio')) {
+						var controls = element.closest('.controls');
+						if(controls.find(':checkbox,:radio').length > 1) controls.append(error);
+						else error.insertAfter(element.nextAll('.lbl:eq(0)').eq(0));
+					}
+					else if(element.is('.select2')) {
+						error.insertAfter(element.siblings('[class*="select2-container"]:eq(0)'));
+					}
+					else if(element.is('.chzn-select')) {
+						error.insertAfter(element.siblings('[class*="chzn-container"]:eq(0)'));
+					}
+					else error.insertAfter(element);
+				},
+
+				submitHandler: function (form) {
 					$.ajax({
-					    url: "../localizacion/pais.php",					   
-					    async: false,
-					    type: "POST",
-					    data:{pais:"pasi"},
-					    success: function(data)
-					    {			
-					    	// console.log(data);
-					    	$('#sel_pais').html(data);
+						url:'../localizacion/pais.php',
+						type:'POST',
+						data:{guardar_pass:'ok',txt_1:$('#txt_2').val()},
+						success:function(data){
+							console.log(data);
+							if (data==1) {
+		                        $.gritter.add({                     
+		                            title: '..Mensaje..!',                      
+		                            text: 'OK: <br><i class="icon-cloud purple bigger-230"></i>  Sus datos se almacenaron con exito. <br><i class="icon-spinner icon-spin green bigger-230"></i>',                      
+		                            //image: 'http://a0.twimg.com/profile_images/59268975/jquery_avatar_bigger.png',                        
+		                            sticky: false,                      
+		                            time: 2000
+		                        });
+		                        $('#form-perfil-pass').each (function(){
+			                        this.reset();
+			                    });
+		                    };
+		                     if(data!=1){
+		                         $.gritter.add({                     
+		                            title: '..Mensaje..!',                      
+		                            text: 'Lo sentimos: <br><i class=" icon-cogs red bigger-230"></i>   Intente mas Tarde . <br><i class="icon-spinner icon-spin red bigger-230"></i>',                       
+		                            //image: 'http://a0.twimg.com/profile_images/59268975/jquery_avatar_bigger.png',                        
+		                            sticky: false,                      
+		                            time: ''
+		                        });
+		                     };
+		                    
+						}
+					});
+				}		
+			});
 
-					    }					    
-					});																		
-			}		
-			function cargar_pro(id){				
-				$.ajax({
-				    url: "../localizacion/pais.php",
-				    type: "POST",
-				    data: {pro:'pro',registro:id},        
-				    success: function(data)
-				    {	
-				       $('#sel_provincia').html(data);				       
-				    }	        
-				});					
-			}
-			function cargar_c(id){				
-				$.ajax({
-				    url: "../localizacion/pais.php",
-				    type: "POST",
-				    data: {c:'pro',registro:id},        
-				    success: function(data)
-				    {				    	
-				       $('#sel_ciudad').html(data);
-				    }	        
-				});
-
-			}
+			
 		</script>
 		
 	</body>
 </html>
-<script type="text/javascript">
-	$('#btn_actualizar').click(function(){
-		var tele=$('#txt_telefono').html()
-		var f_n=$('#txt_fna').html()
-		var dir=$('#txt_direccion').html()
-		var ciudad=$('#sel_ciudad').val()
-		
-		$.ajax({
-			url: "../localizacion/pais.php",
-		    type: "POST",
-		    data: {guardar_perfil:'ok',txt_1:tele,txt_2:f_n,txt_3:dir,txt_4:ciudad},        
-		    success: function(data)
-		    {	
-		    	alert('Datos almacenados')		    	
-		 	//  $.gritter.add({						
-			// 	title: '..Mensaje..!',						
-			// 	text: 'OK: <br><i class="icon-cloud purple bigger-230"></i>  Sus datos fueron actualizados correctamente. <br><i class="icon-spinner icon-spin green bigger-230"></i>',						
-			// 	//image: 'http://a0.twimg.com/profile_images/59268975/jquery_avatar_bigger.png',						
-			// 	sticky: false,						
-			// 	time: 2000
-			// });
-		    }	
-		});
-	});
-</script>

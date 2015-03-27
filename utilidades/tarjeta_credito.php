@@ -1,29 +1,20 @@
 <?php
-/*
-FNG Credit Card Validator v1.1
-Copyright © 2009 Fake Name Generator <http://www.fakenamegenerator.com/>
-FNG Credit Card Validator v1.1 by the Fake Name Generator is licensed to you
-under a Creative Commons Attribution-Share Alike 3.0 United States License.
-For full license details, please visit:
-http://www.fakenamegenerator.com/license.php
-*/
+
 class fngccvalidator{
 	/**
-	 * Validate credit card number and return card type.
-	 * Optionally you can validate if it is a specific type.
-	 *
+	 * 
 	 * @param string $ccnumber
 	 * @param string $cardtype
 	 * @param string $allowTest
 	 * @return mixed
 	 */
 	public function CreditCard($ccnumber, $cardtype = '', $allowTest = false){
-		// Check for test cc number
+		// proceso prueba
 		if($allowTest == false && $ccnumber == '4111111111111111'){
 			return false;
 		}
 		
-		$ccnumber = preg_replace('/[^0-9]/','',$ccnumber); // Strip non-numeric characters
+		$ccnumber = preg_replace('/[^0-9]/','',$ccnumber); // string numero de caracteres
 		
 		$creditcard = array(
 			'visa'			=>	"/^4\d{3}-?\d{4}-?\d{4}-?\d{4}$/",
@@ -32,7 +23,7 @@ class fngccvalidator{
 			'amex'			=>	"/^3[4,7]\d{13}$/",
 			'diners'		=>	"/^3[0,6,8]\d{12}$/",
 			'bankcard'		=>	"/^5610-?\d{4}-?\d{4}-?\d{4}$/",
-			'jcb'			=>	"/^[3088|3096|3112|3158|3337|3528]\d{12}$/",
+			'jcb card'			=>	"/^[3088|3096|3112|3158|3337|3528]\d{12}$/",
 			'enroute'		=>	"/^[2014|2149]\d{11}$/",
 			'switch'		=>	"/^[4903|4911|4936|5641|6333|6759|6334|6767]\d{12}$/"
 		);
@@ -59,7 +50,7 @@ class fngccvalidator{
 	}
 	
 	/**
-	 * Do a modulus 10 (Luhn algorithm) check
+	 * longitud del algoritmo
 	 *
 	 * @param string $ccnum
 	 * @return boolean
@@ -70,7 +61,7 @@ class fngccvalidator{
 			$checksum += (int)($ccnum{$i-1});
 		}
 		
-		// Analyze odd digits in even length strings or even digits in odd length strings.
+		// verificar el tamaño de la cadena
 		for ($i=(strlen($ccnum)% 2) + 1; $i<strlen($ccnum); $i+=2){
 			$digit = (int)($ccnum{$i-1}) * 2;
 			if ($digit < 10){
@@ -87,9 +78,8 @@ class fngccvalidator{
 	}
 	
 }
-/* Example usage: */
 
-// Validate a credit card
+// validacion de la targeta
 if (isset($_POST['validar_targeta'])) {
 	$valor = new fngccvalidator();
 	$valor2=$valor->CreditCard($_POST['tarjeta']);

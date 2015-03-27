@@ -50,19 +50,14 @@ $(function(){
         dataType:'json',
         data:{llenar_clientes:':)'},
         success:function(data){
-            console.log(data)
-            var a=1;
             for (var i=0; i<=(data.length); i=i+5) {                
                 $('#tbt_clientes').dataTable().fnAddData([
                   data[i+0],
                   data[i+1],                  
                   data[i+2],
                   data[i+3],
-                  data[i+4],a
-                  
-                  
+                  data[i+4]
                 ]);                                    
-                a++;
             }
         }
     });

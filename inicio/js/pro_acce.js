@@ -101,11 +101,8 @@ $('#form-acceso').validate({
                 	};                
                 }
         	});
-		},
-		invalidHandler: function (form) {
-			
-		}
+		}		
 	});
 function redireccionar() {
-	setTimeout("location.href='../data/inicio/'", 2000);
+	setTimeout("location.href='../data/inicio/'", 300);
 }

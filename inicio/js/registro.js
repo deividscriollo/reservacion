@@ -86,5 +86,5 @@ $('#form-acceso').validate({
 		}
 	});
 function redireccionar() {
-	setTimeout("location.href='../data'", 5000);
+	setTimeout("location.href='../data'", 1000);
 }

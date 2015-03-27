@@ -105,8 +105,28 @@
 		 	}
 	}
 	if (isset($_POST['llenar_clientes'])) {
-
-		$resultado = $class->consulta("SELECT CEDULA,NOMBRE,FONO,DIRECCION,U.ID FROM SEG.USUARIO U,SEG.NIVEL N WHERE NIVEL='Cliente' AND N.ID_USUARIO=U.ID  AND U.STADO='1'");		
+		$resultado = $class->consulta("SELECT CEDULA,NOMBRE,FONO,DIRECCION,U.ID FROM SEG.USUARIO U,SEG.NIVEL N WHERE NIVEL='CLIENTE' AND N.ID_USUARIO=U.ID  AND U.STADO='1'");		
+		$acu;
+		while ($row=$class->fetch_array($resultado)) {					
+			$acu[]=$row[0];
+			$acu[]=$row[1];
+			$acu[]=$row[2];
+			$acu[]=$row[3];
+			$acu[]='<button class="btn btn-mini btn-danger" onclick="seleccion_cliente('."'".$row[4]."'".')">
+						<i class="icon-arrow-right  icon-on-right"></i>
+					</button>									
+					';
+	 	}
+	 	print_r(json_encode($acu));
+	}
+	if (isset($_POST['mostrar_clientes'])) {
+		$resultado = $class->consulta("SELECT CEDULA,NOMBRE,FONO,DIRECCION,U.ID,upper(P.NOM_PAIS),CASE 
+													WHEN P.ID='20150326104209551428d175961' 
+														THEN 'NACIONAL' 
+														ELSE 'EXTRANJERO' 
+													END
+										FROM SEG.USUARIO U,SEG.NIVEL N, SEG.INFO I, LOCALIZACION.PAIS P 
+										WHERE I.ID_USUARIO=U.ID AND I.PAIS=P.ID AND NIVEL='CLIENTE' AND N.ID_USUARIO=U.ID  AND U.STADO='1'");		
 		$acu;
 		while ($row=$class->fetch_array($resultado)) {					
 			$acu[]=$row[0];

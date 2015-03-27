@@ -3,10 +3,10 @@ if(!isset($_SESSION))
 	{
 		session_start();		
 	}
-	if(!isset($_SESSION["pass"])) {
+	// if(!isset($_SESSION["pass"])) {
 
-		header('Location: ../../inicio');
-	}
+	// 	header('Location: ../../inicio');
+	// }
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -111,7 +111,7 @@ if(!isset($_SESSION))
 																<label class="control-label" for="Nombre y Apellido">Nombre y Apellido:</label>
 																<div class="controls">
 																	<div class="span12">
-																		<input type="password" name="txt_nombre" id="txt_nombre" class="span8">
+																		<input type="text" name="txt_nombre" id="txt_nombre" class="span8">
 																	</div>
 																</div>
 															</div>
