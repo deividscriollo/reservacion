@@ -825,8 +825,7 @@ $(function(){
 	 var fecha = sumaFecha(7,acufecha);
 	 
 	$('.date-picker').datepicker({					
-		startDate: new Date(),
-		endDate: fecha,
+		startDate: new Date(),		
 		format: 'dd/mm/yyyy',
 		weekStart: 1
 	});
