@@ -69,7 +69,7 @@ $('#form-acceso').validate({
                 	if (data==1) {
                 		$.gritter.add({						
 							title: '..Mensaje..!',						
-							text: 'Bienvenido: '+$('#txt_usuario').val()+'<br><i class="icon-ok green bigger-230"></i>   Por favor dame unos segundos para acceder a la aplicación. <br><i class="icon-spinner icon-spin green bigger-230"></i> : )',						
+							text: 'Bienvenido: '+$('#txt_usuario').val()+'<br><i class="icon-ok green bigger-230"></i>   Por favor espere unos segundos para acceder a la aplicación. <br><i class="icon-spinner icon-spin green bigger-230"></i> : )',						
 							//image: 'http://a0.twimg.com/profile_images/59268975/jquery_avatar_bigger.png',						
 							sticky: false,						
 							time: ''

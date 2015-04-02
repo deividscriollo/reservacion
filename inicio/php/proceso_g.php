@@ -46,6 +46,7 @@ require 'mail.php';
                                                                     "','".''.                                                                    
                                                                     "','".$class->fecha_hora().
                                                                     "','".'0'.
+                                                                    "','".'0'.
                                                                     "')");
       if (!$resultado) 
         print('0');

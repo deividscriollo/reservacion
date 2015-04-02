@@ -154,7 +154,7 @@
 							required: "Por favor, Digite password.",
 							minlength: "Por favor, Digite minimo 8 caracteres.",
 							maxlength: "Por favor, Digite maximo de 16 caracteres.",
-							pass_r: 'Password no seguro!!!. :('
+							pass_r: 'Password no seguro!!!. :( \n Debe contener como mínimo 8 caracteres y como máximo 16 Debe estar compuesta por letras mayúsculas, minúsculas y números.	'
 						},
 						txt_repetir:{
 							required:"Por favor, Digite nuevamente su password",							

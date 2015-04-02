@@ -333,20 +333,7 @@ if(!isset($_SESSION))
 
 			<div class="modal-body no-padding">
 				<div class="row-fluid pull-right">
-					<div class="span12 pull-right">
-						<form class="form-horizontal" id="form-reservacion">						
-							<div class="control-group warning">
-								<label class="control-label" for="form-field-1">Digitar Servicio</label>
-								<div class="controls">
-									<input 	class="icon-animated-vertical" 
-											type="text" 
-											id="txt_b_servicio"
-											placeholder="Nombre del Servicio"
-									>
-								</div>
-							</div>
-						</form>								
-					</div>
+					
 					<div class="page-content center" id="obj_contenedor_servicios">
 														
 					</div>											
@@ -883,8 +870,15 @@ function buscar_horas(reg,dia,fe){
         
         data:{buscar_horas:'ok', id:reg,dia:dia,f:fe},			               
         success: function(data)
-        {	
-			$("#tabla_horas tbody").html(data);
+        {	console.log(data)
+        	if (data=='n') {
+        		
+        	};
+        	if (data!='n') {
+
+        		$("#tabla_horas tbody").html(data);
+        	}
+			
         }	                	        
     });
     //return res;

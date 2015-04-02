@@ -26,7 +26,7 @@
 			txt_rec_email: {
 				required: "Por favor, Digite su correo / email.",
 				email: "Por favor, Digite correo ej. 123@ejem.com",
-				exis_correorecuperar:'Su correo no existe, verifique y vuelva a intentarlo'
+				exis_correorecuperar:'Este correo no existe, verifique y vuelva a intentarlo'
 
 			}												
 		},

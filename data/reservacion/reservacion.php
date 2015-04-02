@@ -236,7 +236,7 @@
 							$nuevaHora=date("H:i",$segundos_horaInicial+$segundos_minutoAnadir);
 							if ($max_i==0) {								
 								if (buscar_horario($horaInicial,$nuevaHora)==0) {
-									print'<tr><td><label><input type="checkbox" onclick="reconstruir(0)"/><span class="lbl"></span></label></td><td>'.$horaInicial.'</td><td>'.$nuevaHora.'</td><td>'.$_POST['f'].'</td><td>'.$dia.'</td></tr>';										
+									print'deivid<tr><td><label><input type="checkbox" onclick="reconstruir(0)"/><span class="lbl"></span></label></td><td>'.$horaInicial.'</td><td>'.$nuevaHora.'</td><td>'.$_POST['f'].'</td><td>'.$dia.'</td></tr>';										
 								}
 							};
 							if ($max_i>=0){
@@ -260,7 +260,7 @@
 		}
 		if ($sum==1) {
 			print($a);
-		}else print('NO DISPONEMOS HORARIOS EN ESTE DIA');
+		}else print('n');
 	}
 function buscar_horario($inicio,$fin){
 	$a=0;

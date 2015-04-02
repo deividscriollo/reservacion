@@ -83,7 +83,6 @@ if(!isset($_SESSION))
 			<a class="menu-toggler" id="menu-toggler" href="#">
 				<span class="menu-text"></span>
 			</a>
-
 			<?php  menu(); ?>
 
 			<div class="main-content">
@@ -97,203 +96,415 @@ if(!isset($_SESSION))
 						while ($row=$class->fetch_array($resultado)) {
 							$fotografia=$row[2];
 						}										
-						$resultado = $class->consulta("SELECT U.ID,CEDULA,NOMBRE,
-											PG_CATALOG.DATE(EDAD),extract(year from age(now(),edad)),FONO,CORREO,U.FECHA,DIRECCION ,NOM_CIUDAD,NOM_PROVINCIA, NOM_PAIS,P.ID,C.ID
-											FROM SEG.USUARIO U,LOCALIZACION.CIUDAD C, LOCALIZACION.PROVINCIA P, LOCALIZACION.PAIS PA  WHERE U.id='$id' 
+						
+						$x=0;
+						$resultado = $class->consulta("SELECT * FROM SEG.USUARIO WHERE ID='$_SESSION[id]' AND ID_CIUDAD='1'");
+						while ($row=$class->fetch_array($resultado)) {
+							$x=1;
+
+						}
+						if ($x!=1) {
+							$resultado = $class->consulta("SELECT U.ID,CEDULA,NOMBRE,
+											PG_CATALOG.DATE(EDAD),extract(year from age(now(),edad)),FONO,CORREO,U.FECHA,DIRECCION ,NOM_CIUDAD,NOM_PROVINCIA, NOM_PAIS,P.ID,C.ID,I.CONVENCIONAl
+											FROM SEG.USUARIO U,LOCALIZACION.CIUDAD C, LOCALIZACION.PROVINCIA P, LOCALIZACION.PAIS PA,SEG.INFO I  WHERE U.id='$_SESSION[id]' 
 																				AND C.ID=U.ID_CIUDAD 
+																				AND U.ID=I.ID_USUARIO
 																				AND P.ID=C.ID_PROVINCIA
 																				AND PA.ID=P.ID_PAIS 
-																				AND U.stado='1'");	
-						while ($row=$class->fetch_array($resultado)) {
+																				AND U.stado='1'");
+							while ($row=$class->fetch_array($resultado)) {
+								?>
+								<div class="row-fluid">
+									<div class="tabbable">
+										<ul class="nav nav-tabs padding-18">
+											<li class="active">
+												<a data-toggle="tab" href="#home">
+													<i class="green icon-user bigger-120"></i>
+													Perfil Cliente
+												</a>
+											</li>
+											<li >
+												<a data-toggle="tab" href="#clave">
+													<i class="orange icon-user bigger-120"></i>
+													Cambiar Password / Clave
+												</a>
+											</li>
+											<li >
+												<a data-toggle="tab" href="#historial">
+													<i class="blue icon-user bigger-120"></i>
+													Historial de Reservaciones
+												</a>
+											</li>
+										</ul>
 
-						
-				?>
-					<div class="row-fluid">
-						<div class="tabbable">
-							<ul class="nav nav-tabs padding-18">
-								<li class="active">
-									<a data-toggle="tab" href="#home">
-										<i class="green icon-user bigger-120"></i>
-										Perfil Cliente
-									</a>
-								</li>
-								<li >
-									<a data-toggle="tab" href="#clave">
-										<i class="orange icon-user bigger-120"></i>
-										Cambiar Password / Clave
-									</a>
-								</li>
-								<li >
-									<a data-toggle="tab" href="#historial">
-										<i class="blue icon-user bigger-120"></i>
-										Historial de Reservaciones
-									</a>
-								</li>
-							</ul>
-
-							<div class="tab-content no-border padding-24">
-								<div id="home" class="tab-pane in active">
-									<div class="row-fluid">
-										<div class="span2 center">
-											<form action="perfil.php" method="POST" enctype="multipart/form-data">
-												<span class="profile-picture">
-													<?php 
-														if ($fotografia=='') {
-															print'<img src="img/avatar2.png"/>';
-														}else{
-															print'<img src="img/'.$fotografia.'" />';
-														} 
-													?>
-													
-												</span>
-												<input type="file" name="id-input-file-2" id="id-input-file-2" accept="image/*" required/>
-												<input class="btn btn-primary" type="submit" value="Guardar" name="btn_perfil">
-											</form>
-
-											<div class="space space-4"></div>
-											
-										</div><!--/span-->
-										<div class="span5">
-											<h4 class="blue">
-												<span class="middle">Perfil</span>
-
-												<span class="label label-success arrowed-in-right">
-													<i class="icon-circle smaller-80"></i>
-													enlinea
-												</span>
-											</h4>
-											<div class="profile-user-info">
-												<div class="profile-info-row">
-													<div class="profile-info-name"> Cedula: </div>
-
-													<div class="profile-info-value">
-														<span><?php print($row[1]); ?></span>
-													</div>
-												</div>
-												<div class="profile-info-row">
-													<div class="profile-info-name"> Nombre </div>
-
-													<div class="profile-info-value">
-														<span><?php print($row[2]); ?></span>
-													</div>
-												</div>
-												<div class="profile-info-row">
-													<div class="profile-info-name"> Localizacion </div>
-													<div class="profile-info-value">														
-														<span id="lbl_pais"><?php print($row[11]); ?></span>
-														<span id="lbl_pro"><?php print($row[10]); ?></span>
-														<span id="lbl_ciu"><?php print($row[9]); ?></span>
-													</div>
-														
-												</div>
-
-												<div class="profile-info-row">
-													<div class="profile-info-name"> F. Nacimiento</div>													
-														<div class="profile-info-value">						  								
-															<span class="editable" id="txt_fna"><?php 
-																									if ($row[4]!=0) {
-																										print($row[3]);	
-																									}?>
+										<div class="tab-content no-border padding-24">
+											<div id="home" class="tab-pane in active">
+												<div class="row-fluid">
+													<div class="span2 center">
+														<form action="perfil.php" method="POST" enctype="multipart/form-data">
+															<span class="profile-picture">
+																<?php 
+																	if ($fotografia=='') {
+																		print'<img src="img/avatar2.png"/>';
+																	}else{
+																		print'<img src="img/'.$fotografia.'" />';
+																	} 
+																?>
+																
 															</span>
-														</div>													
-												</div>												
+															<input type="file" name="id-input-file-2" id="id-input-file-2" accept="image/*" required/>
+															<input class="btn btn-primary" type="submit" value="Guardar" name="btn_perfil">
+														</form>
+
+														<div class="space space-4"></div>
+														
+													</div><!--/span-->
+													<div class="span5">
+														<h4 class="blue">
+															<span class="middle">Perfil</span>
+
+															<span class="label label-success arrowed-in-right">
+																<i class="icon-circle smaller-80"></i>
+																enlinea
+															</span>
+														</h4>
+														<div class="profile-user-info">
+															<div class="profile-info-row">
+																<div class="profile-info-name"> Cedula: </div>
+
+																<div class="profile-info-value">
+																	<span><?php print($row[1]); ?></span>
+																</div>
+															</div>
+															<div class="profile-info-row">
+																<div class="profile-info-name"> Nombre </div>
+
+																<div class="profile-info-value">
+																	<span><?php print($row[2]); ?></span>
+																</div>
+															</div>
+															<div class="profile-info-row">
+																<div class="profile-info-name"> Localizacion </div>
+																<div class="profile-info-value">														
+																	<span id="lbl_pais"><?php print($row[11]); ?></span>
+																	<span id="lbl_pro"><?php print($row[10]); ?></span>
+																	<span id="lbl_ciu"><?php print($row[9]); ?></span>
+																</div>
+																	
+															</div>
+
+															<div class="profile-info-row">
+																<div class="profile-info-name"> F. Nacimiento</div>													
+																	<div class="profile-info-value">						  								
+																		<span class="editable" id="txt_fna"><?php 
+																												if ($row[4]!=0) {
+																													print($row[3]);	
+																												}?>
+																		</span>
+																	</div>													
+															</div>												
+															
+														</div>
+													</div><!--/span-->
+													<div class="span5">
+														<h4 class="blue">
+															<span class="middle"></span>
+															<span class="label label-success">													
+															</span>
+														</h4>
+														<div class="profile-user-info">
+															
+															<?php if ($row[4]!=0){?>
+																<div class="profile-info-row">
+																<div class="profile-info-name"> Edad :</div>													
+																	<div class="profile-info-value">							  								
+																		<span id="signup"><?php print($row[4].' Años'); ?></span>
+
+																	</div>													
+																</div>
+															<?php } ?>												
+
+															<div class="profile-info-row">
+																<div class="profile-info-name"> Teléfono Movil </div>
+																<div class="profile-info-value">
+																	<span id="txt_telefono"><?php print($row[5]); ?></span>
+																</div>
+															</div>
+															<div class="profile-info-row">
+																<div class="profile-info-name"> Tel. Convencional: </div>
+
+																<div class="profile-info-value">														
+																	<span class="editable" id="txt_direccion"><?php print($row[14]); ?></span>
+																</div>
+
+															</div>
+
+															<div class="profile-info-row">
+																<div class="profile-info-name"> Dirección: </div>
+
+																<div class="profile-info-value">														
+																	<span class="editable" id="txt_direccion"><?php print($row[8]); ?></span>
+																</div>
+
+															</div>
+															<div class="profile-info-row">
+																<div class="profile-info-name"> Correo: </div>
+
+																<div class="profile-info-value">
+																	<span ><?php print($row[6]); ?></span>
+																</div>
+															</div>
+															
+														</div>
+													</div><!--/span-->
+												</div><!--/row-fluid-->									
+											</div><!--#home-->
+
+											<div id="clave" class="tab-pane">
+												<div class="span3"></div>
+												<div class="span5">
+													<div class="widget-box">
+														<div class="widget-header">
+															<h5>Cambiar Password / Clave</h5>											
+														</div>
+
+														<div class="widget-body">
+															<div class="widget-main">
+																<form class="form-horizontal" id="form-perfil-pass">
+																	<div class="control-group">
+																		<label class="control-label" for="form-field-1">Clave Actual</label>
+																		<div class="controls">
+																			<input type="password" id="txt_1" name="txt_1" placeholder="Clave / Actual Actual">
+																		</div>
+																	</div>
+																	<div class="control-group">
+																		<label class="control-label" for="form-field-1">Nuevo Password</label>
+																		<div class="controls">
+																			<input type="password" id="txt_2" name="txt_2" placeholder="Digíte Password">
+																		</div>
+																	</div>
+																	<div class="control-group">
+																		<label class="control-label" for="form-field-1">Repita Password</label>
+																		<div class="controls">
+																			<input type="password" id="txt_3" name="txt_3" placeholder="Repita Password">
+																		</div>
+																	</div>
+																	<div class="control-group pull-rigth">
+																		<div class="controls">																
+																			<input class="btn btn-info icon-ok bigger-110" type="submit" value="Guardar">
+																		</div>
+																	</div>
+																</form>
+															</div>
+														</div>
+													</div>
+												</div>									
+											</div><!--/#feed-->
+
+											<div id="historial" class="tab-pane">
 												
-											</div>
-										</div><!--/span-->
-										<div class="span5">
-											<h4 class="blue">
-												<span class="middle"></span>
-												<span class="label label-success">													
-												</span>
-											</h4>
-											<div class="profile-user-info">
-												
-												<?php if ($row[4]!=0){?>
-													<div class="profile-info-row">
-													<div class="profile-info-name"> Edad :</div>													
-														<div class="profile-info-value">							  								
-															<span id="signup"><?php print($row[4].' Años'); ?></span>
-
-														</div>													
-													</div>
-												<?php } ?>												
-
-												<div class="profile-info-row">
-													<div class="profile-info-name"> Telefono </div>
-													<div class="profile-info-value">
-														<span id="txt_telefono"><?php print($row[5]); ?></span>
-													</div>
-												</div>
-
-												<div class="profile-info-row">
-													<div class="profile-info-name"> Dirección: </div>
-
-													<div class="profile-info-value">														
-														<span class="editable" id="txt_direccion"><?php print($row[8]); ?></span>
-													</div>
-
-												</div>
-												<div class="profile-info-row">
-													<div class="profile-info-name"> Correo: </div>
-
-													<div class="profile-info-value">
-														<span ><?php print($row[6]); ?></span>
-													</div>
-												</div>
-												
-											</div>
-										</div><!--/span-->
-									</div><!--/row-fluid-->									
-								</div><!--#home-->
-
-								<div id="clave" class="tab-pane">
-									<div class="span3"></div>
-									<div class="span5">
-										<div class="widget-box">
-											<div class="widget-header">
-												<h5>Cambiar Password / Clave</h5>											
-											</div>
-
-											<div class="widget-body">
-												<div class="widget-main">
-													<form class="form-horizontal" id="form-perfil-pass">
-														<div class="control-group">
-															<label class="control-label" for="form-field-1">Clave Actual</label>
-															<div class="controls">
-																<input type="password" id="txt_1" name="txt_1" placeholder="Clave / Actual Actual">
-															</div>
-														</div>
-														<div class="control-group">
-															<label class="control-label" for="form-field-1">Nuevo Password</label>
-															<div class="controls">
-																<input type="password" id="txt_2" name="txt_2" placeholder="Digíte Password">
-															</div>
-														</div>
-														<div class="control-group">
-															<label class="control-label" for="form-field-1">Repita Password</label>
-															<div class="controls">
-																<input type="password" id="txt_3" name="txt_3" placeholder="Repita Password">
-															</div>
-														</div>
-														<div class="control-group pull-rigth">
-															<div class="controls">																
-																<input class="btn btn-info icon-ok bigger-110" type="submit" value="Guardar">
-															</div>
-														</div>
-													</form>
-												</div>
-											</div>
+											</div><!--/#friends-->
 										</div>
-									</div>									
-								</div><!--/#feed-->
+									</div>						
+								</div>
+								<?php
+							}
+						}else{
+							$resultado = $class->consulta("SELECT U.ID,CEDULA,NOMBRE,PG_CATALOG.DATE(EDAD),extract(year from age(now(),edad)),FONO,CORREO,U.FECHA,DIRECCION,NOM_PAIS,I.CONVENCIONAl FROM SEG.USUARIO U, SEG.INFO I, LOCALIZACION.PAIS P WHERE U.ID='$_SESSION[id]' AND U.ID=I.ID_USUARIO AND I.PAIS=P.ID");
+							while ($row=$class->fetch_array($resultado)) {
+							?>
+							<div class="row-fluid">
+								<div class="tabbable">
+									<ul class="nav nav-tabs padding-18">
+										<li class="active">
+											<a data-toggle="tab" href="#home">
+												<i class="green icon-user bigger-120"></i>
+												Perfil Cliente
+											</a>
+										</li>
+										<li >
+											<a data-toggle="tab" href="#clave">
+												<i class="orange icon-user bigger-120"></i>
+												Cambiar Password / Clave
+											</a>
+										</li>
+										<li >
+											<a data-toggle="tab" href="#historial">
+												<i class="blue icon-user bigger-120"></i>
+												Historial de Reservaciones
+											</a>
+										</li>
+									</ul>
 
-								<div id="historial" class="tab-pane">
-									
-								</div><!--/#friends-->
+									<div class="tab-content no-border padding-24">
+										<div id="home" class="tab-pane in active">
+											<div class="row-fluid">
+												<div class="span2 center">
+													<form action="perfil.php" method="POST" enctype="multipart/form-data">
+														<span class="profile-picture">
+															<?php 
+																if ($fotografia=='') {
+																	print'<img src="img/avatar2.png"/>';
+																}else{
+																	print'<img src="img/'.$fotografia.'" />';
+																} 
+															?>
+															
+														</span>
+														<input type="file" name="id-input-file-2" id="id-input-file-2" accept="image/*" required/>
+														<input class="btn btn-primary" type="submit" value="Guardar" name="btn_perfil">
+													</form>
+
+													<div class="space space-4"></div>
+													
+												</div><!--/span-->
+												<div class="span5">
+													<h4 class="blue">
+														<span class="middle">Perfil</span>
+
+														<span class="label label-success arrowed-in-right">
+															<i class="icon-circle smaller-80"></i>
+															enlinea
+														</span>
+													</h4>
+													<div class="profile-user-info">
+														<div class="profile-info-row">
+															<div class="profile-info-name"> Cedula: </div>
+
+															<div class="profile-info-value">
+																<span><?php print($row[1]); ?></span>
+															</div>
+														</div>
+														<div class="profile-info-row">
+															<div class="profile-info-name"> Nombre </div>
+
+															<div class="profile-info-value">
+																<span><?php print($row[2]); ?></span>
+															</div>
+														</div>
+														<div class="profile-info-row">
+															<div class="profile-info-name"> Localizacion </div>
+															<div class="profile-info-value">														
+																<span id="lbl_pais"><?php print($row[9].' / EXTRANGERO'); ?></span>
+															</div>
+																
+														</div>
+
+														<div class="profile-info-row">
+															<div class="profile-info-name"> F. Nacimiento</div>													
+																<div class="profile-info-value">						  								
+																	<span class="editable" id="txt_fna"><?php 
+																											if ($row[4]!=0) {
+																												print($row[3]);	
+																											}?>
+																	</span>
+																</div>													
+														</div>												
+														
+													</div>
+												</div><!--/span-->
+												<div class="span5">
+													<h4 class="blue">
+														<span class="middle"></span>
+														<span class="label label-success">													
+														</span>
+													</h4>
+													<div class="profile-user-info">
+														
+														<?php if ($row[4]!=0){?>
+															<div class="profile-info-row">
+															<div class="profile-info-name"> Edad :</div>													
+																<div class="profile-info-value">							  								
+																	<span id="signup"><?php print($row[4].' Años'); ?></span>
+
+																</div>													
+															</div>
+														<?php } ?>												
+
+														<div class="profile-info-row">
+															<div class="profile-info-name"> Teléfono Movil</div>
+															<div class="profile-info-value">
+																<span id="txt_telefono"><?php print($row[5]); ?></span>
+															</div>
+														</div>
+														<div class="profile-info-row">
+															<div class="profile-info-name"> Tel. Convencional</div>
+															<div class="profile-info-value">
+																<span id="txt_telefono"><?php print($row[10]); ?></span>
+															</div>
+														</div>
+
+														<div class="profile-info-row">
+															<div class="profile-info-name"> Dirección: </div>
+
+															<div class="profile-info-value">														
+																<span class="editable" id="txt_direccion"><?php print($row[8]); ?></span>
+															</div>
+
+														</div>
+														<div class="profile-info-row">
+															<div class="profile-info-name"> Correo: </div>
+
+															<div class="profile-info-value">
+																<span ><?php print($row[6]); ?></span>
+															</div>
+														</div>
+														
+													</div>
+												</div><!--/span-->
+											</div><!--/row-fluid-->									
+										</div><!--#home-->
+
+										<div id="clave" class="tab-pane">
+											<div class="span3"></div>
+											<div class="span5">
+												<div class="widget-box">
+													<div class="widget-header">
+														<h5>Cambiar Password / Clave</h5>											
+													</div>
+
+													<div class="widget-body">
+														<div class="widget-main">
+															<form class="form-horizontal" id="form-perfil-pass">
+																<div class="control-group">
+																	<label class="control-label" for="form-field-1">Clave Actual</label>
+																	<div class="controls">
+																		<input type="password" id="txt_1" name="txt_1" placeholder="Clave / Actual Actual">
+																	</div>
+																</div>
+																<div class="control-group">
+																	<label class="control-label" for="form-field-1">Nuevo Password</label>
+																	<div class="controls">
+																		<input type="password" id="txt_2" name="txt_2" placeholder="Digíte Password">
+																	</div>
+																</div>
+																<div class="control-group">
+																	<label class="control-label" for="form-field-1">Repita Password</label>
+																	<div class="controls">
+																		<input type="password" id="txt_3" name="txt_3" placeholder="Repita Password">
+																	</div>
+																</div>
+																<div class="control-group pull-rigth">
+																	<div class="controls">																
+																		<input class="btn btn-info icon-ok bigger-110" type="submit" value="Guardar">
+																	</div>
+																</div>
+															</form>
+														</div>
+													</div>
+												</div>
+											</div>									
+										</div><!--/#feed-->
+
+										<div id="historial" class="tab-pane">
+											
+										</div><!--/#friends-->
+									</div>
+								</div>						
 							</div>
-						</div>						
-					</div>
-				<?php } ?>
+							<?php } 
+						} ?>
+					
 				</div>
 			</div><!--/.main-content-->
 		</div><!--/.main-container-->

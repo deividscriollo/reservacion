@@ -180,7 +180,7 @@ if(!isset($_SESSION))
 
 												<div class="space-6"></div>
 												<p>
-													Digite, su email para recibir instrucciones.
+													Ingrese, su email para recibir instrucciones.
 												</p>
 
 												<form id="frm-recuperar">
@@ -227,14 +227,14 @@ if(!isset($_SESSION))
 												</h4>
 
 												<div class="space-6"></div>
-												<p> Digite, su informacion para comenzar: </p>
+												<p> Digite, su información para comenzar: </p>
 												<fieldset>
 												<form id="frm-registro">																									
 													<div class="control-group">														
 														<span class="span12">
-															<label>
+															<label>															
 																<span class="block input-icon input-icon-right">
-																	<input type="text" class="span12" id="txt_reg_ced" name="txt_reg_ced" placeholder="Cedula" />
+																	<input type="text" class="span12" id="txt_reg_ced"placeholder="Cedula" />
 																	<i class="icon-barcode"></i>
 																</span>
 															</label>
@@ -264,7 +264,8 @@ if(!isset($_SESSION))
 														<div class="span12">
 															<label>
 																<span class="block input-icon input-icon-right">
-																	<input type="password" class="span12" placeholder="password" id="txt_reg_pass" name="txt_reg_pass" />
+																	<input type="password" class="span12" placeholder="password" id="txt_reg_pass" name="txt_reg_pass" data-rel="tooltip" data-placement="top" data-original-title="Debe contener como mínimo 8 caracteres y como máximo 16	
+Debe estar compuesta por letras mayúsculas, minúsculas y números.	" />
 																	<a href="#modal-form1" data-toggle="modal" class="btn-small  icon-legal blue" title="Políticas Password"></a>
 																</span>
 															</label>
@@ -461,6 +462,8 @@ if(!isset($_SESSION))
 				$('#icon-tiempo').hide();
 				
 			});
+			$('[data-rel=tooltip]').tooltip();
+
 		</script>
 	</body>
 </html>

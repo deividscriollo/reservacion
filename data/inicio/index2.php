@@ -83,30 +83,18 @@ if(!isset($_SESSION))
 			
 
 			<div class="main-contents">
-				<div class="breadcrumbs" id="breadcrumbs">
-					<ul class="breadcrumb">
-						<li>
-							<i class="icon-home home-icon"></i>
-							<a href="#">Home</a>
-
-							<span class="divider">
-								<i class="icon-angle-right arrow-icon"></i>
-							</span>
-						</li>
-						<li class="active">Completando informaión</li>
-					</ul><!--.breadcrumb-->
-				</div>
-				<div class="page-content">
+				
+				<div class="page-conten">
 					<?php 
 						require('../../admin/class.php');
 						$class=new constante();	
 					?>
-					<div class="row-fluid">
-						<div class="span4"></div>
-						<div class="span4">
+					<div class="row-fluid dc_padding">
+						<div class="span5"></div>
+						<div class="span3">
 										<div class="widget-box">
 											<div class="widget-header">
-												<h4>Información</h4>
+												<h4>Información Adicional</h4>
 
 												<span class="widget-toolbar">
 													
@@ -116,75 +104,62 @@ if(!isset($_SESSION))
 
 											<div class="widget-body">
 												<div class="widget-main center">
-													<form class="form-horizontal" id="form-guardar">
-														<div class="control-group">
-															<label class="control-label" for="platform">Seleccione Pais</label>
-															<div class="controls">
-																<span class="span12">
-																	<select class="chzn-select" id="select_pais" name="select_pais" data-placeholder="Seleccione Pais" style="display: none;">
-																		<?php 
-																			$resultado = $class->consulta("SELECT * FROM LOCALIZACION.PAIS WHERE stado='1'");
-																			print'<option value=""></option>';
-																			while ($row=$class->fetch_array($resultado)) {
-																				print'<option value="'.$row[0].'">'.$row[1].'</option>';
-																			}
-																			$archivo='dc.txt';
-																			$abrir =fopen($archivo,'r+');
-																			$contenido = fread($abrir , filesize($archivo));  	
-																			fclose($abrir);	
-																			$contenido2 = explode("\r\n", $contenido);				
-																			for ($i=0; $i < 9; $i++) {
-																				$fecha=$class->fecha_hora();
-																				$id=$class->idz();
-																				$class->consulta("INSERT INTO LOCALIZACION.CIUDAD VALUES('".$id."','20150326115500551439e48ff9d','".$contenido2[$i]."','".$fecha."','1')");
-																			}
-																		?>
+													<form class="form-horizontal" novalidate="novalidate" id="form-guardar">														
+														<div class="control-group">														
+															<span class="span12">
+																<select class="chzn-select" id="select_pais" name="select_pais" data-placeholder="Seleccione Pais" >
+																	<?php 
+																		$resultado = $class->consulta("SELECT * FROM LOCALIZACION.PAIS WHERE stado='1'");
+																		print'<option value=""></option>';
+																		while ($row=$class->fetch_array($resultado)) {
+																			print'<option value="'.$row[0].'">'.$row[1].'</option>';
+																		}
+																		$archivo='dc.txt';
+																		$abrir =fopen($archivo,'r+');
+																		$contenido = fread($abrir , filesize($archivo));  	
+																		fclose($abrir);	
+																		$contenido2 = explode("\r\n", $contenido);				
+																		for ($i=0; $i < 9; $i++) {
+																			$fecha=$class->fecha_hora();
+																			$id=$class->idz();
+																			$class->consulta("INSERT INTO LOCALIZACION.CIUDAD VALUES('".$id."','20150326115500551439e48ff9d','".$contenido2[$i]."','".$fecha."','1')");
+																		}
+																	?>
+																</select>																
+															</span>														
+														</div>																																								
+														<div class="obj_contenedor">
+															<div class="control-group">																
+																<span class="span12">																
+																	<select id="select_provincia" name="select_provincia">															
+																	</select>
+																</span>																														
+															</div>
+															<div class="control-group">
+																<span class="span12">	
+																	<select id="select_ciudad" name="select_ciudad">																		
 																	</select>
 																</span>
 															</div>
-														</div>																												
-														<div class="obj_contenedor">
-															<div class="control-group">
-																<label class="control-label" for="form-field-select-1">Seleccione Provincia</label>
-																<div class="controls">
-																	<span class="span12">																
-																		<select id="select_provincia" name="select_provincia">															
-																		</select>
-																	</span>
-																</div>															
-															</div>
-															<div class="control-group">
-																<label class="control-label" for="form-field-select-1">Seleccione Ciudad</label>
-																<div class="controls">
-																	<span class="span12">	
-																		<select id="select_ciudad" name="select_ciudad">																		
-																		</select>
-																	</span>
-																</div>
+														</div>
+														<div class="control-group">
+															<div class="span12">
+																<input class="date-picker span9" id="txt_fecha" type="text" name="txt_fecha"  placeholder="Digite, dia/mes/año" data-date-format="dd-mm-yyyy">																	
 															</div>
 														</div>
 														<div class="control-group">
-															<label class="control-label" for="platform">Fecha de Nacimiento</label>
-															<div class="controls">
-																<div class="row-fluid input-append">
-																	<input class="span10 date-picker" id="txt_fecha" name="txt_fecha"  placeholder="dia/mes/año" type="text" data-date-format="dd-mm-yyyy">
-																	<span class="add-on">
-																		<i class="icon-calendar"></i>
-																	</span>
-																</div>
+															<div class="span12">
+																<input type="text" id="txt_tel" name="txt_tel" placeholder="Digíte teléfono movil">
 															</div>
 														</div>
 														<div class="control-group">
-															<label class="control-label" for="form-field-1">Teléfono / Mobil</label>
+															<div class="span12">
+																<input type="text" id="txt_con" name="txt_con" placeholder="Digíte teléfono convencional">
+															</div>
+														</div>
+														<div class="control-group">
 
-															<div class="controls">
-																<input type="text" id="txt_tel" name="txt_tel" placeholder="Digíte Teléfono">
-															</div>
-														</div>
-														<div class="control-group">
-															<label class="control-label" for="form-field-1">Dirección</label>
-
-															<div class="controls">
+															<div class="span12">
 																<input type="text" id="txt_dir" name="txt_dir" placeholder="Digíte Dirección">
 															</div>
 														</div>
@@ -192,7 +167,7 @@ if(!isset($_SESSION))
 														<div class="row-fluid">
 															<input type="submit" value="Guardar" class="btn btn-info btn-block">
 														</div>
-													</form>													
+													</form>
 												</div>
 											</div>
 										</div>
@@ -258,7 +233,7 @@ if(!isset($_SESSION))
 		<script src="../assets/js/jquery.validate.min.js"></script>
 		<script src="../assets/js/additional-methods.min.js"></script>
 		<script src="../assets/js/jquery.gritter.min.js"></script>
-
+		<script src="../assets/vegas/jquery.vegas.js"></script>
 
 
 
@@ -270,7 +245,20 @@ if(!isset($_SESSION))
 		<!--inline scripts related to this page-->
 
 		<script type="text/javascript">
+
 			$(function() {	
+
+				// app sistem
+				$.vegas('slideshow', {
+				  backgrounds:[
+				    { src:'../assets/images/gallery/dc1.jpg', fade:1000 },
+				    { src:'../assets/images/gallery/dc2.jpg', fade:1000 },
+				    { src:'../assets/images/gallery/dc3.jpg', fade:1000 }
+				  ]
+				})('overlay', {
+				  src:'../assets/vegas/overlays/11.png'
+				});
+				// proceso aplicacion
 				$('.obj_contenedor').hide();
 				$('#select_pais').change(function(){
 					var pais=$(this).val();					
@@ -328,7 +316,13 @@ if(!isset($_SESSION))
 							required: true
 						},
 						txt_tel: {
-							required: true,
+							required: false,
+							number:true,
+							minlength: 8,
+							maxlength: 15,
+						},
+						txt_con: {
+							required: false,
 							number:true,
 							minlength: 8,
 							maxlength: 15,
@@ -349,14 +343,20 @@ if(!isset($_SESSION))
 							required: "Por favor, Seleccione Ciudad",
 						},
 						txt_fecha: {
-							required: " "							
+							required: "Seleccione fecha de nacimiento"							
 						},
 						txt_dir: {
-							required: "Por favor, Digíte Dirección"							
+							required: "Por favor, Digite Dirección"							
 						},
 						txt_tel: {
-							required: "Por favor, Digíte su teléfono",
-							number: "Por favor, Digíte solo numeros",
+							required: "Por favor, Digite su teléfono",
+							number: "Por favor, Digite solo numeros",
+							minlength: "Por favor, minimo 8 caracteres",
+							maxlength: "Por favor, maximo 15 caracteres",
+						},
+						txt_con: {
+							required: "Por favor, Digite su teléfono convencional ",
+							number: "Por favor, Digite solo numeros",
 							minlength: "Por favor, minimo 8 caracteres",
 							maxlength: "Por favor, maximo 15 caracteres",
 						}
@@ -394,7 +394,7 @@ if(!isset($_SESSION))
 						$.ajax({
 							url:'../localizacion/pais.php',
 							type:'POST',
-							data:{actualizar_info:':)',sel_1:$('#select_pais').val(),sel_2:$('#select_provincia').val(),sel_3:$('#select_ciudad').val(),fec:$('#txt_fecha').val(),tel:$('#txt_tel').val(),dir:$('#txt_dir').val()},
+							data:{actualizar_info:':)',sel_1:$('#select_pais').val(),sel_2:$('#select_provincia').val(),sel_3:$('#select_ciudad').val(),fec:$('#txt_fecha').val(),tel:$('#txt_tel').val(),dir:$('#txt_dir').val(),con:$('#txt_con').val()},
 							success:function(data){
 								console.log(data);
 								if (data==0) {
