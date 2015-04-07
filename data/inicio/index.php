@@ -31,7 +31,7 @@ if(!isset($_SESSION))
 		<link href="../assets/css/bootstrap-responsive.min.css" rel="stylesheet" />
 		<link rel="stylesheet" href="../assets/css/font-awesome.min.css" />
 
-		<link rel="stylesheet" href="../assets/css/fontdc.css" />
+		<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400,300" />
 
 		<link rel="stylesheet" href="../assets/css/ace.min.css" />
 		<link rel="stylesheet" href="../assets/css/ace-responsive.min.css" />

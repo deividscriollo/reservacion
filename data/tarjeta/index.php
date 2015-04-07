@@ -230,11 +230,11 @@ if(!isset($_SESSION))
 														</div>
 													</div>
 													<div class="control-group">
-														<label class="control-label" for="email">Seleccione Targeta:</label>
+														<label class="control-label" for="email">Seleccione Tarjeta:</label>
 														<div class="controls">
 															<div class="span12">												
 																<select>
-																	<option value="Seleccione Targeta">Seleccione Targeta</option>
+																	<option value="Seleccione Tarjeta">Seleccione Tarjeta</option>
 																	<option value="VISA">VISA</option>
 																	<option value="MASTERCARD">MASTERCARD</option>
 																	<option value="DISCOVER">DISCOVER</option>
@@ -247,7 +247,7 @@ if(!isset($_SESSION))
 														</div>
 													</div>
 													<div class="control-group">
-														<label class="control-label" for="email">Num Targeta de credito:</label>
+														<label class="control-label" for="email">Num Tarjeta de credito:</label>
 														<div class="controls">
 															<div class="span12">												
 																<input type="number" name="txt_num_deposito" id="txt_num_deposito" placeholder="Digíte num. comprobante">
