@@ -37,17 +37,21 @@ $(function(){
             txt_num_deposito: {required: true,number: true},
             txt_val_deposito: {required: true,number: true,equalTo: "#txt_valor_pagar"},
             sel_banco: {required: true},
-            sel_cuenta: {required: true}
+            sel_cuenta: {required: true},
+            boucher: {required: true},
+            sel_baucher: {required: true}
         },
 
         messages: {
             txt_num_deposito:{
-                required:"Digíte numero de comprobante.",
+                required:"Digite numero de comprobante.",
                 number:'Por favor, Digite solo numeros'
             }, 
-            txt_val_deposito:{required:'Por favor, Digíte el valor de su deposito',equalTo:'Su monto debe ser igual'},
+            txt_val_deposito:{required:'Por favor, Digite el valor de su deposito',equalTo:'Su monto debe ser igual'},
             sel_banco:"Por favor, Seleccione Banco.",
-            sel_cuenta: "Por favor, seleccione numero cuenta"
+            sel_cuenta: "Por favor, seleccione numero cuenta",
+            boucher: "Por favor, Seleccione Imagen",
+            sel_baucher:"Por favor, Seleccione una opción"
         },
 
         invalidHandler: function (event, validator) { //display error alert on form submit   

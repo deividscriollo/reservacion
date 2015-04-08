@@ -244,8 +244,20 @@ if(!isset($_SESSION))
 																</select>
 															</span>
 														</div>
-													</div>													
+													</div>
 													<div class="control-group">
+														<label class="control-label" for="s2id_autogen1">Seleccione</label>
+														<div class="controls">
+															<span class="span12">
+																<select id="sel_baucher" name="sel_baucher">
+																	<option value="">Seleccionar</option>
+																	<option value="boucher">Imagen Boucher</option>
+																	<option value="numero">Num de comprobante</option>
+																</select>
+															</span>
+														</div>
+													</div>											
+													<div class="control-group" id="obj_numero">
 														<label class="control-label" for="email">Num de comprobante:</label>
 														<div class="controls">
 															<div class="span12">												
@@ -253,23 +265,14 @@ if(!isset($_SESSION))
 															</div>
 														</div>
 													</div>
-													<div class="control-group">
+													<div class="control-group" id="obj_boucher">
 														<label class="control-label" for="email">Subir Boucher:</label>
 														<div class="controls">
 															<div class="span11">												
-																<input type="file" name="boucher" id="boucher" placeholder="Digíte num. comprobante">
+																<input type="file" name="boucher" id="boucher" accept="image/jpg,image/png" placeholder="Digíte num. comprobante">
 															</div>
 														</div>
-													</div>
-													<div class="control-group">
-														<label class="control-label" for="email">Valor de Deposito:</label>
-
-														<div class="controls">
-															<div class="span12">												
-																<input type="number" name="txt_val_deposito" id="txt_val_deposito" placeholder="Digíte num. comprobante">
-															</div>
-														</div>
-													</div>
+													</div>													
 
 													<div class="control-group">
 														<label class="control-label" for="email">Valor a Pagar:</label>
@@ -522,18 +525,32 @@ if(!isset($_SESSION))
 		})('overlay', {
 		  src:'../assets/vegas/overlays/11.png'
 		});
-	$('#boucher').ace_file_input({
+	$(function(){
+		$('#boucher').ace_file_input({
 			no_file:'Ningún Archivo ...',
 			btn_choose:'Elegir',
 			btn_change:'Cambiar',
 			droppable:false,
 			onchange:null,
-			thumbnail:false //| true | large
-			//whitelist:'gif|png|jpg|jpeg'
-			//blacklist:'exe|php'
+			thumbnail:false, //| true | large
+			whitelist:'gif|png|jpg|jpeg',
 			//onchange:''
 			//
 		});
+		$('#obj_numero').hide()
+		$('#obj_boucher').hide()
+		$('#sel_baucher').change(function(){
+			console.log($('#obj_boucher').val());
+			if ($('#sel_baucher').val()=='boucher') {
+				$('#obj_boucher').show();
+				$('#obj_numero').hide();
+			};
+			if ($('#sel_baucher').val()=='numero') {
+				$('#obj_boucher').hide();
+				$('#obj_numero').show();
+			};
+		});
+	});
 
 
 </script>
