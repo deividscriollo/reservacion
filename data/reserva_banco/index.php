@@ -219,16 +219,7 @@ if(!isset($_SESSION))
 										<form class="form-horizontal" id="form-comprobante">
 											<div class="row-fluid">
 												<div class="span8">
-													<div class="control-group">
-														<label class="control-label" for="email">Valor a Pagar:</label>
-
-														<div class="controls">
-															<div class="span12">
-																<input type="text" class="hide" id="txt_id_reservacion" value="<?php print $id_reservacion; ?>" >															
-																<input type="text" name="txt_valor_pagar" id="txt_valor_pagar" class="center" value="<?php print($nombre); ?>">
-															</div>
-														</div>
-													</div>
+													
 													<div class="control-group">
 														<label class="control-label" for="s2id_autogen1">Seleccione Banco</label>
 														<div class="controls">
@@ -253,13 +244,20 @@ if(!isset($_SESSION))
 																</select>
 															</span>
 														</div>
-													</div>
+													</div>													
 													<div class="control-group">
 														<label class="control-label" for="email">Num de comprobante:</label>
-
 														<div class="controls">
 															<div class="span12">												
 																<input type="number" name="txt_num_deposito" id="txt_num_deposito" placeholder="Digíte num. comprobante">
+															</div>
+														</div>
+													</div>
+													<div class="control-group">
+														<label class="control-label" for="email">Subir Boucher:</label>
+														<div class="controls">
+															<div class="span11">												
+																<input type="file" name="boucher" id="boucher" placeholder="Digíte num. comprobante">
 															</div>
 														</div>
 													</div>
@@ -271,7 +269,18 @@ if(!isset($_SESSION))
 																<input type="number" name="txt_val_deposito" id="txt_val_deposito" placeholder="Digíte num. comprobante">
 															</div>
 														</div>
-													</div>													
+													</div>
+
+													<div class="control-group">
+														<label class="control-label" for="email">Valor a Pagar:</label>
+														<div class="controls">
+															<div class="span12">
+																<input type="text" class="hide" id="txt_id_reservacion" value="<?php print $id_reservacion; ?>" >															
+																<input type="text" name="txt_valor_pagar" id="txt_valor_pagar" class="center" value="<?php print($nombre); ?>">
+															</div>
+														</div>
+													</div>
+																									
 												</div>
 												<div class="span4 center">
 													<button type="submit" class="btn btn-app btn-success no-radius" data-last="Finish ">														
@@ -505,13 +514,26 @@ if(!isset($_SESSION))
 
 <script type="text/javascript">
 	$.vegas('slideshow', {
-  backgrounds:[
-    { src:'../assets/images/gallery/dc1.jpg', fade:1000 },
-    { src:'../assets/images/gallery/dc2.jpg', fade:1000 },
-    { src:'../assets/images/gallery/dc3.jpg', fade:1000 }
-  ]
-})('overlay', {
-  src:'../assets/vegas/overlays/11.png'
-});
+		  backgrounds:[
+		    { src:'../assets/images/gallery/dc1.jpg', fade:1000 },
+		    { src:'../assets/images/gallery/dc2.jpg', fade:1000 },
+		    { src:'../assets/images/gallery/dc3.jpg', fade:1000 }
+		  ]
+		})('overlay', {
+		  src:'../assets/vegas/overlays/11.png'
+		});
+	$('#boucher').ace_file_input({
+			no_file:'Ningún Archivo ...',
+			btn_choose:'Elegir',
+			btn_change:'Cambiar',
+			droppable:false,
+			onchange:null,
+			thumbnail:false //| true | large
+			//whitelist:'gif|png|jpg|jpeg'
+			//blacklist:'exe|php'
+			//onchange:''
+			//
+		});
+
 
 </script>
