@@ -120,26 +120,21 @@ if(!isset($_SESSION))
 				padding-top: 20px;
 			}
 			.texto p{
-				font-size: 50px;
+				font-size: 10px;
 			}
 			.texto2 h4{
 				font-size: 30px;
 			}
 			select{
-				width: 350px;
-				padding-top: 15px;
-				/*padding-bottom: 15px;*/
-				
-			    -webkit-border-radius:4px;
-			    -moz-border-radius:4px;
-			    border-radius:4px;
-			    
+				width: 250px;
+				/*padding-bottom: 15px;*/			
+			    height: 30px;					    
 			    background: rgba(255,255,255,0.4);
 			    color:#888;
 			    cursor:pointer;
-			    font-size: 18px;
-			    height: 63px!important;
+			    font-size: 17px;
 			}
+			select .lt { text-align:center; }
 			.dc_fecha{
 
 				background: rgba(255,255,255,0.4)!important;
@@ -154,6 +149,9 @@ if(!isset($_SESSION))
 				font-size: 20px;
 				color: #3085C9;
 			}
+			.trans{
+				background: rgba(255,255,255,0.4)!important;
+			}
 		</style>		
 
 	<body >
@@ -161,28 +159,20 @@ if(!isset($_SESSION))
 
 		<div class="main-container container-fluid">
 			<a class="menu-toggler" id="menu-toggler" href="#">
-				<span class="menu-text"></span>
+				<span class="menu-text">huhau</span>
 			</a>
-			<div class="main-contents">
-				<div class="row-fluid dc_padding">
-					<div class="span4">
-						<div class="dc_estandar_usuario">
-							<div class="blue smaller zoom dc_text">								
-								Hola,
-							</div>
-							<br/><br/>
-							<i class="icon-user purple  zoom">
-								<?php $m=split(' ', $_SESSION['nom']); print $m[0];?>
-							</i>												
+			<div class="main-content">
+				<div class="row-fluid">
+					<div class="span4 trans">						
+						<div class="row">
+							<h3 class="animated bounceInDown txt_zise">Seleccione tipo de reservación</h3>
 						</div>
 					</div>
 					<div class="span8">
 						<div class="dc_estandar_reserva">
 							<div class="row-fluid" id="obj_1">
 								<div class="span12 center">
-									<div class="texto blue">
-										<h4 class="animated bounceInDown txt_zise">Seleccione tipo de reservación</h4>
-									</div>
+									
 									<br>
 									<div class="row">
 										<select id="selec_tipo"></select>	
