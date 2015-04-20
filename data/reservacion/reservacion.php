@@ -86,9 +86,9 @@
 		//$pos=$_POST['pos'];			
 		$resultado = $class->consulta("SELECT * FROM SEG.CATEGORIA_SERVICIO WHERE  STADO='1'");
 			$acu=1;
-			print'<option value>TIPO DE RESERVACIÓN</option>';
+			print'<option value>Tipo de reservación</option>';
 			while ($row=$class->fetch_array($resultado)) {					
-				print '<option value="'.$row[0].'">'.$row[1].'</option>';				
+				print '<option value="'.$row[0].'">'.ucwords(strtolower($row[1])).'</option>';				
 		 	}
 	}
 	if(isset($_POST['mostrar_galeria'])) {
@@ -157,37 +157,12 @@
 	}
 	
 	if (isset($_POST['buscar_servicio'])) {
-		//$pos=$_POST['pos'];	
-		$reg=$_POST['registro'];
-		$reg=strtoupper($reg);
-		$resultado = $class->consulta("SELECT * FROM servicios WHERE NOM like'%$reg%' AND STADO='1' limit 8 offset 0");
-		$a=0;
-		print'<div class="row-fluid">';
+		//$pos=$_POST['pos'];			
+		$resultado = $class->consulta("SELECT * FROM servicios WHERE STADO='1'");
+		print'<option value="">Seleccionar servicio</option>';
 		while ($row=$class->fetch_array($resultado)) {			
-			print'<div class="span3">
-						<ul class="ace-thumbnails">											
-							<li>
-								<div data-rel="colorbox">
-									<img alt="150x150" src="../servicios/img/'.$row[4].'">
-									<div class="text">
-										<div class="inner">'.$row[1].'</div>
-									</div>
-								</div>
-
-								<a class="tools tools-bottom" id="ob_dc_seleccion">
-									<div onclick=btn_select_servicio("'.$row[0].'")>
-										<i class="icon-share-alt"></i>
-									</div>
-								</a>
-							</li>																			
-						</ul>
-				</div>';
-			if ($a==3) {
-				print'</div><div class="hr hr-18 "></div><div class="row-fluid">';	
-			}
-			$a++;	
+			print'<option value="'.$row[0].'">'.ucwords(strtolower($row[1])).'</option>';	
 	 	}
-	 	print'</div>';
 	}
 	if(isset($_POST['buscar_inf_serv_h'])) {
 		//$pos=$_POST['pos'];			
@@ -212,59 +187,100 @@
 		$dia=$_POST['dia'];
 		$sum=0;
 		$a='';
-		$resultado = $class->consulta("SELECT horai, horaf, dias, lapso FROM HORARIO_SERVICIOS WHERE ID_SERVICIO='$_POST[id]' AND STADO ='1';");				
-		while ($row=$class->fetch_array($resultado)) {
-			$encontrar=1;							
-			$acu=split(",", $row[2]);				
-			for ($i=0; $i < count($acu); $i++) {
-				$dc=strtoupper((String)$acu[$i]);
-				if((string)$dc==$dia){						
-					
-					$b=split(":", $row[0]);
-					$c=split(":", $row[1]);
-					$d=split(":", $row[3]);					
-					if ($sum==0) {
-						$max_i=0;
+		if ($_POST['id']=='20141211160003548a05d39b5c8') {
+			$resultado = $class->consulta("SELECT horai, horaf, dias, lapso FROM HORARIO_SERVICIOS WHERE ID_SERVICIO='$_POST[id]' AND STADO ='1';");
+			while ($row=$class->fetch_array($resultado)) {
+				$acu=split(",", $row[2]);
+				for ($i=0; $i < count($acu); $i++) {
+					$dc=strtoupper((String)$acu[$i]);
+					if((string)$dc==$dia){
+						// hora inicial del dia
+						$b=split(":", $row[0]);
+						// finalizacion horario de trabajo
+						$c=split(":", $row[1]);
+						// intervalo de hora
+						$d=split(":", $row[3]);
 						$horaInicial=$b[0].':'.$b[1];
-						$dc_sum=0;
-						for ($i=$b[0]; $i < 20; $i++) {
-							if ($max_i==0)
-							$horaInicial=$b[0].':'.$b[1];
-							$minutoAnadir=($d[0]*60)+$d[1];
-							$segundos_horaInicial=strtotime($horaInicial);
-							$segundos_minutoAnadir=$minutoAnadir*60;
-							$nuevaHora=date("H:i",$segundos_horaInicial+$segundos_minutoAnadir);
-							if ($max_i==0) {								
-								if (buscar_horario($horaInicial,$nuevaHora)==0) {
-									print'deivid<tr><td><label><input type="checkbox" onclick="reconstruir(0)"/><span class="lbl"></span></label></td><td>'.$horaInicial.'</td><td>'.$nuevaHora.'</td><td>'.$_POST['f'].'</td><td>'.$dia.'</td></tr>';										
-								}
-							};
-							if ($max_i>=0){
-								$sb=buscar_horario($horaInicial,$nuevaHora);
-								if($sb==0) {
-									$dc_sum=$dc_sum+1;
-									print'<tr><td><label><input type="checkbox" onclick="reconstruir('.$dc_sum.')"/><span class="lbl"></span></label></td><td>'.$horaInicial.'</td><td>'.$nuevaHora.'</td><td>'.$_POST['f'].'</td><td>'.$dia.'</td></tr>';	
-								}
+						$horafinal=$c[0].':'.$c[1];
+						$horalapso=$d[0].':'.$d[1];	
+						//$horafinal=sumar_horas($horafinal,$horalapso);	
+						$horaInicial=restar_horas($horaInicial,$horalapso);	
+						// aculumador de horas
+						for ($i=0;strtotime($horaInicial)<strtotime($horafinal);$i++) { 							
+							//
+							$acumu_horas=sumar_horas($horaInicial,$horalapso);
+							$horaInicial=$acumu_horas;
+							if (strtotime($horaInicial)<strtotime($horafinal)) {	
+								$a=1;
+								print'<tr><td><label><input type="checkbox" onclick="reconstruir('.$i.')"/><span class="lbl"></span></label></td><td>'.$horaInicial.'</td><td>'.sumar_horas($horaInicial,$horalapso).'</td><td>'.$_POST['f'].'</td><td>'.$dia.'</td></tr>';										
 							}
-							$horaInicial=$nuevaHora;							
-							$max_i++;
-							$n=split(':',$horaInicial);
-							$n[0];
-							$c[0]-2;
-							if($n[0]>=$c[0]){break;}
+							
+						}
+
+					}
+				}				
+			}
+			if ($a!=1) {
+					print 0;
+				}
+		}else{
+			$resultado = $class->consulta("SELECT horai, horaf, dias, lapso FROM HORARIO_SERVICIOS WHERE ID_SERVICIO='$_POST[id]' AND STADO ='1';");
+			$ak='';
+			while ($row=$class->fetch_array($resultado)) {
+				$acu=split(",", $row[2]);
+				for ($i=0; $i < count($acu); $i++) {
+					$dc=strtoupper((String)$acu[$i]);
+					if((string)$dc==$dia){
+						// hora inicial del dia
+						$b=split(":", $row[0]);
+						// finalizacion horario de trabajo
+						$c=split(":", $row[1]);
+						// intervalo de hora
+						$d=split(":", $row[3]);
+						$horaInicial=$b[0].':'.$b[1];
+						$horafinal=$c[0].':'.$c[1];
+						$horalapso=$d[0].':'.$d[1];	
+						//$horafinal=sumar_horas($horafinal,$horalapso);	
+						$horaInicial=restar_horas($horaInicial,$horalapso);	
+						// aculumador de horas
+						for ($i=0;strtotime($horaInicial)<strtotime($horafinal);$i++) { 							
+							$acumu_horas=sumar_horas($horaInicial,$horalapso);
+							$horaInicial=$acumu_horas;
+							if (strtotime($horaInicial)<strtotime($horafinal)) {	
+								$ak=1;
+								print'<tr><td><label><input type="checkbox" onclick="reconstruir2('.$i.')"/><span class="lbl"></span></label></td><td>'.$horaInicial.'</td><td>'.sumar_horas($horaInicial,$horalapso).'</td><td>'.$_POST['f'].'</td><td>'.$dia.'</td></tr>';										
+							}							
 						}
 					}
-					$sum=1;											
 				}
-			}		
+			}
+			if ($ak!=1) {
+				print 0;
+			}
 		}
-		if ($sum==1) {
-			print($a);
-		}else print('n');
 	}
+function sumar_horas($hora1,$hora2){	
+	$horaInicial=$hora1;
+	$d=split(':', $hora2);
+	$minutoAnadir=($d[0]*60)+$d[1];
+	$segundos_horaInicial=strtotime($horaInicial);
+	$segundos_minutoAnadir=$minutoAnadir*60;
+	$nuevaHora=date("H:i",$segundos_horaInicial+$segundos_minutoAnadir);
+	return$nuevaHora;
+}
+function restar_horas($hora1,$hora2){	
+	$horaInicial=$hora1;
+	$d=split(':', $hora2);
+	$minutoAnadir=($d[0]*60)+$d[1];
+	$segundos_horaInicial=strtotime($horaInicial);
+	$segundos_minutoAnadir=$minutoAnadir*60;
+	$nuevaHora=date("H:i",$segundos_horaInicial-$segundos_minutoAnadir);
+	return$nuevaHora;
+}
+
 function buscar_horario($inicio,$fin){
 	$a=0;
-	print('gb'.$inicio.$fin);
+	//print('gb'.$inicio.$fin);
 	$class=new constante();
 	$resultado = $class->consulta("SELECT * FROM RESERVACION_HORARIOS WHERE hinicio='$inicio' and hfin='$fin' AND STADO='0'");
 	while ($row=$class->fetch_array($resultado)) {		

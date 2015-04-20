@@ -216,7 +216,7 @@ if(!isset($_SESSION))
 									<div id="signup-box" class="signup-box widget-box no-border">
 										<div class="widget-body">
 											<div class="widget-main">
-												<div class="ayuda">
+												<div class="ayuda" id="btn_ayuda_registro">
 													<div class="dcbtn">
 														<i class="icon-info-sign"></i> Ayuda
 													</div>
@@ -234,7 +234,7 @@ if(!isset($_SESSION))
 														<span class="span12">
 															<label>															
 																<span class="block input-icon input-icon-right">
-																	<input type="text" class="span12" id="txt_reg_ced"placeholder="Cedula" />
+																	<input type="text" class="span12" id="txt_reg_ced" name="txt_reg_ced" placeholder="Cedula" />
 																	<i class="icon-barcode"></i>
 																</span>
 															</label>
@@ -264,8 +264,7 @@ if(!isset($_SESSION))
 														<div class="span12">
 															<label>
 																<span class="block input-icon input-icon-right">
-																	<input type="password" class="span12" placeholder="password" id="txt_reg_pass" name="txt_reg_pass" data-rel="tooltip" data-placement="top" data-original-title="Debe contener como mínimo 8 caracteres y como máximo 16	
-Debe estar compuesta por letras mayúsculas, minúsculas y números.	" />
+																	<input type="password" class="span12" placeholder="password" id="txt_reg_pass" name="txt_reg_pass" data-rel="tooltip" data-placement="top" data-original-title="Políticas de password, debe contener como mínimo 8 dígitos y máximo 16, 1 mayúscula, 1 número, 1 carácter especial." />
 																	<a href="#modal-form1" data-toggle="modal" class="btn-small  icon-legal blue" title="Políticas Password"></a>
 																</span>
 															</label>

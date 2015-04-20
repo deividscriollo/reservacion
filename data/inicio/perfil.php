@@ -45,6 +45,10 @@ if(!isset($_SESSION))
 
 		<!--basic styles-->
 
+		<link rel="stylesheet" href="../assets/css/jquery-ui-1.10.3.custom.min.css" />
+		<link rel="stylesheet" href="../assets/css/jquery.gritter.css" />
+
+
 		<link href="../assets/css/bootstrap.min.css" rel="stylesheet" />
 		<link href="../assets/css/bootstrap-responsive.min.css" rel="stylesheet" />
 		<link rel="stylesheet" href="../assets/css/font-awesome.min.css" />
@@ -56,7 +60,7 @@ if(!isset($_SESSION))
 		<link rel="stylesheet" href="../assets/css/ace-skins.min.css" />
 		<link rel="stylesheet" href="../assets/css/chosen.css" />
 
-		<link rel="stylesheet" href="../assets/css/jquery.gritter.css" />
+		
 		<link rel="stylesheet" href="../assets/css/chosen.css"/>
 		<link rel="stylesheet" href="../assets/css/datepicker.css" />
 		<link rel="stylesheet" href="../assets/css/bootstrap-timepicker.css" />
@@ -196,7 +200,7 @@ if(!isset($_SESSION))
 															<div class="profile-info-row">
 																<div class="profile-info-name"> F. Nacimiento</div>													
 																	<div class="profile-info-value">						  								
-																		<span class="editable" id="txt_fna"><?php 
+																		<span id="txt_fna" class="editable_fecha"><?php 
 																												if ($row[4]!=0) {
 																													print($row[3]);	
 																												}?>
@@ -214,12 +218,11 @@ if(!isset($_SESSION))
 														</h4>
 														<div class="profile-user-info">
 															
-															<?php if ($row[4]!=0){?>
+															<?php print $row[4];if ($row[4]!=0){?>
 																<div class="profile-info-row">
 																<div class="profile-info-name"> Edad :</div>													
 																	<div class="profile-info-value">							  								
 																		<span id="signup"><?php print($row[4].' Años'); ?></span>
-
 																	</div>													
 																</div>
 															<?php } ?>												
@@ -393,7 +396,7 @@ if(!isset($_SESSION))
 														<div class="profile-info-row">
 															<div class="profile-info-name"> F. Nacimiento</div>													
 																<div class="profile-info-value">						  								
-																	<span class="editable" id="txt_fna"><?php 
+																	<span id="txt_fna"><?php 
 																											if ($row[4]!=0) {
 																												print($row[3]);	
 																											}?>
@@ -607,7 +610,7 @@ if(!isset($_SESSION))
 				//editables on first profile page
 				$.fn.editable.defaults.mode = 'inline';
 				$.fn.editableform.loading = "<div class='editableform-loading'><i class='light-blue icon-2x icon-spinner icon-spin'></i></div>";
-			    $.fn.editableform.buttons = '<button type="submit" class="btn btn-info editable-submit"><i class="icon-ok icon-white"></i></button>'+
+			    $.fn.editableform.buttons = '<button type="submit" onli  class="btn btn-info editable-submit"><i class="icon-ok icon-white"></i></button>'+
 			                                '<button type="button" class="btn editable-cancel"><i class="icon-remove"></i></button>';    
 
 				//formato pais
@@ -615,7 +618,9 @@ if(!isset($_SESSION))
 				
 				// $(".select2").chosen();
 
-			
+				$('#btn_aceptar').click(function(){
+					console.log('gola')
+				});
 				//formato inicializacion formato entrada telefono
 				$('.input-mask-phone').mask('(999) 999-9999');
 
@@ -623,19 +628,60 @@ if(!isset($_SESSION))
 				$('.date-picker').datepicker().next().on(ace.click_event, function(){
 					$(this).prev().focus();
 				});
+				function sumaFecha(d, fecha)
+					{
+					 var Fecha = new Date();
+					 var sFecha = fecha || (Fecha.getDate() + "/" + (Fecha.getMonth() +1) + "/" + Fecha.getFullYear());
+					 var sep = sFecha.indexOf('/') != -1 ? '/' : '-'; 
+					 var aFecha = sFecha.split(sep);
+					 var fecha = aFecha[2]+'/'+aFecha[1]+'/'+aFecha[0];
+					 fecha= new Date(fecha);
+					 fecha.setDate(fecha.getDate()-parseInt(d));
+					 var anno=fecha.getFullYear();
+					 var mes= fecha.getMonth()+1;
+					 var dia= fecha.getDate();
+					 mes = (mes < 10) ? ("0" + mes) : mes;
+					 dia = (dia < 10) ? ("0" + dia) : dia;
+					 var fechaFinal = dia+sep+mes+sep+anno;
+					 return (fechaFinal);
+					 } 
+				
+				var f = new Date();
+				var afecha=f.getDate() + "/" + (f.getMonth() +1) + "/" + f.getFullYear();
 
 				$('#txt_fna').editable({
 					type: 'date',
 					format: 'yyyy-mm-dd',
-					viewformat: 'dd/mm/yyyy',
-					value: new Date(),
+					pk:    1,
+                    name:  'txt_fna',
+                    url:   'app.php',
+                    data:{devian:'hola'},
+					viewformat: "yyyy-mm-dd",
+					validate: function(value) {
+					    if($.trim(value) == '') {
+					        return 'El formato no es correcto verifique la información';
+					    }
+					},
+					success: function(v) {
+						$.ajax({
+							url:'app.php',
+							type:'POST',
+							data:{verificar_edad:'ok'},
+							success:function(data){
+								$('#signup').html(data+' Años')
+							}
+						});
+					},
 					datepicker: {
-						minDate: new Date(),
-						endDate: new Date(),
-						startDate: '01/12/1950',
-						weekStart: 1
+						startView: 2,
+						startDate: '1950/01/01',
+						endDate: new Date()						
+					}					
+					
+				});				
+				function dc_actualizacion(){
+						alert($('#txt_fna').html())
 					}
-				});
 				$('#txt_direccion').editable({
 			           type: 'text',
 			           name: 'txt_direccion'

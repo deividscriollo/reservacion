@@ -298,12 +298,6 @@ if(!isset($_SESSION))
 													</div>													
 												</div>
 											</div>
-										
-																
-													
-											
-											
-
 											<div id="profile" class="tab-pane in active">
 												<div class="row-fluid">
 													<div class="span6">
@@ -318,12 +312,17 @@ if(!isset($_SESSION))
 
 															<div class="widget-body">
 																<div class="widget-main padding-6">
-																	<form class="form-horizontal" id="form-servicios" enctype="multipart/form-data"  />
-																		<div class="row-fluid">
-																			<input  type="file" name="txt_archivo" id="txt_archivo"  accept="image/*" /> 
-																		</div>
+																	<form class="form-horizontal" id="form-servicios" enctype="multipart/form-data"  />																																			
 																		<div class="row-fluid">																
-																			<div class="span12">																	
+																			<div class="span12">
+																				<div class="control-group">
+																					<label class="control-label" for="Servicio">Imagen del Servicio:</label>
+																					<div class="controls">
+																						<div class="span12">
+																							<input  type="file" name="txt_archivo" id="txt_archivo"  accept="image/*" /> 
+																						</div>
+																					</div>
+																				</div>																		
 																				<div class="control-group">
 																					<label class="control-label" for="Servicio">Nombre del Servicio:</label>
 																					<div class="controls">
@@ -337,16 +336,19 @@ if(!isset($_SESSION))
 
 																					<div class="controls">
 																						<div class="span12">
-																							<textarea class="span12" name="txt_descripcion" id="txt_descripcion"></textarea>
+																							<textarea class="span12 tooltip-info" name="txt_descripcion" id="txt_descripcion" data-rel="tooltip" data-placement="top" data-original-title="Si desea poner varias descripciones por favor separe con carácter contra barra “/”"></textarea>
 																						</div>
 																					</div>
 																				</div>
 																				<div class="control-group">
-																					<label class="control-label" for="email">Otros:</label>
-
+																					<label class="control-label" for="email">Selección:</label>
 																					<div class="controls">
 																						<div class="span12">
-																							<input type="text" name="txt_otros" id="txt_otros" class="span12" />
+																							<select name="txt_otros" id="txt_otros" class="span12">
+																								<option value="">Formato reservación</option>
+																								<option value="0">Selección horario continúo</option>
+																								<option value="1">Selección por horas</option>
+																							</select>
 																						</div>
 																					</div>
 																				</div>
@@ -479,6 +481,75 @@ if(!isset($_SESSION))
 				</div>
 			</div><!--/.main-content-->
 		</div><!--/.main-container-->
+		<!-- edicion de servicios -->
+		<div id="modal-editar-servicios" class="modal hide fade" tabindex="-1">
+			<div class="modal-header padding">
+				<div class="table-header">
+					<div type="button" class="close" data-dismiss="modal">&times;</div>
+					Edición de Servicios
+				</div>
+			</div>
+
+			<div class="modal-body no-padding">				
+				<div class="row-fluid">
+					<div class="span12">					
+					<form class="form-horizontal span11" id="form-servicios1" />																																			
+						<div class="row-fluid">																
+							<div class="span12">
+								<div class="control-group">
+									<label class="control-label" for="Servicio">Imagen del Servicio:</label>
+									<div class="controls">
+										<div class="span12">
+											<input  type="file" name="txt_archivo1" id="txt_archivo1"  accept="image/*" /> 
+										</div>
+									</div>
+								</div>																		
+								<div class="control-group">
+									<label class="control-label" for="Servicio">Nombre del Servicio:</label>
+									<div class="controls">
+										<div class="span12">
+											<input type="text" name="txt_servicio1" id="txt_servicio1" class="span12" />
+										</div>
+									</div>
+								</div>
+								<div class="control-group">
+									<label class="control-label" for="password">Descripcion:</label>
+
+									<div class="controls">
+										<div class="span12">
+											<textarea class="span12 tooltip-success" name="txt_descripcion1" id="txt_descripcion1" data-rel="tooltip" data-placement="top" data-original-title="Si desea poner varias descripciones por favor separe con carácter contra barra “/”"></textarea>
+										</div>
+									</div>
+								</div>
+								<div class="control-group">
+									<label class="control-label" for="email">Selección:</label>
+									<div class="controls">
+										<div class="span12">
+											<select name="txt_otros1" id="txt_otros1" class="span12">
+												<option value="">Formato reservación</option>
+												<option value="0">Selección horario continúo</option>
+												<option value="1">Selección por horas</option>
+											</select>
+										</div>
+									</div>
+								</div>
+							</div>																
+						</div>
+						<div class="row-fluid wizard-actions">
+							<button class="btn btn-success btn-next" type="submit">
+								<i class="icon-save icon-on-right"></i>
+								Actualizar
+							</button>
+							<button class="btn btn-danger btn-next" type="submit">
+								<i class="icon-save icon-on-right"></i>
+								Cancelar
+							</button>
+						</div>
+					</form>				
+					</div>											
+				</div>	
+			</div>			
+		</div><!--edicion servicios ENDS-->
 		<!-- ventana emergente horario -->
 		<div id="modal-table" class="modal hide fade" tabindex="-1">
 			<div class="modal-header no-padding">
@@ -729,6 +800,9 @@ if(!isset($_SESSION))
 
 
 $(function(){
+	// inicialiación de variable
+	$('[data-rel=tooltip]').tooltip();
+
 	$('#txt_1_horario').timepicker({
 		minuteStep: 1,
 		showSeconds: true,
@@ -985,7 +1059,7 @@ function show5(){
 					btn_change:null,
 					no_icon:'icon-picture',
 					thumbnail:'large',
-					
+					droppable:true,
 					before_change: function(files, dropped) {
 						var file = files[0];
 						if(typeof file === "string") {//files is just a file name here (in browsers that don't support FileReader API)

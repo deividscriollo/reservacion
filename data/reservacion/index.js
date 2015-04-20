@@ -30,25 +30,38 @@ $(function(){
     $('#btn_atras_ob1').click(function(){
         $('#obj_2').removeClass().addClass('zoomOut animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function(){
               $(this).removeClass();
-            },function(){
-                $('#obj_2').hide();
-                $('#obj_1').show();
-                $('#obj_1').removeClass().addClass('zoomIn animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function(){
-                  $(this).removeClass();
-                });
-            });
-    });
-    
-    
-    $('#selec_tipo').change(function(){
-        var select=$(this).val();
-        if (select!='') {
-            $('#modal-servicio').modal('show'); 
-        }else{
-            $('#selec_tipo').removeClass().addClass('shake animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function(){
+        },function(){
+            $('#obj_2').hide();
+            $('#obj_1').show();
+            $('#obj_1').removeClass().addClass('zoomIn animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function(){
               $(this).removeClass();
             });
-        }
+        });
+    });
+    
+    function bus_servicio(){
+        $.ajax({
+            url: "reservacion.php",
+            type: "POST",
+            data:{buscar_servicio:'ok'},                         
+            success: function(data)
+            {           
+                 // console.log(data)   
+                $('#selec_servicio').html(data);
+            }                                       
+        });
+    };
+    $('#selec_tipo').change(function(){
+        bus_servicio()        
+        $(".dc_color2").removeClass("hide");
+        $('#dc_color2').removeClass().addClass('shake animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function(){
+          $(this).removeClass();
+        });        
+    });
+     $('#selec_servicio').change(function(){
+        $(".dc_color3").removeClass("hide");                          
+        $(".dc_color4").removeClass("hide");  
+        btn_select_servicio($('#selec_servicio').val())             
     });
     //
     $('#btn_guardar_reservacion').click(function(){        
@@ -265,29 +278,10 @@ function resul_infor(lim){
     document.getElementById('lbl_iva').innerHTML=iva.toFixed(2);
     document.getElementById('lbl_total').innerHTML=total.toFixed(2);
 }
-function bus_servicio(reg){
-	$.ajax({
-        url: "reservacion.php",
-        type: "POST",
-        data:{buscar_servicio:'ok', registro:reg},			               
-        success: function(data)
-        {			
-			 // console.log(data)   
-			$('#obj_contenedor_servicios').html(data);
-        }			                	        
-    });
-};
+
 function btn_select_servicio(id){
 
-    $('#obj_1').removeClass().addClass('zoomOut animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function(){
-          $(this).removeClass();
-        },function(){
-            $('#obj_1').hide();
-            $('#obj_2').show();
-            $('#obj_2').removeClass().addClass('zoomIn animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function(){
-              $(this).removeClass();
-            });
-    });
+    
     var tipo=$('#selec_tipo').val();
 	//  buscar_inf_serv_h
 	$.ajax({
@@ -390,7 +384,7 @@ function btn_select_servicio(id){
                                         break;
                                 }
                             });                            
-                            $('#tabla_horas_acu tbody').append('<tr><td>'+a+'</td><td>'+b+'</td><td>'+c+'</td><td>'+d+'</td></tr>');                      
+                            $('#tabla_horas_acu tbody').append('<tr><td>'+a+'</td><td>'+b+'</td><td>'+c+'</td></tr>');                      
                         };
                         break;   
                 }                

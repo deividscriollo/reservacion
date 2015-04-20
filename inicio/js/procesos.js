@@ -154,7 +154,7 @@
 							required: "Por favor, Digite password.",
 							minlength: "Por favor, Digite minimo 8 caracteres.",
 							maxlength: "Por favor, Digite maximo de 16 caracteres.",
-							pass_r: 'Password no seguro!!!. :( \n Debe contener como mínimo 8 caracteres y como máximo 16 Debe estar compuesta por letras mayúsculas, minúsculas y números.	'
+							pass_r: 'Password no seguro!!!. :( \n Políticas de password, debe contener como mínimo 8 dígitos y máximo 16, 1 mayúscula, 1 número, 1 carácter especial.'
 						},
 						txt_repetir:{
 							required:"Por favor, Digite nuevamente su password",							
@@ -241,7 +241,7 @@
 					            	$.unblockUI();
 					            	$.gritter.add({
 										title: '<h1 style="color: #336699;">Mensaje</h1>',
-										text: 'MMM.. tenemos Algunos Inconvenientes LO SENTIMOS te sugerimos intentar mas tarde...',
+										text: 'Tenemos inconvenientes al procesar su información LO SENTIMOS, le sugerimos intentar más tarde.',
 										time: 4000
 										//class_name: 'gritter-info')
 									});					            	

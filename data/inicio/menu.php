@@ -177,13 +177,7 @@ function menunav(){
 							</a>
 
 							<ul class="user-menu pull-right dropdown-menu dropdown-yellow dropdown-caret dropdown-closer">
-								<li>
-									<a href="#">
-										<i class="icon-cog"></i>
-										Configurar
-									</a>
-								</li>
-
+								
 								<li>
 									<a href="../inicio/perfil.php">
 										<i class="icon-user"></i>

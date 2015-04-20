@@ -60,7 +60,7 @@ $('#form-acceso').validate({
                 	if (data==0) {
                 		$.gritter.add({						
 							title: '..Mensaje..!',						
-							text: 'Su usuario O contraseña <span class="red">NO</span> son correctos.<br><i class="icon-lock red bigger-230"></i>',						
+							text: 'Su usuario o contraseña no son correctos.<br><i class="icon-lock red bigger-230"></i>',						
 							//image: 'http://a0.twimg.com/profile_images/59268975/jquery_avatar_bigger.png',						
 							sticky: false,						
 							time: ''
@@ -79,7 +79,7 @@ $('#form-acceso').validate({
                 	if (data==2) {
                 		$.gritter.add({						
 							title: '..Mensaje..!',						
-							text: 'Ooooo: '+$('#txt_usuario').val()+'<br><i class="icon-cloud purple bigger-230"></i>   Tienes que activar tu cuenta. <br><i class="icon-spinner icon-spin purple bigger-230"></i> : [',						
+							text: 'Ooooo: '+$('#txt_usuario').val()+'<br><i class="icon-cloud purple bigger-230"></i>   Le sugerimos activar su cuenta, por favor revise su correo electrónico y siga las instrucciones. <br><i class="icon-spinner icon-spin purple bigger-230"></i> : [',						
 							//image: 'http://a0.twimg.com/profile_images/59268975/jquery_avatar_bigger.png',						
 							sticky: false,						
 							time: ''
@@ -106,3 +106,9 @@ $('#form-acceso').validate({
 function redireccionar() {
 	setTimeout("location.href='../data/inicio/'", 300);
 }
+$(function(){
+	$('#btn_ayuda_registro').click(function(){
+		mywindow = window.open("ayuda/registro.html", "mywindow", "location=1,status=1,scrollbars=1,  width=400,height=600");
+    	mywindow.moveTo(0, 0);
+	});
+})

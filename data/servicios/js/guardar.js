@@ -30,7 +30,6 @@ $(function(){
 	            type:  'post',
 	            data: {existencia_ser:'ok',reg:registro},            
 	            success : function ( data )  {
-	            	//$("#icon_b_usuario").addClass("icon-user");		                						         
 			         result = data ;  
 			    } 		                
 	    	});
@@ -69,13 +68,13 @@ $(function(){
 
 		messages: {
 			txt_servicio: {
-				required: "Por favor, Digíte nombre del servicio.",
+				required: "Por favor, Digite nombre del servicio.",
 				existe_serv:'Digite otro servicio ya existe!!!'			
 			},
 			txt_descripcion: {
-				required: "Por favor, Digíte descripcion del servicio."
+				required: "Por favor, Digite descripción del servicio."
 			},
-		txt_otros: {required:"Por favor, Digíte otros"},
+		txt_otros: {required:"Por favor, Digite otros"},
 		txt_archivo: "Seleccione la Imagen"			
 		},
 

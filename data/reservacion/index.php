@@ -126,156 +126,195 @@ if(!isset($_SESSION))
 				font-size: 30px;
 			}
 			select{
-				width: 250px;
+				font-family: sans-serif;
+				width: 80%;
 				/*padding-bottom: 15px;*/			
 			    height: 30px;					    
-			    background: rgba(255,255,255,0.4);
-			    color:#888;
+			    background: rgba(255,255,255,0);
+			    color:#FFF;
 			    cursor:pointer;
 			    font-size: 17px;
-			}
-			select .lt { text-align:center; }
+			    border-radius: 2px;
+			    border-top-left-radius: 20px;
+			    border-bottom-left-radius: 20px;
+			}		
+			select option{
+				background: rgba(255,255,255,0.5);
+				color: #000000;
+			}			
 			.dc_fecha{
-
-				background: rgba(255,255,255,0.4)!important;
-				padding-top: 10px !important;
-				padding-bottom: 10px !important;
-				padding-left: 10px !important;
-				border-radius: 3px !important;
+				background: rgba(255,255,255,0.8)!important;
 				text-align: center;
-			}
-			#tabla_horas{
-				background: rgba(255,255,255,0.4)!important;
-				font-size: 20px;
-				color: #3085C9;
-			}
+				color: #3085C9!important;
+				font-size: 17px!important;
+				font-family: sans-serif;
+				
+			}	
+			#txt_fecha_origen{
+				border-top-left-radius: 20px!important;
+			    border-bottom-left-radius: 20px!important;
+			}		
 			.trans{
-				background: rgba(255,255,255,0.4)!important;
+				background: rgba(255,255,255,0.8)!important;
+			}
+			
+			/*seleccionar tipo de reservacion*/
+			.dc_color1{
+				background: #E34F16;
+				padding-top: 10px;				
+			}
+			/*resultado servicios*/
+			.dc_color2{
+				background: #90BC21;
+				padding-top: 10px;
+			}
+			/*informacion del servicio*/
+			.dc_color3{
+				background: #E2A401;
+				padding-top: 10px;
+				padding-bottom: 10px;
+			}
+			/*seleccionar la fecha*/
+			.dc_color4{
+				background: #E2A401;
+				padding-top: 10px;				
 			}
 		</style>		
 
 	<body >
 		<?php require('../inicio/menu.php'); menunav(); ?>
-
-		<div class="main-container container-fluid">
-			<a class="menu-toggler" id="menu-toggler" href="#">
-				<span class="menu-text">huhau</span>
-			</a>
-			<div class="main-content">
-				<div class="row-fluid">
-					<div class="span4 trans">						
-						<div class="row">
-							<h3 class="animated bounceInDown txt_zise">Seleccione tipo de reservación</h3>
+		<div class="main-container container-fluid">			
+			<div class="row-fluid">
+				<div class="span4 trans center">		
+					<!-- tipo de reservacion -->
+					<div class="row-fluid">
+						<div class="span12 dc_color1">
+							<select id="selec_tipo"></select>								
+						</div>						
+					</div>
+					<!-- seleccionar servicio -->
+					<div class="row-fluid">
+						<div class="span12 dc_color2 hide" >
+							<select id="selec_servicio" class="shake animated" id="dc_color2"></select>		
+						</div>			
+					</div>
+					<div class="row-fluid">
+						<div class="span12 dc_color3 hide">							
+							<button class="btn btn-app btn-info btn-small radius-4" id="btn_modal_informacion">
+								<i class="icon-info bigger-160"></i>
+								Servicios												
+							</button>
+							<button class="btn btn-app btn-success btn-small radius-4" id="btn_modal_tarifa">
+								<i class="icon-money bigger-160"></i>
+								Tarifas												
+							</button>
+							<button class="btn btn-app btn-purple btn-small radius-4" id="btn_modal_horarios">
+								<i class="icon-time bigger-160"></i>
+								Horarios								
+							</button>							
 						</div>
 					</div>
-					<div class="span8">
-						<div class="dc_estandar_reserva">
-							<div class="row-fluid" id="obj_1">
-								<div class="span12 center">
-									
-									<br>
-									<div class="row">
-										<select id="selec_tipo"></select>	
-									</div>																																					
+					<div class="row-fluid">
+						<div class="span12 dc_color4 hide">
+							<div class="input-append">
+								<input 	class="dc_fecha date-picker" placeholder="Seleccione fecha"
+										id="txt_fecha_origen" 
+										type="text" 
+										data-date-format="dd-mm-yyyy">										
+								<span class="add-on bigger-260">
+									<i class="icon-calendar"></i>
+								</span>
+							</div>
+						</div>
+					</div>
+					<div class="row-fluid">
+						<div class="span12">
+							<div class="row" id="obj_dia_semana">
+								<div class="texto2 blue">
+									<h4 class="animated bounceInDown txt_zise">Seleccione horario</h4>
 								</div>
 							</div>
-							<div class="row-fluid" id="obj_2">
-								<div class="row center">
-									<div class="span4">
-										<div id="obj_btn_informacion">
-											<div class="row">
-												<div class="texto2 blue">
-													<h4 class="animated bounceInDown txt_zise">Información</h4>
-												</div>
-											</div>
-											<div class="row">
-												<p>
-													<button class="btn btn-app btn-danger btn-mini radius-4" id="btn_atras_ob1">
-														<i class="icon-angle-left bigger-160"></i>
-														Atras												
-													</button>
-													<button class="btn btn-app btn-info btn-mini radius-4" id="btn_modal_informacion">
-														<i class="icon-info bigger-160"></i>
-														Servicios												
-													</button>
-													<button class="btn btn-app btn-success btn-mini radius-4" id="btn_modal_tarifa">
-														<i class="icon-money bigger-160"></i>
-														Tarifas												
-													</button>
-													<button class="btn btn-app btn-warning btn-mini radius-4" id="btn_modal_horarios">
-														<i class="icon-time bigger-160"></i>
-														Horarios											
-													</button>
-												</p>
-											</div>
-										</div>
-									</div>	
-									<div class="span4">
-										<div class="row">
-											<div class="texto2 blue">
-												<h4 class="animated bounceInDown txt_zise">Seleccione fecha</h4>
-											</div>
-										</div>
-										<div class="row">
-											<div class="span12">
-												<div class="row-fluid input-append">
-													<input 	class="dc_fecha date-picker" 
-															id="txt_fecha_origen" 
-															type="text" 
-															data-date-format="dd-mm-yyyy">
-															
-													<span class="add-on bigger-260">
-														<i class="icon-calendar"></i>
-													</span>
-												</div>
-											</div>
-											<div id="id_servicio" class="hidden"></div>											
-										</div>
-									</div>
-									<div class="span4">
-										<div class="row" id="obj_dia_semana">
-											<div class="texto2 blue">
-												<h4 class="animated bounceInDown txt_zise">Día de la semana</h4>
-											</div>
-										</div>
-										<div class="row">
-											<div class="texto blue">
-												<h4 class="animated bounceInDown txt_zise" id="lbl_dia"></h4>
-											</div>
-										</div>
-									</div>														
-								</div>
-								<h4 class="smaller lighter green pull-right">
-									<i class="icon-list"></i>
-									Disponibilidad de Horario
-								</h4>
-								<div class="row" id="obj_tabla_ho_dis">
-									<div class="span12">
-										<div class="slim-scroll" data-height="300">
-										<table id="tabla_horas" class="table">
-											<thead style>
-												<tr>
-													<th>Nro</th>
-													<th>H. Inicio</th>
-													<th>H. Fin</th>
-													<th>fecha</th>
-													<th>Día</th>
-												</tr>
-											</thead>											
-											<tbody></tbody>											
-										</table>
-										</div>
-
-									</div>
-								</div>
-								<div class="row">
-									<button class="btn btn-success btn-block icon-user danger span12 " id="btn_reservar"> RESERVAR</button>									
-								</div>
-							</div>						
+						</div>
+					</div>
+					<div class="row-fluid">
+						<div class="span12 hide dc_tabla">
+							<div class="slim-scroll" data-height="300">
+								<table id="tabla_horas" class="table">
+									<thead style>
+										<tr>
+											<th>Nro</th>
+											<th>H. Inicio</th>
+											<th>H. Fin</th>
+											<th>fecha</th>
+											<th>Día</th>
+										</tr>
+									</thead>											
+									<tbody></tbody>											
+								</table>
+							</div>
 						</div>
 					</div>
 				</div>
-			</div>			
+				<div class="span8">
+					<div class="dc_estandar_reserva">
+						<div class="row-fluid" id="obj_1">								
+						</div>
+						<div class="row-fluid" id="obj_2">
+							<div class="row center">
+								<div class="span4">
+									<div id="obj_btn_informacion">
+										<div class="row">
+											<div class="texto2 blue">
+												<h4 class="animated bounceInDown txt_zise">Información</h4>
+											</div>
+										</div>
+										<div class="row">
+											<p>
+												
+											</p>
+										</div>
+									</div>
+								</div>	
+								<div class="span4">
+									<div class="row">
+										<div class="texto2 blue">
+											<h4 class="animated bounceInDown txt_zise">Seleccione fecha</h4>
+										</div>
+									</div>
+									<div class="row">
+										<div class="span12">
+											
+										</div>
+										<div id="id_servicio" class="hidden"></div>											
+									</div>
+								</div>
+								<div class="span4">
+									<div class="row" id="obj_dia_semana">
+										<div class="texto2 blue">
+											<h4 class="animated bounceInDown txt_zise">Día de la semana</h4>
+										</div>
+									</div>
+									<div class="row">
+										<div class="texto blue">
+											<h4 class="animated bounceInDown txt_zise" id="lbl_dia"></h4>
+										</div>
+									</div>
+								</div>														
+							</div>
+							<h4 class="smaller lighter green pull-right">
+								<i class="icon-list"></i>
+								Disponibilidad de Horario
+							</h4>
+							<div class="row" id="obj_tabla_ho_dis">
+								
+							</div>
+							<div class="row">
+								<button class="btn btn-success btn-block icon-user danger span12 " id="btn_reservar"> RESERVAR</button>									
+							</div>
+						</div>						
+					</div>
+				</div>
+			</div>
 		</div><!--/.main-container-->
 		<!-- ventana emergente horario -->
 		<div id="modal-table" class="modal hide fade" tabindex="-1">
@@ -324,9 +363,7 @@ if(!isset($_SESSION))
 			<div class="modal-body no-padding">
 				<div class="row-fluid pull-right">
 					
-					<div class="page-content center" id="obj_contenedor_servicios">
-														
-					</div>											
+																
 				</div>									
 			</div>			
 			<div class="modal-footer">
@@ -572,19 +609,8 @@ if(!isset($_SESSION))
 					Cerrar
 				</button>																					
 			</div>
-		</div>
-		<!--PAGE CONTENT ENDS-->
-		<a href="#" id="btn-scroll-up" class="btn-scroll-up btn btn-small btn-inverse">
-			<i class="icon-double-angle-up icon-only bigger-110"></i>
-		</a>
+		</div>		
 		<!--basic scripts-->
-
-		<!--[if !IE]>-->
-
-		
-
-		<!--<![endif]-->
-
 		<!--[if IE]>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 <![endif]-->
@@ -624,12 +650,7 @@ if(!isset($_SESSION))
 		<script src="../assets/js/jquery.hotkeys.min.js"></script>
 		<script src="../assets/js/bootstrap-wysiwyg.min.js"></script>
 		<script src="../assets/js/select2.min.js"></script>		
-		<script src="../assets/js/fuelux/fuelux.spinner.min.js"></script>
-		<script src="../assets/js/x-editable/bootstrap-editable.min.js"></script>
-		<script src="../assets/js/x-editable/ace-editable.min.js"></script>
-		<script src="../assets/js/jquery.maskedinput.min.js"></script>
 		<script src="../assets/js/chosen.jquery.min.js"></script>		
-		<script src="../assets/js/fuelux/fuelux.spinner.min.js"></script>
 		<script src="../assets/js/date-time/bootstrap-datepicker.min.js"></script>
 		<script src="../assets/js/date-time/bootstrap-timepicker.min.js"></script>
 		<script src="../assets/js/date-time/moment.min.js"></script>
@@ -638,16 +659,18 @@ if(!isset($_SESSION))
 		<script src="../assets/js/jquery.knob.min.js"></script>
 		<script src="../assets/js/jquery.autosize-min.js"></script>
 		<script src="../assets/js/jquery.inputlimiter.1.3.1.min.js"></script>
-		<script src="../assets/js/jquery.maskedinput.min.js"></script>
 		<script src="../assets/js/bootstrap-tag.min.js"></script>
 		<script src="../assets/js/jquery.validate.min.js"></script>
 		<script src="../assets/js/additional-methods.min.js"></script>
-		<script src="../assets/js/jquery.slimscroll.min.js"></script>
 		<script src="../assets/js/fuelux/fuelux.spinner.min.js"></script>
 		<script src="../assets/js/blockui.js"></script>
-		<script src="../assets/js/jquery.slimscroll.min.js"></script>
 		<script src="../assets/js/jquery.colorbox-min.js"></script>
 		<script src="../assets/vegas/jquery.vegas.js"></script>
+		<script src="../assets/js/jquery.easy-pie-chart.min.js"></script>
+		<script src="../assets/js/jquery.hotkeys.min.js"></script>
+		<script src="../assets/js/bootstrap-wysiwyg.min.js"></script>
+		<script src="../assets/js/select2.min.js"></script>
+
 
 
 
@@ -664,7 +687,9 @@ if(!isset($_SESSION))
 
 
 <script type="text/javascript">
+$(function(){
 
+});
 //$("#btn_inicio").animate({ scrollTop: $('#inicio')[0].scrollHeight}, 500);
 $("#btn_inicio").css({'cursor':'pointer'});
 $("#btn_inicio").click(function(){
@@ -718,6 +743,37 @@ function reconstruir(i){
         }              
     });
 }
+// variable global
+var ak45=0;
+function reconstruir2(i){	
+	// $("#tabla_horas tbody tr").each(function (index) {
+ //        $(this).children("td").each(function (index2) {
+ //            switch (index2) {            	        	
+ //                case 0:                	
+ //                    $(this).children().children().removeAttr('checked');                    
+ //                    break;                
+ //            }        
+ //        });       
+ //    });
+
+	$("#tabla_horas tbody tr").each(function (index) {        
+        if (i==index) {
+        	var a=0;
+        	$(this).children("td").each(function (index2) {
+	            switch (index2) {            	        	
+	                case 0:                	
+	                    
+	                   	if (ak45==0) {
+   	                    	$(this).children().children().prop("checked", "checked");
+   	                    	ak45=1;
+   	                    }          
+   	                    console.log(ak45)          
+	                    break;                
+	            }        
+	        }); 
+        }              
+    });
+}
 // funciones de galeria
 $(function() {
 	var colorbox_params = {
@@ -753,7 +809,7 @@ $(function() {
 })
 
 $(function(){	
-	bus_servicio(''); 
+	 
 	$('#btn_buscar_servicios').popover('show');
 	$('#btn_buscar_servicios').mouseover(function(){		
 		$(this).css({'cursor':'pointer'});
@@ -831,7 +887,8 @@ $(function(){
 
 		
 $('#txt_fecha_origen').change(function(){
-	//mostradon contenido objetos
+	//mostradon contenido objetos	
+	$('.dc_tabla').removeClass('hide');
 	$('#obj_dia_semana').show();
 	$('#obj_dia_semana').removeClass().addClass('zoomIn animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function(){
       $(this).removeClass();
@@ -845,10 +902,9 @@ $('#txt_fecha_origen').change(function(){
           $(this).removeClass();       
     });
 	var fe=$(this).val()
-	$('#lbl_dia').html(dia_semana(fe));
+	$('#lbl_dia').html();
 	var campo='';
-	var dia=$('#lbl_dia').html();
-	buscar_horas($('#id_servicio').html(),dia,fe);	
+	buscar_horas($('#id_servicio').html(),dia_semana(fe),fe);	
 });
 // busca la hora que esta disponible en esa fecha
 function buscar_horas(reg,dia,fe){
@@ -859,13 +915,18 @@ function buscar_horas(reg,dia,fe){
         
         data:{buscar_horas:'ok', id:reg,dia:dia,f:fe},			               
         success: function(data)
-        {	console.log(data)
-        	if (data=='n') {
-        		
-        	};
-        	if (data!='n') {
-
+        {	//console.log(data)   
+        	$.gritter.removeAll();
+        	$("#tabla_horas tbody").html('');     	
+        	if (data!=0) {
         		$("#tabla_horas tbody").html(data);
+        	}else{        		
+        		$.gritter.add({
+					title: 'Estimado Cliente',
+					text: 'Lo sentimos, no disponemos horarios para realizar reservaciones en esten día',
+					class_name: 'gritter-info gritter-center',
+					time:20000
+				});
         	}
 			
         }	                	        
@@ -874,4 +935,9 @@ function buscar_horas(reg,dia,fe){
 }
 	
 });
+
+
+
+
+
 </script>
