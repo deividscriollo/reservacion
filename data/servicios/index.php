@@ -336,19 +336,47 @@ if(!isset($_SESSION))
 
 																					<div class="controls">
 																						<div class="span12">
-																							<textarea class="span12 tooltip-info" name="txt_descripcion" id="txt_descripcion" data-rel="tooltip" data-placement="top" data-original-title="Si desea poner varias descripciones por favor separe con carácter contra barra “/”"></textarea>
+																							<textarea class="span12 tooltip-success" name="txt_descripcion" id="txt_descripcion" data-rel="tooltip" data-placement="top" data-original-title="Si desea poner varias descripciones por favor separe con carácter contra barra “/”"></textarea>
 																						</div>
 																					</div>
 																				</div>
 																				<div class="control-group">
-																					<label class="control-label" for="email">Selección:</label>
+																					<label class="control-label" for="email">Formato horario:</label>
 																					<div class="controls">
-																						<div class="span12">
+																						<div class="span6">
 																							<select name="txt_otros" id="txt_otros" class="span12">
 																								<option value="">Formato reservación</option>
 																								<option value="0">Selección horario continúo</option>
 																								<option value="1">Selección por horas</option>
 																							</select>
+																						</div>
+																					</div>
+																				</div>
+																				<div class="control-group">
+																					<label class="control-label" for="email">Impuesto IVA:</label>
+																					<div class="controls">
+																						<div class="span6">
+																							<select name="txt_iva" id="txt_iva" class="span12">
+																								<option value="">Seleccionar</option>
+																								<option value="si">SI</option>
+																								<option value="no">NO</option>
+																							</select>
+																						</div>
+																					</div>
+																				</div>
+																				<div class="control-group hide" id="obj_impuesto">
+																					<label class="control-label" for="email">Digite porcentaje:</label>
+																					<div class="controls">
+																						<div class="span6">
+																							<input type="text" name="txt_porcentaje" id="txt_porcentaje" class="span12" />
+																						</div>
+																					</div>
+																				</div>
+																				<div class="control-group">
+																					<label class="control-label" for="email">Capacidad:</label>
+																					<div class="controls">
+																						<div class="span6">
+																							<input type="text" class="span12 tooltip-success" name="txt_capacidad" id="txt_capacidad" data-rel="tooltip" data-placement="top" data-original-title="Capacidad de personas por reservación del servicio."/>
 																						</div>
 																					</div>
 																				</div>
@@ -483,71 +511,69 @@ if(!isset($_SESSION))
 		</div><!--/.main-container-->
 		<!-- edicion de servicios -->
 		<div id="modal-editar-servicios" class="modal hide fade" tabindex="-1">
-			<div class="modal-header padding">
+			<div class="modal-header no-padding">
 				<div class="table-header">
 					<div type="button" class="close" data-dismiss="modal">&times;</div>
 					Edición de Servicios
 				</div>
 			</div>
 
-			<div class="modal-body no-padding">				
+			<div class="modal-body padding">	
 				<div class="row-fluid">
-					<div class="span12">					
-					<form class="form-horizontal span11" id="form-servicios1" />																																			
-						<div class="row-fluid">																
-							<div class="span12">
-								<div class="control-group">
-									<label class="control-label" for="Servicio">Imagen del Servicio:</label>
-									<div class="controls">
-										<div class="span12">
-											<input  type="file" name="txt_archivo1" id="txt_archivo1"  accept="image/*" /> 
-										</div>
-									</div>
-								</div>																		
-								<div class="control-group">
-									<label class="control-label" for="Servicio">Nombre del Servicio:</label>
-									<div class="controls">
-										<div class="span12">
-											<input type="text" name="txt_servicio1" id="txt_servicio1" class="span12" />
-										</div>
-									</div>
-								</div>
-								<div class="control-group">
-									<label class="control-label" for="password">Descripcion:</label>
+					<div class="span2">		
+						<form>						
+							<span class="profile-picture">
+								<img id="avatar" class="editable" alt="Alex's Avatar" src="assets/avatars/profile-pic.jpg" />
+							</span>
+							<input type="submit" class="">
+						</form>				
+					</div>
+					<div class="span10">
+						<div class="profile-user-info profile-user-info-striped">
+						<div class="profile-info-row">
+							<div class="profile-info-name"> Servicio </div>
+							<div class="profile-info-value">
+								<span class="editable" id="lbl_servicio">alexdoe</span>
+							</div>
+						</div>
 
-									<div class="controls">
-										<div class="span12">
-											<textarea class="span12 tooltip-success" name="txt_descripcion1" id="txt_descripcion1" data-rel="tooltip" data-placement="top" data-original-title="Si desea poner varias descripciones por favor separe con carácter contra barra “/”"></textarea>
-										</div>
-									</div>
-								</div>
-								<div class="control-group">
-									<label class="control-label" for="email">Selección:</label>
-									<div class="controls">
-										<div class="span12">
-											<select name="txt_otros1" id="txt_otros1" class="span12">
-												<option value="">Formato reservación</option>
-												<option value="0">Selección horario continúo</option>
-												<option value="1">Selección por horas</option>
-											</select>
-										</div>
-									</div>
-								</div>
-							</div>																
+						<div class="profile-info-row">
+							<div class="profile-info-name"> Formato Horario </div>
+							<div class="profile-info-value">
+								<i class="icon-map-marker light-orange bigger-110"></i>
+								<span class="editable" id="lbl_horario">Netherlands</span>
+							</div>
 						</div>
-						<div class="row-fluid wizard-actions">
-							<button class="btn btn-success btn-next" type="submit">
-								<i class="icon-save icon-on-right"></i>
-								Actualizar
-							</button>
-							<button class="btn btn-danger btn-next" type="submit">
-								<i class="icon-save icon-on-right"></i>
-								Cancelar
-							</button>
+						<div class="profile-info-row">
+							<div class="profile-info-name"> Impuesto IVA </div>
+							<div class="profile-info-value">
+								<i class="icon-map-marker light-orange bigger-110"></i>
+								<span class="editable" id="lbl_iva">Netherlands</span>
+							</div>
 						</div>
-					</form>				
-					</div>											
-				</div>	
+						<div class="profile-info-row">
+							<div class="profile-info-name"> Porcentaje</div>
+							<div class="profile-info-value">
+								<span class="editable" id="lbl_porcentaje">38</span>
+							</div>
+						</div>
+						<div class="profile-info-row">
+							<div class="profile-info-name"> Capacidad </div>
+							<div class="profile-info-value">
+								<span class="editable" id="lbl_capacidad">38</span>
+							</div>
+						</div>	
+
+						<div class="profile-info-row">
+							<div class="profile-info-name"> Descripción </div>
+
+							<div class="profile-info-value">
+								<span class="editable" id="lbl_descripcion">Editable as WYSIWYG</span>
+							</div>
+						</div>
+					</div>
+					</div>
+				</div>		
 			</div>			
 		</div><!--edicion servicios ENDS-->
 		<!-- ventana emergente horario -->
@@ -779,6 +805,7 @@ if(!isset($_SESSION))
 
 
 
+
 		<!--personal scripts-->
 		<script type="text/javascript" src="js/guardar.js"></script>		
 		<script type="text/javascript" src="js/servicios.js"></script>
@@ -820,7 +847,90 @@ $(function(){
 	});		
 	$('#btn_perfil').hide();
 	  
-	 
+	 // dando valorese de existencia impuesto
+	$('#txt_iva').change(function(){
+		var impuesto=$('#txt_iva').val();
+		console.log(impuesto);
+		if (impuesto=='si') {
+			$('#obj_impuesto').removeClass('hide');
+		};
+		if (impuesto=='no') {
+			$('#obj_impuesto').addClass('hide');
+		}
+	});	
+	// dando valores estables a la concecución de cambio editable 
+	//editables on first profile page
+	$.fn.editable.defaults.mode = 'inline';
+	$.fn.editableform.loading = "<div class='editableform-loading'><i class='light-blue icon-2x icon-spinner icon-spin'></i></div>";
+    $.fn.editableform.buttons = '<button type="submit" class="btn btn-info editable-submit"><i class="icon-ok icon-white"></i></button>'+
+                                '<button type="button" class="btn editable-cancel"><i class="icon-remove"></i></button>';    
+	
+	//editables 
+    $('#lbl_servicio').editable({
+           type: 'text',
+           name: 'username'
+    });
+    var iva = [];
+    $.each({ "": "", "si": "SI", "no": "NO"}, function(k, v) {
+        iva.push({id: k, text: v});
+    });
+    var horario = [];
+    $.each({ "0": "CONTINúO", "1": "POR HORAS"}, function(k, v) {
+        horario.push({id: k, text: v});
+    });
+
+    $('#lbl_horario').editable({
+		type: 'select2',
+		value : 'NL',
+        source: horario,
+        select2:{
+        	placeholder: "Selecione Formato"
+        }
+    });
+    $('#lbl_iva').editable({
+		type: 'select2',
+		value : 'NL',
+        source: iva,
+        select2:{
+        	placeholder: "Selecione..."
+        },
+		success: function(response, newValue) {
+						
+		}
+    });
+
+    $('#lbl_porcentaje').editable({
+        type: 'spinner',
+		name : 'age',
+		spinner : {
+			min : 16, max:99, step:1
+		}
+	});
+	$('#lbl_capacidad').editable({
+        type: 'spinner',
+		name : 'age',
+		spinner : {
+			min : 16, max:99, step:1
+		},
+		validate: function(value) {
+		    if($.trim(value) == '') {
+		        return 'El formato no es correcto verifique la información';
+		    }
+		}
+	});
+
+
+	$('#lbl_descripcion').editable({
+		mode: 'inline',
+        type: 'wysiwyg',
+		name : 'about',
+		wysiwyg : {
+			//css : {'max-width':'300px'}
+		},
+		success: function(response, newValue) {
+		}
+	});
+
 });
 
 window.onload=show5;

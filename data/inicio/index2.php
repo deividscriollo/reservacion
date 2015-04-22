@@ -32,10 +32,14 @@ if(!isset($_SESSION))
 		<link rel="stylesheet" href="../assets/css/bootstrap-timepicker.css" />
 		<link rel="stylesheet" href="../assets/css/daterangepicker.css" />
 		<link rel="stylesheet" href="../assets/css/colorpicker.css" />
+		<link rel="stylesheet" href="../assets/css/select2.css" />
+		<link rel="stylesheet" href="../assets/css/bootstrap-editable.css" />
 
 
 
-		<link rel="stylesheet" href="../assets/css/fontdc.css" />
+
+		<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400,300" />
+
 
 		<link rel="stylesheet" href="../assets/css/ace.min.css" />
 		<link rel="stylesheet" href="../assets/css/ace-responsive.min.css" />
@@ -104,7 +108,17 @@ if(!isset($_SESSION))
 
 											<div class="widget-body">
 												<div class="widget-main center">
-													<form class="form-horizontal" novalidate="novalidate" id="form-guardar">														
+													<form class="form-horizontal" novalidate="novalidate" id="form-guardar">	
+														<div class="control-group">
+															<span class="span12">
+															<select class="chzn-select" id="select_sexo" name="select_sexo" data-placeholder="Seleccione Sexo">	
+																<option value=""></option>														
+																<option value="HOMBRE">HOMBRE</option>
+																<option value="MUJER">MUJER</option>
+																<option value="OTROS">OTROS</option>
+															</select>
+															</span>
+														</div>													
 														<div class="control-group">														
 															<span class="span12">
 																<select class="chzn-select" id="select_pais" name="select_pais" data-placeholder="Seleccione Pais" >
@@ -233,7 +247,18 @@ if(!isset($_SESSION))
 		<script src="../assets/js/jquery.validate.min.js"></script>
 		<script src="../assets/js/additional-methods.min.js"></script>
 		<script src="../assets/js/jquery.gritter.min.js"></script>
-		<script src="../assets/vegas/jquery.vegas.js"></script>
+		<script src="../assets/vegas/jquery.vegas.js"></script>		
+		<script src="../assets/js/bootbox.min.js"></script>
+		<script src="../assets/js/jquery.slimscroll.min.js"></script>
+		<script src="../assets/js/jquery.easy-pie-chart.min.js"></script>
+		<script src="../assets/js/jquery.hotkeys.min.js"></script>
+		<script src="../assets/js/bootstrap-wysiwyg.min.js"></script>
+		<script src="../assets/js/select2.min.js"></script>
+		<script src="../assets/js/x-editable/bootstrap-editable.min.js"></script>
+		<script src="../assets/js/x-editable/ace-editable.min.js"></script>
+		<script src="../assets/js/jquery.maskedinput.min.js"></script>
+
+
 
 
 
@@ -324,6 +349,9 @@ if(!isset($_SESSION))
 					errorClass: 'help-inline',
 					focusInvalid: false,
 					rules: {
+						select_sexo: {
+							required: true
+						},
 						select_pais: {
 							required: true
 						},
@@ -354,6 +382,9 @@ if(!isset($_SESSION))
 					},
 			
 					messages: {
+						select_sexo: {
+							required: "Por favor, Seleccione Sexo",
+						},
 						select_pais: {
 							required: "Por favor, Seleccione Pais",
 						},
@@ -378,8 +409,8 @@ if(!isset($_SESSION))
 						txt_con: {
 							required: "Por favor, Digite su teléfono convencional ",
 							number: "Por favor, Digite solo numeros",
-							minlength: "Por favor, minimo 8 caracteres",
-							maxlength: "Por favor, maximo 15 caracteres",
+							minlength: "Digite, minimo 8 caracteres",
+							maxlength: "Digite, maximo 15 caracteres",
 						}
 					},
 			
@@ -415,7 +446,7 @@ if(!isset($_SESSION))
 						$.ajax({
 							url:'../localizacion/pais.php',
 							type:'POST',
-							data:{actualizar_info:':)',sel_1:$('#select_pais').val(),sel_2:$('#select_provincia').val(),sel_3:$('#select_ciudad').val(),fec:$('#txt_fecha').val(),tel:$('#txt_tel').val(),dir:$('#txt_dir').val(),con:$('#txt_con').val()},
+							data:{actualizar_info:':)',sel_0:$('#select_sexo').val(),sel_1:$('#select_pais').val(),sel_2:$('#select_provincia').val(),sel_3:$('#select_ciudad').val(),fec:$('#txt_fecha').val(),tel:$('#txt_tel').val(),dir:$('#txt_dir').val(),con:$('#txt_con').val()},
 							success:function(data){
 								console.log(data);
 								if (data==0) {

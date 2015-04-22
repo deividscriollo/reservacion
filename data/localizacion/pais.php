@@ -93,7 +93,7 @@ if (isset($_POST['actualizar_info'])) {
 	if ($_POST['sel_3']!='') {
 		$resultado=$class->consulta("UPDATE SEG.USUARIO SET ID_CIUDAD='$_POST[sel_3]' WHERE ID='$_SESSION[id]'");	
 	}
-	$resultado=$class->consulta("UPDATE SEG.INFO SET PAIS='$_POST[sel_1]',STADO='1',convencional='$_POST[con]' WHERE ID_USUARIO='$_SESSION[id]'");	
+	$resultado=$class->consulta("UPDATE SEG.INFO SET PAIS='$_POST[sel_1]',STADO='1',convencional='$_POST[con]', SEXO='$_POST[sel_0]' WHERE ID_USUARIO='$_SESSION[id]'");	
 	$resultado=$class->consulta("UPDATE SEG.USUARIO SET EDAD='$_POST[fec]', FONO='$_POST[tel]',DIRECCION='$_POST[dir]' WHERE ID='$_SESSION[id]'");
 	if (!$resultado) {
 		print 0;

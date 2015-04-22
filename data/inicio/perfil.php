@@ -68,6 +68,8 @@ if(!isset($_SESSION))
 		<link rel="stylesheet" href="../assets/css/colorpicker.css" />
 		<link rel="stylesheet" href="../assets/css/select2.css" />
 		<link rel="stylesheet" href="../assets/css/bootstrap-editable.css" />
+		<link rel="stylesheet" href="../assets/css/chosen.css" />
+
 
 
 
@@ -109,7 +111,7 @@ if(!isset($_SESSION))
 						}
 						if ($x!=1) {
 							$resultado = $class->consulta("SELECT U.ID,CEDULA,NOMBRE,
-											PG_CATALOG.DATE(EDAD),extract(year from age(now(),edad)),FONO,CORREO,U.FECHA,DIRECCION ,NOM_CIUDAD,NOM_PROVINCIA, NOM_PAIS,P.ID,C.ID,I.CONVENCIONAl
+											PG_CATALOG.DATE(EDAD),extract(year from age(now(),edad)),FONO,CORREO,U.FECHA,DIRECCION ,NOM_CIUDAD,NOM_PROVINCIA, NOM_PAIS,P.ID,C.ID,I.CONVENCIONAl,I.SEXO
 											FROM SEG.USUARIO U,LOCALIZACION.CIUDAD C, LOCALIZACION.PROVINCIA P, LOCALIZACION.PAIS PA,SEG.INFO I  WHERE U.id='$_SESSION[id]' 
 																				AND C.ID=U.ID_CIUDAD 
 																				AND U.ID=I.ID_USUARIO
@@ -142,21 +144,20 @@ if(!isset($_SESSION))
 										</ul>
 
 										<div class="tab-content no-border padding-24">
-											<div id="home" class="tab-pane in active">
-												<div class="row-fluid">
-													<div class="span2 center">
-														<form action="perfil.php" method="POST" enctype="multipart/form-data">
+											<div id="home" class="tab-pane in active">												
+												<div class="row-fluid">	
+													<div class="span2 center">																											
+														<form action="perfil.php" class="form-horizontal" method="POST" id="form_img" enctype="multipart/form-data">															
 															<span class="profile-picture">
 																<?php 
 																	if ($fotografia=='') {
-																		print'<img src="img/avatar2.png"/>';
+																		print'<img id="file_img2" src="img/201504211414325536a198b06ac.png"/>';
 																	}else{
-																		print'<img src="img/'.$fotografia.'" />';
+																		print'<img id="file_img2" src="'.$fotografia.'" />';
 																	} 
 																?>
-																
 															</span>
-															<input type="file" name="id-input-file-2" id="id-input-file-2" accept="image/*" required/>
+															<input type="file" name="file_img" id="file_img" accept="image/*" />
 															<input class="btn btn-primary" type="submit" value="Guardar" name="btn_perfil">
 														</form>
 
@@ -177,33 +178,46 @@ if(!isset($_SESSION))
 																<div class="profile-info-name"> Cedula: </div>
 
 																<div class="profile-info-value">
+																	<i class="icon-bar-chart bigger-110 red"></i>
 																	<span><?php print($row[1]); ?></span>
+																</div>
+															</div>
+															<div class="profile-info-row">
+																<div class="profile-info-name"> Sexo </div>
+
+																<div class="profile-info-value">
+																	<i class="icon-user bigger-110 pink"></i>
+																	<span><?php print($row[15]); ?></span>
 																</div>
 															</div>
 															<div class="profile-info-row">
 																<div class="profile-info-name"> Nombre </div>
 
 																<div class="profile-info-value">
+																	<i class="icon-user bigger-110 green"></i>
 																	<span><?php print($row[2]); ?></span>
 																</div>
 															</div>
 															<div class="profile-info-row">
 																<div class="profile-info-name"> Localizacion </div>
-																<div class="profile-info-value">														
+																<div class="profile-info-value">
+																	<i class="icon-map-marker purple bigger-110"></i>															
 																	<span id="lbl_pais"><?php print($row[11]); ?></span>
-																	<span id="lbl_pro"><?php print($row[10]); ?></span>
-																	<span id="lbl_ciu"><?php print($row[9]); ?></span>
+																	<span id="lbl_pro1" class="editable"><?php print($row[10]); ?></span>
+																	<span id="lbl_ciu1" class="editable"><?php print($row[9]); ?></span>
 																</div>
 																	
 															</div>
 
 															<div class="profile-info-row">
 																<div class="profile-info-name"> F. Nacimiento</div>													
-																	<div class="profile-info-value">						  								
-																		<span id="txt_fna" class="editable_fecha"><?php 
-																												if ($row[4]!=0) {
-																													print($row[3]);	
-																												}?>
+																	<div class="profile-info-value">	
+																		<i class="icon-calendar orange bigger-110"></i>						  								
+																		<span id="txt_fna" class="editable_fecha">
+																		<?php 
+																		if ($row[4]!=0) {
+																			print($row[3]);	
+																		}?>
 																		</span>
 																	</div>													
 															</div>												
@@ -218,7 +232,7 @@ if(!isset($_SESSION))
 														</h4>
 														<div class="profile-user-info">
 															
-															<?php print $row[4];if ($row[4]!=0){?>
+															<?php if ($row[4]!=0){?>
 																<div class="profile-info-row">
 																<div class="profile-info-name"> Edad :</div>													
 																	<div class="profile-info-value">							  								
@@ -228,16 +242,25 @@ if(!isset($_SESSION))
 															<?php } ?>												
 
 															<div class="profile-info-row">
-																<div class="profile-info-name"> Teléfono Movil </div>
+																<div class="profile-info-name"> Teléfono Movil: </div>
 																<div class="profile-info-value">
+																	<i class="icon-mobile-phone red bigger-110"></i>	
 																	<span id="txt_telefono"><?php print($row[5]); ?></span>
 																</div>
 															</div>
 															<div class="profile-info-row">
 																<div class="profile-info-name"> Tel. Convencional: </div>
 
-																<div class="profile-info-value">														
-																	<span class="editable" id="txt_direccion"><?php print($row[14]); ?></span>
+																<div class="profile-info-value">	
+																	<i class="icon-phone blue bigger-110"></i>														
+																	<span class="editable" id="txt_convencional">
+																	<?php 
+																		if ($row[14]!='') {
+																			print($row[14]);
+																		}else
+																		print '(000)000-000';
+																		 ?>
+																	</span>
 																</div>
 
 															</div>
@@ -245,7 +268,8 @@ if(!isset($_SESSION))
 															<div class="profile-info-row">
 																<div class="profile-info-name"> Dirección: </div>
 
-																<div class="profile-info-value">														
+																<div class="profile-info-value">
+																	<i class="icon-map-marker light-orange bigger-110"></i>														
 																	<span class="editable" id="txt_direccion"><?php print($row[8]); ?></span>
 																</div>
 
@@ -254,6 +278,8 @@ if(!isset($_SESSION))
 																<div class="profile-info-name"> Correo: </div>
 
 																<div class="profile-info-value">
+																	<i class="icon-envelope bigger-120 pink"></i>
+
 																	<span ><?php print($row[6]); ?></span>
 																</div>
 															</div>
@@ -313,7 +339,7 @@ if(!isset($_SESSION))
 								<?php
 							}
 						}else{
-							$resultado = $class->consulta("SELECT U.ID,CEDULA,NOMBRE,PG_CATALOG.DATE(EDAD),extract(year from age(now(),edad)),FONO,CORREO,U.FECHA,DIRECCION,NOM_PAIS,I.CONVENCIONAl FROM SEG.USUARIO U, SEG.INFO I, LOCALIZACION.PAIS P WHERE U.ID='$_SESSION[id]' AND U.ID=I.ID_USUARIO AND I.PAIS=P.ID");
+							$resultado = $class->consulta("SELECT U.ID,CEDULA,NOMBRE,PG_CATALOG.DATE(EDAD),extract(year from age(now(),edad)),FONO,CORREO,U.FECHA,DIRECCION,NOM_PAIS,I.CONVENCIONAl,I.SEXO FROM SEG.USUARIO U, SEG.INFO I, LOCALIZACION.PAIS P WHERE U.ID='$_SESSION[id]' AND U.ID=I.ID_USUARIO AND I.PAIS=P.ID");
 							while ($row=$class->fetch_array($resultado)) {
 							?>
 							<div class="row-fluid">
@@ -343,18 +369,18 @@ if(!isset($_SESSION))
 										<div id="home" class="tab-pane in active">
 											<div class="row-fluid">
 												<div class="span2 center">
-													<form action="perfil.php" method="POST" enctype="multipart/form-data">
+													<form action="perfil.php" id="form_edicion_img" method="POST" enctype="multipart/form-data">
 														<span class="profile-picture">
 															<?php 
 																if ($fotografia=='') {
-																	print'<img src="img/avatar2.png"/>';
+																	print'<img id="file_img2" src="img/201504211414325536a198b06ac.png"/>';
 																}else{
-																	print'<img src="img/'.$fotografia.'" />';
+																	print'<img id="file_img2" src="'.$fotografia.'" />';
 																} 
 															?>
 															
 														</span>
-														<input type="file" name="id-input-file-2" id="id-input-file-2" accept="image/*" required/>
+														<input type="file" name="file_img" id="file_img" accept="image/*" required/>
 														<input class="btn btn-primary" type="submit" value="Guardar" name="btn_perfil">
 													</form>
 
@@ -375,19 +401,29 @@ if(!isset($_SESSION))
 															<div class="profile-info-name"> Cedula: </div>
 
 															<div class="profile-info-value">
+																<i class="icon-bar-chart bigger-110 red"></i>
 																<span><?php print($row[1]); ?></span>
 															</div>
 														</div>
 														<div class="profile-info-row">
-															<div class="profile-info-name"> Nombre </div>
+															<div class="profile-info-name"> Sexo </div>
 
 															<div class="profile-info-value">
+																<i class="icon-user bigger-110 pink"></i>
+																<span><?php print($row[11]); ?></span>
+															</div>
+														</div>
+														<div class="profile-info-row">
+															<div class="profile-info-name"> Nombre </div>
+															<div class="profile-info-value">
+																<i class="icon-user bigger-110 green"></i>
 																<span><?php print($row[2]); ?></span>
 															</div>
 														</div>
 														<div class="profile-info-row">
 															<div class="profile-info-name"> Localizacion </div>
-															<div class="profile-info-value">														
+															<div class="profile-info-value">	
+																<i class="icon-map-marker purple bigger-110"></i>													
 																<span id="lbl_pais"><?php print($row[9].' / EXTRANGERO'); ?></span>
 															</div>
 																
@@ -395,7 +431,8 @@ if(!isset($_SESSION))
 
 														<div class="profile-info-row">
 															<div class="profile-info-name"> F. Nacimiento</div>													
-																<div class="profile-info-value">						  								
+																<div class="profile-info-value">	
+																	<i class="icon-calendar orange bigger-110"></i>						  								
 																	<span id="txt_fna"><?php 
 																											if ($row[4]!=0) {
 																												print($row[3]);	
@@ -425,22 +462,25 @@ if(!isset($_SESSION))
 														<?php } ?>												
 
 														<div class="profile-info-row">
-															<div class="profile-info-name"> Teléfono Movil</div>
+															<div class="profile-info-name"> Teléfono Movil: </div>
 															<div class="profile-info-value">
+																<i class="icon-mobile-phone red bigger-110"></i>
 																<span id="txt_telefono"><?php print($row[5]); ?></span>
 															</div>
 														</div>
 														<div class="profile-info-row">
-															<div class="profile-info-name"> Tel. Convencional</div>
+															<div class="profile-info-name"> Tel. Convencional: </div>
 															<div class="profile-info-value">
-																<span id="txt_telefono"><?php print($row[10]); ?></span>
+																<i class="icon-phone red bigger-110"></i>
+																<span id="txt_convencional"><?php print($row[10]); ?></span>
 															</div>
 														</div>
 
 														<div class="profile-info-row">
 															<div class="profile-info-name"> Dirección: </div>
 
-															<div class="profile-info-value">														
+															<div class="profile-info-value">	
+																<i class="icon-map-marker light-orange bigger-110"></i>														
 																<span class="editable" id="txt_direccion"><?php print($row[8]); ?></span>
 															</div>
 
@@ -449,6 +489,7 @@ if(!isset($_SESSION))
 															<div class="profile-info-name"> Correo: </div>
 
 															<div class="profile-info-value">
+																<i class="icon-envelope bigger-120 pink"></i>
 																<span ><?php print($row[6]); ?></span>
 															</div>
 														</div>
@@ -554,7 +595,6 @@ if(!isset($_SESSION))
 		<![endif]-->
 
 		<script src="../assets/js/jquery-ui-1.10.3.custom.min.js"></script>
-		<script src="../assets/js/jquery.ui.touch-punch.min.js"></script>
 		<script src="../assets/js/jquery.slimscroll.min.js"></script>
 		<script src="../assets/js/jquery.easy-pie-chart.min.js"></script>
 		<script src="../assets/js/jquery.sparkline.min.js"></script>
@@ -568,6 +608,7 @@ if(!isset($_SESSION))
 		<script src="../assets/js/date-time/bootstrap-datepicker.min.js"></script>
 		<script src="../assets/js/date-time/bootstrap-timepicker.min.js"></script>
 		<script src="../assets/js/date-time/moment.min.js"></script>
+		<script src="../assets/js/bootbox.min.js"></script>
 		<script src="../assets/js/date-time/daterangepicker.min.js"></script>
 		<script src="../assets/js/bootstrap-colorpicker.min.js"></script>
 		<script src="../assets/js/jquery.knob.min.js"></script>
@@ -582,6 +623,8 @@ if(!isset($_SESSION))
 		<script src="../assets/js/jquery.gritter.min.js"></script>
 		<script src="../../assets/js/jquery.validate.min.js"></script>
 		<script src="../../assets/js/additional-methods.min.js"></script>
+		<script src="../assets/js/chosen.jquery.min.js"></script>
+
 
 
 
@@ -592,27 +635,113 @@ if(!isset($_SESSION))
 
 		<!--inline scripts related to this page-->
 		<script type="text/javascript">			
-			$(function(){
-				//Enviar datos extras
-				$('#id-input-file-2').ace_file_input({
-					no_file:'Seleccionar',
-					btn_choose:'Ver',
-					btn_change:'Cambiar',
-					droppable:false,
-					onchange:null,
-					thumbnail:false, //| true | large
-					whitelist:'gif|png|jpg|jpeg'
-					//blacklist:'exe|php'
-					//onchange:''
-					//
-				});
-
-				//editables on first profile page
-				$.fn.editable.defaults.mode = 'inline';
+			$(function(){	
+			$.fn.editable.defaults.mode = 'inline';
 				$.fn.editableform.loading = "<div class='editableform-loading'><i class='light-blue icon-2x icon-spinner icon-spin'></i></div>";
 			    $.fn.editableform.buttons = '<button type="submit" onli  class="btn btn-info editable-submit"><i class="icon-ok icon-white"></i></button>'+
 			                                '<button type="button" class="btn editable-cancel"><i class="icon-remove"></i></button>';    
+	
 
+				$('#lbl_pro1').editable({
+					type:'select2',
+					select2:{
+						placeholder: "Selec. Provincia",
+						containerCssClass: "" 
+					},
+					value : 'NL',
+					source: select_pro(),
+					success: function(response, newValue) {						
+						
+						var source = (!newValue || newValue == "") ? [] : select_ciu(newValue);
+						$('#lbl_ciu1').editable('destroy').editable({
+							type: 'select2',
+							select2:{
+								placeholder: "Selec. Ciudad"
+							},
+							source: select_ciu(newValue),							
+							success: function(response, newValue) {	
+								if(newValue == true) {							        
+							        $.gritter.removeAll();
+									$.gritter.add({                     
+					                    title: '..Mensaje..!',                      
+					                    text: '<i class="icon-cloud purple bigger-230"></i>  Por favor, Seleccione ciudad son campos requeridos <i class="icon-spinner icon-spin green bigger-230"></i>',                      
+					                    sticky: false,                      
+					                    time: 2000,
+					                    class_name: 'gritter-error gritter-center'
+					                });
+							    }
+							    if(newValue != true) {	
+									$.ajax({
+										url:'app.php',
+										type:'POST',
+										async:false,
+										data:{guardar_ciudad:'ok',id_act_ciu:newValue}
+									});
+								}
+							}
+						}).editable('setValue', true);
+						$("#lbl_ciu1").trigger('click');
+					}
+					
+			    });
+				$(".chzn-select").chosen(); 
+			    function select_pro(){
+					var b="source";
+					var result;
+					$.ajax({
+		                type: "POST",
+		                url:"app.php",
+		                //url:"http://localhost/Aerocoach/php_calls.php",
+		               data:{buscar_pro:'ok'},                   
+		                contentType:"application/x-www-form-urlencoded; charset=UTF-8", 
+		                global:false,
+		                async: false,
+		                dataType: "json",
+		                success: function(response) {                             
+		                      result=response;
+		                },
+		                error:function (xhr, ajaxOptions, thrownError){
+		                        alert(xhr.status);
+		                        alert(thrownError);
+		                }
+					});  
+					 return result;
+				}
+				function select_ciu(id){
+					var b="source";
+					var result;
+					$.ajax({
+		                type: "POST",
+		                url:"app.php",
+		                //url:"http://localhost/Aerocoach/php_calls.php",
+		               	data:{buscar_ciu:'ok',id:id},                   
+		                contentType:"application/x-www-form-urlencoded; charset=UTF-8", 
+		                global:false,
+		                async: false,
+		                dataType: "json",
+		                success: function(response) {                             
+		                      result=response;
+		                },
+		                error:function (xhr, ajaxOptions, thrownError){
+		                        alert(xhr.status);
+		                        alert(thrownError);
+		                }
+					});  
+					 return result;
+				}
+				//Enviar datos extras
+				$('#file_img').ace_file_input({
+					no_file:'Seleccionar',
+					btn_choose:'Ver',
+					btn_change:'Cambiar',
+					droppable: true, //html5 browsers only
+				    thumbnail: 'small' //html5 browsers only				   
+				})
+				
+
+
+				//editables on first profile page
+				
 				//formato pais
 				
 				
@@ -655,7 +784,6 @@ if(!isset($_SESSION))
 					pk:    1,
                     name:  'txt_fna',
                     url:   'app.php',
-                    data:{devian:'hola'},
 					viewformat: "yyyy-mm-dd",
 					validate: function(value) {
 					    if($.trim(value) == '') {
@@ -684,39 +812,46 @@ if(!isset($_SESSION))
 					}
 				$('#txt_direccion').editable({
 			           type: 'text',
-			           name: 'txt_direccion'
+			           name: 'txt_direccion',
+			           pk:    1,
+	                    name:  'txt_direccion',
+	                    url:   'app.php',
+	                    validate: function(value) {
+					    if($.trim(value) == '') {
+					        return 'Por favor, digite la dirección son campos requeridos';
+					    }
+					},
 			    });
 
 				$('#txt_telefono').editable({
 				    type: 'text',
 				    name: 'txt_telefono',
-				    tpl: '<input type="text" id ="zipiddemo" class="mask form-control    input-sm dd" style="padding-right: 24px;">'
+				    tpl: '<input type="text" id ="zipiddemo" class="mask form-control    input-sm dd" style="padding-right: 24px;">',
+				    pk:    1,
+                    name:  'txt_telefono',
+                    url:   'app.php',
 				});
-
+				
+				$('#txt_convencional').editable({
+					type: 'text',
+				    name: 'txt_direccion',
+				    tpl: '<input type="text" class="mask2 form-control    input-sm dd" style="padding-right: 24px;">',
+				    pk:    1,
+                    name:  'txt_convencional',
+                    url:   'app.php',
+                    validate: function(value) {
+					    if($.trim(value) == '') {
+					        return 'El formato no es correcto verifique la información';
+					    }
+					},
+				});
 				$(document).on("focus", ".mask", function () {
 				    $(this).mask("(999) 999-9999");
 				});
+				$(document).on("focus", ".mask2", function () {
+				    $(this).mask("(999) 999-9999");
+				});
 				
-				$('#txt_ direccion').editable({
-					type: 'text',
-				    name: 'txt_direccion',
-				});
-				// Llamar carga de datos en select pais				
-				$('#sel_pais').change(function(){					
-					var pais=$('#sel_pais').val();
-					cargar_pro(pais);
-					$('#lbl_pais').html(busca_reg_valor(pais));	
-					//console.log($('#sel_pais').options.length)
-				});
-				$('#sel_provincia').change(function(){
-					var pro=$('#sel_provincia').val();
-					$('#lbl_pro').html(busca_reg_valorp(pro));	
-					cargar_c(pro);
-				});
-				$('#sel_ciudad').change(function(){
-					var ciu=$('#sel_ciudad').val();
-					$('#lbl_ciu').html(busca_reg_valorc(ciu));						
-				});
 			});
 			
 			// verificacion robustes de contraseña
@@ -871,9 +1006,56 @@ if(!isset($_SESSION))
 					});
 				}		
 			});
-
 			
+			$.validator.addMethod('filesize', function(value, element, param) {			    
+			    return this.optional(element) || (element.files[0].size <= param) 
+			});
+			$('#form_img, #form_edicion_img').validate({
+				errorElement: 'span',
+				errorClass: 'help-inline',
+				focusInvalid: false,
+				rules: {			
+					file_img: {
+						required: true, 
+						accept: "png|jpe?g|gif", 
+						filesize: 1048576
+					}			
+				},
+				invalidHandler: function (event, validator) { //display error alert on form submit   
+					$.gritter.removeAll();
+					$.gritter.add({                     
+	                    title: '..Mensaje..!',                      
+	                    text: '<i class="icon-cloud purple bigger-230"></i>  El archivo debe ser formato JPG, GIF o PNG, menos de 1 MB  <i class="icon-spinner icon-spin green bigger-230"></i>',                      
+	                    //image: 'http://a0.twimg.com/profile_images/59268975/jquery_avatar_bigger.png',                        
+	                    sticky: false,                      
+	                    time: 2000,
+	                    
+	                    class_name: 'gritter-error gritter-center'
+	                });
+				},
+				submitHandler: function (form) {
+					var formObj = new FormData(form); 	
+					$.ajax({
+						url:'app.php',
+						type: 'POST',
+					    processData: false,
+					    contentType: false,
+						data:formObj,
+						success:function(data){	
+							data=data.replace("\n","");
+							data=data.replace("\n","");
+							data=data.replace("  ","");
+							var res=data.split(';');
+							console.log(res[1]);
+							$('#file_img2').attr('src',res[1]);
+							// var elemento = document.querySelector('#file_img2');
+							// elemento.setAttribute("data-atributo-que-no-existe", "Valor para ese atributo");
+						}
+					});
+				}		
+			});
 		</script>
 		
+
 	</body>
 </html>

@@ -46,6 +46,10 @@ $(function(){
 				return false;
 			};
 		}, "Por favor, Digite otro servicio ya existe!!!.");
+	// validar tamaño del archivo
+	$.validator.addMethod('filesize', function(value, element, param) {			    
+	    return this.optional(element) || (element.files[0].size <= param) 
+	});
 	$('#form-servicios').validate({
 		errorElement: 'span',
 		errorClass: 'help-inline',
@@ -62,8 +66,21 @@ $(function(){
 				required: true
 			},
 			txt_archivo: {
+				required: true,
+				accept: "png|jpe?g|gif", 
+				filesize: 1048576
+			},
+			txt_iva: {
 				required: true
-			}
+			},
+			txt_porcentaje: {
+				required: true,
+				number: true
+			},
+			txt_capacidad: {
+				required: true,
+				number: true
+			},
 		},
 
 		messages: {
@@ -73,9 +90,26 @@ $(function(){
 			},
 			txt_descripcion: {
 				required: "Por favor, Digite descripción del servicio."
+			},			
+			txt_iva: {
+				required: "Por favor, Seleccione es requerido"
 			},
-		txt_otros: {required:"Por favor, Digite otros"},
-		txt_archivo: "Seleccione la Imagen"			
+			txt_porcentaje: {
+				required: 'Por favor, Digite porcentaje es requerido',
+				number: 'Por favor, Digite solo valores numéricos'
+			},
+			txt_otros: {
+				required:"Por favor, Seleccione formato de horario"
+			},
+			txt_capacidad: {
+				required: 'Por favor, Digite este campo es requerido',
+				number: 'Por favor, Digite solo valores numéricos'
+			},
+			txt_archivo: {
+				required:"Seleccione la Imagen",
+				accept:'El archivo debe ser formato JPG, GIF o PNG, menos de 1 MB',
+				filesize:'El archivo debe ser formato JPG, GIF o PNG, menos de 1 MB'
+			}				
 		},
 
 		invalidHandler: function (event, validator) { //display error alert on form submit   
@@ -152,18 +186,9 @@ $(function(){
 							sticky: false,						
 							time: ''
 						});
-                   };
-                   
-                },
-                error: function(jqXHR, textStatus, errorThrown) 
-                {
-                } 	        
+                   };                   
+                }	        
             });
-
-        	
-		},
-		invalidHandler: function (form) {
-			//alert('fallast')
 		}
 	});
 });
