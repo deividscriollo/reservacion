@@ -36,14 +36,8 @@ if(!isset($_SESSION))
 		<link rel="stylesheet" href="../assets/css/daterangepicker.css" />
 		<link rel="stylesheet" href="../assets/css/colorpicker.css" />
 
+		<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400,300" />
 
-
-		
-		
-
-
-
-		<link rel="stylesheet" href="../assets/css/fontdc.css" />
 
 		<link rel="stylesheet" href="../assets/css/ace.min.css" />
 		<link rel="stylesheet" href="../assets/css/ace-responsive.min.css" />
@@ -520,20 +514,23 @@ if(!isset($_SESSION))
 
 			<div class="modal-body padding">	
 				<div class="row-fluid">
-					<div class="span2">		
-						<form>						
+					<div class="span2 center">		
+						<form action="perfil.php" class="form-horizontal" method="POST" id="form_img" enctype="multipart/form-data">															
+							<input type="text" class="hide" id="txt_id_servicio" name="txt_id_servicio">
 							<span class="profile-picture">
-								<img id="avatar" class="editable" alt="Alex's Avatar" src="assets/avatars/profile-pic.jpg" />
+								<img id="file_img2" src="img/201504211414325536a198b06ac.png"/>
 							</span>
-							<input type="submit" class="">
-						</form>				
+							<input type="file" name="file_img" id="file_img" accept="image/*" />
+							<input class="btn btn-primary" type="submit" value="Guardar" name="btn_perfil">
+						</form>
+						<div class="space space-4"></div>														
 					</div>
 					<div class="span10">
 						<div class="profile-user-info profile-user-info-striped">
 						<div class="profile-info-row">
 							<div class="profile-info-name"> Servicio </div>
 							<div class="profile-info-value">
-								<span class="editable" id="lbl_servicio">alexdoe</span>
+								<span class="editable" id="lbl_servicio">0</span>
 							</div>
 						</div>
 
@@ -541,26 +538,26 @@ if(!isset($_SESSION))
 							<div class="profile-info-name"> Formato Horario </div>
 							<div class="profile-info-value">
 								<i class="icon-map-marker light-orange bigger-110"></i>
-								<span class="editable" id="lbl_horario">Netherlands</span>
+								<span class="editable" id="lbl_horario">0</span>
 							</div>
 						</div>
 						<div class="profile-info-row">
 							<div class="profile-info-name"> Impuesto IVA </div>
 							<div class="profile-info-value">
 								<i class="icon-map-marker light-orange bigger-110"></i>
-								<span class="editable" id="lbl_iva">Netherlands</span>
+								<span class="editable" id="lbl_iva">0</span>
 							</div>
 						</div>
-						<div class="profile-info-row">
+						<div class="profile-info-row hide" id="obj_impuesto_iva">
 							<div class="profile-info-name"> Porcentaje</div>
 							<div class="profile-info-value">
-								<span class="editable" id="lbl_porcentaje">38</span>
+								<span class="editable" id="lbl_porcentaje">0</span>
 							</div>
 						</div>
 						<div class="profile-info-row">
 							<div class="profile-info-name"> Capacidad </div>
 							<div class="profile-info-value">
-								<span class="editable" id="lbl_capacidad">38</span>
+								<span class="editable" id="lbl_capacidad">0</span>
 							</div>
 						</div>	
 
@@ -568,7 +565,7 @@ if(!isset($_SESSION))
 							<div class="profile-info-name"> Descripción </div>
 
 							<div class="profile-info-value">
-								<span class="editable" id="lbl_descripcion">Editable as WYSIWYG</span>
+								<span class="editable" id="lbl_descr">Editable as WYSIWYG</span>
 							</div>
 						</div>
 					</div>
@@ -779,8 +776,7 @@ if(!isset($_SESSION))
 		<script src="../assets/js/bootbox.min.js"></script>
 		<script src="../assets/js/jquery.slimscroll.min.js"></script>
 		<script src="../assets/js/jquery.easy-pie-chart.min.js"></script>
-		<script src="../assets/js/jquery.hotkeys.min.js"></script>
-		<script src="../assets/js/bootstrap-wysiwyg.min.js"></script>
+		<script src="../assets/js/jquery.hotkeys.min.js"></script>		
 		<script src="../assets/js/select2.min.js"></script>
 		<script src="../assets/js/date-time/bootstrap-datepicker.min.js"></script>
 		<script src="../assets/js/fuelux/fuelux.spinner.min.js"></script>
@@ -801,6 +797,7 @@ if(!isset($_SESSION))
 		<script src="../assets/js/jquery.validate.min.js"></script>
 		<script src="../assets/js/additional-methods.min.js"></script>
 		<script src="../assets/js/bootbox.min.js"></script>	
+		<script src="../assets/js/bootstrap-wysiwyg.min.js"></script>
 
 
 
@@ -848,6 +845,13 @@ $(function(){
 	$('#btn_perfil').hide();
 	  
 	 // dando valorese de existencia impuesto
+
+	 $('#file_img').ace_file_input({
+					no_file:' ',
+					btn_choose:'+',
+					btn_change:'+',
+					droppable: true, //html5 browsers only
+				})
 	$('#txt_iva').change(function(){
 		var impuesto=$('#txt_iva').val();
 		console.log(impuesto);
@@ -864,12 +868,36 @@ $(function(){
 	$.fn.editableform.loading = "<div class='editableform-loading'><i class='light-blue icon-2x icon-spinner icon-spin'></i></div>";
     $.fn.editableform.buttons = '<button type="submit" class="btn btn-info editable-submit"><i class="icon-ok icon-white"></i></button>'+
                                 '<button type="button" class="btn editable-cancel"><i class="icon-remove"></i></button>';    
-	
+	function buscando(registro){
+	console.log('test'+registro);			
+		var result = "" ; 					
+		$.ajax({
+	            url:'php/tarifa.php',
+	            async :  false ,   
+	            type:  'post',
+	            data: {existencia_ser:'ok',reg:registro},            
+	            success : function ( data )  {
+			         result = data ;  
+			         console.log(data);
+			    } 		                
+	    	});
+		return result ; 
+	}
 	//editables 
     $('#lbl_servicio').editable({
-           type: 'text',
-           name: 'username'
-    });
+		type: 'text',
+		name: 'username',
+		value: '',
+		validate: function(value) {
+			var res=buscando(value);
+			if(res==1) {
+		        return 'El nombre del servicio ya existe';
+		    };
+		    if (value=='') {
+		    	return 'Este campo es requerido';
+		    }
+		}
+    });   
     var iva = [];
     $.each({ "": "", "si": "SI", "no": "NO"}, function(k, v) {
         iva.push({id: k, text: v});
@@ -892,10 +920,16 @@ $(function(){
 		value : 'NL',
         source: iva,
         select2:{
-        	placeholder: "Selecione..."
+        	placeholder: "Seleccione..."
         },
 		success: function(response, newValue) {
-						
+			if (newValue=='si') {
+				$('#obj_impuesto_iva').removeClass('hide');
+				$("#lbl_porcentaje").trigger('click');
+			};
+			if (newValue=='no') {
+				$('#obj_impuesto_iva').addClass('hide');				
+			};	
 		}
     });
 
@@ -903,7 +937,13 @@ $(function(){
         type: 'spinner',
 		name : 'age',
 		spinner : {
-			min : 16, max:99, step:1
+			min : 0, max:99, step:1
+		},
+		validate: function(value) {
+		    var regex = /^[0-9]+$/;
+        	if(! regex.test(value)) {
+		        return 'El formato no es correcto verifique la información';
+		    }
 		}
 	});
 	$('#lbl_capacidad').editable({
@@ -920,16 +960,20 @@ $(function(){
 	});
 
 
-	$('#lbl_descripcion').editable({
+	$('#lbl_descr').editable({
 		mode: 'inline',
         type: 'wysiwyg',
 		name : 'about',
+		// emptytext: 'Text for empty/null value'
+		// value:'Digite nueva descripción',
+		placeholder: 'Start typing something...',
 		wysiwyg : {
 			//css : {'max-width':'300px'}
 		},
 		success: function(response, newValue) {
 		}
 	});
+ 
 
 });
 

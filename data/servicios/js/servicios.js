@@ -125,10 +125,80 @@ $('#form-categoria').validate({
 		//alert('fallast')
 	}
 });
+// mostrar contenido de la ventana modal con los datos seleccionados
 function modificar_servicios(id){
-	console.log(id);
+	$('#txt_id_servicio').val(id)
+	$.ajax({
+	    url: "php/servicio.php",
+	    type: "POST",
+	    dataType:'json',
+	    data: {campos_servicios:'ok',id:id},        
+	    success: function(data)
+	    {	console.log(data);
+	        $('#lbl_servicio').html(data[0]);
+	        if (data[4]=='0')
+	       		$('#lbl_horario').html('CONTIÚO');
+	        if (data[4]=='1')
+	       		$('#lbl_horario').html('POR HORAS');
+	        $('#lbl_iva').html(data[5]);
+	        if (data[5]=='si')
+	        	$('#obj_impuesto_iva').removeClass('hide');
+	        if (data[5]=='no')
+	        $('#obj_impuesto_iva').addClass('hide');
+	    	$('#lbl_porcentaje').html(data[6]);
+	    	$('#lbl_capacidad').html(data[7]);
+	    	$('#file_img2').attr('src','img/'+data[2]);
+	    	$('#lbl_descr').html(data[1])
+	    }	        
+	});	
 	$('#modal-editar-servicios').modal('show');
 }
+
+$.validator.addMethod('filesize', function(value, element, param) {			    
+    return this.optional(element) || (element.files[0].size <= param) 
+});
+$('#form_img, #form_edicion_img').validate({
+	errorElement: 'span',
+	errorClass: 'help-inline',
+	focusInvalid: false,
+	rules: {			
+		file_img: {
+			required: true, 
+			accept: "png|jpe?g|gif", 
+			filesize: 1048576
+		}			
+	},
+	invalidHandler: function (event, validator) { //display error alert on form submit   
+		$.gritter.removeAll();
+		$.gritter.add({                     
+            title: '..Mensaje..!',                      
+            text: '<i class="icon-cloud purple bigger-230"></i>  El archivo debe ser formato JPG, GIF o PNG, menos de 1 MB  <i class="icon-spinner icon-spin green bigger-230"></i>',                      
+            //image: 'http://a0.twimg.com/profile_images/59268975/jquery_avatar_bigger.png',                        
+            sticky: false,                      
+            time: 2000,
+            
+            class_name: 'gritter-error gritter-center'
+        });
+	},
+	submitHandler: function (form) {
+		var formObj = new FormData(form); 	
+		$.ajax({
+			url:'php/servicio.php',
+			type: 'POST',
+		    processData: false,
+		    contentType: false,
+			data:formObj,
+			success:function(data){	
+				data=data.replace("\n","");
+				data=data.replace("\n","");
+				data=data.replace("  ","");
+				var res=data.split(';');
+				console.log(res[1]);
+				$('#file_img2').attr('src','img/'+res[1]);
+			}
+		});
+	}		
+});
 
 $('#form-servicios1').validate({
 	errorElement: 'span',

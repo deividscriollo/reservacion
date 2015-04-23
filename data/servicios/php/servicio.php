@@ -4,11 +4,49 @@ if(!isset($_SESSION))
 		session_start();
 	}
 	require('../../../admin/class.php');
+	$class=new constante();
 
 	if (isset($_POST['cambiar_id'])) {
 		$_SESSION["id_servicio"]=$_POST['id_servicio'];
 	}
-	if (isset($_POST['sacar_id']) {
+	if (isset($_POST['sacar_id'])) {
 		print$_SESSION["id_servicio"];	
 	}
+	if (isset($_POST['campos_servicios'])) {
+		$resultado = $class->consulta("SELECT * FROM SERVICIOS WHERE ID='$_POST[id]' AND STADO='1'");
+		$acu;
+		while ($row=$class->fetch_array($resultado)) {
+			$acu[]=$row[1];
+			$acu[]=$row[2];
+			$acu[]=$row[3];
+			$acu[]=$row[4];
+			$acu[]=$row[5];
+			$acu[]=$row[6];
+			$acu[]=$row[7];
+			$acu[]=$row[8];
+		}
+		print_r(json_encode($acu));
+	}
+	if (isset($_FILES['file_img']['name'])) {		
+	 	$id=$class->idz();
+	 	$fecha=$class->fecha_hora();
+
+	 	$allowed =  array('gif','png' ,'jpg');
+		$filename = $_FILES['file_img']['name'];
+		$ext = pathinfo($filename, PATHINFO_EXTENSION);
+	    //obtenemos el archivo a subir
+	    $file = $_FILES['file_img']['name'];
+	    $localizacion='../img/'.$id.'.'.$ext;
+	    //comprobamos si existe un directorio para subir el archivo	       
+	    //comprobamos si el archivo ha subido
+	    if ($file && move_uploaded_file($_FILES['file_img']['tmp_name'],$localizacion))
+	    {
+	        $result=$class->consulta("UPDATE SERVICIOS  SET NOMIMG='$localizacion' WHERE ID='$_POST[txt_id_servicio]'");
+		    if (!$result) {
+		    	print'0';
+		    }else
+		    print'1'.';'.$localizacion;
+	    }
+	}
+
 ?>

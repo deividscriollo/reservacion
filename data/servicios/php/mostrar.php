@@ -1,12 +1,10 @@
 <?php 
-require('../../../admin/class.php');
+	require('../../../admin/class.php');
 	$class=new constante();
-$resultado = $class->consulta("SELECT * FROM SERVICIOS WHERE STADO='1'");
+	$resultado = $class->consulta("SELECT * FROM SERVICIOS WHERE STADO='1'");
 	$stado=0; $nom=""; $correo="";
 	$id="";
-	while ($row=$class->fetch_array($resultado)) {			
-			
-		
+	while ($row=$class->fetch_array($resultado)) {
 ?>
 <div class="itemdiv memberdiv">
 	<div class="inline position-relative">
