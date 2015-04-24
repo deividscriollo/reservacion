@@ -10,7 +10,7 @@
 	<div class="inline position-relative">
 		<div class="user">
 			<a data-toggle="tab" href="#home">
-				<img src="img/<?php print($row[4]); ?>" alt="<?php print($row[1]); ?>" onclick="guardar_id('<?php print($row[0]); ?>')" />
+				<img src="img/<?php print($row[3]); ?>" alt="<?php print($row[1]); ?>" onclick="guardar_id('<?php print($row[0]); ?>')" />
 			</a>
 		</div>
 

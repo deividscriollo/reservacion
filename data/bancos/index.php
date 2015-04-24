@@ -28,15 +28,19 @@ if(!isset($_SESSION))
 		<link rel="stylesheet" href="../assets/css/jquery.gritter.css" />
 		
 		<link rel="stylesheet" href="../assets/css/jquery-ui-1.10.3.custom.min.css" />
+
 		<link rel="stylesheet" href="../assets/css/chosen.css" />
 		<link rel="stylesheet" href="../assets/css/datepicker.css" />
 		<link rel="stylesheet" href="../assets/css/bootstrap-timepicker.css" />
 		<link rel="stylesheet" href="../assets/css/daterangepicker.css" />
-		<link rel="stylesheet" href="../assets/css/colorpicker.css" />
+		<link rel="stylesheet" href="../assets/css/select2.css" />
+		<link rel="stylesheet" href="../assets/css/bootstrap-editable.css" />
 
 		<link rel="stylesheet" href="../assets/css/ace.min.css" />
 		<link rel="stylesheet" href="../assets/css/ace-responsive.min.css" />
 		<link rel="stylesheet" href="../assets/css/ace-skins.min.css" />
+		
+
 
 
 
@@ -196,6 +200,60 @@ if(!isset($_SESSION))
 																	
 			</div>
 		</div>
+		<div id="modal-editar_banco" class="modal hide fade" tabindex="-1">
+			<div class="modal-header no-padding">
+				<div class="table-header">
+					<div type="button" class="close" data-dismiss="modal">&times;</div>
+					Registro Edición Banco
+				</div>
+			</div>
+
+			<div class="modal-body no-padding">
+				<div class="row-fluid">
+					<div class="widget-main" id="obj_contenedor">
+						<div class="row-fluid">
+							<div class="profile-user-info profile-user-info-striped">
+								<div class="profile-info-row">
+									<input type="hidden" id="txt_id_banco">
+									<div class="profile-info-name"> Banco </div>
+
+									<div class="profile-info-value">
+										<span class="editable" id="lbl_banco">Banco</span>
+									</div>
+								</div>
+								<div class="profile-info-row">
+									<div class="profile-info-name"> Estado </div>
+									<div class="profile-info-value">
+										<span class="editable" id="lbl_estado">Estado</span>
+									</div>
+								</div>
+							</div>
+
+						</div>
+						<form class="form-horizontal" id="form_n_bancos"/>
+
+							<div class="row-fluid">
+								<div class="span8">										
+									<div class="controls">
+										<button class="btn btn-small btn-success" type="submit">
+											<i class="icon-save"></i>
+											Guardar
+										</button>
+									</div>	
+								</div>
+							</div>
+						</form>
+					</div>					
+				</div>									
+			</div>			
+			<div class="modal-footer">
+				<button class="btn btn-small btn-danger pull-rigth" data-dismiss="modal">
+					<i class="icon-remove"></i>
+					Cerrar
+				</button>
+																	
+			</div>
+		</div>
 		<div id="modal-nuevo_cuenta" class="modal hide fade" tabindex="-1">
 			<div class="modal-header no-padding">
 				<div class="table-header">
@@ -315,6 +373,10 @@ if(!isset($_SESSION))
 		<script src="../assets/js/jquery.validate.min.js"></script>
 		<script src="../assets/js/additional-methods.min.js"></script>
 		<script src="../assets/js/chosen.jquery.min.js"></script>
+		<script src="../assets/js/select2.min.js"></script>
+		<script src="../assets/js/x-editable/bootstrap-editable.min.js"></script>
+		<script src="../assets/js/x-editable/ace-editable.min.js"></script>
+
 
 		
 
@@ -326,8 +388,73 @@ if(!isset($_SESSION))
 
 		<!--inline scripts related to this page-->
 		<script type="text/javascript">
-		$(function(){			
-			// $("#sel_banco_cuenta").css({'width':'50px'}).chosen();
+		function buscando(registro){
+				var result = "" ; 					
+				$.ajax({
+			            url:'bancos.php',
+			            async :  false ,   
+			            type:  'post',
+			            data: {existencia_ban:'ok',reg:registro},            
+			            success : function ( data )  {
+					         result = data ;  
+					         console.log(data);
+					    } 		                
+			    	});
+				return result ; 
+			}
+		$(function(){		
+			//editables on first profile page
+				$.fn.editable.defaults.mode = 'inline';
+				$.fn.editableform.loading = "<div class='editableform-loading'><i class='light-blue icon-2x icon-spinner icon-spin'></i></div>";
+			    $.fn.editableform.buttons = '<button type="submit" class="btn btn-info editable-submit"><i class="icon-ok icon-white"></i></button>'+
+			                                '<button type="button" class="btn editable-cancel"><i class="icon-remove"></i></button>';    
+			
+	
+			$('#lbl_banco').editable({
+	           type: 'text',
+				value: '',
+				success:function(response, newValue){			
+					$.ajax({
+			            url:'bancos.php',
+			            async :  false ,   
+			            type:  'post',
+			            data: {lbl_banco:'ok',id:$('#txt_id_banco').val(),value:newValue}	                
+			    	});
+			    	mostrar_servicios()
+				},
+				validate: function(value) {			
+					var res=buscando(value);
+					if(res==1) {
+				        return 'El nombre del servicio ya existe';
+				    };
+				    if (value=='') {
+				    	return 'Este campo es requerido';
+				    }
+				}
+		    });
+
+		     var estado = [];
+		    $.each({ "ACTIVO": "ACTIVO", "DESACTIVADO": "DESACTIVADO"}, function(k, v) {
+		        estado.push({id: k, text: v});
+		    });
+		    $('#lbl_estado').editable({
+				type: 'select2',
+		        source: estado,
+		        select2:{
+		        	placeholder: "Seleccione..."
+		        },
+		        success: function(response, newValue) {		
+					$.ajax({
+			            url:'bancos.php',
+			            type:  'post',
+			            data: {lbl_stado:'ok',id:$('#txt_id_banco').val(),value:newValue},
+			            success:function(data){
+			            	mostrar_servicios();
+			            }
+			    	});	    	
+				}
+		    });  
+
 			
 		});
 

@@ -104,7 +104,12 @@ if (isset($_POST['mostrar_categoria'])) {
 	$resultado = $class->consulta("SELECT * FROM SEG.CATEGORIA_SERVICIO WHERE STADO='1'");
 	$sum=0; $acu='INACTIVO';
 	while ($row=$class->fetch_array($resultado)) {
-		if($row[3]==1)$acu='ACTIVO';
+		if ($row[3]=='ACTIVO')
+			$acu='<span class="label label-success arrowed-in arrowed-in-right">ACTIVO</span>';
+		else
+			$acu='<span class="label label-important arrowed-in arrowed-in-right">DESACTIVADO</span>';
+		
+
 		print
 			'<tr>
 				<td>'.$sum++.'</td>
@@ -112,12 +117,12 @@ if (isset($_POST['mostrar_categoria'])) {
 				<td>'.$row[2].'</td>
 
 				<td class="hidden-480">
-					<span class="label label-success arrowed-in arrowed-in-right">'.$acu.'</span>
+					'.$acu.'
 				</td>
 				<td class="td-actions ">
 					<div class="hidden-phone visible-desktop action-buttons">						
 
-						<a class="green" onclick=modificar_categoria("'.$row[0].'","'.$row[1].'")>
+						<a class="green" onclick=modificar_categoria("'.$row[0].'","'.$row[1].'","'.$row[3].'")>
 							<i class="icon-pencil bigger-130"></i>
 						</a>
 
@@ -142,17 +147,20 @@ if (isset($_POST['mostrar_categoria_select'])) {
 }
 if (isset($_POST['mostrar_servicios'])) {
 
-	$resultado = $class->consulta("SELECT ID, NOM, STADO,NOMIMG FROM SERVICIOS WHERE STADO='1'");
+	$resultado = $class->consulta("SELECT ID, NOM, STADO1,NOMIMG FROM SERVICIOS WHERE STADO='1'");
 	$sum=0; $acu='INACTIVO';
 	while ($row=$class->fetch_array($resultado)) {
-		if($row[2]==1)$acu='ACTIVO';
+		if($row[2]=='ACTIVO')
+			$acu='<span class="label label-success arrowed-in arrowed-in-right">ACTIVO</span>';
+		else
+			$acu='<span class="label label-important arrowed-in arrowed-in-right">DESACTIVADO</span>';
 		print
 			'<tr>
 				<td>'.$sum++.'</td>
-				<td width="5"><img src="img/'.$row[3].'" width="100%"></td>
+				<td width="10"><img src="img/'.$row[3].'" width="100%"></td>
 				<td class="blue">'.$row[1].'</td>
 				<td class="hidden-480">
-					<span class="label label-success arrowed-in arrowed-in-right">'.$acu.'</span>
+					'.$acu.'
 				</td>
 				<td class="td-actions ">
 					<div class="hidden-phone visible-desktop action-buttons">						
@@ -167,6 +175,8 @@ if (isset($_POST['mostrar_servicios'])) {
 					</div>				
 				</td>
 			</tr>';
+		
+
 	}
 }
 if (isset($_POST['eliminar'])) {

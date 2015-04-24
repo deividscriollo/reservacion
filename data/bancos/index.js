@@ -268,8 +268,8 @@ function dc_cuentas_nuevo(){
 	$('#modal-nuevo_cuenta').modal('show');
 	cargar_bancos_select();
 }
-function dc_bancos_modificar(id){
-	
+function dc_bancos_modificar(id){	
+	$('#modal-editar_banco').modal('show');
 }
 function dc_bancos_eliminar(id){
 	bootbox.confirm("<h1>Seguro desea Eliminar<h1>", function(result) {

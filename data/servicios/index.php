@@ -111,6 +111,7 @@ if(!isset($_SESSION))
 																<div class="widget-header widget-header-small header-color-dark">
 																	<h6 class="smaller" id="lbl_servicios"></h6>
 																	<span id="lbl_id_servicio" class="hide"></span>
+																																		
 																	<div class="widget-toolbar">																			
 																		<span class="badge badge-info" id="lbl_fecha">info</span>
 																		<span class="badge badge-success"><i class="icon-ok"></i></span>
@@ -127,7 +128,11 @@ if(!isset($_SESSION))
 																			</div>
 																			<div class="span3"></div>																														
 																		</div>
-																		<div class="alert alert-info" id="lbl_descripcion"></div>
+																		<div class="row-fluid">
+																			<div class="span12" id="alert_descripcion">
+																				
+																			</div>
+																		</div>																		
 																	</div>
 																</div>
 															</div>
@@ -330,7 +335,7 @@ if(!isset($_SESSION))
 
 																					<div class="controls">
 																						<div class="span12">
-																							<textarea class="span12 tooltip-success" name="txt_descripcion" id="txt_descripcion" data-rel="tooltip" data-placement="top" data-original-title="Si desea poner varias descripciones por favor separe con carácter contra barra “/”"></textarea>
+																							<textarea class="span12 tooltip-success" name="txt_descripcion" id="txt_descripcion" data-rel="tooltip" data-placement="top" data-original-title="Si desea poner varias descripciones por favor separe con punto y coma “;”"></textarea>
 																						</div>
 																					</div>
 																				</div>
@@ -403,7 +408,7 @@ if(!isset($_SESSION))
 																			<tr>
 																				<th><i class="icon-dashboard"></i></th>
 																				<th><i class="icon-picture"></th>
-																				<th>Categoría</th>
+																				<th>Servicios</th>
 																				<th class="hidden-480">Estado</th>
 																				<th class="hidden-480">Acción</th>																				
 																			</tr>
@@ -512,20 +517,20 @@ if(!isset($_SESSION))
 				</div>
 			</div>
 
-			<div class="modal-body padding">	
+			<div class="modal-body no-padding">	
 				<div class="row-fluid">
-					<div class="span2 center">		
+					<div class="span3 center">		
 						<form action="perfil.php" class="form-horizontal" method="POST" id="form_img" enctype="multipart/form-data">															
 							<input type="text" class="hide" id="txt_id_servicio" name="txt_id_servicio">
 							<span class="profile-picture">
-								<img id="file_img2" src="img/201504211414325536a198b06ac.png"/>
+								<img id="file_img2" src=""/>
 							</span>
 							<input type="file" name="file_img" id="file_img" accept="image/*" />
 							<input class="btn btn-primary" type="submit" value="Guardar" name="btn_perfil">
 						</form>
 						<div class="space space-4"></div>														
 					</div>
-					<div class="span10">
+					<div class="span9">
 						<div class="profile-user-info profile-user-info-striped">
 						<div class="profile-info-row">
 							<div class="profile-info-name"> Servicio </div>
@@ -548,7 +553,7 @@ if(!isset($_SESSION))
 								<span class="editable" id="lbl_iva">0</span>
 							</div>
 						</div>
-						<div class="profile-info-row hide" id="obj_impuesto_iva">
+						<div class="profile-info-row" id="obj_impuesto_iva">
 							<div class="profile-info-name"> Porcentaje</div>
 							<div class="profile-info-value">
 								<span class="editable" id="lbl_porcentaje">0</span>
@@ -559,6 +564,13 @@ if(!isset($_SESSION))
 							<div class="profile-info-value">
 								<span class="editable" id="lbl_capacidad">0</span>
 							</div>
+						</div>
+						<div class="profile-info-row">
+							<div class="profile-info-name"> Estado </div>
+							<div class="profile-info-value">
+								<i class="icon-map-marker light-orange bigger-110"></i>
+								<span class="editable" id="lbl_stado">Activo</span>
+							</div>
 						</div>	
 
 						<div class="profile-info-row">
@@ -567,12 +579,44 @@ if(!isset($_SESSION))
 							<div class="profile-info-value">
 								<span class="editable" id="lbl_descr">Editable as WYSIWYG</span>
 							</div>
-						</div>
+						</div>						
 					</div>
 					</div>
 				</div>		
 			</div>			
 		</div><!--edicion servicios ENDS-->
+		<!-- editar categorias -->
+		<div id="modal-editar-categorias" class="modal hide fade" tabindex="-1">
+			<div class="modal-header no-padding">
+				<div class="table-header">
+					<div type="button" class="close" data-dismiss="modal">&times;</div>
+					Edición de Categorías
+				</div>
+			</div>
+
+			<div class="modal-body padding">	
+				<div class="row-fluid">					
+					<div class="span12">
+						<div class="profile-user-info profile-user-info-striped">
+							<input type="hidden" id="txt_id_categoria" name="txt_id_categoria">
+							<div class="profile-info-row">
+								<div class="profile-info-name"> Categoría </div>
+								<div class="profile-info-value">
+									<span class="editable" id="lbl_categoria">0</span>
+								</div>
+							</div>						
+							<div class="profile-info-row">
+								<div class="profile-info-name"> Estado </div>
+								<div class="profile-info-value">
+									<i class="icon-map-marker light-orange bigger-110"></i>
+									<span class="editable" id="lbl_stado_categoria">Activo</span>
+								</div>
+							</div>												
+						</div>
+					</div>
+				</div>		
+			</div>			
+		</div><!--edicion categorias ENDS-->
 		<!-- ventana emergente horario -->
 		<div id="modal-table" class="modal hide fade" tabindex="-1">
 			<div class="modal-header no-padding">
@@ -884,11 +928,43 @@ $(function(){
 		return result ; 
 	}
 	//editables 
+	// edicion de tabla categoria
+	$('#lbl_categoria').editable({
+		type: 'text',
+		value: '',
+		success:function(response, newValue){			
+			$.ajax({
+	            url:'php/servicio.php',
+	            async :  false ,   
+	            type:  'post',
+	            data: {lbl_categoria:'ok',id:$('#txt_id_categoria').val(),value:newValue}	                
+	    	});
+	    	mostrar_categoria()
+		},
+		validate: function(value) {			
+			var res=buscando(value);
+			if(res==1) {
+		        return 'El nombre del servicio ya existe';
+		    };
+		    if (value=='') {
+		    	return 'Este campo es requerido';
+		    }
+		}
+    });   
+    // edicion de tabla servicio
     $('#lbl_servicio').editable({
 		type: 'text',
-		name: 'username',
 		value: '',
-		validate: function(value) {
+		success:function(response, newValue){			
+			$.ajax({
+	            url:'php/servicio.php',
+	            async :  false ,   
+	            type:  'post',
+	            data: {lbl_servicio:'ok',id:$('#txt_id_servicio').val(),value:newValue}	                
+	    	});
+	    	mostrar_servicios()
+		},
+		validate: function(value) {			
 			var res=buscando(value);
 			if(res==1) {
 		        return 'El nombre del servicio ya existe';
@@ -899,12 +975,16 @@ $(function(){
 		}
     });   
     var iva = [];
-    $.each({ "": "", "si": "SI", "no": "NO"}, function(k, v) {
+    $.each({ "SI": "SI", "NO": "NO"}, function(k, v) {
         iva.push({id: k, text: v});
     });
     var horario = [];
     $.each({ "0": "CONTINúO", "1": "POR HORAS"}, function(k, v) {
         horario.push({id: k, text: v});
+    });
+    var estado = [];
+    $.each({ "ACTIVO": "ACTIVO", "DESACTIVADO": "DESACTIVADO"}, function(k, v) {
+        estado.push({id: k, text: v});
     });
 
     $('#lbl_horario').editable({
@@ -913,25 +993,67 @@ $(function(){
         source: horario,
         select2:{
         	placeholder: "Selecione Formato"
-        }
+        },
+        success:function(response, newValue){			
+			$.ajax({
+	            url:'php/servicio.php',
+	            async :  false ,   
+	            type:  'post',
+	            data: {lbl_horario:'ok',id:$('#txt_id_servicio').val(),value:newValue}
+	    	});
+		}
     });
     $('#lbl_iva').editable({
 		type: 'select2',
-		value : 'NL',
         source: iva,
         select2:{
         	placeholder: "Seleccione..."
         },
-		success: function(response, newValue) {
-			if (newValue=='si') {
-				$('#obj_impuesto_iva').removeClass('hide');
-				$("#lbl_porcentaje").trigger('click');
-			};
-			if (newValue=='no') {
-				$('#obj_impuesto_iva').addClass('hide');				
-			};	
+		success: function(response, newValue) {		
+			$.ajax({
+	            url:'php/servicio.php',
+	            async :  false ,   
+	            type:  'post',
+	            async:false,
+	            data: {lbl_iva:'ok',id:$('#txt_id_servicio').val(),value:newValue}	            
+	    	});
+	    	//dcoperacion(newValue)
 		}
-    });
+    });    
+    $('#lbl_stado').editable({
+		type: 'select2',
+        source: estado,
+        select2:{
+        	placeholder: "Seleccione..."
+        },
+        success: function(response, newValue) {		
+			$.ajax({
+	            url:'php/servicio.php',
+	            type:  'post',
+	            data: {lbl_stado:'ok',id:$('#txt_id_servicio').val(),value:newValue},
+	            success:function(data){
+	            	mostrar_servicios();
+	            }
+	    	});	    	
+		}
+    });  
+    $('#lbl_stado_categoria').editable({
+		type: 'select2',
+        source: estado,
+        select2:{
+        	placeholder: "Seleccione..."
+        },
+        success: function(response, newValue) {		
+			$.ajax({
+	            url:'php/servicio.php',
+	            type:  'post',
+	            data: {lbl_stado_categoria:'ok',id:$('#txt_id_categoria').val(),value:newValue},
+	            success:function(data){
+	            	mostrar_categoria();
+	            }
+	    	});	    	
+		}
+    });    
 
     $('#lbl_porcentaje').editable({
         type: 'spinner',
@@ -944,7 +1066,15 @@ $(function(){
         	if(! regex.test(value)) {
 		        return 'El formato no es correcto verifique la información';
 		    }
-		}
+		},
+		success: function(response, newValue) {
+			$.ajax({
+	            url:'php/servicio.php',
+	            async :  false ,   
+	            type:  'post',
+	            data: {lbl_porcentaje:'ok',id:$('#txt_id_servicio').val(),value:newValue}
+	    	});
+	    }
 	});
 	$('#lbl_capacidad').editable({
         type: 'spinner',
@@ -956,7 +1086,15 @@ $(function(){
 		    if($.trim(value) == '') {
 		        return 'El formato no es correcto verifique la información';
 		    }
-		}
+		},
+		success: function(response, newValue) {
+			$.ajax({
+	            url:'php/servicio.php',
+	            async :  false ,   
+	            type:  'post',
+	            data: {lbl_capacidad:'ok',id:$('#txt_id_servicio').val(),value:newValue}
+	    	});
+	    }
 	});
 
 
@@ -965,14 +1103,36 @@ $(function(){
         type: 'wysiwyg',
 		name : 'about',
 		// emptytext: 'Text for empty/null value'
-		// value:'Digite nueva descripción',
+		value:devian,
 		placeholder: 'Start typing something...',
 		wysiwyg : {
 			//css : {'max-width':'300px'}
 		},
 		success: function(response, newValue) {
+			$.ajax({
+	            url:'php/servicio.php',
+	            async :  false ,   
+	            type:  'post',
+	            data: {lbl_descripcion:'ok',id:$('#txt_id_servicio').val(),value:newValue}
+	    	});
 		}
 	});
+	function devian(){
+		var id=$('#txt_id_servicio').val();
+		console.log(id);
+		var res='deviias';
+		$.ajax({
+            url:'php/servicio.php',
+            async :  false ,   
+            type:  'post',
+            dataType:'json',
+            data: {campos_servicios:'ok',id:id},  
+            success:function(data){
+            	res=data[1];
+            }
+    	});
+    	return res;
+	}
  
 
 });
@@ -1015,19 +1175,14 @@ function show5(){
 
                       
 
-	function modificar_categoria(id, nombre){
-		$('#btn_modificar_categoria').html('<i class="icon-edit icon-on-right"></i> Modificar');	
-		$('#lbl_id_categoria').html(id);
-		$('#txt_categoria').val(nombre);
+	function modificar_categoria(id, nombre,stado){
+		$('#txt_id_categoria').val(id);
+		$('#lbl_categoria').html(nombre);
+		$('#lbl_stado_categoria').html(stado);		
+		$('#modal-editar-categorias').modal('show')
 		//$('#form-categoria').removeAttr('id');
-		$('#form-categoria').prop('id','form-categoria-modificar');
-		$('#btn_modificar_categoria').removeAttr('type');
 		//console.log(frm_categoria);
-
-	}
-	$('#btn_modificar_categoria').click(function(){
-		
-	})
+	}	
 
 	function eliminar_servicios(id,nombre){
 		bootbox.confirm("<h1>Seguro desea eliminar<h1>", function(result) {

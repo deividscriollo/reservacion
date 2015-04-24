@@ -37,27 +37,22 @@ $('#form-categoria').validate({
 			existe_cat:true			
 		}
 	},
-
 	messages: {
 		txt_categoria: {
 			required: "Por favor, Digíte nombre dela categoría.",
 			existe_cat: "La categoría ya existe, digíte otra."
 		}			
 	},
-
 	invalidHandler: function (event, validator) { //display error alert on form submit   
 		$('.alert-error', $('.login-form')).show();
 	},
-
 	highlight: function (e) {
 		$(e).closest('.control-group').removeClass('success').addClass('error');
 	},
-
 	success: function (e) {
 		$(e).closest('.control-group').removeClass('error').addClass('success');
 		$(e).remove();
 	},
-
 	errorPlacement: function (error, element) {
 		if(element.is(':checkbox') || element.is(':radio')) {
 			var controls = element.closest('.controls');
@@ -120,9 +115,6 @@ $('#form-categoria').validate({
         });
 
     	
-	},
-	invalidHandler: function (form) {
-		//alert('fallast')
 	}
 });
 // mostrar contenido de la ventana modal con los datos seleccionados
@@ -134,21 +126,19 @@ function modificar_servicios(id){
 	    dataType:'json',
 	    data: {campos_servicios:'ok',id:id},        
 	    success: function(data)
-	    {	console.log(data);
+	    {	//console.log(data);
 	        $('#lbl_servicio').html(data[0]);
 	        if (data[4]=='0')
 	       		$('#lbl_horario').html('CONTIÚO');
 	        if (data[4]=='1')
 	       		$('#lbl_horario').html('POR HORAS');
 	        $('#lbl_iva').html(data[5]);
-	        if (data[5]=='si')
-	        	$('#obj_impuesto_iva').removeClass('hide');
-	        if (data[5]=='no')
-	        $('#obj_impuesto_iva').addClass('hide');
+	       
 	    	$('#lbl_porcentaje').html(data[6]);
 	    	$('#lbl_capacidad').html(data[7]);
 	    	$('#file_img2').attr('src','img/'+data[2]);
-	    	$('#lbl_descr').html(data[1])
+	    	$('#lbl_descr').html(data[1]);
+	    	$('#lbl_stado').html(data[8])
 	    }	        
 	});	
 	$('#modal-editar-servicios').modal('show');
@@ -157,10 +147,7 @@ function modificar_servicios(id){
 $.validator.addMethod('filesize', function(value, element, param) {			    
     return this.optional(element) || (element.files[0].size <= param) 
 });
-$('#form_img, #form_edicion_img').validate({
-	errorElement: 'span',
-	errorClass: 'help-inline',
-	focusInvalid: false,
+$('#form_img, #form_edicion_img').validate({	
 	rules: {			
 		file_img: {
 			required: true, 
@@ -195,6 +182,10 @@ $('#form_img, #form_edicion_img').validate({
 				var res=data.split(';');
 				console.log(res[1]);
 				$('#file_img2').attr('src','img/'+res[1]);
+				mostrar_servicios()
+				$('#form_img').each (function(){
+					this.reset();
+				});
 			}
 		});
 	}		
@@ -335,13 +326,12 @@ function guardar_id(x){
 	});
 	g_edicion('#lbl_servicios',1,x);
 	$('#lbl_id_servicio').html(x);
-	g_edicion('#lbl_descripcion',2,x);
-	g_edicion('#lbl_otros',3,x);
-	g_edicion('#lbl_fecha',5,x);
-	g_edicion('#lbl_stado',6,x);
+	g_edicion('#alert_descripcion',2,x);
+	g_edicion('#lbl_fecha',4,x);
+	//g_edicion('#lbl_stado_ser_info',9,x);
 	//imagenes
 
-	g_edicion_img(4, x);
+	g_edicion_img(3, x);
 	//active 
 	$("#btn_servicos").parent().removeClass("active");
 	$("#btn_perfil").parent().addClass("active");
@@ -392,6 +382,7 @@ function g_edicion_img(pos, x){
 	    data: {id:x,pos:pos},        
 	    success: function(data)
 	    {	
+	    	console.log(data);
 	    	var valor=data.split(" ");
 	    	
 	       	$('#img_foto').html('<img id="avatar" src="img/'+valor[2]+'"/>'); 	       		

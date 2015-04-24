@@ -63,6 +63,15 @@
 			print'<option value="'.$row[0].'">'.$row[1].'</option>';
 	 	} 
 	}
+	if(isset($_POST['existencia_ban'])) {
+		$valor=strtoupper($_POST['reg']);
+		$resultado = $class->consulta("SELECT * FROM BANCOS WHERE NOM='$valor' AND STADO='1'");
+		$id=0;
+		while ($row=$class->fetch_array($resultado)) {
+			$id=1;
+		}
+		print $id;
+	}
 	
 	if(isset($_POST['mostrar_cuentas'])) {
 		//$pos=$_POST['pos'];			

@@ -24,6 +24,7 @@ if(!isset($_SESSION))
 			$acu[]=$row[6];
 			$acu[]=$row[7];
 			$acu[]=$row[8];
+			$acu[]=$row[9];
 		}
 		print_r(json_encode($acu));
 	}
@@ -47,6 +48,33 @@ if(!isset($_SESSION))
 		    }else
 		    print'1'.';'.$localizacion;
 	    }
+	}
+	if (isset($_POST['lbl_servicio'])) {
+		$class->consulta("UPDATE SERVICIOS  SET NOM='$_POST[value]' WHERE ID='$_POST[id]'");
+	}
+	if (isset($_POST['lbl_categoria'])) {
+		$class->consulta("UPDATE SEG.CATEGORIA_SERVICIO  SET NOM=upper('$_POST[value]') WHERE ID='$_POST[id]'");
+	}
+	if (isset($_POST['lbl_horario'])) {
+		$class->consulta("UPDATE SERVICIOS  SET FORMATO='$_POST[value]' WHERE ID='$_POST[id]'");
+	}
+	if (isset($_POST['lbl_iva'])) {
+		$class->consulta("UPDATE SERVICIOS  SET IMPUESTO='$_POST[value]' WHERE ID='$_POST[id]'");
+	}
+	if (isset($_POST['lbl_porcentaje'])) {
+		$class->consulta("UPDATE SERVICIOS  SET PORCENTAJE='$_POST[value]' WHERE ID='$_POST[id]'");
+	}
+	if (isset($_POST['lbl_capacidad'])) {
+		$class->consulta("UPDATE SERVICIOS  SET CAPACIDAD='$_POST[value]' WHERE ID='$_POST[id]'");
+	}
+	if (isset($_POST['lbl_descripcion'])) {
+		$class->consulta("UPDATE SERVICIOS  SET DESCRIPCION='$_POST[value]' WHERE ID='$_POST[id]'");
+	}
+	if (isset($_POST['lbl_stado'])) {
+		$class->consulta("UPDATE SERVICIOS  SET STADO1='$_POST[value]' WHERE ID='$_POST[id]'");
+	}
+	if (isset($_POST['lbl_stado_categoria'])) {
+		$class->consulta("UPDATE SEG.CATEGORIA_SERVICIO  SET STADO1='$_POST[value]' WHERE ID='$_POST[id]'");
 	}
 
 ?>
