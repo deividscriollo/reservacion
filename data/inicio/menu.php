@@ -45,10 +45,15 @@ $acus=split('/', $acus);
 							<i class="icon-calendar purple"></i>
 
 							<span class="menu-text purple">
-								Calendario
-								<span class="badge badge-transparent tooltip-error" title="2&nbsp;Eventos&nbsp;Importantes">
-									<i class="icon-warning-sign purple bigger-130"></i>
-								</span>
+								Calendario								
+							</span>
+						</a>
+					</li>
+					<li ';if ($acus[3]=='correo') {print("class=active");}print'>
+						<a href="../correo/">
+							<i class="icon-envelope-alt pink"></i>
+							<span class="menu-text pink">
+								Correo								
 							</span>
 						</a>
 					</li>

@@ -228,21 +228,7 @@ if(!isset($_SESSION))
 									</div>
 								</div>
 							</div>
-
-						</div>
-						<form class="form-horizontal" id="form_n_bancos"/>
-
-							<div class="row-fluid">
-								<div class="span8">										
-									<div class="controls">
-										<button class="btn btn-small btn-success" type="submit">
-											<i class="icon-save"></i>
-											Guardar
-										</button>
-									</div>	
-								</div>
-							</div>
-						</form>
+						</div>						
 					</div>					
 				</div>									
 			</div>			
@@ -308,6 +294,59 @@ if(!isset($_SESSION))
 								</div>
 							</div>
 						</form>
+					</div>					
+				</div>									
+			</div>			
+			<div class="modal-footer">
+				<button class="btn btn-small btn-danger pull-rigth" data-dismiss="modal">
+					<i class="icon-remove"></i>
+					Cerrar
+				</button>
+																	
+			</div>
+		</div>
+		<div id="modal-editar_cuenta" class="modal hide fade" tabindex="-1">
+			<div class="modal-header no-padding">
+				<div class="table-header">
+					<div type="button" class="close" data-dismiss="modal">&times;</div>
+					Registro Edición Banco
+				</div>
+			</div>
+			<div class="modal-body no-padding">
+				<div class="row-fluid">
+					<div class="widget-main" id="obj_contenedor">
+						<div class="row-fluid">
+							<div class="profile-user-info profile-user-info-striped">
+								<div class="profile-info-row">
+									<input type="hidden" id="txt_id_cuenta">
+									<div class="profile-info-name"> Banco </div>
+
+									<div class="profile-info-value">
+										<span class="editable" id="lbl_banco_cuenta">Banco</span>
+									</div>
+								</div>
+								<div class="profile-info-row">
+									<div class="profile-info-name"> Cuenta </div>
+
+									<div class="profile-info-value">
+										<span class="editable" id="lbl_cuenta">Cuenta</span>
+									</div>
+								</div>
+								<div class="profile-info-row">
+									<div class="profile-info-name"> Tipo </div>
+
+									<div class="profile-info-value">
+										<span class="editable" id="lbl_tipo">tipo</span>
+									</div>
+								</div>
+								<div class="profile-info-row">
+									<div class="profile-info-name"> Estado </div>
+									<div class="profile-info-value">
+										<span class="editable" id="lbl_estado_cuenta">Estado</span>
+									</div>
+								</div>
+							</div>
+						</div>						
 					</div>					
 				</div>									
 			</div>			
@@ -389,38 +428,171 @@ if(!isset($_SESSION))
 		<!--inline scripts related to this page-->
 		<script type="text/javascript">
 		function buscando(registro){
-				var result = "" ; 					
-				$.ajax({
-			            url:'bancos.php',
-			            async :  false ,   
-			            type:  'post',
-			            data: {existencia_ban:'ok',reg:registro},            
-			            success : function ( data )  {
-					         result = data ;  
-					         console.log(data);
-					    } 		                
-			    	});
-				return result ; 
-			}
+			var result = "" ; 					
+			$.ajax({
+		            url:'bancos.php',
+		            async :  false ,   
+		            type:  'post',
+		            data: {existencia_ban:'ok',reg:registro},            
+		            success : function ( data )  {
+				         result = data ;  				         
+				    } 		                
+		    	});
+			return result ; 
+		}
+		function buscando_cuenta(registro){
+			var result = "" ; 					
+			$.ajax({
+		            url:'bancos.php',
+		            async :  false ,   
+		            type:  'post',
+		            data: {existencia_cuenta:'ok',reg:registro},            
+		            success : function ( data )  {
+				         result = data ;  				         
+				    } 		                
+		    	});
+			return result ; 
+		}
+		function select_banco(){
+			var b="source";
+			var result;
+			$.ajax({
+                type: "POST",
+                url:"bancos.php",
+                //url:"http://localhost/Aerocoach/php_calls.php",
+               data:{buscar_banco:'ok'},                   
+                contentType:"application/x-www-form-urlencoded; charset=UTF-8", 
+                global:false,
+                async: false,
+                dataType: "json",
+                success: function(response) {                             
+                      result=response;
+                },
+                error:function (xhr, ajaxOptions, thrownError){
+                        alert(xhr.status);
+                        alert(thrownError);
+                }
+			});  
+			 return result;
+		}
 		$(function(){		
 			//editables on first profile page
 				$.fn.editable.defaults.mode = 'inline';
 				$.fn.editableform.loading = "<div class='editableform-loading'><i class='light-blue icon-2x icon-spinner icon-spin'></i></div>";
 			    $.fn.editableform.buttons = '<button type="submit" class="btn btn-info editable-submit"><i class="icon-ok icon-white"></i></button>'+
 			                                '<button type="button" class="btn editable-cancel"><i class="icon-remove"></i></button>';    
-			
-	
+			var estado = [];
+			    $.each({ "ACTIVO": "ACTIVO", "DESACTIVADO": "DESACTIVADO"}, function(k, v) {
+			        estado.push({id: k, text: v});
+			    });
+			// edicion cuentas
+
+				$('#lbl_banco_cuenta').editable({
+					type:'select2',
+					select2:{
+						placeholder: "Selec. Banco",
+						containerCssClass: "" 
+					},
+					value : 'NL',
+					source: select_banco(),
+			        success:function(response, newValue){			
+						$.ajax({
+				            url:'bancos.php',
+				            async :  false ,   
+				            type:  'post',
+				            data: {
+				            	lbl_banco_cuenta:'ok',id:$('#txt_id_cuenta').val(),value:newValue
+				            },success:function(){
+				            	cargar_cuentas();
+				            }
+				    	});
+					}
+			    });
+			    var tipo = [];
+			    $.each({ "AHORROS": "AHORROS", "CORRIENTE": "CORRIENTE"}, function(k, v) {
+			        tipo.push({id: k, text: v});
+			    });	
+			    $('#lbl_tipo').editable({
+					type: 'select2',
+			        source: tipo,
+			        select2:{
+			        	placeholder: "Seleccione..."
+			        },
+			        success: function(response, newValue) {		
+						$.ajax({
+				            url:'bancos.php',
+				            type:  'post',
+				            data: {lbl_tipo:'ok',id:$('#txt_id_cuenta').val(),value:newValue},
+				            success:function(data){
+				            	cargar_cuentas()
+				            }
+				    	});	    	
+					}
+			    });		    
+			    $('#lbl_estado_cuenta').editable({
+					type: 'select2',
+			        source: estado,
+			        select2:{
+			        	placeholder: "Seleccione..."
+			        },
+			        success: function(response, newValue) {		
+						$.ajax({
+				            url:'bancos.php',
+				            type:  'post',
+				            data: {lbl_estado_cuenta:'ok',id:$('#txt_id_cuenta').val(),value:newValue},
+				            success:function(data){
+				            	cargar_cuentas()
+				            }
+				    	});	    	
+					}
+			    });
+
+			$('#lbl_cuenta').editable({
+	           type: 'text',
+				value: '',
+				success:function(response, newValue){			
+					$.ajax({
+			            url:'bancos.php',
+			            type:  'post',
+			            data: {lbl_cuenta:'ok',id:$('#txt_id_cuenta').val(),value:newValue},
+			            success:function(){
+			            	cargar_cuentas()
+			            }	                
+			    	});
+			    	
+				},
+				validate: function(value) {			
+					var res=buscando_cuenta(value);
+					if(res==1) {
+				        return 'El numero de cuenta ya existe';
+				    };
+				    if (value=='') {
+				    	return 'Este campo es requerido';
+				    }
+				    
+			        if (!/^([0-9])*$/.test(value)){
+			            return 'Digite solo números';
+			        }
+
+				}
+		    });
+
+
+
+			// edicion bancos
 			$('#lbl_banco').editable({
 	           type: 'text',
 				value: '',
 				success:function(response, newValue){			
 					$.ajax({
 			            url:'bancos.php',
-			            async :  false ,   
 			            type:  'post',
-			            data: {lbl_banco:'ok',id:$('#txt_id_banco').val(),value:newValue}	                
+			            data: {lbl_banco:'ok',id:$('#txt_id_banco').val(),value:newValue},
+			            success:function(){
+			            	cargar_bancos()
+			            }	                
 			    	});
-			    	mostrar_servicios()
+			    	
 				},
 				validate: function(value) {			
 					var res=buscando(value);
@@ -433,10 +605,6 @@ if(!isset($_SESSION))
 				}
 		    });
 
-		     var estado = [];
-		    $.each({ "ACTIVO": "ACTIVO", "DESACTIVADO": "DESACTIVADO"}, function(k, v) {
-		        estado.push({id: k, text: v});
-		    });
 		    $('#lbl_estado').editable({
 				type: 'select2',
 		        source: estado,
@@ -449,7 +617,7 @@ if(!isset($_SESSION))
 			            type:  'post',
 			            data: {lbl_stado:'ok',id:$('#txt_id_banco').val(),value:newValue},
 			            success:function(data){
-			            	mostrar_servicios();
+			            	cargar_bancos()
 			            }
 			    	});	    	
 				}

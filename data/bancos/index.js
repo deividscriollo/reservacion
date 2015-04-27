@@ -269,7 +269,35 @@ function dc_cuentas_nuevo(){
 	cargar_bancos_select();
 }
 function dc_bancos_modificar(id){	
-	$('#modal-editar_banco').modal('show');
+	$('#modal-editar_cuenta').modal('show');	
+	$('#txt_id_cuenta').val(id);	
+	$.ajax({ 
+    	url: "bancos.php",
+    	type:'POST',
+    	dataType:'json',
+    	data:{mostrar_edicion_cuenta:'ok',id:id},
+    	success:function(data){
+    		$('#lbl_cuenta').html(data[0]);	
+    		$('#lbl_stado').html(data[4]);	
+    	}
+    });	
+}
+function dc_cuentas_modificar(id){	
+	$('#modal-editar_cuenta').modal('show');	
+	$('#txt_id_cuenta').val(id);	
+	$.ajax({ 
+    	url: "bancos.php",
+    	type:'POST',
+    	dataType:'json',
+    	data:{mostrar_edicion_cuenta:'ok',id:id},
+    	success:function(data){
+    		console.log(data);
+    		$('#lbl_banco_cuenta').html(data[6]);
+    		$('#lbl_cuenta').html(data[2]);
+    		$('#lbl_tipo').html(data[1]);
+    		$('#lbl_estado_cuenta').html(data[4]);
+    	}
+    });	
 }
 function dc_bancos_eliminar(id){
 	bootbox.confirm("<h1>Seguro desea Eliminar<h1>", function(result) {
