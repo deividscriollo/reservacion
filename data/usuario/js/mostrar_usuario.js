@@ -192,7 +192,7 @@ $('#btn_enviar_mensaje').click(function(){
 									$.ajax({
 								        url: "php/correo_masivo.php",
 								        type: "POST",								        
-								        data: {correo:campo2,html:mensaje},
+								        data: {correo:campo2,html:mensaje,campo1:campo1},
 								        beforeSend: function (index3) {								        	
 								        	$.blockUI({
 												message:'<i id="icon-tiempo" class="width-10 icon-spinner red icon-spin bigger-125"></i> El envió de correos masivos desde forma local tienen su tiempo de espera de 1 a 2 segundos por mensaje tenga paciencia. Espere un momento...',
