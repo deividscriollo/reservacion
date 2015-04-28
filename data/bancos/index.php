@@ -354,8 +354,7 @@ if(!isset($_SESSION))
 				<button class="btn btn-small btn-danger pull-rigth" data-dismiss="modal">
 					<i class="icon-remove"></i>
 					Cerrar
-				</button>
-																	
+				</button>																	
 			</div>
 		</div>
 
@@ -473,7 +472,7 @@ if(!isset($_SESSION))
                         alert(thrownError);
                 }
 			});  
-			 return result;
+			return result;
 		}
 		$(function(){		
 			//editables on first profile page
