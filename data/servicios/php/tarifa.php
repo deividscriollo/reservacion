@@ -24,7 +24,7 @@ if (isset($_POST['guardar_cat'])) {
 	$valor=strtoupper($_POST['txt_1']);
 	$acu=$class->consulta("INSERT INTO seg.categoria_servicio VALUES('".$id."',
 																	'$valor',
-		 															'$fecha','1')");
+		 															'$fecha','ACTIVO','1')");
 	if(!$acu)
 	{
 		print('1');
@@ -140,7 +140,6 @@ if (isset($_POST['mostrar_categoria_select'])) {
 	$resultado = $class->consulta("SELECT * FROM SEG.CATEGORIA_SERVICIO WHERE STADO='1'");
 	$sum=0; $acu='INACTIVO';
 	while ($row=$class->fetch_array($resultado)) {
-		if($row[3]==1)$acu='ACTIVO';
 		print'<option value="'.$row[0].'">'.$row[1].'</option>';
 	}
 	print'</select>';

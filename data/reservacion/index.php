@@ -56,7 +56,9 @@ if(!isset($_SESSION))
 		<!--inline styles related to this page-->
 	
 		<style type="text/css">
-			
+			.blanco{
+				background: #FFFFFF!important;
+			}
 			.dc_btn{
 				width: 0;
 				height: 0;
@@ -184,8 +186,11 @@ if(!isset($_SESSION))
 	<body >
 		<?php require('../inicio/menu.php'); menunav(); ?>
 		<div class="main-container container-fluid">			
-			<div class="row-fluid">
-				<div class="span4 trans center">		
+			<div class="row-fluid center">
+				<div class="span4 trans">	
+					<div class="row-fluid blanco" id="obDj_informacion">						
+
+					</div>	
 					<!-- tipo de reservacion -->
 					<div class="row-fluid">
 						<div class="span12 dc_color1">
@@ -201,15 +206,12 @@ if(!isset($_SESSION))
 					<div class="row-fluid">
 						<div class="span12 dc_color3 hide">							
 							<button class="btn btn-app btn-info btn-small radius-4" id="btn_modal_informacion">
-								<i class="icon-info bigger-160"></i>
-								Servicios												
+								Servicios										
 							</button>
 							<button class="btn btn-app btn-success btn-small radius-4" id="btn_modal_tarifa">
-								<i class="icon-money bigger-160"></i>
 								Tarifas												
 							</button>
 							<button class="btn btn-app btn-purple btn-small radius-4" id="btn_modal_horarios">
-								<i class="icon-time bigger-160"></i>
 								Horarios								
 							</button>							
 						</div>
@@ -253,6 +255,9 @@ if(!isset($_SESSION))
 								</table>
 							</div>
 						</div>
+					</div>
+					<div class="row-fluid">
+						<div class="btn btn-app btn-info btn-small" id="btn_reservar">Reservar</div>
 					</div>
 				</div>
 				<div class="span8">
@@ -430,11 +435,11 @@ if(!isset($_SESSION))
 			<div class="modal-header no-padding">
 				<div class="table-header">
 					<div type="button" class="close" data-dismiss="modal">&times;</div>
-					Informacion de las Tarifas
+					Información de las Tarifas
 				</div>
 			</div>
 
-			<div class="modal-body no-padding">
+			<div class="modal-body padding">
 				<div class="row-fluid">
 					<div class="widget-container-span">
 						<div class="widget-box">
@@ -477,7 +482,7 @@ if(!isset($_SESSION))
 			<div class="modal-header no-padding">
 				<div class="table-header">
 					<div type="button" class="close" data-dismiss="modal">&times;</div>
-					Informacion del Servicio
+					Información del Servicio
 				</div>
 			</div>
 			<div class="modal-body no-padding">
@@ -567,11 +572,11 @@ if(!isset($_SESSION))
 			<div class="modal-header no-padding">
 				<div class="table-header">
 					<div type="button" class="close" data-dismiss="modal">&times;</div>
-					Informacion de horarios
+					Información de horarios
 				</div>
 			</div>
 
-			<div class="modal-body no-padding">
+			<div class="modal-body padding">
 				<div class="row-fluid">
 					<div class="span12 widget-container-span">
 						<div class="widget-box">
@@ -688,7 +693,15 @@ if(!isset($_SESSION))
 
 <script type="text/javascript">
 $(function(){
-
+$.ajax({
+	url:'reservacion.php',
+	type:'POST',
+	data:{obj_informacion:true},
+	success:function(data){
+		console.log(data);
+		$('#obj_informacion').html(data);
+	}
+});
 });
 //$("#btn_inicio").animate({ scrollTop: $('#inicio')[0].scrollHeight}, 500);
 $("#btn_inicio").css({'cursor':'pointer'});
@@ -871,7 +884,8 @@ $(function(){
 	 var fecha = sumaFecha(7,acufecha);
 	 
 	$('.date-picker').datepicker({					
-		startDate: new Date(),		
+		startDate: new Date(),	
+		endDate:'31/12/'+fec.getFullYear(),
 		format: 'dd/mm/yyyy',
 		weekStart: 1
 	});

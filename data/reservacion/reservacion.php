@@ -6,7 +6,99 @@
 	require('../../admin/class.php');
 	require('../../inicio/php/mail.php');
 	$class=new constante();
+	if (isset($_POST['obj_informacion'])) {
+		$resultado = $class->consulta(" SELECT CASE 
+										WHEN P.ID='20150326104209551428d175961' THEN upper('nacional')
+										ELSE upper('extranjero')
+										END 
+										FROM SEG.USUARIO U, SEG.INFO I, LOCALIZACION.PAIS P WHERE I.ID_USUARIO=U.ID AND I.PAIS=P.ID AND U.ID='$_SESSION[id]'");
+		while ($row=$class->fetch_array($resultado)) {				
+			// para nacionales
+			if ($row[0]=='NACIONAL') {
+				$res = $class->consulta("SELECT CEDULA,NOMBRE,FONO,CONVENCIONAL,SEXO,upper(nom_pais) AS PAIS,CORREO,P.NOM_PAIS||', '||PRO.NOM_PROVINCIA||', '||C.NOM_CIUDAD as localidad,DIRECCION,CASE 
+										 WHEN P.ID='20150326104209551428d175961' THEN upper('nacional')
+										 ELSE upper('extranjero')
+										 END ,*
+										 FROM SEG.USUARIO U, SEG.INFO I, LOCALIZACION.PAIS P, LOCALIZACION.PROVINCIA PRO,LOCALIZACION.CIUDAD C 
+										 WHERE U.ID_CIUDAD=C.ID AND PRO.ID=C.ID_PROVINCIA AND I.ID_USUARIO=U.ID AND I.PAIS=P.ID AND PRO.ID_PAIS=P.ID AND U.ID='$_SESSION[id]' ");
+				while ($row1=$class->fetch_array($res)) {
+					print '<h3 class="header smaller lighter purple pull-rigth">
+								Información
+								<small>CLIENTE</small>
+							</h3>
+							<div class="row-fluid" >
+								<blockquote>
+									<p>'.$row1[1].'</p>
 
+									<p>
+										C.I.: '.$row1[0].'
+									</p>
+								</blockquote>
+							</div>
+
+							<address>
+								<strong>Nacionalidad: '.$row[0].', Localización</strong>
+
+								<br />
+								'.$row1[7].'
+								<br />
+								'.$row1[8].'
+								<br />
+								<abbr title="Phone">Teléfonos: <i class="icon-mobile-phone green"></i> '.$row1['fono'].', <i class="icon-phone orange"></i> '.$row1['convencional'].'</abbr>
+														
+							</address>
+
+							<address>
+								<strong>Correo Electrónico</strong>
+
+								<br />
+								<a href="mailto:#">'.$row1['correo'].'</a>
+							</address>';	
+				}
+			// para internacionales
+			}else{
+				$res = $class->consulta("SELECT CEDULA,NOMBRE,FONO,CONVENCIONAL,SEXO,upper(nom_pais) AS PAIS,CORREO,CASE 
+									WHEN P.ID='20150326104209551428d175961' THEN upper('nacional')
+									ELSE upper('extranjero')
+									END AS NACIONALIDAD
+									FROM SEG.USUARIO U, SEG.INFO I, LOCALIZACION.PAIS P WHERE I.ID_USUARIO=U.ID AND I.PAIS=P.ID AND U.ID='$_SESSION[id]'");
+				while ($row1=$class->fetch_array($res)) {
+					print '<h3 class="header smaller lighter purple pull-rigth">
+								Información
+								<small>CLIENTE</small>
+							</h3>
+							<div class="row-fluid" >
+								<blockquote>
+									<p>'.$row1[1].'</p>
+
+									<p>
+										C.I.: '.$row1[0].'
+									</p>
+								</blockquote>
+							</div>
+
+							<address>
+								<strong>Nacionalidad: '.$row[0].', Localización</strong>
+
+								<br />
+								'.$row1[5].'
+								<br />
+								Caranqui
+								<br />
+								<abbr title="Phone">Teléfonos: <i class="icon-mobile-phone green"></i> '.$row1[2].', <i class="icon-phone orange"></i> '.$row1[3].'</abbr>
+														
+							</address>
+
+							<address>
+								<strong>Correo Electrónico</strong>
+
+								<br />
+								<a href="mailto:#">'.$row1[6].'</a>
+							</address>';	
+				}
+			}
+		}
+	}
 	if(isset($_POST['guardar'])) {
 		// guardar:'ok',matriz:matriz,acu_fh:acu_fh,subtotal:lbl_subtotal
 		$mat=$_POST['matriz'];		
