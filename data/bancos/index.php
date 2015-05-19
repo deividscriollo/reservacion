@@ -204,7 +204,7 @@ if(!isset($_SESSION))
 			<div class="modal-header no-padding">
 				<div class="table-header">
 					<div type="button" class="close" data-dismiss="modal">&times;</div>
-					Registro Edición Banco
+					Registro Edición Bancos
 				</div>
 			</div>
 
@@ -224,7 +224,7 @@ if(!isset($_SESSION))
 								<div class="profile-info-row">
 									<div class="profile-info-name"> Estado </div>
 									<div class="profile-info-value">
-										<span class="editable" id="lbl_estado">Estado</span>
+										<span class="editable" id="lbl_estado_banco">Estado</span>
 									</div>
 								</div>
 							</div>
@@ -604,7 +604,7 @@ if(!isset($_SESSION))
 				}
 		    });
 
-		    $('#lbl_estado').editable({
+		    $('#lbl_estado_banco').editable({
 				type: 'select2',
 		        source: estado,
 		        select2:{

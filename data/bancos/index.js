@@ -269,16 +269,16 @@ function dc_cuentas_nuevo(){
 	cargar_bancos_select();
 }
 function dc_bancos_modificar(id){	
-	$('#modal-editar_cuenta').modal('show');	
-	$('#txt_id_cuenta').val(id);	
+	$('#modal-editar_banco').modal('show');	
+	$('#txt_id_banco').val(id);	
 	$.ajax({ 
     	url: "bancos.php",
     	type:'POST',
     	dataType:'json',
-    	data:{mostrar_edicion_cuenta:'ok',id:id},
+    	data:{mostrar_edicion_banco:'ok',id:id},
     	success:function(data){
-    		$('#lbl_cuenta').html(data[0]);	
-    		$('#lbl_stado').html(data[4]);	
+    		$('#lbl_banco').html(data[0]);	
+    		$('#lbl_estado_banco').html(data[1]);
     	}
     });	
 }
@@ -295,7 +295,7 @@ function dc_cuentas_modificar(id){
     		$('#lbl_banco_cuenta').html(data[6]);
     		$('#lbl_cuenta').html(data[2]);
     		$('#lbl_tipo').html(data[1]);
-    		$('#lbl_estado_cuenta').html(data[4]);
+    		$('#lbl_estado_cuenta').html(data[5]);
     	}
     });	
 }

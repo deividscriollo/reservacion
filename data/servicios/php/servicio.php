@@ -56,7 +56,7 @@ if(!isset($_SESSION))
 		$class->consulta("UPDATE SEG.CATEGORIA_SERVICIO  SET NOM=upper('$_POST[value]') WHERE ID='$_POST[id]'");
 	}
 	if (isset($_POST['lbl_horario'])) {
-		$class->consulta("UPDATE SERVICIOS  SET FORMATO='$_POST[value]' WHERE ID='$_POST[id]'");
+		print $class->consulta("UPDATE SERVICIOS  SET FORMATO='$_POST[value]' WHERE ID='$_POST[id]'");
 	}
 	if (isset($_POST['lbl_iva'])) {
 		$class->consulta("UPDATE SERVICIOS  SET IMPUESTO='$_POST[value]' WHERE ID='$_POST[id]'");

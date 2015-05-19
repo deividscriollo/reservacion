@@ -120,6 +120,7 @@
 		}
 		print_r(json_encode($acu));
 	}
+
 	if (isset($_POST['mostrar_edicion_cuenta'])) {
 		$resultado = $class->consulta("SELECT C.*,B.NOM FROM B_CUENTAS C,BANCOS B WHERE B.ID=C.ID_BANCO AND C.ID='$_POST[id]' AND C.STADO='1'");
 		while ($row=$class->fetch_array($resultado)) {
@@ -130,6 +131,15 @@
 			$acu[]=$row[5];
 			$acu[]=$row[6];
 			$acu[]=$row[7];
+		}
+		print_r(json_encode($acu));
+	}
+	
+	if (isset($_POST['mostrar_edicion_banco'])) {
+		$resultado = $class->consulta("SELECT * FROM BANCOS WHERE ID='$_POST[id]' AND STADO='1'");
+		while ($row=$class->fetch_array($resultado)) {
+			$acu[]=$row[1];
+			$acu[]=$row[4];
 		}
 		print_r(json_encode($acu));
 	}
