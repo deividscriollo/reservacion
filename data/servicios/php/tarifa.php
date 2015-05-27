@@ -109,7 +109,7 @@ if (isset($_POST['mostrar_categoria'])) {
 		else
 			$acu='<span class="label label-important arrowed-in arrowed-in-right">DESACTIVADO</span>';
 		
-
+			$acux=$row[1];
 		print
 			'<tr>
 				<td>'.$sum++.'</td>
@@ -122,7 +122,7 @@ if (isset($_POST['mostrar_categoria'])) {
 				<td class="td-actions ">
 					<div class="hidden-phone visible-desktop action-buttons">						
 
-						<a class="green" onclick=modificar_categoria("'.$row[0].'","'.$row[1].'","'.$row[3].'")>
+						<a class="green" onclick=modificar_categoria("'.$row[0].'",{"'.$acux.'"},"'.$row[3].'")>
 							<i class="icon-pencil bigger-130"></i>
 						</a>
 

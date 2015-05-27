@@ -384,7 +384,7 @@ function btn_select_servicio(id){
                                         break;
                                 }
                             });                            
-                            $('#tabla_horas_acu tbody').append('<tr><td>'+a+'</td><td>'+b+'</td><td>'+c+'</td></tr>');                      
+                            $('#tabla_horas_acu tbody').append('<tr><td>'+a+'</td><td>'+b+'</td><td>'+c+'</td><td>'+d+'</td></tr>');                      
                         };
                         break;   
                 }                

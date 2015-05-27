@@ -144,12 +144,13 @@
 		$tabla=$tabla.'<tr><td></td><td></td><td></td><td>Iva</td><td>0.00</td></tr>';
 		$tabla=$tabla.'<tr><td></td><td></td><td></td><td>Total</td><td>'.$subtotal.'</td></tr>';
 		$tabla=$tabla.'<tr style="background: #8FBC1D;"><td></td><td>INICIO H.</td><td>FINAL H.</td><td>FECHA</td><td>DIA</td></tr>';
+		//print_r($horario);
 		for ($i=0; $i <count($horario); $i++) {
 			$idb=$class->idz(); 			
 			$hi=$horario[$i][0];
 			$hf=$horario[$i][1];
 			$f=$horario[$i][2];
-			$d=$horario[$i][3];
+			$d='';//$horario[$i][3];
 			$tabla=$tabla.'<tr><td></td><td>'.$hi.'</td><td>'.$hf.'</td><td>'.$f.'</td><td>'.$d.'</td></tr>';
 			$res=$class->consulta("INSERT INTO RESERVACION_HORARIOS VALUES('$idb','$id','$hi','$hf','$f','$d','$fecha','0')");
 		}		
