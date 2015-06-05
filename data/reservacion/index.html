@@ -4,6 +4,7 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta name="description" content="Reservaciones fabrica imbabura, museo, restaurant">
+	<link rel="icon" type="image/png" href="../assets/empresa/logo/logo.png" />
 	<meta name="author" content="">
 
 	<title>Reservaciones -  Fabrica Imbabura</title>
@@ -12,7 +13,11 @@
 	<link href="assets/bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
 	<link href="assets/css/font-awesome.min.css" rel="stylesheet" media="screen">
 	<link href="assets/css/simple-line-icons.css" rel="stylesheet" media="screen">
+	<link href="assets/css/bootstrap-datetimepicker.css" rel="stylesheet" media="screen">
+	<link rel="stylesheet" href="../assets/css/jquery.gritter.css" />
+
 	<link href="assets/css/animate.css" rel="stylesheet">
+	<link href="assets/css/animate2.css" rel="stylesheet">
     
 	<!-- Custom styles CSS -->
 	<link href="assets/css/style.css" rel="stylesheet" media="screen">
@@ -133,43 +138,39 @@
 			</div>
 
 			<div class="row">
-				<!-- <div class="col-md-4 col-md-offset-4" id="obj_contenedor_museo_matriz"> -->
-				<div class="col-md-3" id="obj_contenedor_museo_matriz">
-					<div class="iconbox wow slideInRight">	
-						<div class="iconbox-icon">
-							<span class="animated pulse">1</span>
-						</div>					
-						<div class="iconbox-text">
+				<div class="col-md-3 col-md-offset-5" id="obj_contenedor_museo_matriz">
+				<!-- <div class="col-md-3" id="obj_contenedor_museo_matriz"> -->
+					<div class="iconbox wow slideInRight">											
 							<h3 class="iconbox-title">Estimado, Deivid seleccione el tipo de reservación</h3>
 							<div class="iconbox-desc">	
-								<div class="form-group">							
-									<select class="form-control" id="select_tipo_reser_museo">
-										<option value="">SELECCIONE TIPO DE RESERVACIÓN</option>
-										<option value="EXTRANGERO">EXTRANGERO</option>
-										<option value="Institucional">Institucional</option>
-										<option value="Entidad educativa">Entidad educativa</option>
-										<option value="familiar">familiar</option>
-									</select>	
-								</div>
-								<div class="form-group">
-								    <label for="exampleInputEmail1">Nombre Intitución</label>
-								    <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
-								</div>		
-								<div class="form-group">
-								    <label for="exampleInputEmail1">Nombre Inst. Educativa</label>
-								    <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
-								</div>	
-								<a class="btn btn-default" href="#" role="button">Buscar <i class="fa fa-search-plus"></i></a>						
+								<form id="form_1">
+									<div class="form-group">							
+										<select class="form-control" id="select_tipo_reser_museo" name="select_tipo_reser_museo">
+										</select>	
+									</div>
+									<div class="form-group hidden" id="obj_institucion">
+									    <label for="exampleInputEmail1">Ingrese nombre de la Intitución</label>
+									    <input type="text" class="form-control" id="txt_nom_inst" name="txt_nom_inst" placeholder="Ingrese nombre de la institución">
+									</div>
+									<div class="form-group">
+										<button type="submit" class="btn btn-lg btn-default wow fadeInUp" data-wow-delay=".3s">Siguiente <i class="fa fa-chevron-circle-right"></i></button>
+									</div>							
+								</form>						
 							</div>
-						</div>
 					</div>
 				</div>
-				<div class="col-md-4">						
-					<div class="iconbox wow slideInLeft">
-						<div class="iconbox-icon">
-							<span class="animated pulse">2</span>
-						</div>	
-						<table class="table table-hover">
+				<div class="col-md-4 hidden" id="obj_contenedor_2_museo_matriz">						
+					<div class="iconbox animated fadeInUp">
+						<h3 class="iconbox-title">Estimado, Deivid seleccione el tipo de reservación</h3>
+						<div class="form-group">
+			                <div class='input-group date' id='datetimepicker1'>
+			                    <input type='text' class="form-control" id="txt_fecha_origen" name="txt_fecha_origen" placeholder="Seleccione fecha de reservación" />
+			                    <span class="input-group-addon">
+			                        <span class="fa fa-calendar"></span>
+			                    </span>
+			                </div>
+			            </div>
+						<table class="table table-hover" id="tabla_horas">
 						 	<thead>
 								<tr>
 									<th>Nro</th>
@@ -180,28 +181,15 @@
 								</tr>
 							</thead>											
 							<tbody>
-								<tr>
-									<td>hola</td>
-									<td>hola</td>
-									<td>hola</td>
-									<td>hola</td>
-									<td>hola</td>
-								</tr>
-								<tr>
-									<td>hola</td>
-									<td>hola</td>
-									<td>hola</td>
-									<td>hola</td>
-									<td>hola</td>
-								</tr>
+								
 							</tbody>
 						</table>
 					</div>
 				</div>
-				<div class="col-md-5">						
+				<div class="col-md-5 hidden">						
 					<div class="iconbox wow slideInLeft">
 						<div class="iconbox-icon">
-						<span class="animated pulse">2</span>
+						<span class="animated pulse">3</span>
 					</div>	
 						<table class="table table-hover">
 						 	<thead>
@@ -622,6 +610,10 @@
     <script src="assets/js/waypoints.min.js"></script>
     <script src="assets/js/jquery.cbpQTRotator.js"></script>
 	<script src="assets/js/custom.js"></script>
+	<script src="assets/js/jquery.validate.min.js"></script>
+	<script src="assets/js/moment-with-locales.js"></script>
+	<script src="assets/js/bootstrap-datetimepicker.js"></script>
+	<script src="../assets/js/jquery.gritter.min.js"></script>
 	<script src="app.js"></script>
 </body>
 </html>

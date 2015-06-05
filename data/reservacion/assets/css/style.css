@@ -32,7 +32,9 @@ a:hover {
  * Transition elsements
 /* ---------------------------------------------- */
 
-
+.help-block{
+	color: #D90000!important;
+}
 .navbar a,
 .form-control {
 	-webkit-transition: all 0.4s ease-in-out 0s;
