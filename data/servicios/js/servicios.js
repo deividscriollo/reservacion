@@ -255,7 +255,6 @@ $('#form-servicios1').validate({
             success: function(data)
             {
 				mostrar_categoria();
-				console.log(data)               
                if (data==0) {
                		$.gritter.add({						
 						title: '..Mensaje..!',						

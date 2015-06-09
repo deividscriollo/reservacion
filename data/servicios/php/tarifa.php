@@ -210,9 +210,7 @@ if (isset($_POST['mostrar_horario'])) {
 							  '</td><td>'.$row[4].
 							  '</td><td>'.$row[5].'</td><td>'.$row[2].'</td><td>'.
 		'<div class="hidden-phone visible-desktop action-buttons" >
-							<a class="green" onclick=modificar_horario("'.$row[0].'")>
-								<i class="icon-pencil bigger-130"></i>
-							</a>						
+												
 							<a onclick=h_eliminar("'.$row[0].'")>
 								<i class="icon-trash bigger-130 blue pointer"></i>
 							</a>
