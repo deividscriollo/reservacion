@@ -27,96 +27,96 @@ function buscando_cat(registro){
 			return false;
 		};
 	}, "Por favor, Digite otro correo ya existe!!!.");
-$('#form-categoria').validate({
-	errorElement: 'span',
-	errorClass: 'help-inline',
-	focusInvalid: false,
-	rules: {
-		txt_categoria: {
-			required: true,
-			existe_cat:true			
-		}
-	},
-	messages: {
-		txt_categoria: {
-			required: "Por favor, Digíte nombre dela categoría.",
-			existe_cat: "La categoría ya existe, digíte otra."
-		}			
-	},
-	invalidHandler: function (event, validator) { //display error alert on form submit   
-		$('.alert-error', $('.login-form')).show();
-	},
-	highlight: function (e) {
-		$(e).closest('.control-group').removeClass('success').addClass('error');
-	},
-	success: function (e) {
-		$(e).closest('.control-group').removeClass('error').addClass('success');
-		$(e).remove();
-	},
-	errorPlacement: function (error, element) {
-		if(element.is(':checkbox') || element.is(':radio')) {
-			var controls = element.closest('.controls');
-			if(controls.find(':checkbox,:radio').length > 1) controls.append(error);
-			else error.insertAfter(element.nextAll('.lbl:eq(0)').eq(0));
-		}
-		else if(element.is('.select2')) {
-			error.insertAfter(element.siblings('[class*="select2-container"]:eq(0)'));
-		}
-		else if(element.is('.chzn-select')) {
-			error.insertAfter(element.siblings('[class*="chzn-container"]:eq(0)'));
-		}
-		else error.insertAfter(element);
-	},
+	$('#form-categoria').validate({
+		errorElement: 'span',
+		errorClass: 'help-inline',
+		focusInvalid: false,
+		rules: {
+			txt_categoria: {
+				required: true,
+				existe_cat:true			
+			}
+		},
+		messages: {
+			txt_categoria: {
+				required: "Por favor, Digíte nombre dela categoría.",
+				existe_cat: "La categoría ya existe, digíte otra."
+			}			
+		},
+		invalidHandler: function (event, validator) { //display error alert on form submit   
+			$('.alert-error', $('.login-form')).show();
+		},
+		highlight: function (e) {
+			$(e).closest('.control-group').removeClass('success').addClass('error');
+		},
+		success: function (e) {
+			$(e).closest('.control-group').removeClass('error').addClass('success');
+			$(e).remove();
+		},
+		errorPlacement: function (error, element) {
+			if(element.is(':checkbox') || element.is(':radio')) {
+				var controls = element.closest('.controls');
+				if(controls.find(':checkbox,:radio').length > 1) controls.append(error);
+				else error.insertAfter(element.nextAll('.lbl:eq(0)').eq(0));
+			}
+			else if(element.is('.select2')) {
+				error.insertAfter(element.siblings('[class*="select2-container"]:eq(0)'));
+			}
+			else if(element.is('.chzn-select')) {
+				error.insertAfter(element.siblings('[class*="chzn-container"]:eq(0)'));
+			}
+			else error.insertAfter(element);
+		},
 
-	submitHandler: function (form) {	
+		submitHandler: function (form) {	
 
-		$.ajax({
-            url: "php/tarifa.php",
-            type: "POST",
-            data: {guardar_cat:'ok',txt_1:$('#txt_categoria').val()},
-            success: function(data)
-            {
-				mostrar_categoria();               
-               if (data==0) {
-               		$.gritter.add({						
-						title: '..Mensaje..!',						
-						text: 'OK: <br><i class="icon-cloud purple bigger-230"></i>  Sus datos fueron almacenados correctamente. <br><i class="icon-spinner icon-spin green bigger-230"></i>',						
-						//image: 'http://a0.twimg.com/profile_images/59268975/jquery_avatar_bigger.png',						
-						sticky: false,						
-						time: 2000
-					});
-					//$('#txt_archivo').ace_file_input();
-					$('#txt_archivo').ace_file_input('reset_input');
+			$.ajax({
+	            url: "php/tarifa.php",
+	            type: "POST",
+	            data: {guardar_cat:'ok',txt_1:$('#txt_categoria').val()},
+	            success: function(data)
+	            {
+					mostrar_categoria();               
+	               if (data==0) {
+	               		$.gritter.add({						
+							title: '..Mensaje..!',						
+							text: 'OK: <br><i class="icon-cloud purple bigger-230"></i>  Sus datos fueron almacenados correctamente. <br><i class="icon-spinner icon-spin green bigger-230"></i>',						
+							//image: 'http://a0.twimg.com/profile_images/59268975/jquery_avatar_bigger.png',						
+							sticky: false,						
+							time: 2000
+						});
+						//$('#txt_archivo').ace_file_input();
+						$('#txt_archivo').ace_file_input('reset_input');
 
-					$('#form-categoria').each (function(){
-						this.reset();
-					});
-               };
-               if (data==1) {
-               		$.gritter.add({						
-						title: '..Mensaje..!',						
-						text: 'Ooooo: <br><i class="icon-cloud purple bigger-230"></i>   Lo sentimos intente mas tarde. <br><i class="icon-spinner icon-spin red bigger-230"></i> : [',						
-						//image: 'http://a0.twimg.com/profile_images/59268975/jquery_avatar_bigger.png',						
-						sticky: false,						
-						time: ''
-					});
-               };
-               if (data!=0&&data!=1) {
-               	$.gritter.add({						
-						title: '..Mensaje..!',						
-						text: 'TENEMOS INCONVENIENTES INTENTE MAS TARDE<br><i class="icon-cloud purple bigger-230"></i> comuniquese con el administrador <br><i class="icon-spinner icon-spin purple bigger-230"></i> : [',						
-						//image: 'http://a0.twimg.com/profile_images/59268975/jquery_avatar_bigger.png',						
-						sticky: false,						
-						time: ''
-					});
-               };
-               
-            }            	        
-        });
+						$('#form-categoria').each (function(){
+							this.reset();
+						});
+	               };
+	               if (data==1) {
+	               		$.gritter.add({						
+							title: '..Mensaje..!',						
+							text: 'Ooooo: <br><i class="icon-cloud purple bigger-230"></i>   Lo sentimos intente mas tarde. <br><i class="icon-spinner icon-spin red bigger-230"></i> : [',						
+							//image: 'http://a0.twimg.com/profile_images/59268975/jquery_avatar_bigger.png',						
+							sticky: false,						
+							time: ''
+						});
+	               };
+	               if (data!=0&&data!=1) {
+	               	$.gritter.add({						
+							title: '..Mensaje..!',						
+							text: 'TENEMOS INCONVENIENTES INTENTE MAS TARDE<br><i class="icon-cloud purple bigger-230"></i> comuniquese con el administrador <br><i class="icon-spinner icon-spin purple bigger-230"></i> : [',						
+							//image: 'http://a0.twimg.com/profile_images/59268975/jquery_avatar_bigger.png',						
+							sticky: false,						
+							time: ''
+						});
+	               };
+	               
+	            }            	        
+	        });
 
-    	
-	}
-});
+	    	
+		}
+	});
 // mostrar contenido de la ventana modal con los datos seleccionados
 function modificar_servicios(id){
 	$('#txt_id_servicio').val(id)
@@ -255,6 +255,7 @@ $('#form-servicios1').validate({
             success: function(data)
             {
 				mostrar_categoria();
+				console.log(data)               
                if (data==0) {
                		$.gritter.add({						
 						title: '..Mensaje..!',						

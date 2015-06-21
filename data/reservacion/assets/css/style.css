@@ -232,7 +232,7 @@ textarea.form-control {
 /* ---------------------------------------------- */
 
 .pfblock {
-	padding: 120px 0 100px;
+	padding: 60px 0 100px;
 }
 
 .pfblock-gray {
@@ -261,7 +261,7 @@ textarea.form-control {
 
 .pfblock-header {
 	text-align: center;
-	margin: 0 0 60px;
+	margin: 0 0 0px;
 }
 
 .pfblock-header-left {
@@ -415,7 +415,20 @@ textarea.form-control {
 	text-transform: none;
 	margin: 15px 0;
 }
-
+input[type="checkbox"]{
+  display: inline-block;
+  width: 15px;
+  height: 15px;
+  border-radius: 10px!important;
+  background: red;
+  color: blue;
+  margin: -1px 3px 0 0;
+  vertical-align: middle;
+  cursor:pointer;
+}
+input[type="checkbox"]:checked{
+  background: red;
+}
 /* ---------------------------------------------- /*
  * Servise
 /* ---------------------------------------------- */
@@ -424,7 +437,7 @@ textarea.form-control {
 	background: #fff;
 	border-bottom: 1px solid #d4d4d4;
 	text-align: center;
-	padding: 40px 20px;
+	padding: 10px 20px;
 	margin: 0 0 20px;
 }
 

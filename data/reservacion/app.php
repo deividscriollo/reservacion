@@ -35,10 +35,19 @@ if(!isset($_SESSION))
 			print'<option value="'.$row[0].'">'.$row[1].'</option>';		
 		}
 	}
+	if(isset($_POST['obj_tarifa'])) {
+		//$pos=$_POST['pos'];			
+		$resultado = $class->consulta("SELECT nom_tarifa, precio FROM SERVICIOS S, TARIFA T, SEG.CATEGORIA_SERVICIO C WHERE
+ S.ID=T.ID_SERVICIO AND T.ID_CATEGORIA=C.ID AND S.ID='20141211160003548a05d39b5c8' AND C.ID='$_POST[tipo]' AND T.STADO ='1';");
+			$acu=1;
+			while ($row=$class->fetch_array($resultado)) {					
+				print $row[0].','.$row[1].',';				
+		 	}
+	}
 	if (isset($_POST['museo_buscar_horas'])) {
 		$dia=$_POST['dia'];		
 		//estructura cada fila con un color diferente en class
-		$dis = array("active", "success","warning","danger","info");
+		$dis = array("success","warning","danger","info");
 		$resultado = $class->consulta("SELECT horai, horaf, dias, lapso FROM HORARIO_SERVICIOS WHERE ID_SERVICIO='20141211160003548a05d39b5c8' AND STADO ='1';");
 		while ($row=$class->fetch_array($resultado)) {
 			$acu=split(",", $row[2]);
@@ -59,7 +68,7 @@ if(!isset($_SESSION))
 					$j=0;
 					// aculumador de horas
 					for ($i=0;strtotime($horaInicial)<strtotime($horafinal);$i++) { 							
-						if ($j==5) {$j=0;};
+						if ($j==4) {$j=0;};
 						$acumu_horas=sumar_horas($horaInicial,$horalapso);
 						$horaInicial=$acumu_horas;
 						if (strtotime($horaInicial)<strtotime($horafinal)) {	

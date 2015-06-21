@@ -150,7 +150,7 @@ function mostrar_tarifa(id){
 }
 // eliminar refgistro tarifa
 function t_eliminar(id){
-	bootbox.confirm("<h1>EN PROCESO<h1>", function(result) {
+	bootbox.confirm("<h1>Esta seguro que desea eliminar..?<h1>", function(result) {
 		if(result) {
 			$.ajax({
 		        url: "php/tarifa.php",

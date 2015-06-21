@@ -56,7 +56,7 @@ if (isset($_POST['g_horario'])) {
 
 if (isset($_POST['mostrar_tarifa'])) {
 
-	$resultado = $class->consulta("SELECT * FROM TARIFA T, SEG.CATEGORIA_SERVICIO C WHERE C.ID=T.ID_CATEGORIA AND  ID_SERVICIO='$_POST[id]' AND T.STADO='1'");
+	$resultado = $class->consulta("SELECT * FROM TARIFA T, SEG.CATEGORIA_SERVICIO C WHERE C.ID=T.ID_CATEGORIA AND  ID_SERVICIO='$_POST[id]' AND T.STADO='1' ORDER BY C.NOM");
 	$id=1;	
 	while ($row=$class->fetch_array($resultado)) {
 		$x=number_format($row[4],2);
@@ -71,6 +71,53 @@ if (isset($_POST['mostrar_tarifa'])) {
 					</div>'.'</td></tr>';
 	}
 }
+
+if (isset($_POST['edicion_tarifa_categoria'])) {
+	$resultado=$class->consulta("SELECT * FROM seg.categoria_servicio WHERE STADO='1'");
+	$acu;
+	while ($row=$class->fetch_array($resultado)) {		
+		$arr = array('id' => $row[0], 'text' => $row[1]);
+		$acu[]=$arr;
+	}
+	print_r(json_encode($acu));
+}
+if (isset($_POST['modificar_tarifax'])) {
+	$resultado=$class->consulta("SELECT C.NOM, NOM_TARIFA, PRECIO FROM TARIFA T, SEG.CATEGORIA_SERVICIO C WHERE T.STADO='1' AND T.ID_CATEGORIA=C.ID AND T.ID='$_POST[id]'");
+	$acu;
+	while ($row=$class->fetch_array($resultado)) {		
+		$acu[]=$row[0];
+		$acu[]=$row[1];
+		$acu[]=$row[2];
+	}
+	print_r(json_encode($acu));
+}
+
+if(isset($_POST['editable_tarifa_categoria'])) {
+	$resultado = $class->consulta("UPDATE TARIFA SET id_categoria='$_POST[valor]' WHERE ID='$_POST[id]'");	
+	if (!$resultado) {
+		print('0');
+	}else{
+		print('1');
+	}		
+}
+if(isset($_POST['editable_nombre_categoria'])) {
+
+	$resultado = $class->consulta("UPDATE TARIFA SET nom_tarifa=upper('$_POST[valor]') WHERE ID='$_POST[id]'");	
+	if (!$resultado) {
+		print('0');
+	}else{
+		print('1');
+	}		
+}
+if(isset($_POST['editable_precio_categoria'])) {
+	$resultado = $class->consulta("UPDATE TARIFA SET precio='$_POST[valor]' WHERE ID='$_POST[id]'");	
+	if (!$resultado) {
+		print('0');
+	}else{
+		print('1');
+	}		
+}
+
 if (isset($_POST['existencia_categoria'])) {
 	$valor=strtoupper($_POST['reg']);
 	$resultado = $class->consulta("SELECT * FROM SEG.CATEGORIA_SERVICIO WHERE NOM='$valor' AND STADO='1'");

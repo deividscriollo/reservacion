@@ -145,28 +145,25 @@ function modificar_horario(id){
 }
 
 function modificar_tarifa(id){
-	bootbox.confirm("<h1>EN PROCESO<h1>", function(result) {
-		if(result) {
-			// $.ajax({
-		 //        url: "php/tarifa.php",
-		 //        type: "POST",
-		 //        data:{id:id,h_eliminar:'ok'},			               
-		 //        success: function(data)
-		 //        {			
-			// 		//console.log(data)   
-			// 		$('#tabla_tarifa tbody').html(data);
-			// 		$.gritter.add({						
-			// 			title: '..Mensaje..!',						
-			// 			text: 'OK: <br><i class="icon-cloud purple bigger-230"></i>  Sus datos fueron eliminados . <br>',						
-			// 			//image: 'http://a0.twimg.com/profile_images/59268975/jquery_avatar_bigger.png',						
-			// 			sticky: false,						
-			// 			time: 2000
-			// 		});			
-			// 		mostrar_horario($('#lbl_id_servicio').html());
-		 //        }			                	        
-		 //    });
-		}
-	});		
+	$('#txt_id_tarifa_edicion').val(id);
+	$('#modal-editar_tarifa').modal('show');
+	$.ajax({
+        url: "php/tarifa.php",
+        type: "POST",
+        data:{modificar_tarifax:'ok',id:id},			               
+        dataType: "json",
+        success: function(data)
+        {			
+			console.log(data)  
+			$('#lbl_categoria_tarifa').editable({'setValue':data[0]});	
+			$('#lbl_categoria_tarifa').html(data[0])
+			$('#lbl_nombre_tarifa').html(data[1])
+			$('#lbl_nombre_tarifa').editable({'setValue':data[1]});
+			$('#lbl_precio').html(data[2])	
+			$('#lbl_precio').editable({'setValue':data[2]});	
+
+        }			                	        
+    });
 }
 // eliminar refgistro tarifa
 function h_eliminar(id){

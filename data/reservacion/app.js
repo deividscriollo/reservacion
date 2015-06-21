@@ -4,6 +4,8 @@ $(function(){
 		cargar_categoria()	// carga las categorias de los servicios a los selectores
 	// fin llama de funciones
 
+    // dar valores iniciales data spiners
+         
 
 	// botones 
 		$('#btn_modal_info').click(function(){
@@ -85,10 +87,225 @@ $(function(){
         var fe=$('#txt_fecha_origen').val();
         buscar_horas(dia_semana(fe),fe);
     }); 
+    // fin dar valores de data picker
+
+    // evento boton sigient al seleccionar una hora
+    $('#btn_reservar').click(function(){
+        var acumu_dc=busca_seleccionado_chek();        
+        if(acumu_dc==':)'){     
+            // animacion objeto al aparecer
+            $('#obj_contenedor_3_museo_matriz').removeClass('hidden').addClass('zoomIn animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function(){
+                $(this).removeClass('zoomIn animated');
+            });
+
+            // limpiar los objetos
+            $('#lbl_subtotal').html('0.00');
+            $('#lbl_iva').html('0.00');
+            $('#lbl_total').html('0.00');
+
+            // cargar modal.. carga de tabla a a tabla b objetos
+            info_tabla();
+            //inicializando variable de ojetos a crear : contenedor
+            $('#form-v_reserva').html('');
+            $.ajax({
+                url: "app.php",
+                type: "POST",
+                data:{obj_tarifa:'ok',tipo:$('#select_tipo_reser_museo').val()},                         
+                success: function(data)
+                {   
+                    console.log(data)
+                    var valores=data.split(',');
+                    var limite=valores.length;
+                    var obje_acu='';
+                    var j=0;
+                    var k=1;
+
+                    for (var i = 0; i<((limite-1)/2); i++) {
+                        if (i==0) {                        
+                            var o='<table class="table" center id="t_obj"><thead><tr><th>Servicio</th><th>Precio Persona</th><th>Costos / Precio</th></tr></thead><tbody>';
+                            $('#form-v_reserva').append(o);
+                        };
+                        obje_acu=''
+                                        +'<tr><td><div class="control-group">'
+                                            +'<label class="control-label" for="form-field-1">'+valores[j]+'</label>'
+                                            +'<div class="controls">'
+                                            +'<input type="text" id="txt_tarifax'+(i+1)+'">'
+                                            +'<input type="text" class="spinner input-mini" display id="txt_tarifa'+(i+1)+'" />'
+                                            +'</div>'
+                                      +'</div></td>'
+                                      +'<td>'
+                                      +'<div class="control-group">'
+                                        +'<label class="text-info" for="form-field-1" id="lbl_tarifa'+(i+1)+'">'+valores[j]+': '+valores[k]+'</label>'                                    
+                                      +'</div>'
+                                      +'</td><td><div class="control-group"><label class=" text-success" id="lbl_valores'+(i+1)+'">$: 00.00</label></div></td></tr>'; 
+                        j=j+2;
+                        k=k+2;
+                        $('#form-v_reserva #t_obj tbody').append(obje_acu);
+                        // dar valores de entrada a spiners
+                        $('#txt_tarifa'+(i+1)+'').ace_spinner({
+                            value:0,
+                            min:0,
+                            max:200,
+                            step:1,
+                            btn_up_class:'btn-info',
+                            btn_down_class:'btn-info'        
+                        }).on('change', function(){
+                            var cantidad=(this.id).split('');
+                            var precio=this.value;
+                            var objeto_tex=document.getElementById('lbl_tarifa'+cantidad[10]+'').innerHTML;                        
+                            var acumulador=objeto_tex.split(': ');
+                            var total=acumulador[1]*precio;
+                            document.getElementById('lbl_valores'+cantidad[10]+'').innerHTML='$: '+total.toFixed(2);
+                            // var sutotal=$('#lbl_subtotal').html();   
+                            resul_infor(i)
+                            
+                        });
+                        $('#txt_tarifax'+(i+1)+'').TouchSpin({
+                            verticalbuttons: true,
+                            min: 0,
+                            max: 20,
+                            stepinterval: 1,
+                            maxboostedstep: 10000000,
+                            prefix: '$',
+                            initval:'0'
+                        });
+
+                        if (i==(limite-1)) {
+                            $('#form-v_reserva').append('</tbody></table>');    
+                        };                    
+                    };    
+                                
+                }                                       
+            });
+        };if (acumu_dc==':(') {
+            $.gritter.add({                     
+                title: '..Mensaje..!',                      
+                text: '<br><i class="icon-cloud purple bigger-230"></i>  Por favor, Seleccione una opcion para continuar con la reservación <br><i class="icon-spinner icon-spin green bigger-230"></i>',                      
+                //image: 'http://a0.twimg.com/profile_images/59268975/jquery_avatar_bigger.png',                        
+                sticky: false,                      
+                time: 3000
+            });
+
+            $('#tabla_horas tbody tr td label input').addClass('animated bounceOut');
+            $('#tabla_horas tbody tr td label input').prop("checked", "checked");  
+            setTimeout ("renovar()", 1000);
+        }
+    });
     
+
     
 });
+// funcion recargar nuevos valores despues de Seleccione
+function reconstruir(i){    
+    $("#tabla_horas tbody tr").each(function (index) {
+        var campo1, axus=0, campo3;
+        $(this).children("td").each(function (index2) {
+            switch (index2) {                           
+                case 0:                 
+                    $(this).children().children().removeAttr('checked');                    
+                    break;                
+            }        
+        });       
+    });
 
+    $("#tabla_horas tbody tr").each(function (index) {        
+        if (i==index) {
+            $(this).children("td").each(function (index2) {
+                switch (index2) {                           
+                    case 0:                 
+                        $(this).children().children().prop("checked", "checked");                    
+                        break;                
+                }        
+            }); 
+        }              
+    });
+}
+// permite verficar si el campo del checbock se a seleccionado
+function busca_seleccionado_chek(){
+    var amd_x=':(';
+    $("#tabla_horas tbody tr").each(function (index) {             
+        var campo0, campo1, campo2, campo3,campo4;
+        $(this).children("td").each(function (index2) {
+            switch (index2) {                                 
+                case 1:
+                    campo1 = $(this).text();
+                    break;
+                case 2:
+                    campo2 = $(this).text();
+                    break;
+                case 3:
+                    campo3 = $(this).text();
+                    break;
+                case 4:
+                    campo4 = $(this).text();
+                    break;
+                case 0:
+                    campo0 = $(this).children().children('input').is(":checked");
+                    if (campo0==true) { 
+                        amd_x=':)';
+                    };
+                    break;   
+            }                
+        });
+    });
+    return amd_x;
+}
+// restablece la tabla a su estado natural si no se a seleccionado un checkbox
+function info_tabla(){
+    $("#tabla_horas_acu tbody").html('');
+    $("#tabla_horas tbody tr").each(function (index) {             
+        var campo0, campo1, campo2, campo3,campo4;
+        $(this).children("td").each(function (index2) {
+            switch (index2) {                                 
+                case 1:
+                    campo1 = $(this).text();
+                    break;
+                case 2:
+                    campo2 = $(this).text();
+                    break;
+                case 3:
+                    campo3 = $(this).text();
+                    break;
+                case 4:
+                    campo4 = $(this).text();
+                    break;
+                case 0:
+                    campo0 = $(this).children().children('input').is(":checked");
+                    if (campo0==true) { 
+                        var a,b,c,d;
+                        $(this).parent().children().each(function(e){
+                            switch(e){
+                                case 1: 
+                                    a=$(this).text();
+                                    break;
+                                case 2: 
+                                    b=$(this).text();
+                                    break;
+                                case 3: 
+                                    c=$(this).text();
+                                    break;
+                                case 4: 
+                                    d=$(this).text();
+                                    break;
+                            }
+                        });                            
+                        $('#tabla_horas_acu tbody').append('<tr><td>'+a+'</td><td>'+b+'</td><td>'+c+'</td><td>'+d+'</td></tr>');                      
+                    };
+                    break;   
+            }                
+        });
+        // console.log(campo0+' '+campo1+' '+campo2)
+    });
+}
+// renueva valores para mostrar en la tabla
+function renovar() {
+    $('#tabla_horas tbody tr td label input').removeClass('animated bounceOut');
+    $('#tabla_horas tbody tr td label input').removeAttr('checked');    
+} 
+function renovar1() {
+    $('#txt_tarifa1').removeClass('animated wobble');
+    $('#txt_tarifa2').removeClass('animated wobble');
+}
 // cargar obj_img_servicios
 function cargar_menu(){
     $.ajax({
@@ -98,7 +315,6 @@ function cargar_menu(){
         dataType:'json',
         success:function(data){
         	// console.log(data);
-        	var alertas = 	['alert-success','alert-info','alert-warning','alert-danger'];
         	var alertas = 	['alert-success','alert-info','alert-warning','alert-danger'];
 
         	// centro de convencione

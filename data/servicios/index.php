@@ -626,8 +626,8 @@ if(!isset($_SESSION))
 				</div>
 			</div>
 
-			<div class="modal-body no-padding">				
-				<div class="row-fluid">
+			<div class="modal-body no-padding" style="height: 500px!important;">				
+				<div class="row-fluid" >
 					<form class="form-horizontal" id="form-horario"/>
 						<div class="center">
 							<h3 class="lighter block green">Todos los campos son obligatorios</h3>																							
@@ -717,10 +717,9 @@ if(!isset($_SESSION))
 					Tarifa de serivicio
 				</div>
 			</div>
-
 			<div class="modal-body no-padding">
 				<div class="row-fluid">
-					<div class="widget-main">
+					<div class="widget-main" style="height: 300px!important;">
 						<form class="form-horizontal" id="form-tarifa"/>
 							<div class="row-fluid">
 								<div class="span8">
@@ -734,7 +733,7 @@ if(!isset($_SESSION))
 										</div>
 									</div>
 									<div class="control-group">
-										<label class="control-label" for="name">TARIFA:</label>
+										<label class="control-label" for="name">NOMBRE TARIFA:</label>
 										<div class="controls">
 											<span class="span12">
 												<input class="span12" type="text" id="t_nombre" name="t_nombre" />
@@ -760,6 +759,53 @@ if(!isset($_SESSION))
 						</form>
 					</div>					
 				</div>									
+			</div>			
+			<div class="modal-footer">
+				<button class="btn btn-small btn-danger pull-rigth" data-dismiss="modal">
+					<i class="icon-remove"></i>
+					Cerrar
+				</button>
+																	
+			</div>
+		</div>
+
+		<!-- modal editar tarifa -->
+		<div id="modal-editar_tarifa" class="modal hide fade" tabindex="-1">
+			<div class="modal-header no-padding">
+				<div class="table-header">
+					<div type="button" class="close" data-dismiss="modal">&times;</div>
+					Editar tarifa de serivicios
+				</div>
+			</div>
+
+			<div class="modal-body padding">
+				<div class="profile-user-info profile-user-info-striped">
+					<div class="profile-info-row">
+						<div class="profile-info-name"> Categoría: </div>
+
+						<div class="profile-info-value">
+							<input type="hidden" id="txt_id_tarifa_edicion">
+							<span class="editable" id="lbl_categoria_tarifa">Categoría</span>
+						</div>
+					</div>
+
+					<div class="profile-info-row">
+						<div class="profile-info-name"> Nombre tarifa </div>
+
+						<div class="profile-info-value">
+							<span class="editable" id="lbl_nombre_tarifa">tarifa</span>
+						</div>
+					</div>
+
+					<div class="profile-info-row">
+						<div class="profile-info-name"> Precio </div>
+
+						<div class="profile-info-value">
+							<span class="editable" id="lbl_precio">00</span>
+						</div>
+					</div>
+				</div>
+				
 			</div>			
 			<div class="modal-footer">
 				<button class="btn btn-small btn-danger pull-rigth" data-dismiss="modal">
@@ -1097,6 +1143,99 @@ $(function(){
 	    }
 	});
 
+	// edicion de tarifa categoria
+	$('#lbl_categoria_tarifa').editable({
+		type: 'select2',
+		select2:{
+			placeholder: "Selec. categoria",
+			containerCssClass: "" ,
+			'width': 200
+		},	
+        source: categorias_llanaredicion_tarifa(),
+        success: function(response, newValue) {	
+			var id=$('#txt_id_tarifa_edicion').val();
+			$.ajax({
+		        url:'php/tarifa.php',
+		        async :  false ,   
+		        type:  'post',
+		        data: {editable_tarifa_categoria:'ok',id:id,valor:newValue},
+		        success:function(){
+		        	mostrar_tarifa($('#lbl_id_servicio').html());
+		        }
+			});
+		}	
+    });
+    $('#lbl_nombre_tarifa').editable({
+			type: 'text',
+			name: 'username',
+			validate: function(value) {
+			    if($.trim(value) == '') {
+			        return 'Por favor, digite nombre de la tarifa, campo requerido';
+			    }		    
+			},
+			success: function(response, newValue) {	
+				var id=$('#txt_id_tarifa_edicion').val();
+				$.ajax({
+			        url:'php/tarifa.php',
+			        async :  false ,   
+			        type:  'post',
+			        data: {editable_nombre_categoria:'ok',id:id,valor:newValue},
+			        success:function(){
+			        	mostrar_tarifa($('#lbl_id_servicio').html());
+			        }        		                
+				});
+			}
+    });
+    
+    $('#lbl_precio').editable({
+			type: 'text',
+			name: 'username',
+			validate: function(value) {
+			    if($.trim(value) == '') {
+			        return 'Por favor, digite precio de la tarifa, campo requerido';
+			    }		
+			    var regex = /([?1234567890][.][1234567890][1234567890])+$/;
+		        if(! regex.test(value)) {
+		            return 'Por favor, digite valor numerico, campo requerido';
+		        }    
+			},
+			success: function(response, newValue) {	
+				var id=$('#txt_id_tarifa_edicion').val();
+				$.ajax({
+			        url:'php/tarifa.php',
+			        async :  false ,   
+			        type:  'post',
+			        data: {editable_precio_categoria:'ok',id:id,valor:newValue},
+			        success:function(){
+			        	mostrar_tarifa($('#lbl_id_servicio').html());
+			        }   		                
+				});
+			}
+    });
+
+	// llenar categoria
+    function categorias_llanaredicion_tarifa(){
+		var b="source";
+		var result;
+		$.ajax({
+            type: "POST",
+            url:"php/tarifa.php",
+           	data:{edicion_tarifa_categoria:'ok'},                   
+            contentType:"application/x-www-form-urlencoded; charset=UTF-8", 
+            global:false,
+            async: false,
+            dataType: "json",
+            success: function(response) {                    
+                  result=response;                  
+            },
+            error:function (xhr, ajaxOptions, thrownError){
+                    alert(xhr.status);
+                    alert(thrownError);
+            }
+		});  
+		 return result;
+	}
+
 
 	$('#lbl_descr').editable({
 		mode: 'inline',
@@ -1252,141 +1391,141 @@ function show5(){
 			}
 		});			
 	}
-			$(function() {
-								
-				
-			
-				//another option is using modals
-				$('#avatar2').on('click', function(){				
-					
-					
-					var modal = $(modal);
-					modal.modal("show").on("hidden", function(){
-						modal.remove();
-					});
-			
-					var working = false;
-			
-					var form = modal.find('form:eq(0)');
-					var file = form.find('input[type=file]').eq(0);
-					file.ace_file_input({
-						style:'well',
-						btn_choose:'Click para seleccionar una imagen',
-						btn_change:null,
-						no_icon:'icon-picture',
-						thumbnail:'small',
-						before_remove: function() {
-							//don't remove/reset files while being uploaded
-							return !working;
-						},
-						before_change: function(files, dropped) {
-							var file = files[0];
-							if(typeof file === "string") {
-								//file is just a file name here (in browsers that don't support FileReader API)
-								if(! (/\.(jpe?g|png|gif)$/i).test(file) ) return false;
-							}
-							else {//file is a File object
-								var type = $.trim(file.type);
-								if( ( type.length > 0 && ! (/^image\/(jpe?g|png|gif)$/i).test(type) )
-										|| ( type.length == 0 && ! (/\.(jpe?g|png|gif)$/i).test(file.name) )//for android default browser!
-									) return false;
-			
-								if( file.size > 110000 ) {//~100Kb
-									return false;
-								}
-							}
-			
-							return true;
-						}
-					});
-			
-					form.on('submit', function(){
-						if(!file.data('ace_input_files')) return false;
+	$(function() {
 						
-						file.ace_file_input('disable');
-						form.find('button').attr('disabled', 'disabled');
-						form.find('.modal-body').append("<div class='center'><i class='icon-spinner icon-spin bigger-150 orange'></i></div>");
-						
-						var deferred = new $.Deferred;
-						working = true;
-						deferred.done(function() {
-							form.find('button').removeAttr('disabled');
-							form.find('input[type=file]').ace_file_input('enable');
-							form.find('.modal-body > :last-child').remove();
-							
-							modal.modal("hide");
-			
-							var thumb = file.next().find('img').data('thumb');
-							if(thumb) $('#avatar2').get(0).src = thumb;
-			
-							working = false;
-						});
-						
-						
-						setTimeout(function(){
-							deferred.resolve();
-						} , parseInt(Math.random() * 800 + 800));
-			
-						return false;
-					});
-							
-				});
+		
+	
+		//another option is using modals
+		$('#avatar2').on('click', function(){				
 			
 			
-			
-				///////////////////////////////////////////
-				
-
-				$('#txt_archivo').ace_file_input({
-					style:'well',
-					btn_choose:'Seleccionar Imagen',
-					btn_change:null,
-					no_icon:'icon-picture',
-					thumbnail:'large',
-					droppable:true,
-					before_change: function(files, dropped) {
-						var file = files[0];
-						if(typeof file === "string") {//files is just a file name here (in browsers that don't support FileReader API)
-							if(! (/\.(jpe?g|png|gif)$/i).test(file) ) return false;
-						}
-						else {//file is a File object
-							var type = $.trim(file.type);
-							if( ( type.length > 0 && ! (/^image\/(jpe?g|png|gif)$/i).test(type) )
-									|| ( type.length == 0 && ! (/\.(jpe?g|png|gif)$/i).test(file.name) )//for android default browser!
-								) return false;
-			
-							
-						}
-			
-						return true;
-					}
-				})
-
-				$('#txt_archivo1').ace_file_input({
-					style:'well',
-					btn_choose:'Seleccionar Imagen',
-					btn_change:null,
-					no_icon:'icon-picture',
-					thumbnail:'large',
-					droppable:true,
-					before_change: function(files, dropped) {
-						var file = files[0];
-						if(typeof file === "string") {//files is just a file name here (in browsers that don't support FileReader API)
-							if(! (/\.(jpe?g|png|gif)$/i).test(file) ) return false;
-						}
-						else {//file is a File object
-							var type = $.trim(file.type);
-							if( ( type.length > 0 && ! (/^image\/(jpe?g|png|gif)$/i).test(type) )
-									|| ( type.length == 0 && ! (/\.(jpe?g|png|gif)$/i).test(file.name) )//for android default browser!
-								) return false;
-			
-							
-						}
-			
-						return true;
-					}
-				})
-
-
+			var modal = $(modal);
+			modal.modal("show").on("hidden", function(){
+				modal.remove();
 			});
+	
+			var working = false;
+	
+			var form = modal.find('form:eq(0)');
+			var file = form.find('input[type=file]').eq(0);
+			file.ace_file_input({
+				style:'well',
+				btn_choose:'Click para seleccionar una imagen',
+				btn_change:null,
+				no_icon:'icon-picture',
+				thumbnail:'small',
+				before_remove: function() {
+					//don't remove/reset files while being uploaded
+					return !working;
+				},
+				before_change: function(files, dropped) {
+					var file = files[0];
+					if(typeof file === "string") {
+						//file is just a file name here (in browsers that don't support FileReader API)
+						if(! (/\.(jpe?g|png|gif)$/i).test(file) ) return false;
+					}
+					else {//file is a File object
+						var type = $.trim(file.type);
+						if( ( type.length > 0 && ! (/^image\/(jpe?g|png|gif)$/i).test(type) )
+								|| ( type.length == 0 && ! (/\.(jpe?g|png|gif)$/i).test(file.name) )//for android default browser!
+							) return false;
+	
+						if( file.size > 110000 ) {//~100Kb
+							return false;
+						}
+					}
+	
+					return true;
+				}
+			});
+	
+			form.on('submit', function(){
+				if(!file.data('ace_input_files')) return false;
+				
+				file.ace_file_input('disable');
+				form.find('button').attr('disabled', 'disabled');
+				form.find('.modal-body').append("<div class='center'><i class='icon-spinner icon-spin bigger-150 orange'></i></div>");
+				
+				var deferred = new $.Deferred;
+				working = true;
+				deferred.done(function() {
+					form.find('button').removeAttr('disabled');
+					form.find('input[type=file]').ace_file_input('enable');
+					form.find('.modal-body > :last-child').remove();
+					
+					modal.modal("hide");
+	
+					var thumb = file.next().find('img').data('thumb');
+					if(thumb) $('#avatar2').get(0).src = thumb;
+	
+					working = false;
+				});
+				
+				
+				setTimeout(function(){
+					deferred.resolve();
+				} , parseInt(Math.random() * 800 + 800));
+	
+				return false;
+			});
+					
+		});
+	
+	
+	
+		///////////////////////////////////////////
+		
+
+		$('#txt_archivo').ace_file_input({
+			style:'well',
+			btn_choose:'Seleccionar Imagen',
+			btn_change:null,
+			no_icon:'icon-picture',
+			thumbnail:'large',
+			droppable:true,
+			before_change: function(files, dropped) {
+				var file = files[0];
+				if(typeof file === "string") {//files is just a file name here (in browsers that don't support FileReader API)
+					if(! (/\.(jpe?g|png|gif)$/i).test(file) ) return false;
+				}
+				else {//file is a File object
+					var type = $.trim(file.type);
+					if( ( type.length > 0 && ! (/^image\/(jpe?g|png|gif)$/i).test(type) )
+							|| ( type.length == 0 && ! (/\.(jpe?g|png|gif)$/i).test(file.name) )//for android default browser!
+						) return false;
+	
+					
+				}
+	
+				return true;
+			}
+		})
+
+		$('#txt_archivo1').ace_file_input({
+			style:'well',
+			btn_choose:'Seleccionar Imagen',
+			btn_change:null,
+			no_icon:'icon-picture',
+			thumbnail:'large',
+			droppable:true,
+			before_change: function(files, dropped) {
+				var file = files[0];
+				if(typeof file === "string") {//files is just a file name here (in browsers that don't support FileReader API)
+					if(! (/\.(jpe?g|png|gif)$/i).test(file) ) return false;
+				}
+				else {//file is a File object
+					var type = $.trim(file.type);
+					if( ( type.length > 0 && ! (/^image\/(jpe?g|png|gif)$/i).test(type) )
+							|| ( type.length == 0 && ! (/\.(jpe?g|png|gif)$/i).test(file.name) )//for android default browser!
+						) return false;
+	
+					
+				}
+	
+				return true;
+			}
+		})
+
+
+	});
 </script>
