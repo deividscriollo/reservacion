@@ -259,13 +259,14 @@ function renovar1() {
     $('#txt_tarifa1').removeClass('animated wobble');
     $('#txt_tarifa2').removeClass('animated wobble');
 } 
+// verificacion de existencia de impuesto "iva"
+function iva() {
+    $('#txt_tarifa1').removeClass('animated wobble');
+    $('#txt_tarifa2').removeClass('animated wobble');
+} 
 
 
-function resul_infor(lim){    
-    //var subtotal=document.getElementById('lbl_subtotal').innerHTML;
-    //f_total=total+parseFloat(subtotal);
-    //console.log(f_total.toFixed(2));
-    //document.getElementById('lbl_subtotal').innerHTML=f_total.toFixed(2)
+function resul_infor(lim){
     var sum=0;
     for (var i = 1; i <=lim; i++) {
         var objeto_ele=document.getElementById('lbl_valores'+i+'').innerHTML

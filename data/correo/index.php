@@ -3,10 +3,10 @@ if(!isset($_SESSION))
 	{
 		session_start();		
 	}
-	// if(!isset($_SESSION["pass"])) {
+	if(!isset($_SESSION["pass"])) {
 
-	// 	header('Location: ../../inicio');
-	// }
+		header('Location: ../../inicio');
+	}
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -24,6 +24,7 @@ if(!isset($_SESSION))
 		<link href="../../assets/css/bootstrap-responsive.min.css" rel="stylesheet" />
 		<link href="../../assets/css/font-awesome.min.css" rel="stylesheet" />
 		<link href="../../assets/css/jquery.gritter.css" rel="stylesheet"  />
+		<link href="../assets/css/animate.css" rel="stylesheet"  />
 		
 
 		<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400,300" />
@@ -59,146 +60,18 @@ if(!isset($_SESSION))
 									<h5 class="smaller">Proceso Usuario</h5>
 									<div class="widget-toolbar no-border">
 										<ul class="nav nav-tabs" id="myTab">
-											<li>
-												<a data-toggle="tab" href="#home">
-												<i class="icon-group green" onclick="mostrar_usr();"></i> Usuarios</a>
-											</li>
-											<li>
-												<a data-toggle="tab" href="#profile">
-												<i class="icon-unlock blue"></i> Privilegios</a>
-											</li>
-											<li>
-												<a data-toggle="tab" href="#info">
-												<i class="icon-envelope red" onclick="mostrar_mensajes();"></i> Mensajes</a>
-											</li>
-											<li>
-												<a data-toggle="tab" href="#privilegios">
-												<i class="icon-cogs purple"></i> Configuración Privilegios</a>
-											</li>
 											<li class="active">
-												<a data-toggle="tab" href="#nuevo">
-												<i class="icon-user orange"></i> Nuevo</a>
-											</li>
+												<a data-toggle="tab" href="#info">
+												<i class="icon-envelope red"></i> Mensajes</a>
+											</li>											
 										</ul>
 									</div>
 								</div>
 
 								<div class="widget-body ">
 									<div class="widget-main padding-6">
-										<div class="tab-content">
-											<div id="nuevo" class="tab-pane in active">
-												<div class="row-fluid">
-													<div class="span6">
-														<h3 class="lighter block green">Digíte la siguiente información</h3>
-														<form class="form-horizontal" id="form-usuario">
-															<div class="control-group">
-																<label class="control-label" for="cedula">Cedula:</label>
-																<div class="controls">
-																	<div class="span12">
-																		<input type="text" name="txt_cedula" id="txt_cedula" class="span8">
-																	</div>
-																</div>
-															</div>
-															<div class="control-group">
-																<label class="control-label" for="Correo">Correo:</label>
-																<div class="controls">
-																	<div class="span12">
-																		<input type="email" name="txt_correo" id="txt_correo" class="span8">
-																	</div>
-																</div>
-															</div>
-															<div class="control-group">
-																<label class="control-label" for="Nombre y Apellido">Nombre y Apellido:</label>
-																<div class="controls">
-																	<div class="span12">
-																		<input type="text" name="txt_nombre" id="txt_nombre" class="span8">
-																	</div>
-																</div>
-															</div>
-															<div class="control-group">
-																<label class="control-label" for="password">Password:</label>
-																<div class="controls">
-																	<div class="span12">
-																		<input type="password" name="txt_pass" id="txt_pass" class="span8">
-																	</div>
-																</div>
-															</div>
-															<div class="control-group">
-																<label class="control-label" for="password">Repita Password:</label>
-																<div class="controls">
-																	<div class="span12">
-																		<input type="password" name="txt_pass1" id="txt_pass1" class="span8">
-																	</div>
-																</div>
-															</div>
-															<div class="control-group">
-																<div class="controls">
-																	<button type="submit" class="width-55 pull-right btn btn-small btn-success">
-																		Registrar
-																		<i id="icon-derecha" class="icon-arrow-right icon-on-right"></i>																		
-																	</button>
-																</div>
-															</div>
-														</form>														
-													</div>
-													<div class="span6">
-														<table id="tbt_mostrar_usuarios" class="table table-striped table-bordered table-hover">
-															<thead >
-																<tr >
-																	<th class="center">Cedula</th>
-																	<th>Nombre</th>
-																	<th>Telefono</th>
-																	<th>Correo</th>
-																</tr>
-															</thead>
-															<tbody>
-																
-															</tbody>
-														</table>
-													</div>
-												</div>												
-											</div>
-											<div id="home" class="tab-pane">
-												<table id="tbt_mostrar_usuarios" class="table table-striped table-bordered table-hover">
-													<thead >
-														<tr >
-															<th class="center">Cedula</th>
-															<th >Nombre</th>
-															<th>Telefono</th>
-															<th>Correo</th>
-															<th class="center">Edad</th>
-															<th>Fecha Reg.</th>
-															<th>Privilegio</th>
-															<th>Estado</th>															
-														</tr>
-													</thead>
-
-													<tbody>
-														
-													</tbody>
-												</table>
-											</div>
-											<div id="profile" class="tab-pane">
-												<table id="tbt_privilegios" class="table table-striped table-bordered table-hover">
-													<thead>
-														<tr>
-															<th class="center">Cedula</th>
-															<th>Nombre</th>
-															<th>Telefono</th>
-															<th>Correo</th>
-															<th class="center">Edad</th>
-															<th>Fecha Reg.</th>
-															<th>Estado</th>
-															<th>Privilegio</th>
-															<th>Configurar</th>
-														</tr>
-													</thead>
-													<tbody>
-														
-													</tbody>
-												</table>
-											</div>
-											<div id="info" class="tab-pane ">
+										<div class="tab-content">											
+											<div id="info" class="tab-pane in active">
 												<div class="row-fluid">
 													<div class="span4">
 														<div class="widget-box">
@@ -210,40 +83,13 @@ if(!isset($_SESSION))
 															</div>
 															<div class="widget-body">
 																<div class="widget-main">
-																<form id="form-mensajes">
-																	<div class="row-fluid">
-																		<div class="span9">
-																			<h8 class="header green clearfix">Aquien desea enviar.?</h8>
-																			<div class="control-group">
-																				<div class="controls">
-																					<span class="span12">
-																						<label class="blue">
-																							<input name="gender" value="1" type="radio" id="btn_todos" />
-																							<span class="lbl">  A Todos</span>
-																						</label>
-																						<label class="blue">
-																							<input name="gender" value="2" type="radio" id="btn_usuario" />
-																							<span class="lbl"> A Clientes / Usuarios</span>
-																						</label>
-																						<label class="blue">
-																							<input name="gender" value="3" type="radio" id="btn_admin" />
-																							<span class="lbl"> Solo Usuarios Administradores</span>
-																						</label>
-																					</span>
-																					<span class="alert-error" id="btn_error_msm">Seleccione una de las opciones</span>
-																				</div>
-																			</div>																		
-																		</div>
-																		<div class="span3">																			
-																			<div class="span12 btn btn-primary " id="btn_enviar_mensaje"> Enviar </div>
-																		</div>																	
-																	</div>
+																<form id="form-mensajes">																	
 																	<div class="row-fluid">
 																	<h4 class="header green clearfix">Mensaje</h4>
 																	<div class="wysiwyg-editor" id="editor1" name="editor1"></div>
-																	<span class="alert-error" id="btn_error_msm2">Por favor, Digíte el Mensaje</span>
-																	<div class="hr hr-double dotted"></div>
-
+																	</div>
+																	<div class="row-fluid">
+																		<input type="submit" class="span12 btn btn-primary " value="Enviar">
 																	</div>
 																</form>
 																</div>
@@ -258,9 +104,7 @@ if(!isset($_SESSION))
 																	<th>Nombre</th>																	
 																	<th>Correo</th>
 																	<th class="center">Edad</th>																	
-																	<th>Privilegio</th>
-																	<th class="center">																		
-																	</th>
+																	<th></th>
 																</tr>
 															</thead>
 															<tbody>
@@ -269,73 +113,7 @@ if(!isset($_SESSION))
 														</table>
 													</div>
 												</div>												
-											</div>
-											<div  id="privilegios" class="tab-pane">
-												<div class="row-fluid">
-													<div class="span3">
-														
-													</div>
-													<div class="span5">													
-														<form class="form-horizontal" id="form-segmento-usuario">
-															<div class="control-group">
-																<label class="control-label" for="form-field-1">Digíte Segmento</label>
-
-																<div class="controls">
-																	<input type="text" id="txt_1" name="txt_1" placeholder="Nombre Segmento">
-																</div>
-															</div>
-															<div class="form-actions">
-																<button class="btn btn-info" type="submit">
-																	<i class="icon-ok bigger-110"></i>
-																	Enviar
-																</button>
-																&nbsp; &nbsp; &nbsp;
-																<button class="btn" type="reset">
-																	<i class="icon-undo bigger-110"></i>
-																	Limpiar
-																</button>
-															</div>
-														</form>
-													</div>
-												</div>
-												<div id="con_obj_segmentos">
-													<div class="row-fluid">
-														<div class="widget-box span4">
-															<div class="widget-header header-color-blue2">
-																<h4 class="lighter smaller">Admin</h4>
-															</div>
-
-															<div class="widget-body">
-																<div class="widget-main padding-8">
-																	<div id="tree1" class="tree"></div>
-																</div>
-															</div>
-														</div>
-														<div class="widget-box span4">
-															<div class="widget-header header-color-green2">
-																<h4 class="lighter smaller">Administrador</h4>
-															</div>
-
-															<div class="widget-body">
-																<div class="widget-main padding-8">
-																	<div id="tree2" class="tree"></div>
-																</div>
-															</div>
-														</div>
-														<div class="widget-box span4">
-															<div class="widget-header header-color-green">
-																<h4 class="lighter smaller">Cliente Usuario</h4>
-															</div>
-
-															<div class="widget-body">
-																<div class="widget-main padding-8">
-																	<div id="tree3" class="tree"></div>
-																</div>
-															</div>
-														</div>
-													</div>
-												</div>
-											</div>
+											</div>											
 										</div>
 									</div>
 								</div>
@@ -407,11 +185,6 @@ if(!isset($_SESSION))
 
 
 		<script src="../../assets/js/jquery.dataTables.bootstrap.js"></script>
-		<script type="text/javascript" src="js/mostrar_usuario.js"></script>
-		<script type="text/javascript" src="js/privilegios.js"></script>
-		
-
-
 		<!--ace scripts-->
 
 		<script src="../../assets/js/ace-elements.min.js"></script>
@@ -419,10 +192,7 @@ if(!isset($_SESSION))
 
 		<script src="../../assets/js/ace.min.js"></script>
 		<script src="../../assets/js/blockui.js"></script>
-		<script type="text/javascript" src="js/segmento.js"></script>
-
-
-		
+		<script src="app.js"></script>		
 
 
 		<!--inline scripts related to this page-->
@@ -533,39 +303,7 @@ if(!isset($_SESSION))
 
 });
 		
-	//envio a cambiar usuario en estado
-	$(document).ready(function() {
-		function cargar_mensajes(){
-			var table=$('#tbt_mensajes').dataTable( {
-		        language: {
-				    "sProcessing":     "Procesando...",
-				    "sLengthMenu":     "Mostrar _MENU_ registros",
-				    "sZeroRecords":    "No se encontraron resultados",
-				    "sEmptyTable":     "Ningún dato disponible en esta tabla",
-				    "sInfo":           "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
-				    "sInfoEmpty":      "Mostrando registros del 0 al 0 de un total de 0 registros",
-				    "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
-				    "sInfoPostFix":    "",
-				    "sSearch":         "Buscar:",
-				    "sUrl":            "",
-				    "sInfoThousands":  ",",
-				    "sLoadingRecords": "Cargando...",
-				    "oPaginate": {
-				        "sFirst":    "Primero",
-				        "sLast":     "Último",
-				        "sNext":     "Siguiente",
-				        "sPrevious": "Anterior"
-				    },
-				    "oAria": {
-				        "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
-				        "sSortDescending": ": Activar para ordenar la columna de manera descendente"
-				    }
-				},					
-		        ajax: { "url": "php/mostrar_usuarios.php"}
-		    });	
-		}			
-	    //cargar_mensajes();
-	} );
+	
 		</script>
 		
 		

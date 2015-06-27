@@ -101,7 +101,8 @@
 	}
 	if(isset($_POST['guardar'])) {
 		// guardar:'ok',matriz:matriz,acu_fh:acu_fh,subtotal:lbl_subtotal
-		$mat=$_POST['matriz'];		
+		// $mat=$_POST['matriz'];	
+		print_r($mat=$_POST['matriz']);		
 		$horario=$_POST['horario'];
 		$subtotal=$_POST['subtotal'];
 		$fecha=$class->fecha_hora();

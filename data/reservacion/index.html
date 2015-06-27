@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -16,6 +16,7 @@
 	<link href="assets/css/bootstrap-datetimepicker.css" rel="stylesheet" media="screen">
 	<link rel="stylesheet" href="../assets/css/jquery.gritter.css" />
 	<link rel="stylesheet" href="assets/css/jquery.bootstrap-touchspin.css" />
+	<link rel="stylesheet" type="text/css" href="assets/css/prettify.css">
 	
 
 	<link href="assets/css/animate.css" rel="stylesheet">
@@ -23,6 +24,13 @@
     
 	<!-- Custom styles CSS -->
 	<link href="assets/css/style.css" rel="stylesheet" media="screen">
+
+	<script type=”text/javascript”>
+    var dispositivo = navigator.userAgent.toLowerCase();
+      if( dispositivo.search(/iphone|ipod|ipad|android/) > -1 ){
+      document.location = 'google.com';  }
+  </script>
+
     
     <script src="assets/js/modernizr.custom.js"></script>
        
@@ -112,7 +120,6 @@
                         <li><a href="#arrieros" id="obj_menu_arrieros">centro de convenciones</a></li>
                         <li><a href="#posada" id="obj_menu_posada">restaurante</a></li>
 						<li><a href="#club" id="obj_menu_club">teatro auditorio</a></li>
-						<li><a href="#contact">Contacto</a></li>
 					</ul>
 				</div>
 
@@ -126,107 +133,149 @@
 
     <!-- Services start -->
 
-	<section id="museo" class="pfblock pfblock-gray">
+	<section id="museo" class="pfblock pfblock-gray ">
 		<div class="ayuda wow zoomInRight btn" id="btn_modal_info">Información Museo <i class="fa fa-info-circle"></i></div>
 		<div class="container">
 			<div class="row">
 
 				<div class="col-sm-6 col-sm-offset-3">
 					<div class="pfblock-header wow fadeInUp">
-						<h2 class="pfblock-title" id="obj_title_museo">Museo fa</h2>
-						<div class="pfblock-line"></div>						
+						<h2 class="pfblock-title" id="obj_title_museo">Museo</h2>
 					</div>
 				</div>
 			</div>
 
 			<div class="row">
-				<div class="col-md-3 col-md-offset-5" id="obj_contenedor_museo_matriz">
-				<!-- <div class="col-md-3" id="obj_contenedor_museo_matriz"> -->				
-					<div class="iconbox wow slideInRight">											
-							<h3 class="iconbox-title">Estimado, Deivid seleccione el tipo de reservación</h3>
-							<div class="iconbox-desc">	
-								<form id="form_1">
-									<div class="form-group">							
-										<select class="form-control" id="select_tipo_reser_museo" name="select_tipo_reser_museo">
-										</select>	
+				<div class="col-md-12">
+					<form id="commentForm" class="form-horizontal">
+						<div id="rootwizard" style="height: 450px;">
+							<ul>
+							  	<li><a href="#tab1" data-toggle="tab">Paso 1</a></li>
+								<li><a href="#tab2" data-toggle="tab">Paso 2</a></li>
+								<li><a href="#tab3" data-toggle="tab">Paso 3</a></li>
+							</ul>
+							<div class="tab-content">
+							    <div class="tab-pane" id="tab1">
+							    	<div class="row">
+							    		<div class="col-md-4 col-md-offset-4">
+											<div class="iconbox wow slideInRight">	
+												<h3 class="iconbox-title">Estimado, Deivid seleccione el tipo de reservación</h3>
+												<div class="iconbox-desc">	
+													<div class="form-group">							
+														<select class="form-control" id="select_tipo_reser_museo" name="select_tipo_reser_museo">
+														</select>	
+													</div>
+													<div class="form-group hidden" id="obj_institucion">
+													    <label for="exampleInputEmail1">Ingrese nombre de la Intitución</label>
+													    <input type="text" class="form-control" id="txt_nom_inst" name="txt_nom_inst" placeholder="Ingrese nombre de la institución">
+													</div>
+												</div>
+											</div>
+										</div>
+							    	</div>
+								</div>
+							    <div class="tab-pane" id="tab2">
+							    	<div class="row">
+								     	<div class="col-md-8 col-md-offset-2">					
+											<div class="iconbox animated fadeInUp">
+												<h3 class="iconbox-title">Seleccione fecha y hora</h3>
+												<div class="row">
+													<div class="col-md-6 col-md-offset-3">
+														<div class="form-group">
+											                <div class='input-group date' id='datetimepicker1'>
+											                    <input type='text' class="form-control" id="txt_fecha_origen" name="txt_fecha_origen" placeholder="Seleccione fecha de reservación" />
+											                    <span class="input-group-addon">
+											                        <span class="fa fa-calendar"></span>
+											                    </span>
+											                </div>
+											            </div>
+													</div>
+												</div>
+												<div class="panel panel-default">
+												    <table class="table table-condensed" >
+												        <thead>
+												            <tr>
+												                <th>Nro</th>
+																<th class="center"><i class="fa fa-check-square-o"></i></th>
+																<th>Desde</th>
+																<th>Hasta</th>
+																<th>fecha</th>
+																<th>Día</th>
+												            </tr>
+												        </thead>
+												    </table>
+													<div class="div-table-content">
+													    <table class="table table-condensed" id="tabla_horas">
+													        <tbody>
+													            
+													        </tbody>
+													    </table>
+													</div>
+												</div>
+								            													
+											</div>
+										</div>		
 									</div>
-									<div class="form-group hidden" id="obj_institucion">
-									    <label for="exampleInputEmail1">Ingrese nombre de la Intitución</label>
-									    <input type="text" class="form-control" id="txt_nom_inst" name="txt_nom_inst" placeholder="Ingrese nombre de la institución">
-									</div>
-									<div class="form-group">
-										<button type="submit" class="btn btn-lg btn-default wow fadeInUp" data-wow-delay=".3s">Siguiente <i class="fa fa-chevron-circle-right"></i></button>
-									</div>							
-								</form>						
-							</div>
-					</div>
-				</div>
-				<div class="col-md-4 hidden" id="obj_contenedor_2_museo_matriz">						
-					<div class="iconbox animated fadeInUp">
-						<h3 class="iconbox-title">Seleccione fecha y hora</h3>
-						<div class="form-group">
-			                <div class='input-group date' id='datetimepicker1'>
-			                    <input type='text' class="form-control" id="txt_fecha_origen" name="txt_fecha_origen" placeholder="Seleccione fecha de reservación" />
-			                    <span class="input-group-addon">
-			                        <span class="fa fa-calendar"></span>
-			                    </span>
-			                </div>
-			            </div>
-		            	<table class="table table-hover" id="tabla_horas">
-						 	<thead>
-								<tr>
-									<th>Nro</th>
-									<th>Desde</th>
-									<th>Hasta</th>
-									<th>fecha</th>
-									<th>Día</th>
-								</tr>
-							</thead>											
-							<tbody>								
-							</tbody>
-						</table>
-						<div class="form-group">
-							<button type="button" class="btn btn-lg btn-default animated fadeInUp" id="btn_reservar">Siguiente <i class="fa fa-chevron-circle-right"></i></button>
-						</div>		
-					</div>
-				</div>				
-				<div class="col-md-5 hidden" id="obj_contenedor_3_museo_matriz">						
-					<div class="iconbox wow slideInLeft">
-						<div class="iconbox-icon">
-							<span class="animated pulse">3</span>
-						</div>	
-						<div class="row-fluid">
-							<div class="span12">
-								<form class="form-horizontal" id="form-v_reserva">					
-									
-								</form>									
-							</div>	
-						</div>
-						<div class="row-fluid">
-							<div class="span8">
-								<table id="tabla_horas_acu" class="table">
-									<thead>
-										<tr>									
-											<th>H. Inicio</th>
-											<th>H. Fin</th>
-											<th>fecha</th>
-											<th>Día</th>
-										</tr>
-									</thead>
-									<tbody></tbody>
-								</table>
-							</div>
-							<div class="span4 pull-right">
-								<table class="table table-striped">
-									<tr><td class="pull-right">SubTotal: $</td><td><label id="lbl_subtotal">00.00</label></td></tr>
-									<tr><td class="pull-right">Iva: $</td><td><label id="lbl_iva">00.00</label></td></tr>
-									<tr><td class="pull-right">Total: $</td><td><label id="lbl_total">00.00</label></td></tr>
-								</table>
-							</div>
-						</div>	
+							    </div>
+								<div class="tab-pane" id="tab3">
+									<div class="row">
+										<div class="col-md-10 col-md-offset-1 ">
+											<div class="iconbox wow slideInLeft">
+												<div class="row">
+													<div class="col-md-8">
+														<div id="form-v_reserva">
+															
+														</div>
+													</div>
+													<div class="col-md-4">
+														<table class="table table-striped">
+															<tr><td class="pull-right">SubTotal: $</td><td><label id="lbl_subtotal">0.00</label></td></tr>
+															<tr><td class="pull-right" id="lbl_inf_iva">Iva: $</td><td><label id="lbl_iva">0.00</label></td></tr>
+															<tr><td class="pull-right">Total: $</td><td><label id="lbl_total">0.00</label></td></tr>
+														</table>
+														<div class="btn btn-success" id="btn_guardar_reservacion">Reservar</div>
+													</div>	
+												</div>
+												<div class="row">
+													<table id="tabla_horas_acu" class="table">
+														<thead>
+															<tr class="center">
+																<th >Nro</th>									
+																<th>H. Inicio</th>
+																<th>H. Fin</th>
+																<th>fecha</th>
+																<th>Día</th>
+															</tr>
+														</thead>
+														<tbody></tbody>
+													</table>
+												</div>	
 
-					</div>
+											</div>
+										</div>
+									</div>
+							    </div>
+								<ul class="pager wizard">
+									<li class="previous first" style="display:none;">First</li>
+									<li class="previous" id="btn_atras">
+										<div class="btn btn-lg btn-default wow fadeInUp">
+											<i class="fa fa-chevron-circle-left"></i> Atras
+										</div>
+									</li>
+									<li class="next last" style="display:none;">Las</li>
+								  	<li class="next" id="btn_sigiente">
+								  		<div class="btn btn-lg btn-default wow fadeInUp">
+								  			Siguiente
+								  			<i class="fa fa-chevron-circle-right"></i>
+								  		</div>
+								  	</li>
+								</ul>
+							</div>
+						</div>
+						</form>
 				</div>
+							
+				
 
 			</div><!-- .row -->
 		</div><!-- .container -->
@@ -608,6 +657,8 @@
 
 	<script src="assets/js/jquery-1.11.1.min.js"></script>
 	<script src="assets/bootstrap/js/bootstrap.min.js"></script>
+	<script src="assets/js/jquery.bootstrap.wizard.js"></script>
+	<script src="assets/js/prettify.js"></script>
 	<script src="assets/js/jquery.parallax-1.1.3.js"></script>
 	<script src="assets/js/imagesloaded.pkgd.js"></script>
 	<script src="assets/js/jquery.sticky.js"></script>
@@ -621,7 +672,12 @@
 	<script src="assets/js/moment-with-locales.js"></script>
 	<script src="assets/js/bootstrap-datetimepicker.js"></script>
 	<script src="../assets/js/jquery.gritter.min.js"></script>
-	<script src="assets/js/jquery.bootstrap-touchspin.js"></script>
+	<script src="assets/js/jquery.bootstrap-touchspin.js"></script>	
+	<script src="../assets/js/jquery.validate.min.js"></script>
+	<script src="../assets/js/additional-methods.min.js"></script>
+	<script src="assets/js/underscore-1.5.2.min.js"></script>
+	<script src="assets/js/jquery.scrollTableBody-1.0.0.js"></script>
+	<script src="../assets/js/blockui.js"></script>
 	<script src="app.js"></script>
 </body>
 </html>
