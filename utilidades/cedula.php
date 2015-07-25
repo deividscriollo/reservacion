@@ -35,8 +35,8 @@ function validarCI($strCedula)
 		$dis=(($dis + 1)* 10);//luego ese numero lo multiplico x 10, consiguiendo asi la decena inmediata superior
 		$digito=($dis - $suma);
 		if($digito==10){ $digito='0'; }else{ }//si la suma nos resulta 10, el decimo digito es cero
-		if ($digito==$ult_digito){//comparo los digitos final y ultimo			
-			echo "0";			
+		if ($digito==$ult_digito){//comparo los digitos final y ultimo
+			echo "0";
 		}else{
 			echo "1";
 		}
@@ -51,9 +51,9 @@ if (isset($_POST['cedula'])) {
 }
 if (isset($_POST['pass'])) {
 	if (preg_match("/^.*(?=.{8,})(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).*$/", $_POST['registro'])) { 
-	    echo "1"; 
-	} else { 
-	    echo "0"; 
+	    echo "1";
+	} else {
+	    echo "0";
 	}
 }
 

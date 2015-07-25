@@ -36,7 +36,7 @@ if(!isset($_SESSION))
 		<link rel="stylesheet" href="../assets/css/daterangepicker.css" />
 		<link rel="stylesheet" href="../assets/css/colorpicker.css" />
 		<link rel="stylesheet" href="../assets/css/colorbox.css" />
-		
+
 
 		<!--page specific plugin styles-->
 
@@ -426,7 +426,6 @@ if(!isset($_SESSION))
 		  <script src="../assets/js/excanvas.min.js"></script>
 		<![endif]-->
 
-		
 		<script src="../assets/js/jquery-ui-1.10.3.custom.min.js"></script>
 		<script src="../assets/js/jquery.ui.touch-punch.min.js"></script>
 		<script src="../assets/js/jquery.gritter.min.js"></script>
@@ -435,12 +434,12 @@ if(!isset($_SESSION))
 		<script src="../assets/js/jquery.easy-pie-chart.min.js"></script>
 		<script src="../assets/js/jquery.hotkeys.min.js"></script>
 		<script src="../assets/js/bootstrap-wysiwyg.min.js"></script>
-		<script src="../assets/js/select2.min.js"></script>		
+		<script src="../assets/js/select2.min.js"></script>
 		<script src="../assets/js/fuelux/fuelux.spinner.min.js"></script>
 		<script src="../assets/js/x-editable/bootstrap-editable.min.js"></script>
 		<script src="../assets/js/x-editable/ace-editable.min.js"></script>
 		<script src="../assets/js/jquery.maskedinput.min.js"></script>
-		<script src="../assets/js/chosen.jquery.min.js"></script>		
+		<script src="../assets/js/chosen.jquery.min.js"></script>
 		<script src="../assets/js/fuelux/fuelux.spinner.min.js"></script>
 		<script src="../assets/js/date-time/bootstrap-datepicker.min.js"></script>
 		<script src="../assets/js/date-time/bootstrap-timepicker.min.js"></script>
@@ -471,9 +470,9 @@ if(!isset($_SESSION))
 		<!--ace scripts-->
 
 		<script src="../assets/js/ace-elements.min.js"></script>
-		<script src="../assets/js/ace.min.js"></script>	
+		<script src="../assets/js/ace.min.js"></script>
 		<!--inline scripts related to this page-->
-	</body>	
+	</body>
 </html>
 
 

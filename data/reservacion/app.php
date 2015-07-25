@@ -45,34 +45,34 @@ if(!isset($_SESSION))
 				$tabla=$tabla.'<tr><td></td><td>'.$servicios.'</td><td>'.$cantidad.'</td><td>'.$p_cantidad.'</td><td>'.$t.'</td></tr>';
 
 				$res=$class->consulta("INSERT INTO RESERVACION_TARIFA VALUES('$ida','$id','$servicios','$p_cantidad','$cantidad','$t','$fecha','0')");			
-		}		
+		}
 		$tabla=$tabla.'<tr><td></td><td></td><td></td><td>Sub Total</td><td>'.$subtotal.'</td></tr>';
 		$tabla=$tabla.'<tr><td></td><td></td><td></td><td>Iva</td><td>0.00</td></tr>';
 		$tabla=$tabla.'<tr><td></td><td></td><td></td><td>Total</td><td>'.$subtotal.'</td></tr>';
 		$tabla=$tabla.'<tr style="background: #8FBC1D;"><td></td><td>INICIO H.</td><td>FINAL H.</td><td>FECHA</td><td>DIA</td></tr>';
 		//print_r($horario);
 		for ($i=0; $i <count($horario); $i++) {
-			$idb=$class->idz(); 			
+			$idb=$class->idz();
 			$hi=$horario[$i][0];
 			$hf=$horario[$i][1];
 			$f=$horario[$i][2];
 			$d=$horario[$i][3];
 			$tabla=$tabla.'<tr><td></td><td>'.$hi.'</td><td>'.$hf.'</td><td>'.$f.'</td><td>'.$d.'</td></tr>';
 			$res=$class->consulta("INSERT INTO RESERVACION_HORARIOS VALUES('$idb','$id','$hi','$hf','$f','$d','$fecha','0')");
-		}		
+		}
 		if (!$res) {
 			print 1;
 		}else print 0;
 		// envio del correo a la reservacion
-		$tabla=$tabla.'</tbody></table>';		
-		$resultado = $class->consulta("SELECT * FROM SEG.USUARIO WHERE ID='$_SESSION[id]'");		
-		while ($row=$class->fetch_array($resultado)) {					
-			envio_correoReservacion($row['correo'],$tabla,$subtotal,$id);				
+		$tabla=$tabla.'</tbody></table>';
+		$resultado = $class->consulta("SELECT * FROM SEG.USUARIO WHERE ID='$_SESSION[id]'");
+		while ($row=$class->fetch_array($resultado)) {
+			envio_correoReservacion($row['correo'],$tabla,$subtotal,$id);
 	 	}
 
 
 	}
-// llamado inicial de servicio 
+// llamado inicial de servicio
 	if (isset($_POST['obj_img_servicios'])) {
 		$resultado = $class->consulta("SELECT * FROM SERVICIOS ORDER BY NOM");
 		$i=0;
@@ -129,39 +129,38 @@ if(!isset($_SESSION))
 					$d=split(":", $row[3]);
 					$horaInicial=$b[0].':'.$b[1];
 					$horafinal=$c[0].':'.$c[1];
-					$horalapso=$d[0].':'.$d[1];	
-					//$horafinal=sumar_horas($horafinal,$horalapso);	
-					$horaInicial=restar_horas($horaInicial,$horalapso);	
+					$horalapso=$d[0].':'.$d[1];
+					//$horafinal=sumar_horas($horafinal,$horalapso);
+					$horaInicial=restar_horas($horaInicial,$horalapso);
 					$j=0;
 					// aculumador de horas
-					for ($i=0;strtotime($horaInicial)<strtotime($horafinal);$i++) { 							
+					for ($i=0;strtotime($horaInicial)<strtotime($horafinal);$i++) {
 						if ($j==4) {$j=0;};
 						$acumu_horas=sumar_horas($horaInicial,$horalapso);
 						$horaInicial=$acumu_horas;
-						if (strtotime($horaInicial)<strtotime($horafinal)) {	
+						if (strtotime($horaInicial)<strtotime($horafinal)) {
 							$a=1;
 							print'<tr><td>'.$m.'</td><td><label><input type="checkbox" onclick="reconstruir('.$i.')"/><span class="lbl"></span></label></td><td>'.$horaInicial.'</td><td>'.sumar_horas($horaInicial,$horalapso).'</td><td>'.$_POST['f'].'</td><td>'.$dia.'</td></tr>';										
 							$j++;$m++;
-						};					
-						
+						};
 					}
 
 				}
-			}	
+			}
 		}
 	}
 	// permi establecer busquedar dependiente a la categoria seleccionada
 	if(isset($_POST['obj_tarifa'])) {
-		//$pos=$_POST['pos'];			
+		//$pos=$_POST['pos'];
 		$resultado = $class->consulta("SELECT nom_tarifa, precio FROM SERVICIOS S, TARIFA T, SEG.CATEGORIA_SERVICIO C WHERE
  S.ID=T.ID_SERVICIO AND T.ID_CATEGORIA=C.ID AND S.ID='20141211160003548a05d39b5c8' AND C.ID='$_POST[tipo]' AND T.STADO ='1';");
 			$acu=1;
-			while ($row=$class->fetch_array($resultado)) {					
-				print $row[0].','.$row[1].',';				
+			while ($row=$class->fetch_array($resultado)) {
+				print $row[0].','.$row[1].',';
 		 	}
 	}
-	// requerimiento de funciones 
-	function sumar_horas($hora1,$hora2){	
+	// requerimiento de funciones
+	function sumar_horas($hora1,$hora2){
 		$horaInicial=$hora1;
 		$d=split(':', $hora2);
 		$minutoAnadir=($d[0]*60)+$d[1];
@@ -170,7 +169,7 @@ if(!isset($_SESSION))
 		$nuevaHora=date("H:i",$segundos_horaInicial+$segundos_minutoAnadir);
 		return$nuevaHora;
 	}
-	function restar_horas($hora1,$hora2){	
+	function restar_horas($hora1,$hora2){
 		$horaInicial=$hora1;
 		$d=split(':', $hora2);
 		$minutoAnadir=($d[0]*60)+$d[1];

@@ -92,36 +92,32 @@ $(function(){
                 });
             });
     });
-    
-    $('#btn_guardar_reservacion').click(function(){     
+    $('#btn_guardar_reservacion').click(function(){
         console.log($('#lbl_id_cliente').html());
         $('#form-guardar').validate({
             errorElement: 'span',
             errorClass: 'help-inline',
             focusInvalid: false,
-            rules: {                        
+            rules: {
                 sel_pago: {
                     required: true
                 }
-            },    
+            },
             messages: {
                 sel_pago: {
-                    required: "Por favor, seleccione forma de pago.",                    
-                }                        
+                    required: "Por favor, seleccione forma de pago.",
+                }
             },
-    
-            invalidHandler: function (event, validator) { //display error alert on form submit   
+            invalidHandler: function (event, validator) { //display error alert on form submit
                 $('.alert-error', $('.login-form')).show();
             },
-    
             highlight: function (e) {
                 $(e).closest('.control-group').removeClass('info').addClass('error');
             },
-    
             success: function (e) {
                 $(e).closest('.control-group').removeClass('error').addClass('info');
                 $(e).remove();
-            },            
+            },
             errorPlacement: function (error, element) {
                 if(element.is(':checkbox') || element.is(':radio')) {
                     var controls = element.closest('.controls');
@@ -135,18 +131,17 @@ $(function(){
                     error.insertAfter(element.siblings('[class*="chzn-container"]:eq(0)'));
                 }
                 else error.insertAfter(element);
-            },            
+            },
             submitHandler: function (form) {
-               
                 var res_com=$('#lbl_total').html();
                 res_com=res_com+0;
                 if (res_com!=0) {
-                    $('#modal-reservacion').modal('hide'); 
+                    $('#modal-reservacion').modal('hide');
                 var matriz= new Array();
                 var horas='';
                 //sacar valores de tarifas y otros elementos
                 for (var i = 1; i < 10; i++) {
-                    if ( document.getElementById( 'txt_tarifa'+i+'' )) {               
+                    if ( document.getElementById( 'txt_tarifa'+i+'' )) {
                         var a ='txt_tarifa'+i+'';
                         var b ='lbl_tarifa'+i+'';
                         var c ='lbl_valores'+i+'';
@@ -169,50 +164,49 @@ $(function(){
                     matriz1[i]=new Array(hinicio,hfinal,fecha,dia);
                     i++;
                 });
-                //sacara valores de total de la reservacion       
+                //sacara valores de total de la reservacion
                 $.ajax({
                     url: "reservacion.php",
                     type: "POST",
                     data:{guardar:'ok',matriz:matriz,horario:matriz1,subtotal:$('#lbl_subtotal').html(),id_servicio:$('#selec_servicio').val(),id_cliente:$('#lbl_id_cliente').html()},                         
-                    beforeSend: function () {                             
+                    beforeSend: function () {
                         $.blockUI({
                             message:'<i id="icon-tiempo" class="width-10 icon-spinner red icon-spin bigger-125"></i> Espere un momento...',
-                            css: { 
-                                border: 'none', 
-                                padding: '15px', 
-                                backgroundColor: '#000', 
-                                '-webkit-border-radius': '10px', 
-                                '-moz-border-radius': '10px', 
-                                opacity: .5, 
+                            css: {
+                                border: 'none',
+                                padding: '15px',
+                                backgroundColor: '#000',
+                                '-webkit-border-radius': '10px',
+                                '-moz-border-radius': '10px',
+                                opacity: .5,
                                 color: '#fff'
                             }
                         })
                     },
-                    success: function(data)
-                    {           
-                        // console.log(data) 
-                        $.unblockUI();   
+                    success: function(data){
+                        // console.log(data)
+                        $.unblockUI();
                         if (data==0) {
-                            $.gritter.add({                     
-                                title: '..Mensaje..!',                      
+                            $.gritter.add({
+                                title: '..Mensaje..!',
                                 text: 'OK: <br><i class="icon-cloud purple bigger-230"></i>  Su reservacion se ha realizado con exito. por favor verifique su correo y siga las instrucciones <br><i class="icon-spinner icon-spin green bigger-230"></i>',                      
-                                //image: 'http://a0.twimg.com/profile_images/59268975/jquery_avatar_bigger.png',                        
-                                sticky: false,                      
+                                //image: 'http://a0.twimg.com/profile_images/59268975/jquery_avatar_bigger.png',
+                                sticky: false,
                                 time: 2000
                             });
                        };
                        if(data!=0&&data!=1&&data!=2){
-                                $.gritter.add({                     
-                                    title: '..Mensaje..!',                      
+                                $.gritter.add({
+                                    title: '..Mensaje..!',
                                     text: 'Lo sentimos: '+$('#txt_usuario').val()+'<br><i class=" icon-cogs red bigger-230"></i>   Intente mas Tarde . <br><i class="icon-spinner icon-spin red bigger-230"></i>',                       
-                                    //image: 'http://a0.twimg.com/profile_images/59268975/jquery_avatar_bigger.png',                        
-                                    sticky: false,                      
+                                    //image: 'http://a0.twimg.com/profile_images/59268975/jquery_avatar_bigger.png',
+                                    sticky: false,
                                     time: ''
                                 });
                                 //redireccionar();
-                            }; 
-                    }                                       
-                });   
+                            };
+                    }
+                });
                 };if (res_com==0) {
                         $('#txt_tarifa1').addClass('animated wobble');
                         $('#txt_tarifa2').addClass('animated wobble');
@@ -220,7 +214,7 @@ $(function(){
                         $('#txt_tarifa4').addClass('animated wobble');
                         setTimeout ("renovar1()", 1000);
                 }
-            }                    
+            }
         });
     });
     

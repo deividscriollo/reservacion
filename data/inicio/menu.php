@@ -1,7 +1,7 @@
-<?php 
+<?php
 if(!isset($_SESSION))
 	{
-		session_start();		
+		session_start();
 	}
 //php
 function menu(){
@@ -11,7 +11,7 @@ $acus=split('/', $acus);
 	if ($_SESSION['nivel']!='CLIENTE') {
 		print'<div class="sidebar" id="sidebar">
 				<div class="sidebar-shortcuts" id="sidebar-shortcuts">
-					
+
 				</div><!--#sidebar-shortcuts-->
 
 				<ul class="nav nav-list blue">
@@ -45,7 +45,7 @@ $acus=split('/', $acus);
 							<i class="icon-calendar purple"></i>
 
 							<span class="menu-text purple">
-								Calendario								
+								Agenda
 							</span>
 						</a>
 					</li>
@@ -53,7 +53,7 @@ $acus=split('/', $acus);
 						<a href="../correo/">
 							<i class="icon-envelope-alt pink"></i>
 							<span class="menu-text pink">
-								Correo								
+								Correo
 							</span>
 						</a>
 					</li>
@@ -65,7 +65,7 @@ $acus=split('/', $acus);
 							<span class="menu-text blue">
 								Reservar
 								<span class="badge badge-transparent tooltip-error">
-									
+
 								</span>
 							</span>
 						</a>
@@ -111,7 +111,7 @@ $acus=split('/', $acus);
 if ($_SESSION['nivel']=='CLIENTE') {
 	print'<div class="sidebar" id="sidebar">
 				<div class="sidebar-shortcuts" id="sidebar-shortcuts">
-					
+
 				</div><!--#sidebar-shortcuts-->
 
 				<ul class="nav nav-list blue">
@@ -139,7 +139,6 @@ if ($_SESSION['nivel']=='CLIENTE') {
 				</div>
 			</div>';
 }
-	
 
 }
 function menunav(){
@@ -150,7 +149,7 @@ function menunav(){
 					<a href="../inicio/" class="brand">
 						<small>
 							<i class="icon-home"></i>
-							Fabrica Imbabura
+							Fábrica Imbabura
 						</small>
 					</a><!--/.brand-->
 
@@ -159,7 +158,6 @@ function menunav(){
 							<a data-toggle="dropdown" class="dropdown-toggle" href="#">
 								<i class=" icon-info-sign icon-animated-bell"></i> Ayuda
 							</a>
-							
 						</li>
 						<li class="light-blue">
 							<a data-toggle="dropdown" href="#" class="dropdown-toggle">
@@ -167,8 +165,7 @@ function menunav(){
 									<small>Bienvenido,</small>
 									'.strtolower($_SESSION["nivel"]).'
 								</span>
-
-							</a>							
+							</a>
 						</li>
 						<li class="light-blue">
 							<a data-toggle="dropdown" href="#" class="dropdown-toggle">
@@ -182,7 +179,6 @@ function menunav(){
 							</a>
 
 							<ul class="user-menu pull-right dropdown-menu dropdown-yellow dropdown-caret dropdown-closer">
-								
 								<li>
 									<a href="../inicio/perfil.php">
 										<i class="icon-user"></i>

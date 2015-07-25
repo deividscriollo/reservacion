@@ -26,6 +26,7 @@ if(!isset($_SESSION))
 
 		<link rel="stylesheet" href="../../assets/css/fontdc.css" />
 		<link rel="stylesheet" href="../../assets/css/fullcalendar.css" />
+		<link rel="stylesheet" href="../assets/css/jquery.gritter.css" />
 
 		<link rel="stylesheet" href="../../assets/css/ace.min.css" />
 		<link rel="stylesheet" href="../../assets/css/ace-responsive.min.css" />
@@ -44,7 +45,6 @@ if(!isset($_SESSION))
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /></head>
 
 	<body>
-		
 		<?php require('../inicio/menu.php'); menunav(); ?>
 
 		<div class="main-container container-fluid">
@@ -61,44 +61,45 @@ if(!isset($_SESSION))
 							<!--PAGE CONTENT BEGINS-->
 
 							<div class="row-fluid">
-								<div class="span7">
-									<div class="space"></div>
-									<div class="widget-box transparent">
-										<div class="widget-header widget-header-small">
-											<h4 class="blue smaller">
-												<i class="icon-rss orange"></i>
-												Actividades Recientes
-											</h4>
 
-											<div class="widget-toolbar action-buttons">
-												<a href="#" data-action="reload" id="btn_actualizar">
-													<i class="icon-refresh blue"></i>
-												</a>
-
-												&nbsp;
-												<a href="#" class="pink">
-													<i class="icon-trash"></i>
-												</a>
-											</div>
-										</div>
-
-										<div class="widget-body">
-											<div class="widget-main padding-8">
-												<div id="profile-feed-1" class="profile-feed">
-													<div class="dcm"></div>
-												</div>
-											</div>
-										</div>
-									</div>
-
-								</div>
-								<div class="span5">
+								<div class="span9">
 									<div class="space"></div>
 
 									<div id="calendar"></div>
 								</div>
-							</div>
 
+								<div class="span3">
+									<div class="widget-box transparent">
+										<div class="widget-header">
+											<h4>Servicios</h4>
+										</div>
+
+										<div class="widget-main no-padding">
+											<div id="external-events" id="obj_servicios">
+												<?php
+													require('../../admin/class.php');
+													$class=new constante();
+													$resultado = $class->consulta("SELECT ID,NOM FROM SERVICIOS WHERE STADO1='1' order by FECHA");
+													$acu;
+													$clasobj = array('class="external-event label-info" data-class="label-info"',
+																		'class="external-event label-success" data-class="label-success"',
+																		'class="external-event label-important" data-class="label-important"',
+																		'class="external-event label-purple" data-class="label-purple"' );
+													$a=0;
+													$classervicios = array('MUSEO','CENTRO DE CONVENCIONES','RESTAURANTE "LAS POSADAS"','TEATRO AUDITORIO "CLUB L.I.A."' );
+													while ($row=$class->fetch_array($resultado)) {
+														print'<div '.$clasobj[$a].' id="'.$row[0].'">
+															<i class="icon-move"></i>
+															'.$classervicios[$a].'
+														</div>';
+														$a++;
+												 	}
+												?>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
 							<!--PAGE CONTENT ENDS-->
 						</div><!--/.span-->
 
@@ -111,17 +112,215 @@ if(!isset($_SESSION))
 			<i class="icon-double-angle-up icon-only bigger-110"></i>
 		</a>
 
+
+		<!-- modal -->
+		<div id="modal_form" class="modal hide fade" tabindex="-1" data-keyboard="false" data-backdrop="static">
+		  	<div class="modal-body no-padding">
+				<div class="row-fluid no-padding">
+					<div class="span12 widget-container-span">
+						<div class="widget-box transparent">
+							<div class="widget-header widget-hea1der-small header-color-dark">
+								<h6>Información Reservación</h6>
+							</div>
+
+							<div class="widget-body">
+								<div class="widget-main no-padding">
+									<div class="widget-main no-padding">
+										<div class="tab-content padding-8">
+											<div id="buscar" class="tab-pane in active">
+												<div class="row-fluid">
+													<div class="widget-container-span">
+														<div class="span10">
+															<form class="form-horizontal" >
+																<div class="control-group">
+																<label class="control-label">Servicio:</label>
+																<div class="controls">
+																	<div class="">
+																		<input type="hidden" name="id_txt_reservacion" id="id_txt_reservacion" />
+																		<input type="hidden" name="id_txt_servicio" id="id_txt_servicio" />
+																		<input type="text" name="txt_servicio" id="txt_servicio" class="span12" readonly="no tocar" require />
+																	</div>
+																</div>
+																</div>
+																<div class="control-group">
+																	<label class="control-label">Cliente:</label>
+																	<div class="controls">
+																		<div class="input-append">
+																			<input type="hidden" name="id_txt_cliente_reserva" id="id_txt_cliente_reserva" class="span12"/>
+																			<input type="text" name="txt_cliente_reserva" id="txt_cliente_reserva" class="span12" readonly/>
+																			<span class="btn btn-small btn-pink" id="btn_cliente">
+																				<i class="icon-search bigger-110"></i>
+																				Buscar!
+																			</span>
+																		</div>
+																	</div>
+																</div>
+																<div class="control-group">
+																	<label class="control-label">Teléfono:</label>
+																	<div class="controls">
+																		<span class="block input-icon input-icon-right">
+																			<input type="text" class="span12" id="txt_telefono_reserva" name="txt_telefono_reserva" placeholder="Teléfono" readonly/>
+																			<i class="icon-phone"></i>
+																		</span>
+																	</div>
+																</div>
+																<div class="control-group">
+																	<label class="control-label">Direccion:</label>
+																	<div class="controls">
+																		<span class="block input-icon input-icon-right">
+																			<input type="text" class="span12" id="txt_direccion_reserva" name="txt_direccion_reserva" placeholder="Dirección" readonly/>
+																			<i class="icon-map-marker"></i>
+																		</span>
+																	</div>
+																</div>
+															</form>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+			    <button class="btn btn-mini btn-success" data-dismiss="modal" aria-hidden="true">Cerrar</button>
+			    <button type="submit" class="btn btn-mini btn-primary">Guardar</button>
+			    <button type="submit" class="btn btn-mini btn-danger">Eliminar Reservación</button>
+			</div>
+		</div>
+		<div id="modal-cliente" class="modal hide fade" tabindex="-1" data-keyboard="false" data-backdrop="static">
+			<div class="modal-body no-padding">
+				<div class="row-fluid">
+					<div class="widget-container-span">
+						<div class="widget-box transparent">
+							<div class="widget-header">
+								<h5 class="smaller"> Información Clientes</h5>
+								<div class="widget-toolbar no-border">
+									<ul class="nav nav-tabs" id="myTab">
+										<li class="active">
+											<a data-toggle="tab" href="#btn_buscar" id="btn_buscar_cliente">Buscar</a>
+										</li>
+
+										<li>
+											<a data-toggle="tab" href="#btn_nuevo">Nuevo</a>
+										</li>
+									</ul>
+								</div>
+							</div>
+
+							<div class="widget-body ">
+								<div class="widget-main padding-6">
+									<div class="tab-content no-padding">
+										<div id="btn_buscar" class="tab-pane in active">
+											<table id="tbt_clientes" class="table table-striped table-bordered table-hover">
+												<thead>
+													<tr>
+														<th>Cedula</th>
+														<th>Nombre</th>
+														<th>Telefono</th>
+														<th>Direccion</th>
+														<th class="center">Accion</th>
+													</tr>
+												</thead>
+												<tbody>
+												</tbody>
+											</table>
+										</div>
+
+										<div id="btn_nuevo" class="tab-pane">
+											<div class="row-fluid">
+												<div class="widget-container-span">
+													<div class="row-fluid">
+													<div class="span10">
+														<form id="frm-registro" class="form-horizontal">
+															<div class="control-group">
+																<label class="control-label">Cedula / RUC.:</label>
+																<div class="controls">
+																	<span class="block input-icon input-icon-right">
+																		<input type="text" class="span12" id="txt_reg_ced" name="txt_reg_ced" placeholder="Cedula / Ruc." />
+																		<i class="icon-barcode"></i>
+																	</span>
+																</div>
+															</div>
+															<div class="control-group">
+																<label class="control-label">Correo:</label>
+																<div class="controls">
+																	<span class="block input-icon input-icon-right">
+																		<input type="email" class="span12" id="txt_reg_email" name="txt_reg_email" placeholder="Email" />
+																		<i class="icon-envelope"></i>
+																	</span>
+																</div>
+															</div><div class="control-group">
+																<label class="control-label">Nombre & Apellido / Intitución:</label>
+																<div class="controls">
+																	<span class="block input-icon input-icon-right">
+																		<input type="text" class="span12" id="txt_reg_nom_usuario" name="txt_reg_nom_usuario" placeholder="Nombre & Apellido / Institución" />
+																		<i class="icon-user" id="icon_b_usuario"></i>
+																	</span>
+																</div>
+															</div><div class="control-group">
+																<label class="control-label">Teléfono:</label>
+																<div class="controls">
+																	<span class="block input-icon input-icon-right">
+																			<input type="text" class="span12" id="txt_tel" name="txt_tel" placeholder="Teléfono" />
+																			<i class="icon-user" id="icon_b_usuario"></i>
+																		</span>
+																</div>
+															</div><div class="control-group">
+																<label class="control-label">Dirección:</label>
+																<div class="controls">
+																	<span class="block input-icon input-icon-right">
+																		<input type="text" class="span12" placeholder="Dirección" id="txt_dir" name="txt_dir" />
+																	</span>
+																</div>
+															</div>
+															<div class="control-group">
+																<div class="span12">
+																	<div class="clearfix blue">
+																		<button type="submit" class="width-55 pull-right btn btn-small btn-success">
+																			Registrar
+																			<i id="icon-derecha" class="icon-arrow-right icon-on-right"></i>
+																		</button>
+																	</div>
+																</div>
+															</div>
+														</form>
+													</div>
+													</div>
+												</div><!--/span-->
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button class="btn btn-small btn-danger pull-right" id="btn_cerrar_modal_buscar">
+					<i class="icon-remove"></i>
+					Cerrar
+				</button>
+			</div>
+		</div>
+
+
 		<!--basic scripts-->
 
 		<!--[if !IE]>-->
 
-		
 
 		<!--<![endif]-->
 
 		<!--[if IE]>
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-<![endif]-->
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+		<![endif]-->
 
 		<!--[if !IE]>-->
 
@@ -132,10 +331,10 @@ if(!isset($_SESSION))
 		<!--<![endif]-->
 
 		<!--[if IE]>
-<script type="text/javascript">
- window.jQuery || document.write("<script src='../../assets/js/jquery-1.10.2.min.js'>"+"<"+"/script>");
-</script>
-<![endif]-->
+		<script type="text/javascript">
+		 window.jQuery || document.write("<script src='../../assets/js/jquery-1.10.2.min.js'>"+"<"+"/script>");
+		</script>
+		<![endif]-->
 
 		<script type="text/javascript">
 			if("ontouchend" in document) document.write("<script src='../../assets/js/jquery.mobile.custom.min.js'>"+"<"+"/script>");
@@ -158,10 +357,18 @@ if(!isset($_SESSION))
 		<script src="../../assets/js/flot/jquery.flot.resize.min.js"></script>
 		<script src="../assets/js/date-time/moment.min.js"></script>
 		<script src="../assets/js/date-time/bootstrap-datepicker.min.js"></script>
-		
-		<script src="../../assets/js/fullcalendar.min.js"></script>
 
-		
+		<script src="../../assets/js/fullcalendar.min.js"></script>
+		<script src="../../assets/js/bootbox.min.js"></script>
+		<script src="../assets/js/jquery.dataTables.min.js"></script>
+		<script src="../assets/js/jquery.dataTables.bootstrap.js"></script>
+		<script src="../assets/js/jquery.validate.min.js"></script>
+		<script src="../assets/js/additional-methods.min.js"></script>
+		<script src="../assets/js/blockui.js"></script>
+		<script src="../assets/js/jquery.gritter.min.js"></script>
+
+
+
 
 		<!--ace scripts-->
 
@@ -169,186 +376,5 @@ if(!isset($_SESSION))
 		<script src="../../assets/js/ace.min.js"></script>
 		<script src="index.js"></script>
 
-		<!--inline scripts related to this page-->
-		<script type="text/javascript">
-			$(function() {
-
-				$('#profile-feed-1').slimScroll({
-				height: '250px',
-				alwaysVisible : true
-				});
-
-
-			/* initialize the external events
-				-----------------------------------------------------------------*/
-
-				$('#external-events div.external-event').each(function() {
-
-					// create an Event Object (http://arshaw.com/fullcalendar/docs/event_data/Event_Object/)
-					// it doesn't need to have a start or end
-					var eventObject = {
-						title: $.trim($(this).text()) // use the element's text as the event title
-					};
-
-					// store the Event Object in the DOM element so we can get to it later
-					$(this).data('eventObject', eventObject);
-
-					// make the event draggable using jQuery UI
-					$(this).draggable({
-						zIndex: 999,
-						revert: true,      // will cause the event to go back to its
-						revertDuration: 0  //  original position after the drag
-					});
-					
-				});
-
-
-
-
-				/* initialize the calendar
-				-----------------------------------------------------------------*/
-
-				var date = new Date();
-				var d = date.getDate();
-				var m = date.getMonth();
-				var y = date.getFullYear();
-
-				
-				var calendar = $('#calendar').fullCalendar({
-					lang: 'es',
-					 buttonText: {
-						prev: '<i class="icon-chevron-left"></i>',
-						next: '<i class="icon-chevron-right"></i>'
-					},
-				
-					header: {
-						left: 'prev,next today',
-						center: 'title',
-						right: 'month,agendaWeek,agendaDay'
-					},
-					events: [
-					{
-						title: 'All Day Event',
-						start: new Date(y, m, 1),
-						className: 'label-important'
-					},
-					{
-						title: 'Long Event',
-						start: new Date(y, m, d-5),
-						end: new Date(y, m, d-2),
-						className: 'label-success'
-					},
-					{
-						title: 'Some Event',
-						start: new Date(y, m, d-3, 16, 0),
-						allDay: false
-					}]
-					,
-					editable: true,
-					droppable: true, // this allows things to be dropped onto the calendar !!!
-					drop: function(date, allDay) { // this function is called when something is dropped
-					
-						// retrieve the dropped element's stored Event Object
-						var originalEventObject = $(this).data('eventObject');
-						var $extraEventClass = $(this).attr('data-class');
-						
-						
-						// we need to copy it, so that multiple events don't have a reference to the same object
-						var copiedEventObject = $.extend({}, originalEventObject);
-						
-						// assign it the date that was reported
-						copiedEventObject.start = date;
-						copiedEventObject.allDay = allDay;
-						if($extraEventClass) copiedEventObject['className'] = [$extraEventClass];
-						
-						// render the event on the calendar
-						// the last `true` argument determines if the event "sticks" (http://arshaw.com/fullcalendar/docs/event_rendering/renderEvent/)
-						$('#calendar').fullCalendar('renderEvent', copiedEventObject, true);
-						
-						// is the "remove after drop" checkbox checked?
-						if ($('#drop-remove').is(':checked')) {
-							// if so, remove the element from the "Draggable Events" list
-							$(this).remove();
-						}
-						
-					}
-					,
-					selectable: true,
-					selectHelper: true,
-					select: function(start, end, allDay) {
-						
-						bootbox.prompt("titulo nueva reservacion:", function(title) {
-							if (title !== null) {
-								calendar.fullCalendar('renderEvent',
-									{
-										title: title,
-										start: start,
-										end: end,
-										allDay: allDay
-									},
-									true // make the event "stick"
-								);
-							}
-						});
-						
-
-						calendar.fullCalendar('unselect');
-						
-					}
-					,
-					eventClick: function(calEvent, jsEvent, view) {
-
-						var form = $("<form class='form-inline'><label>Change event name &nbsp;</label></form>");
-						form.append("<input autocomplete=off type=text value='" + calEvent.title + "' /> ");
-						form.append("<button type='submit' class='btn btn-small btn-success'><i class='icon-ok'></i> Save</button>");
-						
-						var div = bootbox.dialog(form,
-							[
-							{
-								"label" : "<i class='icon-trash'></i> Delete Event",
-								"class" : "btn-small btn-danger",
-								"callback": function() {
-									calendar.fullCalendar('removeEvents' , function(ev){
-										return (ev._id == calEvent._id);
-									})
-								}
-							}
-							,
-							{
-								"label" : "<i class='icon-remove'></i> Close",
-								"class" : "btn-small"
-							}
-							]
-							,
-							{
-								// prompts need a few extra options
-								"onEscape": function(){div.modal("hide");}
-							}
-						);
-						
-						form.on('submit', function(){
-							calEvent.title = form.find("input[type=text]").val();
-							calendar.fullCalendar('updateEvent', calEvent);
-							div.modal("hide");
-							return false;
-						});
-						
-					
-						//console.log(calEvent.id);
-						//console.log(jsEvent);
-						//console.log(view);
-
-						// change the border color just for fun
-						//$(this).css('border-color', 'red');
-
-					}
-					
-				});
-
-
-			})
-					</script>
-
-		
 	</body>
 </html>

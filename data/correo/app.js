@@ -16,15 +16,12 @@ $(function(){
     			var counter = 1;
     			for (var i = 0; i < data.length; i=i+4) {
     				t.row.add( [
-				            data[i+0],
-				            data[i+1],
-				            data[i+2],
-				            data[i+3],
-				            '<label>'
-				            	+'<input name="form-field-checkbox" class="" type="checkbox" />'
-								+'<span class="lbl"></span>'
-							+'</label>'
-				        ] ).draw();
+            counter +'.1',
+            counter +'.2',
+            counter +'.3',
+            counter +'.4',
+            counter +'.5'
+        ] ).draw();
     			}
     		}
     	});
@@ -32,10 +29,10 @@ $(function(){
     // permite verificar los registros seleccionados en la tabla
     function busca_seleccionado_chek(){
         var amd_x=':(';
-        $("#tbt_mensajes tbody tr").each(function (index) {             
+        $("#tbt_mensajes tbody tr").each(function (index) {
             var campo0, campo1, campo2, campo3,campo4;
             $(this).children("td").each(function (index2) {
-                switch (index2) {                                 
+                switch (index2) {
                     case 1:
                         campo1 = $(this).text();
                         break;
@@ -44,14 +41,14 @@ $(function(){
                         break;
                     case 3:
                         campo3 = $(this).text();
-                        break;                    
+                        break;
                     case 4:
                         campo0 = $(this).children('label').children('input').is(":checked");
                         if (campo0==true) { 
                             amd_x=':)';
                         };
-                        break;   
-                }                
+                        break;
+                }
             });
             // console.log(campo0+' '+campo1+' '+campo2)
         });
@@ -76,7 +73,7 @@ $(function(){
 				$("#tbt_mensajes tbody tr").each(function (index) {             
 		            var campo0, campo1, campo2, campo3,campo4;
 		            $(this).children("td").each(function (index2) {
-		                switch (index2) {                                 
+		                switch (index2) {
 		                    case 1:
 		                        campo1 = $(this).text();
 		                        break;
