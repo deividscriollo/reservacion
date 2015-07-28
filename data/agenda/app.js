@@ -17,7 +17,7 @@ jQuery(function($) {
 		$(this).draggable({
 			zIndex: 999,
 			revert: true,      // will cause the event to go back to its
-			revertDuration: 0  //  original position after the drag
+			revertDuration: 1000  //  original position after the drag
 		});
 	});
 
@@ -70,19 +70,39 @@ jQuery(function($) {
 		selectable: true,
 		selectHelper: true,
 		eventLimit: true, // allow "more" link when too many events
-		eventResizeStart: function (event, jsEvent, ui, view) {
-	        console.log('RESIZE START ' + event.title);
-	        console.log('test');
-	    },
-	    eventResizeStop: function (event, jsEvent, ui, view) {
-	        console.log('RESIZE STOP ' + event.title);
-
-	    },
-	    eventResize: function (event, dayDelta, minuteDelta, revertFunc, jsEvent, ui, view) {
-	        console.log('RESIZE!! ' + event.title);
-	        console.log(dayDelta + ' days'); //this will give the number of days you extended the event
-	        console.log(minuteDelta + ' minutes');
-
+	    eventResize: function (event, dayDelta, minuteDelta, revertFunc, jsEvent, ui, view, Delta) {
+	        var time_min=(dayDelta._milliseconds/60000);
+	        var id=event.id;
+	        // -----------update informacion of calendar-------//
+				$.ajax({
+					url: 'app.php',
+					type: 'POST',
+					dataType:'json',
+					async:false,
+					data: {update_reservacion:'ok',id:id,minutos:time_min,dias:dayDelta._days},
+					success:function(data){
+						console.log(data);
+						if (data[1]==0&&data[2]==0) {
+							$.gritter.add({
+		                        title: '<h1 class="icon-ok" style="color: #FFF;">Reservación creada con éxito</h1>',
+		                        text: '',
+		                        time: 4000
+		                        //class_name: 'gritter-info')
+		                    });
+		                    $('#id_txt_reservacion').val(data[0]);
+		                    idreserva=data[0]
+						};
+						if (data[1]!=0&&data[2]!=0) {
+							$.gritter.add({
+		                        title: '<h1 class="icon-ok" style="color: #336699;">Comunicar admin</h1>',
+		                        text: 'Proceso fuera de db-56',
+		                        time: 4000
+		                        //class_name: 'gritter-info')
+		                    });
+						}
+					}
+				});
+			// -----------end save informacion-------//
 	    },
 	    eventReceive: function(event){
 		   var title = event.title;

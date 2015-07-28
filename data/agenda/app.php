@@ -60,9 +60,9 @@
 		// ---------------get data of fron-end--------------------//
 		$fecha_evento= $_POST['fecha'];
 		$dia= strtoupper($_POST['dia']);
-		$hora_inicio = $_POST['hora_inicio']; // Hora actual
-		$tot_hora=sumar_horas($hora_inicio,'02:00');
-
+		$hora_inicio = $fecha_evento.' '.$_POST['hora_inicio'].':00'; // Hora actual
+		$tot_hora=$fecha_evento.' '.sumar_horas($_POST['hora_inicio'],'02:00').':00';
+		print($tot_hora);
 		$servicio=$_POST['servicio'];
 		$fecha=$class->fecha_hora();
 		// --------------- id reservation-------------//
@@ -89,6 +89,27 @@
 	}
 	if (isset($_POST['eliminar_evento'])) {
 		$res=$class->consulta("UPDATE RESERVACION  SET STADO='REMOVED' WHERE ID='$_POST[id]'");
+		if (!$res) {
+			$acu[]=1;
+		}else $acu[]=0;
+		print_r(json_encode($acu));
+	}
+	if (isset($_POST['update_reservacion'])) {
+		$d=$_POST['dias'];
+		if ($d!=0) {
+			if ($d>0)
+				$res=$class->consulta("UPDATE RESERVACION_HORARIOS RH SET HFIN= (SELECT(HFIN + interval '".$d." days') FROM RESERVACION_HORARIOS, RESERVACION R WHERE R.ID='$_POST[id]' AND R.ID=ID_RESERVACION ) FROM RESERVACION R WHERE R.ID='$_POST[id]' AND R.ID=ID_RESERVACION;");
+			else
+				$res=$class->consulta("UPDATE RESERVACION_HORARIOS RH SET HFIN= (SELECT(HFIN - interval '".($d*-1)." days') FROM RESERVACION_HORARIOS, RESERVACION R WHERE R.ID='$_POST[id]' AND R.ID=ID_RESERVACION ) FROM RESERVACION R WHERE R.ID='$_POST[id]' AND R.ID=ID_RESERVACION;");
+		};
+		print $m=$_POST['minutos'];
+		if ($m!=0) {
+			if ($m>0)
+
+				$res=$class->consulta("UPDATE RESERVACION_HORARIOS RH SET HFIN= (SELECT(HFIN + interval '".$m." min') FROM RESERVACION_HORARIOS, RESERVACION R WHERE R.ID='$_POST[id]' AND R.ID=ID_RESERVACION ) FROM RESERVACION R WHERE R.ID='$_POST[id]' AND R.ID=ID_RESERVACION;");
+			else
+				$res=$class->consulta("UPDATE RESERVACION_HORARIOS RH SET HFIN= (SELECT(HFIN - interval '".($m*-1)." min') FROM RESERVACION_HORARIOS, RESERVACION R WHERE R.ID='$_POST[id]' AND R.ID=ID_RESERVACION ) FROM RESERVACION R WHERE R.ID='$_POST[id]' AND R.ID=ID_RESERVACION;");
+		}
 		if (!$res) {
 			$acu[]=1;
 		}else $acu[]=0;
@@ -149,12 +170,7 @@
 			if ($row[5]=='20141211160155548a0643d0616') $clase="label-success";
 			if ($row[5]=='20141211160521548a07112af84') $clase="label-important";
 			if ($row[5]=='20141211160613548a07457dffd') $clase="label-purple";
-
-			$fe=split('/', $row[4]);
-			$star=$fe[2].'-'.$fe[1].'-'.$fe[0].' '.$row[2].':00';
-			$fs=split('/', $row[4]);
-			$end=$fs[2].'-'.$fs[1].'-'.$fs[0].' '.$row[3].':00';
-			$acu[$i]= array('id' => $row[0],'title'=>$row[1],'start'=>$star,'end'=>$end,'className'=>$clase,'description'=>'hola men');
+			$acu[$i]= array('id' => $row[0],'title'=>$row[1],'start'=>$row[2],'end'=>$row[3],'className'=>$clase,'description'=>'hola men');
 			$i++;
 	 	}
 	 	print_r(json_encode($acu));
