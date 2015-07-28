@@ -1,4 +1,4 @@
-<?php   
+<?php
 include_once("conex.php");
 include("constante.php");
 class constante
@@ -8,10 +8,8 @@ class constante
    private $cedula;
    private $tipo;
    private $status;
-   
-   
    public function consulta($q)
-   {      
+   {
       $BaseDato=new BaseDeDato(SERVIDOR,PUERTO,BD,USUARIO,CLAVE);//declarar el objeto de la clase base de dato
       $result=$BaseDato->Consultas($q);
       return $result;
@@ -28,9 +26,9 @@ class constante
       return $this->total_consultas; 
      }
    public function sqlcon($q)
-   {      
-      $BaseDato=new BaseDeDato(SERVIDOR,PUERTO,BD,USUARIO,CLAVE);//declarar el objeto de la clase base de dato     
-      $result=$BaseDato->Consultas($q);          
+   {
+      $BaseDato=new BaseDeDato(SERVIDOR,PUERTO,BD,USUARIO,CLAVE);//declarar el objeto de la clase base de dato
+      $result=$BaseDato->Consultas($q);
       if(pg_affected_rows($result)>=0)
       return 1;
       else
@@ -40,7 +38,7 @@ class constante
     function idz(){
       date_default_timezone_set('America/Guayaquil');
       $fecha=date("YmdHis");
-      return($fecha.uniqid());  
+      return($fecha.uniqid()); 
     }
 
    function client_ip() {

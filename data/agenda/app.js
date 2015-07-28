@@ -1,15 +1,9 @@
-$(function() {
-	$('#profile-feed-1').slimScroll({
-	height: '250px',
-	alwaysVisible : true
-	});
+jQuery(function($) {
 
-
-	/* initialize the external events
+/* initialize the external events
 	-----------------------------------------------------------------*/
 
 	$('#external-events div.external-event').each(function() {
-
 		// create an Event Object (http://arshaw.com/fullcalendar/docs/event_data/Event_Object/)
 		// it doesn't need to have a start or end
 		var eventObject = {
@@ -38,12 +32,24 @@ $(function() {
 	var m = date.getMonth();
 	var y = date.getFullYear();
 
+
 	var calendar = $('#calendar').fullCalendar({
+		//isRTL: true,
+		defaultDate: new Date(),
 		defaultView: "agendaWeek",
-		lang: 'es',
-		 buttonText: {
-			prev: '<i class="icon-chevron-left"></i>',
-			next: '<i class="icon-chevron-right"></i>'
+		buttonHtml: {
+			prev: '<i class="ace-icon fa fa-chevron-left"></i>',
+			next: '<i class="ace-icon fa fa-chevron-right"></i>'
+		},
+		monthNames: ["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre" ], 
+		monthNamesShort: ['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'],
+		dayNames: [ 'Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
+		dayNamesShort: ['Dom','Lun','Mar','Mié','Jue','Vie','Sáb'],
+		buttonText: {
+			today: 'hoy',
+			month: 'mes',
+			week: 'semana',
+			day: 'día'
 		},
 		header: {
 			left: 'prev,next today',
@@ -58,31 +64,15 @@ $(function() {
 				console.log(data);
 			}
 		},
+		slotDuration: '00:15:00',
 		editable: true,
 		droppable: true, // this allows things to be dropped onto the calendar !!!
-		eventDrop: function (event, dayDelta, minuteDelta, allDay, revertFunc) {
-	        var DATA = {
-	            "event_title": event.title,
-	            "event_id": event.id,
-	            "event_date": event.start,
-	            "dayDelta": dayDelta,
-	            "minuteDelta": minuteDelta,
-	            "allDay": allDay
-	        };
-	        console.log(DATA);
-	        // $.ajax({
-	        //     type: "POST",
-	        //     url: "move",
-	        //     data: DATA,
-	        //     cache: false,
-	        //     success: function (data) {
-	        //         //to do in case of success
-	        //     }
-	        // });
-	    },
-	    eventResizeStart: function (event, jsEvent, ui, view) {
+		selectable: true,
+		selectHelper: true,
+		eventLimit: true, // allow "more" link when too many events
+		eventResizeStart: function (event, jsEvent, ui, view) {
 	        console.log('RESIZE START ' + event.title);
-
+	        console.log('test');
 	    },
 	    eventResizeStop: function (event, jsEvent, ui, view) {
 	        console.log('RESIZE STOP ' + event.title);
@@ -98,9 +88,29 @@ $(function() {
 		   var title = event.title;
 		   var start = event.start.format("YYYY-MM-DD[T]HH:MM:SS");
 		   console.log('test');
+		   $('');
 		},
-		drop: function(date, allDay, event, dayDelta, minuteDelta, revertFunc) { // this function is called when something is droppe			
-	        // console.log(event.start.moment().format('MMMM Do YYYY, h:mm:ss a'));
+		select: function(start, end, allDay) {
+			console.log('test');
+			// alert('hola')
+			// bootbox.prompt("titulo nueva reservacion:", function(title) {
+			// 	if (title !== null) {
+			// 		calendar.fullCalendar('renderEvent',
+			// 			{
+			// 				title: title,
+			// 				start: start,
+			// 				end: end,
+			// 				allDay: allDay
+			// 			},
+			// 			true // make the event "stick"
+			// 		);
+			// 	}
+			// });
+
+			// calendar.fullCalendar('unselect');
+		},
+		drop: function(date, allDay, event, dayDelta, minuteDelta, revertFunc) { // this function is called when something is dropped
+			 // console.log(event.start.moment().format('MMMM Do YYYY, h:mm:ss a'));
 	        // console.log(dayDelta);
 	        // console.log(minuteDelta);
 
@@ -114,6 +124,7 @@ $(function() {
 
 			// ------------informacion de hora de inicio-------//
 				var fecha=new Date(date);
+				var fecha=new Date(fecha.getTime() + (5 * 3600 * 1000));
 				var hora=digitos(fecha.getHours())+':'+digitos(fecha.getMinutes());
 				var fecha_evento=digitos(fecha.getDate())+'/'+digitos(fecha.getMonth()+1)+'/'+fecha.getFullYear();
 				var diasSemana = new Array("Domingo","Lunes","Martes","Miércoles","Jueves","Viernes","Sábado");
@@ -154,55 +165,24 @@ $(function() {
 			copiedEventObject.start = date;
 			copiedEventObject.id=idreserva;
 
-			copiedEventObject.allDay = allDay;
+			// copiedEventObject.allDay = allDay;
 			if($extraEventClass) copiedEventObject['className'] = [$extraEventClass];
 
 			$('#calendar').fullCalendar('renderEvent', copiedEventObject, true);
-
-
-		}
-		,
-		selectable: true,
-		selectHelper: true,
-		select: function(start, end, allDay) {
-			// alert('hola')
-			// bootbox.prompt("titulo nueva reservacion:", function(title) {
-			// 	if (title !== null) {
-			// 		calendar.fullCalendar('renderEvent',
-			// 			{
-			// 				title: title,
-			// 				start: start,
-			// 				end: end,
-			// 				allDay: allDay
-			// 			},
-			// 			true // make the event "stick"
-			// 		);
-			// 	}
-			// });
-
-			// calendar.fullCalendar('unselect');
+		},
+		eventDragStart: function (event, jsEvent, ui, view) {
+			console.log('cogiendo');
+		},
+		eventDragStop: function (event, jsEvent, ui, view) {
+			console.log('soltando');
 		},
 		eventClick: function(calEvent, jsEvent, view) {
 			$('#modal_form').modal('show');
 			$('#txt_servicio').val(calEvent.title);
-			console.log(calEvent.id+'aki mijin');
-		// $()
-			// form.on('submit', function(){
-			// 	calEvent.title = form.find("input[type=text]").val();
-			// 	calendar.fullCalendar('updateEvent', calEvent);
-			// 	div.modal("hide");
-			// 	return false;
-			// });
-			//console.log(calEvent.id);
-			//console.log(jsEvent);
-			//console.log(view);
-
-			// change the border color just for fun
-			//$(this).css('border-color', 'red');
-
+			$('.btn_eliminarevento').attr({id: calEvent.id});
 		}
-	});
 
+	});
 	$('#btn_cliente').click(function(){
 		$('#modal_form').modal('hide');
 		$('#modal-cliente').modal('show');
@@ -210,6 +190,35 @@ $(function() {
 	$('#btn_cerrar_modal_buscar').click(function(){
 		$('#modal-cliente').modal('hide');
 		$('#modal_form').modal('show');
+	});
+	$('.btn_eliminarevento').click(function() {
+		bootbox.confirm("Estás seguro?", function(result) {
+			if(result) {
+				var procesando=$('.btn_eliminarevento').attr('id');
+				console.log(procesando);
+				$.ajax({
+					url: 'app.php',
+					type: 'POST',
+					dataType:'json',
+					async:false,
+					data: {eliminar_evento:':(', id:''+procesando+''},
+					success:function(data){
+						if (data[0]==0) {
+							$('#modal_form').modal('hide');
+							$('#calendar').fullCalendar('removeEvents',procesando);
+						};
+						if (data[0]!=0) {
+							$.gritter.add({
+		                        title: '<h1 class="icon-ok" style="color: #336699;">Comunicar admin</h1>',
+		                        text: 'Proceso fuera de db-56',
+		                        time: 4000
+		                        //class_name: 'gritter-info')
+		                    });
+						}
+					}
+				});
+			}
+		});
 	});
 	$('#tbt_clientes').dataTable( {
         language: {
@@ -291,7 +300,7 @@ $(function() {
                  result = data ;
             }
         });
-        return result ; 
+        return result ;
     }
     // Validacion de sedula
     function cedula(reg){
@@ -452,110 +461,112 @@ $(function() {
             });
         }
     });
+
+
 });
-	function check_cedula(cedula){
-	  var cedula = cedula;
-	  array = cedula.split( "" );
-	  num = array.length;
-	  if ( num == 10 ){
-	    total = 0;
-	    digito = (array[9]*1);
-	    for( i=0; i < (num-1); i++ )
-	     {
-	       mult = 0;
-	       if ( ( i%2 ) != 0 ) {
-	         total = total + ( array[i] * 1 );
-	       }
-	       else
-	       {
-	         mult = array[i] * 2;
-	         if ( mult > 9 )
-	          total = total + ( mult - 9 );
-	        else
-	          total = total + mult;
-	      }
-	    }
-	    decena = total / 10;
-	    decena = Math.floor( decena );
-	    decena = ( decena + 1 ) * 10;
-	    final = ( decena - total );
-	    if ( ( final == 10 && digito == 0 ) || ( final == digito ) ) {
-	      return true;
-	    }
-	    else
-	    {
-	      return false;
-	    }
-	  };
-	  if(num >10) {
-	  	return validar(cedula);
-	  };
-	  if (num<10) {
-	  	return false;
-	  }
-	}
-	function validar(ruc){
-	  var number = ruc;
-	  var dto = number.length;
-	  var valor;
-	  var acu=0;
-	  if(number==""){
-	   return false;
-	   }
-	  else{
-	   for (var i=0; i<dto; i++){
-	   valor = number.substring(i,i+1);
-	   if(valor==0||valor==1||valor==2||valor==3||valor==4||valor==5||valor==6||valor==7||valor==8||valor==9){
-	    acu = acu+1;
-	   }
-	   }
-	   if(acu==dto){
-	    while(number.substring(10,13)!=001){
-	     return false;
-	     return;
-	    }
-	    while(number.substring(0,2)>24){
-	     return false;
-	     return;
-	    }
-	    return true;
-	   }
-	   else{
-	   return false;
-	   }
-	  }
-	}
+function check_cedula(cedula){
+  var cedula = cedula;
+  array = cedula.split( "" );
+  num = array.length;
+  if ( num == 10 ){
+    total = 0;
+    digito = (array[9]*1);
+    for( i=0; i < (num-1); i++ )
+     {
+       mult = 0;
+       if ( ( i%2 ) != 0 ) {
+         total = total + ( array[i] * 1 );
+       }
+       else
+       {
+         mult = array[i] * 2;
+         if ( mult > 9 )
+          total = total + ( mult - 9 );
+        else
+          total = total + mult;
+      }
+    }
+    decena = total / 10;
+    decena = Math.floor( decena );
+    decena = ( decena + 1 ) * 10;
+    final = ( decena - total );
+    if ( ( final == 10 && digito == 0 ) || ( final == digito ) ) {
+      return true;
+    }
+    else
+    {
+      return false;
+    }
+  };
+  if(num >10) {
+  	return validar(cedula);
+  };
+  if (num<10) {
+  	return false;
+  }
+}
+function validar(ruc){
+  var number = ruc;
+  var dto = number.length;
+  var valor;
+  var acu=0;
+  if(number==""){
+   return false;
+   }
+  else{
+   for (var i=0; i<dto; i++){
+   valor = number.substring(i,i+1);
+   if(valor==0||valor==1||valor==2||valor==3||valor==4||valor==5||valor==6||valor==7||valor==8||valor==9){
+    acu = acu+1;
+   }
+   }
+   if(acu==dto){
+    while(number.substring(10,13)!=001){
+     return false;
+     return;
+    }
+    while(number.substring(0,2)>24){
+     return false;
+     return;
+    }
+    return true;
+   }
+   else{
+   return false;
+   }
+  }
+}
 
-	function seleccion_cliente(id){
-	    $.ajax({
-	        url:'app.php',
-	        type:'POST',
-	        dataType:'json',
-	        data:{llenar_clientes_datos:':)',id:id},
-	        success:function(data){
-	        	console.log(data);
-	            $('#txt_cliente_reserva').val(data[1]);
-	            $('#id_txt_cliente_reserva').val(id);
-	            $('#txt_telefono_reserva').val(data[2]);
-	            $('#txt_direccion_reserva').val(data[3]);
-	        }
-	    });
-	    $('#modal-cliente').modal('hide');
-	    $('#modal_form').modal('show');
-		$.ajax({
-		    url:'app.php',
-		    type:'POST',
-		    dataType:'json',
-		    data:{actualizar_clientes_reservacion:':)',id:$('#id_txt_reservacion').val(),id_cliente:id},
-		    success:function(data){
-		        $('#txt_cliente_reserva').val(data[1]);
-		        $('#id_txt_cliente_reserva').val(id);
-		        $('#txt_telefono_reserva').val(data[2]);
-		        $('#txt_direccion_reserva').val(data[3]);
-		    }
-		});
-	}
+function seleccion_cliente(id){
+    $.ajax({
+        url:'app.php',
+        type:'POST',
+        dataType:'json',
+        data:{llenar_clientes_datos:':)',id:id},
+        success:function(data){
+        	console.log(data);
+            $('#txt_cliente_reserva').val(data[1]);
+            $('#id_txt_cliente_reserva').val(id);
+            $('#txt_telefono_reserva').val(data[2]);
+            $('#txt_direccion_reserva').val(data[3]);
+        }
+    });
+    $('#modal-cliente').modal('hide');
+    $('#modal_form').modal('show');
+	$.ajax({
+	    url:'app.php',
+	    type:'POST',
+	    dataType:'json',
+	    data:{actualizar_clientes_reservacion:':)',id:$('#id_txt_reservacion').val(),id_cliente:id},
+	    success:function(data){
+	        $('#txt_cliente_reserva').val(data[1]);
+	        $('#id_txt_cliente_reserva').val(id);
+	        $('#txt_telefono_reserva').val(data[2]);
+	        $('#txt_direccion_reserva').val(data[3]);
+	    }
+	});
+}
 
-	function digitos(n) {
-	    return n < 10 ? '0' + n : n;
-	}
+function digitos(n) {
+    return n < 10 ? '0' + n : n;
+}

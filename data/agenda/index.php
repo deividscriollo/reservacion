@@ -1,7 +1,7 @@
 <?php
 if(!isset($_SESSION))
 	{
-		session_start();		
+		session_start();
 	}
 	if(!isset($_SESSION["pass"])) {
 
@@ -25,7 +25,8 @@ if(!isset($_SESSION))
 		<link rel="stylesheet" href="../../assets/css/font-awesome.min.css" />
 
 		<link rel="stylesheet" href="../../assets/css/fontdc.css" />
-		<link rel="stylesheet" href="../../assets/css/fullcalendar.css" />
+		<!-- <link rel="stylesheet" href="../../assets/css/fullcalendar.css" /> -->
+		<link href='../assets/calendar/fullcalendar.css' rel='stylesheet' />
 		<link rel="stylesheet" href="../assets/css/jquery.gritter.css" />
 
 		<link rel="stylesheet" href="../../assets/css/ace.min.css" />
@@ -75,7 +76,7 @@ if(!isset($_SESSION))
 										</div>
 
 										<div class="widget-main no-padding">
-											<div id="external-events" id="obj_servicios">
+											<div id="external-events">
 												<?php
 													require('../../admin/class.php');
 													$class=new constante();
@@ -96,6 +97,13 @@ if(!isset($_SESSION))
 												 	}
 												?>
 											</div>
+											<div id='calendar'></div>
+											<div style='clear:both'></div>
+
+										</div>
+
+
+
 										</div>
 									</div>
 								</div>
@@ -188,8 +196,7 @@ if(!isset($_SESSION))
 			</div>
 			<div class="modal-footer">
 			    <button class="btn btn-mini btn-success" data-dismiss="modal" aria-hidden="true">Cerrar</button>
-			    <button type="submit" class="btn btn-mini btn-primary">Guardar</button>
-			    <button type="submit" class="btn btn-mini btn-danger">Eliminar Reservación</button>
+			    <button class="btn btn-mini btn-danger btn_eliminarevento" id="">Eliminar Reservación</button>
 			</div>
 		</div>
 		<div id="modal-cliente" class="modal hide fade" tabindex="-1" data-keyboard="false" data-backdrop="static">
@@ -355,10 +362,13 @@ if(!isset($_SESSION))
 		<script src="../../assets/js/flot/jquery.flot.min.js"></script>
 		<script src="../../assets/js/flot/jquery.flot.pie.min.js"></script>
 		<script src="../../assets/js/flot/jquery.flot.resize.min.js"></script>
-		<script src="../assets/js/date-time/moment.min.js"></script>
+		<!-- <script src="../assets/js/date-time/moment.min.js"></script> -->
 		<script src="../assets/js/date-time/bootstrap-datepicker.min.js"></script>
 
-		<script src="../../assets/js/fullcalendar.min.js"></script>
+		<!-- <script src="../../assets/js/fullcalendar.min.js"></script> -->
+		<script src='../assets/calendar/moment.min.js'></script>
+		<script src='../assets/calendar/fullcalendar.min.js'></script>
+		<script type="../assets/calendar/lang/es.js"></script>
 		<script src="../../assets/js/bootbox.min.js"></script>
 		<script src="../assets/js/jquery.dataTables.min.js"></script>
 		<script src="../assets/js/jquery.dataTables.bootstrap.js"></script>
@@ -374,7 +384,8 @@ if(!isset($_SESSION))
 
 		<script src="../../assets/js/ace-elements.min.js"></script>
 		<script src="../../assets/js/ace.min.js"></script>
-		<script src="index.js"></script>
+		<!-- <script src="index.js"></script> -->
+		<script src="app.js"></script>
 
 	</body>
 </html>

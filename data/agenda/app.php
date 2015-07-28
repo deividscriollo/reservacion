@@ -64,9 +64,6 @@
 		$tot_hora=sumar_horas($hora_inicio,'02:00');
 
 		$servicio=$_POST['servicio'];
-		// $cliente=$_POST['cliente'];
-		// $horario=$_POST['horario'];
-		// $subtotal=$_POST['subtotal'];
 		$fecha=$class->fecha_hora();
 		// --------------- id reservation-------------//
 		$id=$class->idz();
@@ -89,6 +86,13 @@
 	}
 	if (isset($_POST['actualizar_clientes_reservacion'])) {
 		$class->consulta("UPDATE RESERVACION  SET ID_USUARIO='$_POST[id_cliente]' WHERE ID='$_POST[id]'");
+	}
+	if (isset($_POST['eliminar_evento'])) {
+		$res=$class->consulta("UPDATE RESERVACION  SET STADO='REMOVED' WHERE ID='$_POST[id]'");
+		if (!$res) {
+			$acu[]=1;
+		}else $acu[]=0;
+		print_r(json_encode($acu));
 	}
 	if(isset($_POST['actividades'])) {
 		//$pos=$_POST['pos'];
@@ -135,7 +139,7 @@
 	 	}
 	}
 	if (isset($_POST['reservacion_eventos'])) {
-		$resultado = $class->consulta("SELECT R.ID, S.NOM,H.HINICIO,H.HFIN,H.FE,S.ID FROM SERVICIOS S,RESERVACION R, RESERVACION_HORARIOS H WHERE S.ID=R.ID_SERVICIO AND R.ID=H.ID_RESERVACION");
+		$resultado = $class->consulta("SELECT R.ID, S.NOM,H.HINICIO,H.HFIN,H.FE,S.ID FROM SERVICIOS S,RESERVACION R, RESERVACION_HORARIOS H WHERE S.ID=R.ID_SERVICIO AND R.ID=H.ID_RESERVACION AND R.STADO='0'");
 		$acu = array(); //create new array
 		$i=0;
 		while ($row=$class->fetch_array($resultado)) {
@@ -147,10 +151,10 @@
 			if ($row[5]=='20141211160613548a07457dffd') $clase="label-purple";
 
 			$fe=split('/', $row[4]);
-			$star=$fe[2].'-'.$fe[1].'-'.$fe[0].'T'.$row[2].':00-05:00';
+			$star=$fe[2].'-'.$fe[1].'-'.$fe[0].' '.$row[2].':00';
 			$fs=split('/', $row[4]);
-			$end=$fs[2].'-'.$fs[1].'-'.$fs[0].'T'.$row[3].':00-05:00';
-			$acu[$i]= array('id' => $row[0],'title'=>$row[1],'start'=>$star,'end'=>$end,'className'=>$clase);
+			$end=$fs[2].'-'.$fs[1].'-'.$fs[0].' '.$row[3].':00';
+			$acu[$i]= array('id' => $row[0],'title'=>$row[1],'start'=>$star,'end'=>$end,'className'=>$clase,'description'=>'hola men');
 			$i++;
 	 	}
 	 	print_r(json_encode($acu));
