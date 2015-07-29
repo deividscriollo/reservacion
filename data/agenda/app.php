@@ -62,7 +62,6 @@
 		$dia= strtoupper($_POST['dia']);
 		$hora_inicio = $fecha_evento.' '.$_POST['hora_inicio'].':00'; // Hora actual
 		$tot_hora=$fecha_evento.' '.sumar_horas($_POST['hora_inicio'],'02:00').':00';
-		print($tot_hora);
 		$servicio=$_POST['servicio'];
 		$fecha=$class->fecha_hora();
 		// --------------- id reservation-------------//
@@ -102,7 +101,7 @@
 			else
 				$res=$class->consulta("UPDATE RESERVACION_HORARIOS RH SET HFIN= (SELECT(HFIN - interval '".($d*-1)." days') FROM RESERVACION_HORARIOS, RESERVACION R WHERE R.ID='$_POST[id]' AND R.ID=ID_RESERVACION ) FROM RESERVACION R WHERE R.ID='$_POST[id]' AND R.ID=ID_RESERVACION;");
 		};
-		print $m=$_POST['minutos'];
+		$m=$_POST['minutos'];
 		if ($m!=0) {
 			if ($m>0)
 

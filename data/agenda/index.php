@@ -376,10 +376,6 @@ if(!isset($_SESSION))
 		<script src="../assets/js/additional-methods.min.js"></script>
 		<script src="../assets/js/blockui.js"></script>
 		<script src="../assets/js/jquery.gritter.min.js"></script>
-
-
-
-
 		<!--ace scripts-->
 
 		<script src="../../assets/js/ace-elements.min.js"></script>

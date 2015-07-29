@@ -82,22 +82,20 @@ jQuery(function($) {
 					data: {update_reservacion:'ok',id:id,minutos:time_min,dias:dayDelta._days},
 					success:function(data){
 						console.log(data);
-						if (data[1]==0&&data[2]==0) {
+						if (data[0]==0) {
 							$.gritter.add({
-		                        title: '<h1 class="icon-ok" style="color: #FFF;">Reservación creada con éxito</h1>',
+		                        title: '<h1><div class="icon-spinner icon-spin orange bigger-125" style="color: #FFF;"></div> Reservación actualizada</h1>',
 		                        text: '',
 		                        time: 4000
-		                        //class_name: 'gritter-info')
 		                    });
 		                    $('#id_txt_reservacion').val(data[0]);
 		                    idreserva=data[0]
 						};
-						if (data[1]!=0&&data[2]!=0) {
+						if (data[0]!=0) {
 							$.gritter.add({
 		                        title: '<h1 class="icon-ok" style="color: #336699;">Comunicar admin</h1>',
 		                        text: 'Proceso fuera de db-56',
 		                        time: 4000
-		                        //class_name: 'gritter-info')
 		                    });
 						}
 					}
@@ -108,10 +106,9 @@ jQuery(function($) {
 		   var title = event.title;
 		   var start = event.start.format("YYYY-MM-DD[T]HH:MM:SS");
 		   console.log('test');
-		   $('');
 		},
 		select: function(start, end, allDay) {
-			console.log('test');
+			console.log('tsdfaest');
 			// alert('hola')
 			// bootbox.prompt("titulo nueva reservacion:", function(title) {
 			// 	if (title !== null) {
@@ -130,11 +127,6 @@ jQuery(function($) {
 			// calendar.fullCalendar('unselect');
 		},
 		drop: function(date, allDay, event, dayDelta, minuteDelta, revertFunc) { // this function is called when something is dropped
-			 // console.log(event.start.moment().format('MMMM Do YYYY, h:mm:ss a'));
-	        // console.log(dayDelta);
-	        // console.log(minuteDelta);
-
-
 			// retrieve the dropped element's stored Event Object
 			var originalEventObject = $(this).data('eventObject');
 			$('#id_txt_servicio').val($(this).attr("id"));
@@ -185,22 +177,35 @@ jQuery(function($) {
 			copiedEventObject.start = date;
 			copiedEventObject.id=idreserva;
 
-			// copiedEventObject.allDay = allDay;
 			if($extraEventClass) copiedEventObject['className'] = [$extraEventClass];
 
 			$('#calendar').fullCalendar('renderEvent', copiedEventObject, true);
 		},
-		eventDragStart: function (event, jsEvent, ui, view) {
-			console.log('cogiendo');
-		},
 		eventDragStop: function (event, jsEvent, ui, view) {
-			console.log('soltando');
+			var id=event.id;
+			var inicio=event.start;
+			var fin=event.end;
+			console.log(id);
+			console.log(inicio);
+			console.log(fin);
+		   var start = event.start._d;//.format("YYYY-MM-DD[T]HH:MM:SS");
+		   var originalEventObject = event;
+		   console.log(originalEventObject.end);
 		},
 		eventClick: function(calEvent, jsEvent, view) {
 			$('#modal_form').modal('show');
 			$('#txt_servicio').val(calEvent.title);
 			$('.btn_eliminarevento').attr({id: calEvent.id});
-		}
+		},
+	    eventMouseover:function(event){
+	    	// $(this).popover({
+	    	// 	html:true,
+	    	// 	title:'<i class="icon-ok green"></i>'+event.title,
+	    	// 	placement:'top',
+	    	// 	trigger:'hover',
+	    	// 	content: event.description
+	    	// });
+	    }
 
 	});
 	$('#btn_cliente').click(function(){
@@ -212,7 +217,7 @@ jQuery(function($) {
 		$('#modal_form').modal('show');
 	});
 	$('.btn_eliminarevento').click(function() {
-		bootbox.confirm("Estás seguro?", function(result) {
+		bootbox.confirm("<h1>Estás seguro?</h1>", function(result) {
 			if(result) {
 				var procesando=$('.btn_eliminarevento').attr('id');
 				console.log(procesando);
