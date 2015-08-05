@@ -1,7 +1,7 @@
-<?php 
+<?php
 	if(!isset($_SESSION))
 	{
-		session_start();		
+		session_start();
 	}
 	require('../../admin/class.php');
 	require('../../inicio/php/mail.php');
@@ -23,7 +23,7 @@
                                                                     "')");
       $resultado = $class->consulta("INSERT INTO SEG.NIVEL VALUES('".$class->idz()
                                                                     ."','".$id.
-                                                                    "','".'Cliente'.                                                                    
+                                                                    "','".'Cliente'.
                                                                     "','".$class->fecha_hora().
                                                                     "','".'1'.
                                                                     "')");
@@ -31,7 +31,7 @@
 	}
 	if(isset($_POST['guardar'])) {
 		// guardar:'ok',matriz:matriz,acu_fh:acu_fh,subtotal:lbl_subtotal
-		$mat=$_POST['matriz'];		
+		$mat=$_POST['matriz'];
 		$horario=$_POST['horario'];
 		$subtotal=$_POST['subtotal'];
 		$fecha=$class->fecha_hora();
@@ -40,7 +40,7 @@
 		$id_ser=$_POST['id_servicio'];
 		$nom_servicio='';
 		$res1=$class->consulta("SELECT nom FROM SERVICIOS WHERE ID='$id_ser'");
-		while ($row=$class->fetch_array($res1)) {					
+		while ($row=$class->fetch_array($res1)) {
 					$nom_servicio=$row[0];
 	 	}
 
@@ -49,7 +49,7 @@
         <tr style="background: #8FBC1D;"><td>SERVICIO</td><td>TARIFA</td><td>cantidad</td><td>precio</td><td>Total</td></tr>
             </thead><tbody style="color:#FFFFFF;">';
 		$res=$class->consulta("INSERT INTO RESERVACION VALUES('$id','$_POST[id_cliente]','$id_ser','$subtotal','$fecha','0')");
-		for ($i=0; $i < count($mat); $i++) { 
+		for ($i=0; $i < count($mat); $i++) {
 				$ida=$class->idz();
 				$a=$mat[$i][1];
 				$acus=split(':', $a);
@@ -63,7 +63,7 @@
 				$c=$mat[$i][2];
 				$sum1=split(':', $c);
 				$t=$sum1[2];
-				if ($i==0) {					
+				if ($i==0) {
 					$tabla=$tabla.'<tr><td>'.$nom_servicio.'</td><td>'.$servicios.'</td><td>'.$cantidad.'</td><td>'.$p_cantidad.'</td><td>'.$t.'</td></tr>';
 				}else				
 				$tabla=$tabla.'<tr><td></td><td>'.$servicios.'</td><td>'.$cantidad.'</td><td>'.$p_cantidad.'</td><td>'.$t.'</td></tr>';
@@ -149,6 +149,7 @@
 			$acu[]=$row[2];
 			$acu[]=$row[3];
 			$acu[]=$row[4];
+			$acu[]=$row[5];
 	 	}
 	 	print_r(json_encode($acu));
 	}

@@ -208,7 +208,7 @@ class email  extends PHPMailer{
         <tr height="50px" style="font-family: Arial, sans-serif; line-height: 19px; color: #444444; font-size: 13px; height: 50px; background-color: transparent;">
          <td class="table-row-td" style="height: 50px; padding-right: 16px; font-family: Arial, sans-serif; line-height: 19px; color: #444444; font-size: 13px; font-weight: normal; vertical-align: middle;" valign="middle" align="left">
            <a href="#" style="color: #ffffff; text-decoration: none; padding: 0px; font-size: 18px; line-height: 20px; height: 50px; background-color: transparent;">
-          Fabrica Imbabura
+          Fábrica Imbabura
          </a>
          </td> 
          <td class="table-row-td" style="height: 50px; font-family: Arial, sans-serif; line-height: 19px; color: #444444; font-size: 13px; font-weight: normal; text-align: right; vertical-align: middle;" align="right" valign="middle">
@@ -243,7 +243,7 @@ class email  extends PHPMailer{
       <tbody>
       <tr>
       <td width="100%" align="center"  style="font-family:Arial, sans-serif;line-height:24px;color:#bbbbbb;font-size:13px;font-weight:normal;text-align:center;border-width:1px 0px 0px; " valign="top">
-            <a href="http://www.fabricaimbabura.gob.ec/" style="color:#428bca;text-decoration:none;background-color:transparent;" target="_blank" class="">Fabrica Imbabura © 2015</a>
+            <a href="http://www.fabricaimbabura.gob.ec/" style="color:#428bca;text-decoration:none;background-color:transparent;" target="_blank" class="">Fábrica Imbabura © 2015</a>
             <br>
             <a href="https://twitter.com/FabricaImbabura" style="color:#ffffff;text-decoration:none;text-align:center;vertical-align:baseline;border:4px solid #6fb3e0;padding:4px 9px;font-size:14px;line-height:19px;background-color:#6fb3e0;" target="_blank">Twitter</a>
 
@@ -421,7 +421,7 @@ class email  extends PHPMailer{
 <table class="table-row-fixed" width="450" bgcolor="#FFFFFF" style="table-layout: fixed; background-color: #ffffff;" cellspacing="0" cellpadding="0" border="0"><tbody><tr><td class="table-row-fixed-td" style="font-family: Arial, sans-serif; line-height: 19px; color: #444444; font-size: 13px; font-weight: normal; padding-left: 1px; padding-right: 1px;" valign="top" align="left">
   <table class="table-col" align="left" width="448" cellspacing="0" cellpadding="0" border="0" style="table-layout: fixed;"><tbody><tr><td class="table-col-td" width="448" style="font-family: Arial, sans-serif; line-height: 19px; color: #444444; font-size: 13px; font-weight: normal;" valign="top" align="left">
     <table width="100%" cellspacing="0" cellpadding="0" border="0" style="table-layout: fixed;"><tbody><tr><td width="100%" align="center" bgcolor="#f5f5f5" style="font-family: Arial, sans-serif; line-height: 24px; color: #bbbbbb; font-size: 13px; font-weight: normal; text-align: center; padding: 9px; border-width: 1px 0px 0px; border-style: solid; border-color: #e3e3e3; background-color: #f5f5f5;" valign="top">
-      <a href="http://www.fabricaimbabura.gob.ec/" style="color: #428bca; text-decoration: none; background-color: transparent;">Fabrica Imbabura &copy; 2015</a>
+      <a href="http://www.fabricaimbabura.gob.ec/" style="color: #428bca; text-decoration: none; background-color: transparent;">Fábrica Imbabura &copy; 2015</a>
       <br>
       <a href="https://twitter.com/FabricaImbabura" style="color: #ffffff; text-decoration: none; margin: 0px; text-align: center; vertical-align: baseline; border: 4px solid #6fb3e0; padding: 4px 9px; font-size: 14px; line-height: 19px; background-color: #6fb3e0;">Twitter</a>
 
@@ -573,7 +573,7 @@ class email  extends PHPMailer{
       </tbody>
     </table>
     <div style="font-family: Arial, sans-serif; line-height: 20px; color: #444444; font-size: 13px;">
-      <b style="color: #777777;">Su cuenta de La Fabrica Imbabura ha sido configurada y este correo contiene toda la información que necesitará para comenzar a usar tu cuenta.</b>
+      <b style="color: #777777;">Su cuenta de La Fábrica Imbabura ha sido configurada y este correo contiene toda la información que necesitará para comenzar a usar tu cuenta.</b>
       <br>
       Por favor confirme su registro para continuar.
     </div>
@@ -598,7 +598,7 @@ class email  extends PHPMailer{
 <table class="table-row-fixed" width="450" bgcolor="#FFFFFF" style="table-layout: fixed; background-color: #ffffff;" cellspacing="0" cellpadding="0" border="0"><tbody><tr><td class="table-row-fixed-td" style="font-family: Arial, sans-serif; line-height: 19px; color: #444444; font-size: 13px; font-weight: normal; padding-left: 1px; padding-right: 1px;" valign="top" align="left">
   <table class="table-col" align="left" width="448" cellspacing="0" cellpadding="0" border="0" style="table-layout: fixed;"><tbody><tr><td class="table-col-td" width="448" style="font-family: Arial, sans-serif; line-height: 19px; color: #444444; font-size: 13px; font-weight: normal;" valign="top" align="left">
     <table width="100%" cellspacing="0" cellpadding="0" border="0" style="table-layout: fixed;"><tbody><tr><td width="100%" align="center" bgcolor="#f5f5f5" style="font-family: Arial, sans-serif; line-height: 24px; color: #bbbbbb; font-size: 13px; font-weight: normal; text-align: center; padding: 9px; border-width: 1px 0px 0px; border-style: solid; border-color: #e3e3e3; background-color: #f5f5f5;" valign="top">
-      <a href="http://www.fabricaimbabura.gob.ec/" style="color: #428bca; text-decoration: none; background-color: transparent;">Fabrica Imbabura &copy; 2015</a>
+      <a href="http://www.fabricaimbabura.gob.ec/" style="color: #428bca; text-decoration: none; background-color: transparent;">Fábrica Imbabura &copy; 2015</a>
       <br>
       <a href="https://twitter.com/FabricaImbabura" style="color: #ffffff; text-decoration: none; margin: 0px; text-align: center; vertical-align: baseline; border: 4px solid #6fb3e0; padding: 4px 9px; font-size: 14px; line-height: 19px; background-color: #6fb3e0;">Twitter</a>
 

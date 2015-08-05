@@ -190,12 +190,24 @@ jQuery(function($) {
 			console.log(fin);
 		   var start = event.start._d;//.format("YYYY-MM-DD[T]HH:MM:SS");
 		   var originalEventObject = event;
-		   console.log(originalEventObject.end);
 		},
 		eventClick: function(calEvent, jsEvent, view) {
+			var id=calEvent.id;
 			$('#modal_form').modal('show');
+			$('#id_txt_reservacion').val(id);
 			$('#txt_servicio').val(calEvent.title);
-			$('.btn_eliminarevento').attr({id: calEvent.id});
+			$('.btn_eliminarevento').attr({id: id});
+			$.ajax({
+		        url:'app.php',
+		        type:'POST',
+		        dataType:'json',
+		        data:{mostrar_reservacion:':)', id:id},
+		        success:function(data){
+		        	$('#txt_cliente_reserva').val(data[0]);
+		        	$('#txt_telefono_reserva').val(data[1]);
+		        	$('#txt_direccion_reserva').val(data[2]);
+		        }
+		    });
 		},
 	    eventMouseover:function(event){
 	    	// $(this).popover({
@@ -206,7 +218,6 @@ jQuery(function($) {
 	    	// 	content: event.description
 	    	// });
 	    }
-
 	});
 	$('#btn_cliente').click(function(){
 		$('#modal_form').modal('hide');

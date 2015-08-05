@@ -133,49 +133,48 @@ function modificar_servicios(id){
 	        if (data[4]=='1')
 	       		$('#lbl_horario').html('POR HORAS');
 	        $('#lbl_iva').html(data[5]);
-	       
+
 	    	$('#lbl_porcentaje').html(data[6]);
 	    	$('#lbl_capacidad').html(data[7]);
 	    	$('#file_img2').attr('src','img/'+data[2]);
 	    	$('#lbl_descr').html(data[1]);
 	    	$('#lbl_stado').html(data[8])
-	    }	        
-	});	
+	    }
+	});
 	$('#modal-editar-servicios').modal('show');
 }
 
-$.validator.addMethod('filesize', function(value, element, param) {			    
-    return this.optional(element) || (element.files[0].size <= param) 
+$.validator.addMethod('filesize', function(value, element, param) {
+    return this.optional(element) || (element.files[0].size <= param)
 });
-$('#form_img, #form_edicion_img').validate({	
-	rules: {			
+$('#form_img, #form_edicion_img').validate({
+	rules: {
 		file_img: {
-			required: true, 
-			accept: "png|jpe?g|gif", 
+			required: true,
+			accept: "png|jpe?g|gif",
 			filesize: 1048576
-		}			
+		}
 	},
-	invalidHandler: function (event, validator) { //display error alert on form submit   
+	invalidHandler: function (event, validator) { //display error alert on form submit
 		$.gritter.removeAll();
-		$.gritter.add({                     
-            title: '..Mensaje..!',                      
+		$.gritter.add({
+            title: '..Mensaje..!',
             text: '<i class="icon-cloud purple bigger-230"></i>  El archivo debe ser formato JPG, GIF o PNG, menos de 1 MB  <i class="icon-spinner icon-spin green bigger-230"></i>',                      
-            //image: 'http://a0.twimg.com/profile_images/59268975/jquery_avatar_bigger.png',                        
-            sticky: false,                      
+            //image: 'http://a0.twimg.com/profile_images/59268975/jquery_avatar_bigger.png',
+            sticky: false,
             time: 2000,
-            
             class_name: 'gritter-error gritter-center'
         });
 	},
 	submitHandler: function (form) {
-		var formObj = new FormData(form); 	
+		var formObj = new FormData(form);
 		$.ajax({
 			url:'php/servicio.php',
 			type: 'POST',
 		    processData: false,
 		    contentType: false,
 			data:formObj,
-			success:function(data){	
+			success:function(data){
 				data=data.replace("\n","");
 				data=data.replace("\n","");
 				data=data.replace("  ","");
@@ -188,7 +187,7 @@ $('#form_img, #form_edicion_img').validate({
 				});
 			}
 		});
-	}		
+	}
 });
 
 $('#form-servicios1').validate({

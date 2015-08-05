@@ -25,7 +25,6 @@ if(!isset($_SESSION))
 		<link href="../../assets/css/font-awesome.min.css" rel="stylesheet" />
 		<link href="../../assets/css/jquery.gritter.css" rel="stylesheet"  />
 		<link href="../assets/css/animate.css" rel="stylesheet"  />
-		
 
 		<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400,300" />
 
@@ -43,7 +42,7 @@ if(!isset($_SESSION))
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /></head>
 
 	<body>
-		
+
 		<?php require('../inicio/menu.php'); menunav(); ?>
 
 		<div class="main-container container-fluid">
@@ -63,14 +62,14 @@ if(!isset($_SESSION))
 											<li class="active">
 												<a data-toggle="tab" href="#info">
 												<i class="icon-envelope red"></i> Mensajes</a>
-											</li>											
+											</li>
 										</ul>
 									</div>
 								</div>
 
 								<div class="widget-body ">
 									<div class="widget-main padding-6">
-										<div class="tab-content">											
+										<div class="tab-content">
 											<div id="info" class="tab-pane in active">
 												<div class="row-fluid">
 													<div class="span4">
@@ -83,7 +82,7 @@ if(!isset($_SESSION))
 															</div>
 															<div class="widget-body">
 																<div class="widget-main">
-																<form id="form-mensajes">																	
+																<form id="form-mensajes">
 																	<div class="row-fluid">
 																	<h4 class="header green clearfix">Mensaje</h4>
 																	<div class="wysiwyg-editor" id="editor1" name="editor1"></div>
@@ -101,19 +100,18 @@ if(!isset($_SESSION))
 															<thead>
 																<tr>
 																	<th class="center">Cedula</th>
-																	<th>Nombre</th>																	
+																	<th>Nombre</th>
 																	<th>Correo</th>
-																	<th class="center">Edad</th>																	
+																	<th class="center">Edad</th>
 																	<th></th>
 																</tr>
 															</thead>
 															<tbody>
-																
 															</tbody>
 														</table>
 													</div>
-												</div>												
-											</div>											
+												</div>
+											</div>
 										</div>
 									</div>
 								</div>
@@ -180,6 +178,34 @@ if(!isset($_SESSION))
 		<script src="../../assets/js/fuelux/fuelux.tree.min.js"></script>
 		<script src="../../assets/js/jquery.validate.min.js"></script>
 		<script src="../../assets/js/additional-methods.min.js"></script>
+		<script src="../assets/js/jquery-ui-1.10.3.custom.min.js"></script>
+		<script src="../assets/js/jquery.ui.touch-punch.min.js"></script>
+		<script src="../assets/js/jquery.gritter.min.js"></script>
+		<script src="../assets/js/bootbox.min.js"></script>
+		<script src="../assets/js/jquery.slimscroll.min.js"></script>
+		<script src="../assets/js/jquery.easy-pie-chart.min.js"></script>
+		<script src="../assets/js/jquery.hotkeys.min.js"></script>
+		<script src="../assets/js/select2.min.js"></script>
+		<script src="../assets/js/date-time/bootstrap-datepicker.min.js"></script>
+		<script src="../assets/js/fuelux/fuelux.spinner.min.js"></script>
+		<script src="../assets/js/x-editable/bootstrap-editable.min.js"></script>
+		<script src="../assets/js/x-editable/ace-editable.min.js"></script>
+		<script src="../assets/js/chosen.jquery.min.js"></script>
+		<script src="../assets/js/fuelux/fuelux.spinner.min.js"></script>
+		<script src="../assets/js/date-time/bootstrap-datepicker.min.js"></script>
+		<script src="../assets/js/date-time/bootstrap-timepicker.min.js"></script>
+		<script src="../assets/js/date-time/moment.min.js"></script>
+		<script src="../assets/js/date-time/daterangepicker.min.js"></script>
+		<script src="../assets/js/bootstrap-colorpicker.min.js"></script>
+		<script src="../assets/js/jquery.knob.min.js"></script>
+		<script src="../assets/js/jquery.autosize-min.js"></script>
+		<script src="../assets/js/jquery.inputlimiter.1.3.1.min.js"></script>
+		<script src="../assets/js/jquery.maskedinput.min.js"></script>
+		<script src="../assets/js/bootstrap-tag.min.js"></script>
+		<script src="../assets/js/jquery.validate.min.js"></script>
+		<script src="../assets/js/additional-methods.min.js"></script>
+		<script src="../assets/js/bootbox.min.js"></script>
+		<script src="../assets/js/bootstrap-wysiwyg.min.js"></script>
 
 
 
@@ -192,120 +218,8 @@ if(!isset($_SESSION))
 
 		<script src="../../assets/js/ace.min.js"></script>
 		<script src="../../assets/js/blockui.js"></script>
-		<script src="app.js"></script>		
+		<script src="app.js"></script>
 
 
-		<!--inline scripts related to this page-->
-		<script type="text/javascript">
-	$(function(){
-	
-		function showErrorAlert (reason, detail) {
-			var msg='';
-			if (reason==='unsupported-file-type') { msg = "Unsupported format " +detail; }
-			else {
-				console.log("error uploading file", reason, detail);
-			}
-			$('<div class="alert"> <button type="button" class="close" data-dismiss="alert">&times;</button>'+ 
-			 '<strong>File upload error</strong> '+msg+' </div>').prependTo('#alerts');
-		}
-
-		//$('#editor1').ace_wysiwyg();//this will create the default editor will all buttons
-
-		//but we want to change a few buttons colors for the third style
-		$('#editor1').ace_wysiwyg({
-			toolbar:
-			[
-				'font',
-				null,
-				'fontSize',
-				null,
-				{name:'bold', className:'btn-info'},
-				{name:'italic', className:'btn-info'},
-				{name:'strikethrough', className:'btn-info'},
-				{name:'underline', className:'btn-info'},
-				null,
-				{name:'insertunorderedlist', className:'btn-success'},
-				{name:'insertorderedlist', className:'btn-success'},
-				{name:'outdent', className:'btn-purple'},
-				{name:'indent', className:'btn-purple'},
-				null,
-				{name:'justifyleft', className:'btn-primary'},
-				{name:'justifycenter', className:'btn-primary'},
-				{name:'justifyright', className:'btn-primary'},
-				{name:'justifyfull', className:'btn-inverse'},
-				null,
-				{name:'createLink', className:'btn-pink'},
-				{name:'unlink', className:'btn-pink'},
-				null,
-				{name:'insertImage', className:'btn-success'},
-				null,
-				'foreColor',
-				null,
-				{name:'undo', className:'btn-grey'},
-				{name:'redo', className:'btn-grey'}
-			],
-			'wysiwyg': {
-				fileUploadError: showErrorAlert
-			}
-		}).prev().addClass('wysiwyg-style2');
-		$('[data-toggle="buttons-radio"]').on('click', function(e){
-			var target = $(e.target);
-			var which = parseInt($.trim(target.text()));
-			var toolbar = $('#editor1').prev().get(0);
-			if(which == 1 || which == 2 || which == 3) {
-				toolbar.className = toolbar.className.replace(/wysiwyg\-style(1|2)/g , '');
-				if(which == 1) $(toolbar).addClass('wysiwyg-style1');
-				else if(which == 2) $(toolbar).addClass('wysiwyg-style2');
-			}
-		});
-
-		if ( typeof jQuery.ui !== 'undefined' && /applewebkit/.test(navigator.userAgent.toLowerCase()) ) {			
-			var lastResizableImg = null;
-			function destroyResizable() {
-				if(lastResizableImg == null) return;
-				lastResizableImg.resizable( "destroy" );
-				lastResizableImg.removeData('resizable');
-				lastResizableImg = null;
-			}
-
-			var enableImageResize = function() {
-				$('.wysiwyg-editor')
-				.on('mousedown', function(e) {
-					var target = $(e.target);
-					if( e.target instanceof HTMLImageElement ) {
-						if( !target.data('resizable') ) {
-							target.resizable({
-								aspectRatio: e.target.width / e.target.height,
-							});
-							target.data('resizable', true);
-							
-							if( lastResizableImg != null ) {//disable previous resizable image
-								lastResizableImg.resizable( "destroy" );
-								lastResizableImg.removeData('resizable');
-							}
-							lastResizableImg = target;
-						}
-					}
-				})
-				.on('click', function(e) {
-					if( lastResizableImg != null && !(e.target instanceof HTMLImageElement) ) {
-						destroyResizable();
-					}
-				})
-				.on('keydown', function() {
-					destroyResizable();
-				});
-		    }
-			
-			enableImageResize();			
-	}
-
-
-});
-		
-	
-		</script>
-		
-		
 	</body>
 </html>

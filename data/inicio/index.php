@@ -1,7 +1,7 @@
 <?php
 if(!isset($_SESSION))
 	{
-		session_start();		
+		session_start();
 	}
 	if(!isset($_SESSION["pass"])) {
 
@@ -46,7 +46,7 @@ if(!isset($_SESSION))
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /></head>
 
 	<body>
-		
+
 		<?php require('../inicio/menu.php'); menunav(); ?>
 
 		<div class="main-container container-fluid">
@@ -70,290 +70,28 @@ if(!isset($_SESSION))
 						<li class="active">Menu Principal</li>
 					</ul><!--.breadcrumb-->
 				</div>
-				<div class="page-content">
-					<?php 
-						
-						$id=$_SESSION['id'];
-						$acu=0;
-						$cedula='';
-						$localizacion='';
-						$edad='';
-						$fecha='';
-						$correo='';
-						$telefono='';
-						$direccion='';
-						$resultado = $class->consulta("SELECT * FROM SEG.USUARIO WHERE id='$id' and stado='1'");	
-							while ($row=$class->fetch_array($resultado)) {
+				<?php if ($_SESSION['nivel']!='CLIENTE') { ?>
+					<div class="page-content">
+					<div class="page-header position-relative">
+						<h1>
+							UI Elements
+							<small>
+								<i class="icon-double-angle-right"></i>
+								Common UI Features &amp; Elements
+							</small>
+						</h1>
+					</div><!--/.page-header-->
 
-								if ($row[3]=="0900000000") {
-									$acu++;
-								}if ($row[7]=='') {
-									$acu++;
-								}if ($row[8]=='') {
-									$acu++;
-								}
-								$cedula=$row[1];
-								$localizacion=$row[2];
-								$edad=$row[4];
-								$fecha=$row[9];
-								$correo=$row[5];
-								$telefono=$row[3];
-								$direccion=$row[7];
-							}
-						//print $edad;
-						$v_eda1=split(' ',$edad);
-						$v_eda2=split('-',$v_eda1[0]);
-						$sum=$v_eda2[2].'-'.$v_eda2[1].'-'.$v_eda2[0];						
-						$edad=$class->edad($sum);
-						if ($edad<10) {
-							$edad='0000-00-00';
-						}
-						if ($direccion=="") {
-							$direccion="-----------------------";
-						}
-						$acu=(10-$acu)*10;
-						if ($acu<100) {	
-					?>
-					<div class="row-fluid">						
-						<h3 class="header smaller lighter green">Hola <a><?php print$_SESSION['nom'].' '; ?></a><i class="icon-user"></i> Te pedimos completar tu información!!! <a href="perfil.php" class="icon-animated-vertical"><i class=" icon-edit"></i> AQUI</a></h3>
-						<div class="row-fluid">
-							<div class="span12">									
-								<div class="row-fluid">
-									<div class="span3 center">
-										<div class="profile-picture">
-											<img src="../assets/avatars/avatar2.png">
-										</div>
-									</div>
-									<div class="span5">
-										<div class="profile-user-info profile-user-info-striped">
-											<div class="profile-info-row">
-												<div class="profile-info-name"> Cedula </div>
-
-												<div class="profile-info-value">
-													<span class="editable" id="username"><?php print($cedula); ?></span>
-												</div>
-											</div>
-
-											<div class="profile-info-row">
-												<div class="profile-info-name"> Localizacion</div>
-
-												<div class="profile-info-value">
-													<i class="icon-map-marker light-orange bigger-110"></i>
-													<span class="editable" id="country">Ecuador</span>
-													<span class="editable" id="city">Imbabura</span>
-													<span class="editable" id="city">Ibarra</span>
-												</div>
-											</div>
-
-											<div class="profile-info-row">
-												<div class="profile-info-name"> Edad </div>
-
-												<div class="profile-info-value">
-													<span class="editable" id="age"><?php print($edad); ?></span>
-												</div>
-											</div>
-
-											<div class="profile-info-row">
-												<div class="profile-info-name"> Fecha Registro </div>
-
-												<div class="profile-info-value">
-													<span class="editable" id="signup"><?php print($fecha); ?></span>
-												</div>
-											</div>
-
-											<div class="profile-info-row">
-												<div class="profile-info-name"> Correo </div>
-
-												<div class="profile-info-value">
-													<span class="editable" id="login"><?php print($correo); ?></span>
-												</div>
-											</div>
-											<div class="profile-info-row">
-												<div class="profile-info-name"> Telefono </div>
-
-												<div class="profile-info-value">
-													<span class="editable" id="login"><?php print($telefono); ?></span>
-												</div>
-											</div>
-											<div class="profile-info-row">
-												<div class="profile-info-name"> Direccion </div>
-
-												<div class="profile-info-value">
-													<span class="editable" id="login"><?php print($direccion); ?></span>
-												</div>
-											</div>												
-										</div>
-									</div>
-									<div class="span3 center">									
-										<div class="easy-pie-chart percentage" data-percent="<?php print $acu; ?>" data-color="#87B87F">
-											<span class="percent"><?php print $acu; ?></span>
-											%
-										</div>
-									</div><!--/span-->
-								</div>
-							</div><!--/span-->
-						</div>
-					</div>
-					<?php }?>
-					<?php if ($_SESSION['nivel']!='CLIENTE') {?>
-					<h3 class="header smaller lighter green">Navegación</h3>
-					<?php } ?>
 					<div class="row-fluid">
-						<?php if ($_SESSION['nivel']!='CLIENTE') {?>				
-						<div class="span3">
-							<div class="widget-box">
-								<div class="widget-header">
-									<h4>Crear Servicios</h4>
+						<div class="span12">
+							<!--PAGE CONTENT BEGINS-->
 
-									<span class="widget-toolbar">
-										<a href="#" data-action="collapse">
-											<i class="icon-chevron-up"></i>
-										</a>
+							<!--PAGE CONTENT ENDS-->
+						</div><!--/.span-->
+					</div><!--/.row-fluid-->
+				</div><!--/.page-content-->
 
-										<a href="#" data-action="close">
-											<i class="icon-remove"></i>
-										</a>
-									</span>
-								</div>
-
-								<div class="widget-body">
-									<div class="widget-main">										
-										
-										<div class="row-fluid">
-											<img src="../assets/empresa/servicio.fw.png">
-											<a href="../servicios/">
-											<button class="btn btn-primary btn-block">Administración Servicios</button>
-											</a>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-						<?php } if ($_SESSION['nivel']!='CLIENTE') {?>
-						<div class="span3">
-							<div class="widget-box">
-								<div class="widget-header">
-									<h4 class="purple">Agenda</h4>
-
-									<span class="widget-toolbar">
-										<a href="#" data-action="collapse">
-											<i class="icon-chevron-up"></i>
-										</a>
-
-										<a href="#" data-action="close">
-											<i class="icon-remove"></i>
-										</a>
-									</span>
-								</div>
-
-								<div class="widget-body">
-									<div class="widget-main">										
-										
-										<div class="row-fluid">
-											<img src="../assets/empresa/calendario.fw.png" >
-											<a href="../agenda/">
-											<button class="btn btn-purple btn-block">Administracion Agenda</button>
-											</a>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-						<?php } if ($_SESSION['nivel']!='CLIENTE') {?>
-						<div class="span3">
-							<div class="widget-box">
-								<div class="widget-header">
-									<h4 class="green">Reservaciones</h4>
-
-									<span class="widget-toolbar">
-										<a href="#" data-action="collapse">
-											<i class="icon-chevron-up"></i>
-										</a>
-
-										<a href="#" data-action="close">
-											<i class="icon-remove"></i>
-										</a>
-									</span>
-								</div>
-
-								<div class="widget-body">
-									<div class="widget-main">										
-										
-										<div class="row-fluid">
-											<img src="../assets/empresa/reservacion.fw.png" >
-											<a href="../reservacion/">
-											<button class="btn btn-success btn-block">Administracion Reservaciones</button>
-											</a>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-						<?php } if ($_SESSION['nivel']!='CLIENTE') {?>
-						<div class="span3">
-							<div class="widget-box">
-								<div class="widget-header">
-									<h4 class="orange">Usuario / Correo</h4>
-
-									<span class="widget-toolbar">
-										<a href="#" data-action="collapse">
-											<i class="icon-chevron-up"></i>
-										</a>
-
-										<a href="#" data-action="close">
-											<i class="icon-remove"></i>
-										</a>
-									</span>
-								</div>
-
-								<div class="widget-body">
-									<div class="widget-main">										
-										
-										<div class="row-fluid">
-											<img src="../assets/empresa/usuarios.fw.png" >
-											<a href="../usuario/">
-											<button class="btn btn-warning btn-block">Administracion Usuario</button>
-											</a>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					<?php } if ($_SESSION['nivel']!='CLIENTE') {?>
-					<div class="row-fluid">
-						<div class="span3">
-							<div class="widget-box">
-								<div class="widget-header">
-									<h4 class="orange">Otros</h4>
-
-									<span class="widget-toolbar">
-										<a href="#" data-action="collapse">
-											<i class="icon-chevron-up"></i>
-										</a>
-
-										<a href="#" data-action="close">
-											<i class="icon-remove"></i>
-										</a>
-									</span>
-								</div>
-
-								<div class="widget-body">
-									<div class="widget-main">										
-										
-										<div class="row-fluid">
-											<img src="../assets/empresa/otros.fw.png" >
-											<a href="">
-											<button class="btn btn-warning btn-block">Administracion Otros</button>
-											</a>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					<?php }?>
-				</div>
+				<?php } ?>
 				<?php if ($_SESSION['nivel']=='CLIENTE') { ?>
 					<div class="page-content">
 						<div class="row-fluid">
@@ -374,7 +112,6 @@ if(!isset($_SESSION))
 
 		<!--[if !IE]>-->
 
-		
 
 		<!--<![endif]-->
 
@@ -416,6 +153,7 @@ if(!isset($_SESSION))
 		<script src="../assets/js/flot/jquery.flot.pie.min.js"></script>
 		<script src="../assets/js/flot/jquery.flot.resize.min.js"></script>
 		<script src="../assets/js/jquery.easy-pie-chart.min.js"></script>
+		<script src="../assets/js/spin.min.js"></script>
 
 
 		<!--ace scripts-->
@@ -425,22 +163,6 @@ if(!isset($_SESSION))
 
 		<!--inline scripts related to this page-->
 
-		<script type="text/javascript">
-			$(function(){
-				var oldie = /msie\s*(8|7|6)/.test(navigator.userAgent.toLowerCase());
-
-				$('.easy-pie-chart.percentage').each(function(){
-					$(this).easyPieChart({
-						barColor: $(this).data('color'),
-						trackColor: '#EEEEEE',
-						scaleColor: false,
-						lineCap: 'butt',
-						lineWidth: 8,
-						animate: oldie ? false : 1000,
-						size:230
-					}).css('color', $(this).data('color'));
-				});
-			});
-		</script>
+		<script src="app.js"></script>
 	</body>
 </html>

@@ -3,13 +3,12 @@ function mostrar_categoria_select(){
 			url:'php/tarifa.php',
 			type:'POST',
 			data:{mostrar_categoria_select:'ok'},
-			success:function(data){				
+			success:function(data){
 				$('#sel_categoria_mostrar').html(data);
 				$(".chzn-select").chosen({
 					no_results_text: "Lo sentimos no encontrado",
 					width: "100%"
 				});
-				
 			}
 		});
 	}
@@ -17,7 +16,6 @@ $(function (){
 	mostrar_tarifa();
 	mostrar_categoria_select();
 
-	
 	function proceso_verificacion_dias_existencia(){
 		var id_servicio=$('#lbl_id_servicio').html();
 		$.ajax({
@@ -53,7 +51,7 @@ $(function (){
 				required: true
 			},
 			txt_3_horario: {
-				required: true			
+				required: true
 			}
 		},
 
@@ -61,19 +59,18 @@ $(function (){
 			txt_0_horario: {
 				required: 'Por favor, Digíte o seleccione dia de la semana'
 			},
-			txt_1_horario: {				
+			txt_1_horario: {
 				required: ' '
 			},
 			txt_2_horario: {
-				required: ' '			
+				required: ' '
 			},
 			txt_3_horario: {
-				required: ' '							
+				required: ' '
 			}
-			
 		},
 
-		invalidHandler: function (event, validator) { //display error alert on form submit   
+		invalidHandler: function (event, validator) { //display error alert on form submit
 			console.log($('.alert-error'))
 			//$('.alert-error').show();
 		},
@@ -85,8 +82,8 @@ $(function (){
 			$(e).closest('.control-group').removeClass('error').addClass('success');
 			$(e).remove();
 		},
-		errorPlacement: function (error, element) {		
-			
+		errorPlacement: function (error, element) {
+
 		},
 
 		submitHandler: function (form) {
@@ -108,16 +105,16 @@ $(function (){
 			        type: "POST",
 			        data:{g_horario:'ok', id_servicio:id_servicio, dias:valor1, lapso:$('#txt_1_horario').val(),horai:$('#txt_2_horario').val(),horaf:$('#txt_3_horario').val()},			               
 			        success: function(data)
-			        {	
+			        {
 			        	if (data==0) {
-			        		$.gritter.add({						
-								title: '..Mensaje..!',						
-								text: 'OK: <br><i class="icon-cloud purple bigger-230"></i>  Sus datos fueron almacenados correctamente. <br>',						
-								//image: 'http://a0.twimg.com/profile_images/59268975/jquery_avatar_bigger.png',						
-								sticky: false,						
+			        		$.gritter.add({
+								title: '..Mensaje..!',
+								text: 'OK: <br><i class="icon-cloud purple bigger-230"></i>  Sus datos fueron almacenados correctamente. <br>',
+								//image: 'http://a0.twimg.com/profile_images/59268975/jquery_avatar_bigger.png',
+								sticky: false,
 								time: 2000
-							});	
-							mostrar_horario(id_servicio)						
+							});
+							mostrar_horario(id_servicio)
 							$('#obj_contenedor').html('');
 							$('#form-horario').each (function(){
 								this.reset();
@@ -126,16 +123,16 @@ $(function (){
 							proceso_verificacion_dias_existencia();
 			        	}
 						if (data!=0) {
-							$.gritter.add({						
-								title: '..Mensaje..!',						
+							$.gritter.add({
+								title: '..Mensaje..!',
 								text: 'TENEMOS INCONVENIENTES INTENTE MAS TARDE<br><i class="icon-cloud purple bigger-230"></i> comuniquese con el administrador <br><i class="icon-spinner icon-spin purple bigger-230"></i> : [',						
-								//image: 'http://a0.twimg.com/profile_images/59268975/jquery_avatar_bigger.png',						
-								sticky: false,						
+								//image: 'http://a0.twimg.com/profile_images/59268975/jquery_avatar_bigger.png',
+								sticky: false,
 								time: ''
-							});	
+							});
 						}
-					}			                	        
-			    });			
+					}
+			    });
 			}
 		},
 		invalidHandler: function (form) {

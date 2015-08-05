@@ -75,6 +75,11 @@
 		if (!$res) {
 			$acu[]=1;
 		}else $acu[]=0;
+		//---- procesando disparadores de eventos--------//
+		$res=$class->consulta("INSERT INTO RESERVACION VALUES('$id','','$servicio','0','$fecha','0')");
+		if (!$res) {
+			$acu[]=1;
+		}else $acu[]=0;
 		// -------------------save information event time----------------------//
 		$res=$class->consulta("INSERT INTO RESERVACION_HORARIOS VALUES('$id_time','$id','$hora_inicio','$tot_hora','$fecha_evento','$dia','$fecha','0')");
 		if (!$res) {
@@ -158,6 +163,16 @@
 					</div>'.'</td></tr>';
 	 	}
 	}
+	if (isset($_POST['mostrar_reservacion'])) {
+		$resultado = $class->consulta("SELECT NOMBRE, FONO, DIRECCION FROM RESERVACION R, SEG.USUARIO U WHERE U.ID=R.ID_USUARIO AND R.ID='$_POST[id]'");
+		$acu = array(); //create new array
+		while ($row=$class->fetch_array($resultado)) {
+			$acu[]=$row[0];
+			$acu[]=$row[1];
+			$acu[]=$row[2];
+	 	}
+	 	print_r(json_encode($acu));
+	}
 	if (isset($_POST['reservacion_eventos'])) {
 		$resultado = $class->consulta("SELECT R.ID, S.NOM,H.HINICIO,H.HFIN,H.FE,S.ID FROM SERVICIOS S,RESERVACION R, RESERVACION_HORARIOS H WHERE S.ID=R.ID_SERVICIO AND R.ID=H.ID_RESERVACION AND R.STADO='0'");
 		$acu = array(); //create new array
@@ -169,7 +184,7 @@
 			if ($row[5]=='20141211160155548a0643d0616') $clase="label-success";
 			if ($row[5]=='20141211160521548a07112af84') $clase="label-important";
 			if ($row[5]=='20141211160613548a07457dffd') $clase="label-purple";
-			$acu[$i]= array('id' => $row[0],'title'=>$row[1],'start'=>$row[2],'end'=>$row[3],'className'=>$clase,'description'=>'hola men');
+			$acu[$i]= array('id' => $row[0],'title'=>$row[1],'start'=>$row[2],'end'=>$row[3],'className'=>$clase,'description'=>'procesando');
 			$i++;
 	 	}
 	 	print_r(json_encode($acu));

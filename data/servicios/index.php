@@ -1,7 +1,7 @@
 <?php
 if(!isset($_SESSION))
 	{
-		session_start();		
+		session_start();
 	}
 	if(!isset($_SESSION["pass"])) {
 
@@ -48,7 +48,6 @@ if(!isset($_SESSION))
 		<![endif]-->
 
 		<!--inline styles related to this page-->
-	
 
 	<body>
 		<?php require('../inicio/menu.php'); menunav(); ?>
@@ -62,7 +61,7 @@ if(!isset($_SESSION))
 
 			<div class="main-content">
 				<div class="page-content">
-					<div class="row-fluid">						
+					<div class="row-fluid">
 						<div class="span12 widget-container-span">
 							<div class="widget-box">
 								<div class="widget-header">
@@ -111,8 +110,7 @@ if(!isset($_SESSION))
 																<div class="widget-header widget-header-small header-color-dark">
 																	<h6 class="smaller" id="lbl_servicios"></h6>
 																	<span id="lbl_id_servicio" class="hide"></span>
-																																		
-																	<div class="widget-toolbar">																			
+																	<div class="widget-toolbar">
 																		<span class="badge badge-info" id="lbl_fecha">info</span>
 																		<span class="badge badge-success"><i class="icon-ok"></i></span>
 																	</div>
@@ -124,19 +122,18 @@ if(!isset($_SESSION))
 																			<div class="span3"></div>
 																			<div class="span6">
 																				<span class="profile-picture" id="img_foto"></span>
-																				<div class="space-4"></div>																
+																				<div class="space-4"></div>
 																			</div>
-																			<div class="span3"></div>																														
+																			<div class="span3"></div>
 																		</div>
 																		<div class="row-fluid">
 																			<div class="span12" id="alert_descripcion">
-																				
 																			</div>
-																		</div>																		
+																		</div>
 																	</div>
 																</div>
 															</div>
-														</div>															
+														</div>
 													</div>
 													<div class="span6">
 														<div class="row-fluid">
@@ -147,14 +144,14 @@ if(!isset($_SESSION))
 																			<div class="widget-header header-color-green">
 																				<h5 class="bigger lighter">
 																					Asignación de Horarios
-																				</h5>																				
+																				</h5>
 																				<div class="widget-toolbar">
 																					<a href="#" data-action="collapse">
 																						<i class="1 icon-chevron-up"></i>
 																					</a>
 																					<a href="#modal-table" data-action="settings" data-toggle="modal" id="btn_modal_hora">
 																						<i class="icon-time"></i>
-																					</a>																																										
+																					</a>
 																				</div>
 																			</div>
 																			<div class="widget-body">
@@ -169,8 +166,7 @@ if(!isset($_SESSION))
 																							<th>Acción</th>
 																						</tr>
 																					</thead>
-																						<tbody>																						
-																							
+																						<tbody>
 																						</tbody>
 																					</table>
 																				</div>
@@ -184,14 +180,14 @@ if(!isset($_SESSION))
 																			<div class="widget-header header-color-blue">
 																				<h5 class="bigger lighter">
 																					Asignación de Tarita / Precios
-																				</h5>																				
+																				</h5>
 																				<div class="widget-toolbar">
 																					<a href="#" data-action="collapse">
 																						<i class="1 icon-chevron-up"></i>
 																					</a>
 																					<a href="#modal-tarifa" data-action="settings" data-toggle="modal" id="btn_modal_tarifa">
 																						<i class="icon-money"></i>
-																					</a>																																										
+																					</a>
 																				</div>
 																			</div>
 																			<div class="widget-body">
@@ -205,12 +201,11 @@ if(!isset($_SESSION))
 																									Categoría
 																								</th>
 																								<th>Nombre Tarifa</th>
-																								<th><i class="icon-money bigger-110"></i>Precio</th>																								
+																								<th><i class="icon-money bigger-110"></i>Precio</th>
 																								<th>Acción</th>
 																							</tr>
 																						</thead>
 																						<tbody>
-																							
 																						</tbody>
 																					</table>
 																				</div>
@@ -224,14 +219,14 @@ if(!isset($_SESSION))
 																			<div class="widget-header header-color-red3">
 																				<h5 class="bigger lighter">
 																					Galería Imagenes
-																				</h5>																				
+																				</h5>
 																				<div class="widget-toolbar">
 																					<a href="#" data-action="collapse">
 																						<i class="1 icon-chevron-up"></i>
 																					</a>
 																					<a href="#modal-galeria" data-action="settings" data-toggle="modal" id="btn_modal_hora">
 																						<i class="icon-time"></i>
-																					</a>																																										
+																					</a>
 																				</div>
 																			</div>
 																			<div class="widget-body">
@@ -630,7 +625,7 @@ if(!isset($_SESSION))
 				<div class="row-fluid" >
 					<form class="form-horizontal" id="form-horario"/>
 						<div class="center">
-							<h3 class="lighter block green">Todos los campos son obligatorios</h3>																							
+							<h3 class="lighter block green">Todos los campos son obligatorios</h3>
 						</div>
 
 						<div class="row-fluid">
@@ -698,15 +693,15 @@ if(!isset($_SESSION))
 									Guardar
 								</button>
 							</div>
-						</div>							
-					</form>															
-				</div>									
-			</div>			
+						</div>
+					</form>
+				</div>
+			</div>
 			<div class="modal-footer">
 				<button class="btn btn-small btn-danger pull-rigth" data-dismiss="modal">
 					<i class="icon-remove"></i>
 					Cerrar
-				</button>								
+				</button>
 			</div>
 		</div><!--modal horario ENDS-->
 		<!-- modal tarifa -->
@@ -717,18 +712,16 @@ if(!isset($_SESSION))
 					Tarifa de serivicio
 				</div>
 			</div>
-			<div class="modal-body no-padding">
+			<div class="modal-body">
 				<div class="row-fluid">
 					<div class="widget-main" style="height: 300px!important;">
 						<form class="form-horizontal" id="form-tarifa"/>
 							<div class="row-fluid">
-								<div class="span8">
+								<div class="span12">
 									<div class="control-group">
 										<label class="control-label" for="Servicio">Seleccione Categoría:</label>
 										<div class="controls">
 											<div class="span12" id="sel_categoria_mostrar">
-												<!-- <select multiple="" class="select2" id="txt_1_horario" name="txt_1_horario"> -->
-																						
 											</div>
 										</div>
 									</div>
@@ -746,26 +739,25 @@ if(!isset($_SESSION))
 											<span class="span12">
 												<input class="span12" type="text" id="t_precio" name="t_precio" />
 											</span>
-										</div>									
+										</div>
 									</div>
 									<div class="controls">
 										<button class="btn btn-small btn-success" type="submit">
 											<i class="icon-save"></i>
 											Guardar
 										</button>
-									</div>	
+									</div>
 								</div>
 							</div>
 						</form>
-					</div>					
-				</div>									
-			</div>			
+					</div>
+				</div>
+			</div>
 			<div class="modal-footer">
 				<button class="btn btn-small btn-danger pull-rigth" data-dismiss="modal">
 					<i class="icon-remove"></i>
 					Cerrar
 				</button>
-																	
 			</div>
 		</div>
 
@@ -805,17 +797,15 @@ if(!isset($_SESSION))
 						</div>
 					</div>
 				</div>
-				
-			</div>			
+			</div>
 			<div class="modal-footer">
 				<button class="btn btn-small btn-danger pull-rigth" data-dismiss="modal">
 					<i class="icon-remove"></i>
 					Cerrar
 				</button>
-																	
 			</div>
 		</div>
-		
+
 
 
 		<a href="#" id="btn-scroll-up" class="btn-scroll-up btn btn-small btn-inverse">
@@ -826,7 +816,7 @@ if(!isset($_SESSION))
 
 		<!--[if !IE]>-->
 
-		
+
 
 		<!--<![endif]-->
 
@@ -859,20 +849,20 @@ if(!isset($_SESSION))
 		  <script src="../assets/js/excanvas.min.js"></script>
 		<![endif]-->
 
-		
+
 		<script src="../assets/js/jquery-ui-1.10.3.custom.min.js"></script>
 		<script src="../assets/js/jquery.ui.touch-punch.min.js"></script>
 		<script src="../assets/js/jquery.gritter.min.js"></script>
 		<script src="../assets/js/bootbox.min.js"></script>
 		<script src="../assets/js/jquery.slimscroll.min.js"></script>
 		<script src="../assets/js/jquery.easy-pie-chart.min.js"></script>
-		<script src="../assets/js/jquery.hotkeys.min.js"></script>		
+		<script src="../assets/js/jquery.hotkeys.min.js"></script>
 		<script src="../assets/js/select2.min.js"></script>
 		<script src="../assets/js/date-time/bootstrap-datepicker.min.js"></script>
 		<script src="../assets/js/fuelux/fuelux.spinner.min.js"></script>
 		<script src="../assets/js/x-editable/bootstrap-editable.min.js"></script>
 		<script src="../assets/js/x-editable/ace-editable.min.js"></script>
-		<script src="../assets/js/chosen.jquery.min.js"></script>		
+		<script src="../assets/js/chosen.jquery.min.js"></script>
 		<script src="../assets/js/fuelux/fuelux.spinner.min.js"></script>
 		<script src="../assets/js/date-time/bootstrap-datepicker.min.js"></script>
 		<script src="../assets/js/date-time/bootstrap-timepicker.min.js"></script>
@@ -886,7 +876,7 @@ if(!isset($_SESSION))
 		<script src="../assets/js/bootstrap-tag.min.js"></script>
 		<script src="../assets/js/jquery.validate.min.js"></script>
 		<script src="../assets/js/additional-methods.min.js"></script>
-		<script src="../assets/js/bootbox.min.js"></script>	
+		<script src="../assets/js/bootbox.min.js"></script>
 		<script src="../assets/js/bootstrap-wysiwyg.min.js"></script>
 
 
@@ -894,7 +884,7 @@ if(!isset($_SESSION))
 
 
 		<!--personal scripts-->
-		<script type="text/javascript" src="js/guardar.js"></script>		
+		<script type="text/javascript" src="js/guardar.js"></script>
 		<script type="text/javascript" src="js/servicios.js"></script>
 		<script type="text/javascript" src="js/editar.js"></script>
 		<!--ace scripts-->
@@ -931,9 +921,9 @@ $(function(){
 		minuteStep: 1,
 		showSeconds: true,
 		showMeridian: false
-	});		
+	});
 	$('#btn_perfil').hide();
-	  
+
 	 // dando valorese de existencia impuesto
 
 	 $('#file_img').ace_file_input({
@@ -951,43 +941,42 @@ $(function(){
 		if (impuesto=='no') {
 			$('#obj_impuesto').addClass('hide');
 		}
-	});	
-	// dando valores estables a la concecución de cambio editable 
+	});
+	// dando valores estables a la concecución de cambio editable
 	//editables on first profile page
 	$.fn.editable.defaults.mode = 'inline';
 	$.fn.editableform.loading = "<div class='editableform-loading'><i class='light-blue icon-2x icon-spinner icon-spin'></i></div>";
     $.fn.editableform.buttons = '<button type="submit" class="btn btn-info editable-submit"><i class="icon-ok icon-white"></i></button>'+
-                                '<button type="button" class="btn editable-cancel"><i class="icon-remove"></i></button>';    
+                                '<button type="button" class="btn editable-cancel"><i class="icon-remove"></i></button>';
 	function buscando(registro){
-	console.log('test'+registro);			
-		var result = "" ; 					
+		var result = "" ;
 		$.ajax({
 	            url:'php/tarifa.php',
-	            async :  false ,   
+	            async :  false ,
 	            type:  'post',
-	            data: {existencia_ser:'ok',reg:registro},            
+	            data: {existencia_ser:'ok',reg:registro},
 	            success : function ( data )  {
-			         result = data ;  
+			         result = data ;
 			         console.log(data);
-			    } 		                
+			    }
 	    	});
-		return result ; 
+		return result ;
 	}
-	//editables 
+	//editables
 	// edicion de tabla categoria
 	$('#lbl_categoria').editable({
 		type: 'text',
 		value: '',
-		success:function(response, newValue){			
+		success:function(response, newValue){
 			$.ajax({
 	            url:'php/servicio.php',
-	            async :  false ,   
+	            async :  false ,
 	            type:  'post',
-	            data: {lbl_categoria:'ok',id:$('#txt_id_categoria').val(),value:newValue}	                
+	            data: {lbl_categoria:'ok',id:$('#txt_id_categoria').val(),value:newValue}
 	    	});
 	    	mostrar_categoria()
 		},
-		validate: function(value) {			
+		validate: function(value) {
 			var res=buscando(value);
 			if(res==1) {
 		        return 'El nombre del servicio ya existe';
@@ -996,21 +985,21 @@ $(function(){
 		    	return 'Este campo es requerido';
 		    }
 		}
-    });   
+    });
     // edicion de tabla servicio
     $('#lbl_servicio').editable({
 		type: 'text',
 		value: '',
-		success:function(response, newValue){			
+		success:function(response, newValue){
 			$.ajax({
 	            url:'php/servicio.php',
-	            async :  false ,   
+	            async :  false ,
 	            type:  'post',
-	            data: {lbl_servicio:'ok',id:$('#txt_id_servicio').val(),value:newValue}	                
+	            data: {lbl_servicio:'ok',id:$('#txt_id_servicio').val(),value:newValue}
 	    	});
 	    	mostrar_servicios()
 		},
-		validate: function(value) {			
+		validate: function(value) {
 			var res=buscando(value);
 			if(res==1) {
 		        return 'El nombre del servicio ya existe';
@@ -1019,7 +1008,7 @@ $(function(){
 		    	return 'Este campo es requerido';
 		    }
 		}
-    });   
+    });
     var iva = [];
     $.each({ "SI": "SI", "NO": "NO"}, function(k, v) {
         iva.push({id: k, text: v});
@@ -1040,10 +1029,10 @@ $(function(){
         select2:{
         	placeholder: "Selecione Formato"
         },
-        success:function(response, newValue){			
+        success:function(response, newValue){
 			$.ajax({
 	            url:'php/servicio.php',
-	            async :  false ,   
+	            async :  false ,
 	            type:  'post',
 	            data: {lbl_horario:'ok',id:$('#txt_id_servicio').val(),value:newValue}
 	    	});
@@ -1055,24 +1044,24 @@ $(function(){
         select2:{
         	placeholder: "Seleccione..."
         },
-		success: function(response, newValue) {		
+		success: function(response, newValue) {
 			$.ajax({
 	            url:'php/servicio.php',
-	            async :  false ,   
+	            async :  false ,
 	            type:  'post',
 	            async:false,
-	            data: {lbl_iva:'ok',id:$('#txt_id_servicio').val(),value:newValue}	            
+	            data: {lbl_iva:'ok',id:$('#txt_id_servicio').val(),value:newValue}
 	    	});
 	    	//dcoperacion(newValue)
 		}
-    });    
+    });
     $('#lbl_stado').editable({
 		type: 'select2',
         source: estado,
         select2:{
         	placeholder: "Seleccione..."
         },
-        success: function(response, newValue) {		
+        success: function(response, newValue) {
 			$.ajax({
 	            url:'php/servicio.php',
 	            type:  'post',
@@ -1080,9 +1069,9 @@ $(function(){
 	            success:function(data){
 	            	mostrar_servicios();
 	            }
-	    	});	    	
+	    	});
 		}
-    });  
+    });
     $('#lbl_stado_categoria').editable({
 		type: 'select2',
         source: estado,
@@ -1346,11 +1335,10 @@ function show5(){
 								title: '..Mensaje..!',						
 								text: 'TENEMOS INCONVENIENTES INTENTE MAS TARDE<br><i class="icon-cloud purple bigger-230"></i> comuniquese con el administrador <br><i class="icon-spinner icon-spin purple bigger-230"></i> : [',						
 								//image: 'http://a0.twimg.com/profile_images/59268975/jquery_avatar_bigger.png',						
-								sticky: false,						
+								sticky: false,
 								time: ''
 							});
 						}
-						
 
 					}
 				});

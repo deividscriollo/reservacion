@@ -78,7 +78,7 @@ if(!isset($_SESSION))
 										<div class="widget-main no-padding">
 											<div id="external-events">
 												<?php
-													require('../../admin/class.php');
+													require_once('../../admin/class.php');
 													$class=new constante();
 													$resultado = $class->consulta("SELECT ID,NOM FROM SERVICIOS WHERE STADO1='1' order by FECHA");
 													$acu;

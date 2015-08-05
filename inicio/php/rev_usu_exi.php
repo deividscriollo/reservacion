@@ -5,7 +5,7 @@ $class=new constante();
 if (isset($_POST['existencia_correo'])) {
 	$reg=$_POST['reg'];
 	$reg=strtolower($reg);
-	$resultado = $class->consulta("SELECT * FROM SEG.USUARIO WHERE CORREO='$reg'");
+	$resultado = $class->consulta("SELECT * FROM SEG.USUARIO WHERE CORREO='$reg' AND STADO='1'");
 	$row= pg_num_rows($resultado);
 	$existencia=0;
 	for ($i=0;$i<$row;$i++){
@@ -15,7 +15,7 @@ if (isset($_POST['existencia_correo'])) {
 }
 if (isset($_POST['existencia_cedula'])) {
 	$reg=$_POST['reg'];
-	$resultado = $class->consulta("SELECT * FROM SEG.USUARIO WHERE CEDULA='$reg'");
+	$resultado = $class->consulta("SELECT * FROM SEG.USUARIO WHERE CEDULA='$reg' AND STADO='1'");
 	$row= pg_num_rows($resultado);
 	$existencia=0;
 	for ($i=0;$i<$row;$i++){

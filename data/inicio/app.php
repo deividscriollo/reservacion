@@ -1,10 +1,10 @@
 <?php 
 if(!isset($_SESSION))
 	{
-		session_start();		
+		session_start();
 	}
 require('../../admin/class.php');
-$class=new constante();	
+$class=new constante();
 $nombre='';
 if (isset($_POST['name'])) {
 	$nombre=$_POST['name'];
