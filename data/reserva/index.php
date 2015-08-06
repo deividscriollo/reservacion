@@ -228,16 +228,15 @@ if(!isset($_SESSION))
 											</div>
 											<div>
 												<ul class="unstyled list-striped center">
-													<li> 00.00 </li>
+													<li id="lbl_subtotal"> 00.00 </li>
 												</ul>
 											</div>
 											<div>
-												<ul class="unstyled list-striped center">
-													<li> 00.00 </li>
+												<ul class="unstyled list-striped center" >
+													<li id="lbl_iva"> 00.00 </li>
 												</ul>
 											</div>
-											<div class="widget-header header-color-green">
-												<h5 class="bigger center"> 00.00</h5>
+											<div class="widget-header header-color-green" id="lbl_total">
 											</div>
 										</div>
 									</div>

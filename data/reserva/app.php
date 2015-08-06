@@ -5,6 +5,54 @@
 	require('../../admin/class.php');
 	require('../../inicio/php/mail.php');
 	$class=new constante();
+	if (isset($_POST['name'])) {
+		if ($_POST['name']=='actualiar_tafira_reservacion') {
+			$iden=':(';
+			//---------------Fecha sistema------------//
+			$fecha=$class->fecha_hora();
+			// --------------- id -------------//
+			$id=$class->idz();
+			//---------------variables locales-------------//
+			$vec=$_POST['pk'];
+			$acu=split(',', $vec['id_tarifa']);
+			$sum=substr($acu[0], 4);
+			$id_existencia='';
+			$array= array();
+			$resultado = $class->consulta("SELECT * FROM RESERVACION_TARIFA WHERE ID_RESERVACION='$acu[1]' AND ID_TARIFA='$sum'");
+			while ($row=$class->fetch_array($resultado)) {
+				$iden=':)';
+				$id_existencia=$row[0];
+		 	}
+		 	if ($iden==':)') {
+		 		$res=$class->consulta("UPDATE RESERVACION_TARIFA SET CANTIDAD='$_POST[value]' WHERE ID='$id_existencia'");
+		 		if (!$res) {
+					print 1;
+				}else print 0;
+		 	}else {
+		 		$res=$class->consulta("INSERT INTO RESERVACION_TARIFA VALUES('$id','$acu[1]','$sum','0','$_POST[value]','0','$fecha','0')");
+		 		if (!$res) {
+					print 1;
+				}else print 0;
+		 	}
+
+		}
+	}
+	if (isset($_POST['mostrar_reservacion_tarifa'])) {
+			$iden='';
+			$iden2=array('0','00.00');
+			$acu=0;
+			$resultado = $class->consulta("SELECT R.CANTIDAD,round((R.CANTIDAD*T.PRECIO), 2)FROM RESERVACION_TARIFA R, TARIFA T  WHERE T.ID=R.ID_TARIFA AND R.ID_RESERVACION='$_POST[id_reservacion]' AND R.ID_TARIFA='$_POST[id_tarifa]'");
+			while ($row=$class->fetch_array($resultado)) {
+				$iden[]=$row[0];
+				$iden[]=$row[1];
+				$acu=1;
+		 	}
+		 	if ($acu==1) {
+		 		print_r(json_encode($iden));
+		 	}else{
+		 		print_r(json_encode($iden2));
+		 	}
+	}
 
 	if (isset($_POST['mostrar_servicios_reservacion'])) {
 		$resultado = $class->consulta("SELECT C.ID,C.NOM,T.ID_SERVICIO,R.ID FROM RESERVACION R, TARIFA T, SEG.CATEGORIA_SERVICIO C WHERE R.ID_SERVICIO=T.ID_SERVICIO AND T.ID_CATEGORIA=C.ID AND R.ID='$_POST[id]'");
@@ -26,7 +74,7 @@
 		$acu=split(',', $_POST['id']);
 		$resultado = $class->consulta("SELECT T.ID,T.PRECIO FROM SEG.CATEGORIA_SERVICIO C, TARIFA T, SERVICIOS S WHERE C.ID=T.ID_CATEGORIA AND S.ID=T.ID_SERVICIO AND C.ID='$acu[0]' AND S.ID='$acu[1]'");
 		while ($row=$class->fetch_array($resultado)) {
-			print'<li id="'.$row[0].'">'.$row[1].'</li>';
+			print'<li id="pre_'.$row[0].'">'.$row[1].'</li>';
 	 	}
 	}
 	if (isset($_POST['mostrar_tarifa_servicios3'])) {
@@ -107,6 +155,14 @@
 
 			';
 	 	}
+	}
+	if (isset($_POST['impuesto'])) {
+		$acu=0;
+		$resultado = $class->consulta("SELECT  CASE WHEN IMPUESTO='SI' THEN  (PORCENTAJE)::int ELSE 0  END  FROM RESERVACION R, SERVICIOS S WHERE R.ID_SERVICIO=S.ID AND R.ID='$_POST[id]'");
+		while ($row=$class->fetch_array($resultado)) {
+			$acu=$row[0];
+	 	}
+	 	print $acu;
 	}
 
 ?>

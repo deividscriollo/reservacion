@@ -10,948 +10,642 @@ if(!isset($_SESSION))
 ?>
 <!DOCTYPE html>
 <html lang="es">
-	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /></head>
-		<meta charset="utf-8" />
-		<title>FABRICA IMBABURA</title>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="Reservaciones fabrica imbabura, museo, restaurant">
+	<link rel="icon" type="image/png" href="../assets/empresa/logo/logo.png" />
+	<meta name="author" content="">
 
-		<meta name="description" content="overview &amp; stats" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<link rel="icon" type="image/png" href="../assets/empresa/logo/logo.png" />
+	<title>Reservaciones -  Fabrica Imbabura</title>
 
-		<!--Css Especificos-->
+	<!-- CSS -->
+	<link href="assets/bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
+	<link href="assets/css/font-awesome.min.css" rel="stylesheet" media="screen">
+	<link href="assets/css/simple-line-icons.css" rel="stylesheet" media="screen">
+	<link href="assets/css/bootstrap-datetimepicker.css" rel="stylesheet" media="screen">
+	<link rel="stylesheet" href="../assets/css/jquery.gritter.css" />
+	<link rel="stylesheet" href="assets/css/jquery.bootstrap-touchspin.css" />
+	<link rel="stylesheet" type="text/css" href="assets/css/prettify.css">
 
-		<link rel="stylesheet" href="../assets/css/jquery-ui-1.10.3.custom.min.css" />
-		<link rel="stylesheet" href="../assets/css/jquery.gritter.css" />
-		<link rel="stylesheet" href="../assets/css/select2.css" />
-		<link rel="stylesheet" href="../assets/css/bootstrap-editable.css" />
 
-		<!--basic styles-->
-		<link rel="stylesheet" href="../assets/css/bootstrap.min.css"  />
-		<link rel="stylesheet" href="../assets/css/bootstrap-responsive.min.css"  />
-		<link rel="stylesheet" href="../assets/css/font-awesome.min.css" />
-		<link rel="stylesheet" href="../assets/css/chosen.css" />
-		<link rel="stylesheet" href="../assets/css/datepicker.css" />
-		<link rel="stylesheet" href="../assets/css/bootstrap-timepicker.css" />
-		<link rel="stylesheet" href="../assets/css/daterangepicker.css" />
-		<link rel="stylesheet" href="../assets/css/colorpicker.css" />
-		<link rel="stylesheet" href="../assets/css/colorbox.css" />
-		
+	<link href="assets/css/animate.css" rel="stylesheet">
+	<link href="assets/css/animate2.css" rel="stylesheet">
 
-		<!--page specific plugin styles-->
+	<!-- Custom styles CSS -->
+	<link href="assets/css/style.css" rel="stylesheet" media="screen">
 
-		<!--ace styles-->
+	<script type=”text/javascript”>
+    var dispositivo = navigator.userAgent.toLowerCase();
+      if( dispositivo.search(/iphone|ipod|ipad|android/) > -1 ){
+      document.location = 'google.com';  }
+  </script>
 
-		<link rel="stylesheet" href="../assets/css/fontdc.css" />
 
-		<link rel="stylesheet" href="../assets/css/ace.min.css" />
-		<link rel="stylesheet" href="../assets/css/ace-responsive.min.css" />
-		<link rel="stylesheet" href="../assets/css/ace-skins.min.css" />
-		<link rel="stylesheet" href="../assets/css/animate.css" />
+    <script src="assets/js/modernizr.custom.js"></script>
 
-		<!--[if lte IE 8]>
-		  <link rel="stylesheet" href="../assets/css/ace-ie.min.css" />
-		<![endif]-->
+</head>
+<body>
 
-		<!--inline styles related to this page-->
-	
-		<style type="text/css">
-			.blanco{
-				background: #FFFFFF!important;
-			}
-			.dc_btn{
-				width: 0;
-				height: 0;
-				border-style: solid;
-				border-width: 66px 100px 0 100px;
-				border-color: #007bff transparent transparent transparent;
-				display:block!important;
-			}
-			.dc_btn:hover{
-				cursor: pointer;							
-			}
-			.zoom{
-				transition: 2.5s ease;
-		 		-moz-transition: 2.5s ease; /* Firefox */
-		 		-webkit-transition: 2.5s ease; /* Chrome - Safari */
-		 		-o-transition: 2.5s ease; /* Opera */
-			}
-			.zoom:hover{
-				transform : scale(1.2);
-				-moz-transform : scale(1.2); /* Firefox */
-				-webkit-transform : scale(1.2); /* Chrome - Safari */
-				-o-transform : scale(1.2); /* Opera */
-				-ms-transform : scale(1.2); /* IE9 */
-				cursor: pointer;
-			}
-			.dc_text{
-				font-size: 100px;				
-			}
-			.txt_zise{
-				font-size: 40px;					
-			}
-			.dc_padding{
-				padding-top: 2%;
-			}
-			.dc_estandar_usuario{
-				font-size: 80px;
-				height: 500px;
-				padding-top: 10%;
-				padding-left: 5px;
-				padding-bottom: 20px;
-				background: rgba(255,255,255,0.8);
-			}
-			.dc_estandar_reserva{
-				height: 500px;
-				padding-top: 5%;
-				background: rgba(255,255,255,0.8);
-				padding-left: 5%;
-				padding-right: 2%;
-				padding-bottom: 1px;
-			}
-			.dcespacio{
-				height: 200px;
-			}
-			.dc_dise_redondo{
-				background: rgba(255,255,255,0.6);
-				height: 200px;
-				border-radius: 200px 200px 200px 200px;
-				-moz-border-radius: 200px 200px 200px 200px;
-				-webkit-border-radius: 200px 200px 200px 200px;
-				border: 0px solid #000000;
-				padding-top: 20px;
-			}
-			.texto p{
-				font-size: 10px;
-			}
-			.texto2 h4{
-				font-size: 30px;
-			}
-			select{
-				font-family: sans-serif;
-				width: 80%;
-				/*padding-bottom: 15px;*/			
-			    height: 30px;					    
-			    background: rgba(255,255,255,0);
-			    color:#FFF;
-			    cursor:pointer;
-			    font-size: 17px;
-			    border-radius: 2px;
-			    border-top-left-radius: 20px;
-			    border-bottom-left-radius: 20px;
-			}		
-			select option{
-				background: rgba(255,255,255,0.5);
-				color: #000000;
-			}			
-			.dc_fecha{
-				background: rgba(255,255,255,0.8)!important;
-				text-align: center;
-				color: #3085C9!important;
-				font-size: 17px!important;
-				font-family: sans-serif;
-				
-			}	
-			#txt_fecha_origen{
-				border-top-left-radius: 20px!important;
-			    border-bottom-left-radius: 20px!important;
-			}		
-			.trans{
-				background: rgba(255,255,255,0.8)!important;
-			}
-			
-			/*seleccionar tipo de reservacion*/
-			.dc_color1{
-				background: #E34F16;
-				padding-top: 10px;				
-			}
-			/*resultado servicios*/
-			.dc_color2{
-				background: #90BC21;
-				padding-top: 10px;
-			}
-			/*informacion del servicio*/
-			.dc_color3{
-				background: #E2A401;
-				padding-top: 10px;
-				padding-bottom: 10px;
-			}
-			/*seleccionar la fecha*/
-			.dc_color4{
-				background: #E2A401;
-				padding-top: 10px;				
-			}
-		</style>		
+	<!-- Preloader -->
 
-	<body >
-		<?php require('../inicio/menu.php'); menunav(); ?>
-		<div class="main-container container-fluid">			
-			<div class="row-fluid center">
-				<div class="span4 trans">	
-					<div class="row-fluid blanco" id="obDj_informacion">						
+	<div id="preloader">
+		<div id="status"></div>
+	</div>
 
-					</div>	
-					<!-- tipo de reservacion -->
-					<div class="row-fluid">
-						<div class="span12 dc_color1">
-							<select id="selec_tipo"></select>								
-						</div>						
-					</div>
-					<!-- seleccionar servicio -->
-					<div class="row-fluid">
-						<div class="span12 dc_color2 hide" >
-							<select id="selec_servicio" class="shake animated" id="dc_color2"></select>		
-						</div>			
-					</div>
-					<div class="row-fluid">
-						<div class="span12 dc_color3 hide">							
-							<button class="btn btn-app btn-info btn-small radius-4" id="btn_modal_informacion">
-								Servicios										
-							</button>
-							<button class="btn btn-app btn-success btn-small radius-4" id="btn_modal_tarifa">
-								Tarifas												
-							</button>
-							<button class="btn btn-app btn-purple btn-small radius-4" id="btn_modal_horarios">
-								Horarios								
-							</button>							
-						</div>
-					</div>
-					<div class="row-fluid">
-						<div class="span12 dc_color4 hide">
-							<div class="input-append">
-								<input 	class="dc_fecha date-picker" placeholder="Seleccione fecha"
-										id="txt_fecha_origen" 
-										type="text" 
-										data-date-format="dd-mm-yyyy">										
-								<span class="add-on bigger-260">
-									<i class="icon-calendar"></i>
-								</span>
-							</div>
-						</div>
-					</div>
-					<div class="row-fluid">
-						<div class="span12">
-							<div class="row" id="obj_dia_semana">
-								<div class="texto2 blue">
-									<h4 class="animated bounceInDown txt_zise">Seleccione horario</h4>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="row-fluid">
-						<div class="span12 hide dc_tabla">
-							<div class="slim-scroll" data-height="300">
-								<table id="tabla_horas" class="table">
-									<thead style>
-										<tr>
-											<th>Nro</th>
-											<th>H. Inicio</th>
-											<th>H. Fin</th>
-											<th>fecha</th>
-											<th>Día</th>
-										</tr>
-									</thead>											
-									<tbody></tbody>											
-								</table>
-							</div>
-						</div>
-					</div>
-					<div class="row-fluid">
-						<div class="btn btn-app btn-info btn-small" id="btn_reservar">Reservar</div>
+	<!-- Home start -->
+
+	<section id="home" class="pfblock-image screen-height">
+        <div class="home-overlay"></div>
+		<div class="intro">
+			<div class="start">Estimado Cliente, Seleccione el servicio a reservar</div>
+			<div class="container">
+				<div class="row">
+					<div class="col-sm-12">
+						<ul class="social-links">
+							<li class="wow fadeInUp" data-wow-delay=".1s">
+								<a href="#museo" >
+									<img src="../servicios/img/" width="50%" id="obj_museo_img">
+								</a>
+								<div class="dc_texto" id="obj_museo_nom"></div>
+							</li>
+							<li class="wow fadeInUp" data-wow-delay=".2s">
+								<a href="#arrieros" >
+									<img src="../servicios/img/" width="50%" id="obj_arrieros_img">
+								</a>
+								<div class="dc_texto" id="obj_arrieros_nom"></div>
+							</li>
+							<li class="wow fadeInUp" data-wow-delay=".3s">
+								<a href="#posada">
+									<img src="../servicios/img/" width="50%" id="obj_posada_img">
+								</a>
+								<div class="dc_texto" id="obj_posada_nom"></div>
+							</li>
+							<li class="wow fadeInUp" data-wow-delay=".4s">
+								<a href="#club">
+									<img src="../servicios/img/" width="50%" id="obj_club_img">
+								</a>
+								<div class="dc_texto" id="obj_club_nom"></div>
+							</li>
+						</ul>
 					</div>
 				</div>
-				<div class="span8">
-					<div class="dc_estandar_reserva">
-						<div class="row-fluid" id="obj_1">								
-						</div>
-						<div class="row-fluid" id="obj_2">
-							<div class="row center">
-								<div class="span4">
-									<div id="obj_btn_informacion">
-										<div class="row">
-											<div class="texto2 blue">
-												<h4 class="animated bounceInDown txt_zise">Información</h4>
-											</div>
-										</div>
-										<div class="row">
-											<p>
-												
-											</p>
-										</div>
-									</div>
-								</div>	
-								<div class="span4">
-									<div class="row">
-										<div class="texto2 blue">
-											<h4 class="animated bounceInDown txt_zise">Seleccione fecha</h4>
-										</div>
-									</div>
-									<div class="row">
-										<div class="span12">
-											
-										</div>
-										<div id="id_servicio" class="hidden"></div>											
-									</div>
-								</div>
-								<div class="span4">
-									<div class="row" id="obj_dia_semana">
-										<div class="texto2 blue">
-											<h4 class="animated bounceInDown txt_zise">Día de la semana</h4>
-										</div>
-									</div>
-									<div class="row">
-										<div class="texto blue">
-											<h4 class="animated bounceInDown txt_zise" id="lbl_dia"></h4>
-										</div>
-									</div>
-								</div>														
-							</div>
-							<h4 class="smaller lighter green pull-right">
-								<i class="icon-list"></i>
-								Disponibilidad de Horario
-							</h4>
-							<div class="row" id="obj_tabla_ho_dis">
-								
-							</div>
-							<div class="row">
-								<button class="btn btn-success btn-block icon-user danger span12 " id="btn_reservar"> RESERVAR</button>									
-							</div>
-						</div>						
-					</div>
-				</div>
-			</div>
-		</div><!--/.main-container-->
-		<!-- ventana emergente horario -->
-		<div id="modal-table" class="modal hide fade" tabindex="-1">
-			<div class="modal-header no-padding">
-				<div class="table-header">
-					<div type="button" class="close" data-dismiss="modal">&times;</div>
-					Horarios Dinámico
-				</div>
-			</div>
-
-			<div class="modal-body no-padding">
-				<div class="row-fluid">
-					<div class="widget-main" id="obj_contenedor" style="height:350px;">
-					</div>					
-				</div>									
-			</div>			
-			<div class="modal-footer">
-				<button class="btn btn-small btn-danger pull-left" data-dismiss="modal">
-					<i class="icon-remove"></i>
-					Cerrar
-				</button>
-				<button class="btn btn-small btn-success pull-left" data-dismiss="modal">
-					<i class="icon-save"></i>
-					Guardar
-				</button>	
-				<div class="pagination pull-center no-margin">
-					
-					<div class="hidden-phone visible-desktop action-buttons" >
-						<a id="btn_m">
-							<i class="icon-zoom-in bigger-130 blue pointer"></i>
-						</a>
-					</div>
-						
-				</div>												
-			</div>
-		</div><!--modal horario ENDS-->
-		<!-- modal tarifa -->
-		<div id="modal-servicio" class="modal hide fade" tabindex="-1">
-			<div class="modal-header no-padding">
-				<div class="table-header">
-					<div type="button" class="close" data-dismiss="modal">&times;</div>
-					SERVICIOS DISPONIBLES
-				</div>
-			</div>
-
-			<div class="modal-body no-padding">
-				<div class="row-fluid pull-right">
-					
-																
-				</div>									
-			</div>			
-			<div class="modal-footer">
-				<button class="btn btn-small btn-danger pull-left" data-dismiss="modal">
-					<i class="icon-remove"></i>
-					Cerrar
-				</button>																		
-			</div>
-		</div>
-		<!-- modal reservacion  -->
-		<div id="modal-reservacion" class="modal hide fade" tabindex="-1">
-			<div class="modal-header no-padding">
-				<div class="table-header">
-					<div type="button" class="close" data-dismiss="modal">&times;</div>
-					Servicios de Reservación
-				</div>
-			</div>
-
-			<div class="modal-body no-padding">
-				<div class="row-fluid">
-					<div class="span12">
-						<form class="form-horizontal" id="form-v_reserva">					
-							
-						</form>									
-					</div>	
-				</div>
-				<div class="row-fluid">
-					<div class="span8">
-						<table id="tabla_horas_acu" class="table">
-							<thead>
-								<tr>									
-									<th>H. Inicio</th>
-									<th>H. Fin</th>
-									<th>fecha</th>
-									<th>Día</th>
-								</tr>
-							</thead>
-							<tbody></tbody>
-						</table>
-					</div>
-					<div class="span4 pull-right">
-						<table class="table table-striped">
-							<tr><td class="pull-right">SubTotal: $</td><td><label id="lbl_subtotal">00.00</label></td></tr>
-							<tr><td class="pull-right">Iva: $</td><td><label id="lbl_iva">00.00</label></td></tr>
-							<tr><td class="pull-right">Total: $</td><td><label id="lbl_total">00.00</label></td></tr>
-						</table>
-					</div>
-				</div>								
-			</div>			
-			<div class="modal-footer">
-				<button class="btn btn-small btn-danger pull-left" id="btn_g_reservar" data-dismiss="modal">
-					<i class="icon-remove"></i>
-					Cerrar
-				</button>
-				<button class="btn btn-small btn-success pull-right" id="btn_guardar_reservacion">
-					<i class="icon-ok"></i>
-					Reservar
-				</button>																		
 			</div>
 		</div>
 
-		<!-- modal tarifa -->
-		<div id="modal-tarifa" class="modal hide fade" tabindex="-1">
-			<div class="modal-header no-padding">
-				<div class="table-header">
-					<div type="button" class="close" data-dismiss="modal">&times;</div>
-					Información de las Tarifas
-				</div>
-			</div>
-
-			<div class="modal-body padding">
-				<div class="row-fluid">
-					<div class="widget-container-span">
-						<div class="widget-box">
-							<div class="widget-header header-color-purple">
-								<h5 class="bigger lighter">
-									<i class="icon-table"></i> Información, Tarifas / Costos													
-								</h5>
-
-								<div class="widget-toolbar">														
-								</div>
-							</div>
-							<div class="widget-body">
-								<div class="widget-main no-padding">
-									<table id="tabla_h_tarifa" class="table table-striped table-bordered table-hover no-margin-bottom no-border-top">
-										<thead>
-											<tr>
-												<th>Nro</th>
-												<th>Categoría</th>
-												<th>Tarifa</th>
-												<th><i class="icon-time"></i> Precio</th>																	
-											</tr>
-										</thead>
-										<tbody></tbody>
-									</table>
-								</div>
-							</div>
-						</div>
-					</div><!--/span-->	
-				</div>										
-			</div>			
-			<div class="modal-footer">
-				<button class="btn btn-small btn-danger pull-right" data-dismiss="modal">
-					<i class="icon-remove"></i>
-					Cerrar
-				</button>																					
-			</div>
+        <a href="#museo">
+		<div class="scroll-down">
+            <span>
+                <i class="fa fa-angle-down fa-2x"></i>
+            </span>
 		</div>
-		<!-- modal informacion -->
-		<div id="modal-informacion" class="modal hide fade" tabindex="-1">
-			<div class="modal-header no-padding">
-				<div class="table-header">
-					<div type="button" class="close" data-dismiss="modal">&times;</div>
-					Información del Servicio
+        </a>
+
+	</section>
+
+	<!-- Home end -->
+
+	<!-- Navigation start -->
+
+	<header class="header">
+
+		<nav class="navbar navbar-custom" role="navigation">
+
+			<div class="container">
+
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#custom-collapse">
+						<span class="sr-only">Navegación Movil</span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+					<a class="navbar-brand" href="index.html">Fabrica Imbabura</a>
+				</div>
+
+				<div class="collapse navbar-collapse" id="custom-collapse">
+					<ul class="nav navbar-nav navbar-right">
+						<li><a href="../inicio">Atras</a></li>
+						<li><a href="#home">Inicio</a></li>
+						<li><a href="#museo" id="obj_menu_museo">museo</a></li>
+                        <li><a href="#arrieros" id="obj_menu_arrieros">centro de convenciones</a></li>
+                        <li><a href="#posada" id="obj_menu_posada">restaurante</a></li>
+						<li><a href="#club" id="obj_menu_club">teatro auditorio</a></li>
+					</ul>
+				</div>
+
+			</div><!-- .container -->
+
+		</nav>
+
+	</header>
+
+	<!-- Navigation end -->
+
+    <!-- Services start -->
+
+	<section id="museo" class="pfblock pfblock-gray ">
+		<div class="ayuda wow zoomInRight btn" id="btn_modal_info">Información Museo <i class="fa fa-info-circle"></i></div>
+		<div class="container">
+			<div class="row">
+
+				<div class="col-sm-6 col-sm-offset-3">
+					<div class="pfblock-header wow fadeInUp">
+						<h2 class="pfblock-title" id="obj_title_museo">Museo</h2>
+					</div>
 				</div>
 			</div>
-			<div class="modal-body no-padding">
-				<div class="row-fluid">
-					<div class="span12 widget-container-span">
-						<div class="widget-box transparent">
-							<div class="widget-header">
-								<h4 class="lighter">Información del Servicio</h4>
 
-								<div class="widget-toolbar no-border">
-									<ul class="nav nav-tabs" id="myTab2">
-										<li class="active">
-											<a data-toggle="tab" href="#galeria">Galería</a>
-										</li>
-
-										<li>
-											<a data-toggle="tab" href="#descripcion">Descripción</a>
-										</li>
-
-										<li>
-											<a data-toggle="tab" href="#otros">Otros</a>
-										</li>
-									</ul>
-								</div>
-							</div>
-
-							<div class="widget-body">
-								<div class="widget-main padding-12 no-padding-left no-padding-right">
-									<div class="tab-content padding-4">
-										<div id="galeria" class="tab-pane in active">
-											<div class="slim-scroll" data-height="250">
-												<div class="row-fluid">
-													<div class="span12">
-														<!--PAGE CONTENT BEGINS-->
-
-														<div class="row-fluid" id="obj_cont_galeria">
-															
-														</div><!--PAGE CONTENT ENDS-->
-													</div><!--/.span-->
+			<div class="row">
+				<div class="col-md-12">
+					<form id="commentForm" class="form-horizontal">
+						<div id="rootwizard" style="height: 450px;">
+							<ul>
+							  	<li><a href="#tab1" data-toggle="tab">Paso 1</a></li>
+								<li><a href="#tab2" data-toggle="tab">Paso 2</a></li>
+								<li><a href="#tab3" data-toggle="tab">Paso 3</a></li>
+							</ul>
+							<div class="tab-content">
+							    <div class="tab-pane" id="tab1">
+							    	<div class="row">
+							    		<div class="col-md-4 col-md-offset-4">
+											<div class="iconbox wow slideInRight">
+												<h3 class="iconbox-title">Estimado, Deivid seleccione el tipo de reservación</h3>
+												<div class="iconbox-desc">
+													<div class="form-group">
+														<select class="form-control" id="select_tipo_reser_museo" name="select_tipo_reser_museo">
+														</select>
+													</div>
+													<div class="form-group hidden" id="obj_institucion">
+													    <label for="exampleInputEmail1">Ingrese nombre de la Intitución</label>
+													    <input type="text" class="form-control" id="txt_nom_inst" name="txt_nom_inst" placeholder="Ingrese nombre de la institución">
+													</div>
 												</div>
 											</div>
 										</div>
-
-										<div id="descripcion" class="tab-pane">
-											<div class="slim-scroll" data-height="150">
-												<div class="row-fluid">
-													<div class="span12">
-														<!--PAGE CONTENT BEGINS-->
-
-														<div class="row-fluid" id="obj_cont_descripcion">
-															
-														</div><!--PAGE CONTENT ENDS-->
-													</div><!--/.span-->
+							    	</div>
+								</div>
+							    <div class="tab-pane" id="tab2">
+							    	<div class="row">
+								     	<div class="col-md-8 col-md-offset-2">
+											<div class="iconbox animated fadeInUp">
+												<h3 class="iconbox-title">Seleccione fecha y hora</h3>
+												<div class="row">
+													<div class="col-md-6 col-md-offset-3">
+														<div class="form-group">
+											                <div class='input-group date' id='datetimepicker1'>
+											                    <input type='text' class="form-control" id="txt_fecha_origen" name="txt_fecha_origen" placeholder="Seleccione fecha de reservación" />
+											                    <span class="input-group-addon">
+											                        <span class="fa fa-calendar"></span>
+											                    </span>
+											                </div>
+											            </div>
+													</div>
 												</div>
-											</div>
-										</div>
-
-										<div id="otros" class="tab-pane">
-											<div class="slim-scroll" data-height="150">
-												<div class="row-fluid">
-													<div class="span12">
-														<!--PAGE CONTENT BEGINS-->
-
-														<div class="row-fluid" id="obj_cont_otros">
-															
-														</div><!--PAGE CONTENT ENDS-->
-													</div><!--/.span-->
+												<div class="panel panel-default">
+												    <table class="table table-condensed" >
+												        <thead>
+												            <tr>
+												                <th>Nro</th>
+																<th class="center"><i class="fa fa-check-square-o"></i></th>
+																<th>Desde</th>
+																<th>Hasta</th>
+																<th>fecha</th>
+																<th>Día</th>
+												            </tr>
+												        </thead>
+												    </table>
+													<div class="div-table-content">
+													    <table class="table table-condensed" id="tabla_horas">
+													        <tbody>
+													        </tbody>
+													    </table>
+													</div>
 												</div>
 											</div>
 										</div>
 									</div>
-								</div>
+							    </div>
+								<div class="tab-pane" id="tab3">
+									<div class="row">
+										<div class="col-md-10 col-md-offset-1 ">
+											<div class="iconbox wow slideInLeft">
+												<div class="row">
+													<div class="col-md-8">
+														<div id="form-v_reserva">
+														</div>
+													</div>
+													<div class="col-md-4">
+														<table class="table table-striped">
+															<tr><td class="pull-right">SubTotal: $</td><td><label id="lbl_subtotal">0.00</label></td></tr>
+															<tr><td class="pull-right" id="lbl_inf_iva">Iva: $</td><td><label id="lbl_iva">0.00</label></td></tr>
+															<tr><td class="pull-right">Total: $</td><td><label id="lbl_total">0.00</label></td></tr>
+														</table>
+														<div class="btn btn-success" id="btn_guardar_reservacion">Reservar</div>
+													</div>
+												</div>
+												<div class="row">
+													<table id="tabla_horas_acu" class="table">
+														<thead>
+															<tr class="center">
+																<th >Nro</th>
+																<th>H. Inicio</th>
+																<th>H. Fin</th>
+																<th>fecha</th>
+																<th>Día</th>
+															</tr>
+														</thead>
+														<tbody></tbody>
+													</table>
+												</div>
+
+											</div>
+										</div>
+									</div>
+							    </div>
+								<ul class="pager wizard">
+									<li class="previous first" style="display:none;">First</li>
+									<li class="previous" id="btn_atras">
+										<div class="btn btn-lg btn-default wow fadeInUp">
+											<i class="fa fa-chevron-circle-left"></i> Atras
+										</div>
+									</li>
+									<li class="next last" style="display:none;">Las</li>
+								  	<li class="next" id="btn_sigiente">
+								  		<div class="btn btn-lg btn-default wow fadeInUp">
+								  			Siguiente
+								  			<i class="fa fa-chevron-circle-right"></i>
+								  		</div>
+								  	</li>
+								</ul>
 							</div>
+						</div>
+						</form>
+				</div>
+
+			</div><!-- .row -->
+		</div><!-- .container -->
+	</section>
+
+	<!-- Services end -->
+	<!-- Portfolio start -->
+
+	<section id="arrieros" class="pfblock">
+		<div class="container">
+			<div class="row">
+
+				<div class="col-sm-6 col-sm-offset-3">
+
+					<div class="pfblock-header wow fadeInUp">
+						<h2 class="pfblock-title">My works</h2>
+						<div class="pfblock-line"></div>
+						<div class="pfblock-subtitle">
+							No one lights a lamp in order to hide it behind the door: the purpose of light is to create more light, to open people’s eyes, to reveal the marvels around.
 						</div>
 					</div>
-				</div>										
-			</div>			
-			<div class="modal-footer">
-				<button class="btn btn-small btn-danger pull-right" data-dismiss="modal">
-					<i class="icon-remove"></i>
-					Cerrar
-				</button>																					
-			</div>
-		</div>
-		<!-- modal tarifa -->
-		<div id="modal-horarios" class="modal hide fade" tabindex="-1">
-			<div class="modal-header no-padding">
-				<div class="table-header">
-					<div type="button" class="close" data-dismiss="modal">&times;</div>
-					Información de horarios
+
 				</div>
+
+			</div><!-- .row -->
+            <div class="row">
+                <div class="col-xs-12 col-sm-4 col-md-4">
+                    <div class="grid wow zoomIn">
+                        <figure class="effect-bubba">
+                            <img src="assets/images/item-1.jpg" alt="img01"/>
+                            <figcaption>
+                                <h2>Crazy <span>Shark</span></h2>
+                                <p>Lily likes to play with crayons and pencils</p>
+                            </figcaption>
+                        </figure>
+                    </div>
+                </div>
+
+                <div class="col-xs-12 col-sm-4 col-md-4">
+                    <div class="grid wow zoomIn">
+                        <figure class="effect-bubba">
+                            <img src="assets/images/item-2.jpg" alt="img01"/>
+                            <figcaption>
+                                <h2>Funny <span>Tortoise</span></h2>
+                                <p>Lily likes to play with crayons and pencils</p>
+                            </figcaption>
+                        </figure>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-4 col-md-4">
+                    <div class="grid wow zoomIn">
+                        <figure class="effect-bubba">
+                            <img src="assets/images/item-3.jpg" alt="img01"/>
+                            <figcaption>
+                                <h2>The <span>Hat</span></h2>
+                                <p>Lily likes to play with crayons and pencils</p>
+                            </figcaption>
+                        </figure>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-4 col-md-4">
+                    <div class="grid wow zoomIn">
+                        <figure class="effect-bubba">
+                            <img src="assets/images/item-4.jpg" alt="img01"/>
+                            <figcaption>
+                                <h2>Bang <span>Bang</span></h2>
+                                <p>Lily likes to play with crayons and pencils</p>
+                            </figcaption>
+                        </figure>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-4 col-md-4">
+                    <div class="grid wow zoomIn">
+                        <figure class="effect-bubba">
+                            <img src="assets/images/item-5.jpg" alt="img01"/>
+                            <figcaption>
+                                <h2>Crypton <span>Dude</span></h2>
+                                <p>Lily likes to play with crayons and pencils</p>
+                            </figcaption>
+                        </figure>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-4 col-md-4">
+                    <div class="grid wow zoomIn">
+                        <figure class="effect-bubba">
+                            <img src="assets/images/item-6.jpg" alt="img01"/>
+                            <figcaption>
+                                <h2>Don't <span>Poke</span></h2>
+                                <p>Lily likes to play with crayons and pencils</p>
+                            </figcaption>
+                        </figure>
+                    </div>
+                </div>
+            </div>
+
+
+		</div><!-- .contaier -->
+
+	</section>
+
+	<!-- Portfolio end -->
+    <!-- Skills start -->
+    <section id="posada" class="pfblock pfblock-gray">
+			<div class="container">
+				<div class="row skills">
+					<div class="row">
+
+                        <div class="col-sm-6 col-sm-offset-3">
+
+                            <div class="pfblock-header wow fadeInUp">
+                                <h2 class="pfblock-title">My Skills</h2>
+                                <div class="pfblock-line"></div>
+                                <div class="pfblock-subtitle">
+                                    No one lights a lamp in order to hide it behind the door: the purpose of light is to create more light, to open people’s eyes, to reveal the marvels around.
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div><!-- .row -->
+					<div class="col-sm-6 col-md-3 text-center">
+						<span data-percent="80" class="chart easyPieChart" style="width: 140px; height: 140px; line-height: 140px;">
+                            <span class="percent">80</span>
+                        </span>
+						<h3 class="text-center">Programming</h3>
+					</div>
+					<div class="col-sm-6 col-md-3 text-center">
+						<span data-percent="90" class="chart easyPieChart" style="width: 140px; height: 140px; line-height: 140px;">
+                            <span class="percent">90</span>
+                        </span>
+						<h3 class="text-center">Design</h3>
+					</div>
+					<div class="col-sm-6 col-md-3 text-center">
+						<span data-percent="85" class="chart easyPieChart" style="width: 140px; height: 140px; line-height: 140px;">
+                            <span class="percent">85</span>
+                        </span>
+						<h3 class="text-center">Marketing</h3>
+					</div>
+					<div class="col-sm-6 col-md-3 text-center">
+						<span data-percent="95" class="chart easyPieChart" style="width: 140px; height: 140px; line-height: 140px;">
+                            <span class="percent">95</span>
+                        </span>
+						<h3 class="text-center">UI / UX</h3>
+					</div>
+				</div><!--End row -->
 			</div>
+    </section>
+    <!-- Skills end -->
 
-			<div class="modal-body padding">
-				<div class="row-fluid">
-					<div class="span12 widget-container-span">
-						<div class="widget-box">
-							<div class="widget-header header-color-red3">
-								<h5 class="bigger lighter">
-									<i class="icon-table"></i> Información, Días y horarios de atención													
-								</h5>
+	<!-- CallToAction start -->
 
-								<div class="widget-toolbar">														
-								</div>
-							</div>
+	<section class="calltoaction">
+		<div class="container">
 
-							<div class="widget-body">
-								<div class="widget-main no-padding">
-									<table id="tabla_h_ser" class="table table-striped table-bordered table-hover no-margin-bottom no-border-top">
-										<thead>
-											<tr>
-												<th>#</th>																			
-												<th>Días a reservar</th>
-												<th><i class="icon-time"></i> Inicia</th>
-												<th><i class="icon-time"></i> Finaliza</th>
-											</tr>
-										</thead>
-										<tbody></tbody>
-									</table>
-								</div>
-							</div>
+			<div class="row">
+
+				<div class="col-md-12 col-lg-12">
+					<h2 class="wow slideInRight" data-wow-delay=".1s">ARE YOU READY TO START?</h2>
+					<div class="calltoaction-decription wow slideInRight" data-wow-delay=".2s">
+						I'm available for freelance projects.
+					</div>
+				</div>
+
+				<div class="col-md-12 col-lg-12 calltoaction-btn wow slideInRight" data-wow-delay=".3s">
+					<a href="#contact" class="btn btn-lg">Hire Me</a>
+				</div>
+
+			</div><!-- .row -->
+		</div><!-- .container -->
+	</section>
+
+	<!-- CallToAction end -->
+
+	<!-- Testimonials start -->
+
+	<section id="club" class="pfblock pfblock-gray">
+		<div class="container">
+            <div class="row">
+				<div class="col-sm-6 col-sm-offset-3">
+
+					<div class="pfblock-header wow fadeInUp">
+						<h2 class="pfblock-title">What my clients say</h2>
+						<div class="pfblock-line"></div>
+						<div class="pfblock-subtitle">
+							No one lights a lamp in order to hide it behind the door: the purpose of light is to create more light, to open people’s eyes, to reveal the marvels around.
 						</div>
-					</div><!--/span-->
-				</div>				
-			</div>			
-			<div class="modal-footer">
-				<button class="btn btn-small btn-danger pull-right" data-dismiss="modal">
-					<i class="icon-remove"></i>
-					Cerrar
-				</button>																					
-			</div>
-		</div>		
-		<!--basic scripts-->
-		<!--[if IE]>
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-<![endif]-->
+					</div>
 
-		<!--[if !IE]>-->
+				</div>
 
-		<script type="text/javascript">
-			window.jQuery || document.write("<script src='../assets/js/jquery-2.0.3.min.js'>"+"<"+"/script>");
-		</script>
+			</div><!-- .row -->
 
-		<!--<![endif]-->
+            <div class="row">
 
-		<!--[if IE]>
-<script type="text/javascript">
- window.jQuery || document.write("<script src='../assets/js/jquery-1.10.2.min.js'>"+"<"+"/script>");
-</script>
-<![endif]-->
+			<div id="cbp-qtrotator" class="cbp-qtrotator">
+                <div class="cbp-qtcontent">
+                    <img src="assets/images/client-1.jpg" alt="client-1" />
+                    <blockquote>
+                      <p>Work with John was a pleasure. He understood exactly what I wanted and created an awesome site for my company.</p>
+                      <footer>Pino Caruso</footer>
+                    </blockquote>
+                </div>
+                <div class="cbp-qtcontent">
+                    <img src="assets/images/client-2.jpg" alt="client-2" />
+                    <blockquote>
+                      <p>I'm really happy with the results. Get 100% satisfaction is difficult but Alex got it without problems.</p>
+                      <footer>Jane Doe</footer>
+                    </blockquote>
+                </div>
+            </div>
+            </div><!-- .row -->
 
-		<script type="text/javascript">
-			if("ontouchend" in document) document.write("<script src='../assets/js/jquery.mobile.custom.min.js'>"+"<"+"/script>");
-		</script>
-		<script src="../assets/js/bootstrap.min.js"></script>
+		</div><!-- .row -->
+	</section>
 
-		<!--page specific plugin scripts-->
-
-		<!--[if lte IE 8]>
-		  <script src="../assets/js/excanvas.min.js"></script>
-		<![endif]-->
-
-		
-		<script src="../assets/js/jquery-ui-1.10.3.custom.min.js"></script>
-		<script src="../assets/js/jquery.ui.touch-punch.min.js"></script>
-		<script src="../assets/js/jquery.gritter.min.js"></script>
-		<script src="../assets/js/bootbox.min.js"></script>
-		<script src="../assets/js/jquery.slimscroll.min.js"></script>
-		<script src="../assets/js/jquery.easy-pie-chart.min.js"></script>
-		<script src="../assets/js/jquery.hotkeys.min.js"></script>
-		<script src="../assets/js/bootstrap-wysiwyg.min.js"></script>
-		<script src="../assets/js/select2.min.js"></script>		
-		<script src="../assets/js/chosen.jquery.min.js"></script>		
-		<script src="../assets/js/date-time/bootstrap-datepicker.min.js"></script>
-		<script src="../assets/js/date-time/bootstrap-timepicker.min.js"></script>
-		<script src="../assets/js/date-time/moment.min.js"></script>
-		<script src="../assets/js/date-time/daterangepicker.min.js"></script>
-		<script src="../assets/js/bootstrap-colorpicker.min.js"></script>
-		<script src="../assets/js/jquery.knob.min.js"></script>
-		<script src="../assets/js/jquery.autosize-min.js"></script>
-		<script src="../assets/js/jquery.inputlimiter.1.3.1.min.js"></script>
-		<script src="../assets/js/bootstrap-tag.min.js"></script>
-		<script src="../assets/js/jquery.validate.min.js"></script>
-		<script src="../assets/js/additional-methods.min.js"></script>
-		<script src="../assets/js/fuelux/fuelux.spinner.min.js"></script>
-		<script src="../assets/js/blockui.js"></script>
-		<script src="../assets/js/jquery.colorbox-min.js"></script>
-		<script src="../assets/vegas/jquery.vegas.js"></script>
-		<script src="../assets/js/jquery.easy-pie-chart.min.js"></script>
-		<script src="../assets/js/jquery.hotkeys.min.js"></script>
-		<script src="../assets/js/bootstrap-wysiwyg.min.js"></script>
-		<script src="../assets/js/select2.min.js"></script>
+	<!-- Testimonial end -->
 
 
+	<!-- Contact start -->
 
+	<section id="contact" class="pfblock">
+		<div class="container">
+			<div class="row">
 
+				<div class="col-sm-6 col-sm-offset-3">
 
-		<!--personal scripts-->
-		<script type="text/javascript" src="index.js"></script>
-		<!--ace scripts-->
+					<div class="pfblock-header">
+						<h2 class="pfblock-title">Drop me a line</h2>
+						<div class="pfblock-line"></div>
+						<div class="pfblock-subtitle">
+							No one lights a lamp in order to hide it behind the door: the purpose of light is to create more light, to open people’s eyes, to reveal the marvels around.
+						</div>
+					</div>
 
-		<script src="../assets/js/ace-elements.min.js"></script>
-		<script src="../assets/js/ace.min.js"></script>	
-		<!--inline scripts related to this page-->
-	</body>	
+				</div>
+
+			</div><!-- .row -->
+
+			<div class="row">
+
+				<div class="col-sm-6 col-sm-offset-3">
+
+					<form id="contact-form" role="form">
+						<div class="ajax-hidden">
+							<div class="form-group wow fadeInUp">
+								<label class="sr-only" for="c_name">Name</label>
+								<input type="text" id="c_name" class="form-control" name="c_name" placeholder="Name">
+							</div>
+
+							<div class="form-group wow fadeInUp" data-wow-delay=".1s">
+								<label class="sr-only" for="c_email">Email</label>
+								<input type="email" id="c_email" class="form-control" name="c_email" placeholder="E-mail">
+							</div>
+
+							<div class="form-group wow fadeInUp" data-wow-delay=".2s">
+								<textarea class="form-control" id="c_message" name="c_message" rows="7" placeholder="Message"></textarea>
+							</div>
+
+							<button type="submit" class="btn btn-lg btn-block wow fadeInUp" data-wow-delay=".3s">Send Message</button>
+						</div>
+						<div class="ajax-response"></div>
+					</form>
+
+				</div>
+
+			</div><!-- .row -->
+		</div><!-- .container -->
+	</section>
+
+	<!-- Contact end -->
+
+	<!-- modals informacion -->
+	<div class="modal fade" id="modal-museo" aria-hidden="true">
+        <div class="modal-dialog">
+		    <!-- Modal content-->
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <button type="button" class="close" data-dismiss="modal">&times;</button>
+		        <h4 class="modal-title">Información Museo</h4>
+		      </div>
+		      <div class="modal-body">
+		      	<div class="row">
+			      	<div class="col-xs-12 col-sm-8 col-md-8" id="obj_info_museo_alert">			      		
+			      	</div>
+			      	<div class="col-xs-12 col-sm-4 col-md-4">			      		
+			      		<div class="thumbnail">
+			      			<div class="caption wow bouceInDown" id="obj_info_museo_nom"></div>
+							<img src="" class="wow bounceInUp" alt="Museo" id="obj_info_museo">		
+						</div>
+			      	</div>
+			    </div>
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+		      </div>
+		    </div>
+		</div>
+
+    </div>
+	<!-- fin modal informacion -->
+
+	<!-- Footer start -->
+
+	<footer id="footer">
+		<div class="container">
+			<div class="row">
+
+				<div class="col-sm-12">
+
+					<ul class="social-links">
+						<li><a href="index.html#" class="wow fadeInUp"><i class="fa fa-facebook"></i></a></li>
+						<li><a href="index.html#" class="wow fadeInUp" data-wow-delay=".1s"><i class="fa fa-twitter"></i></a></li>
+						<li><a href="index.html#" class="wow fadeInUp" data-wow-delay=".2s"><i class="fa fa-google-plus"></i></a></li>
+						<li><a href="index.html#" class="wow fadeInUp" data-wow-delay=".4s"><i class="fa fa-pinterest"></i></a></li>
+						<li><a href="index.html#" class="wow fadeInUp" data-wow-delay=".5s"><i class="fa fa-envelope"></i></a></li>
+					</ul>
+
+					<p class="heart">
+                        Made with <span class="fa fa-heart fa-2x animated pulse"></span> in Nottingham
+                    </p>
+                    <p class="copyright">
+                        © 2015 John Doe | Images: <a href="https://unsplash.com/">Unsplash</a> & <a href="http://zoomwalls.com/">Zoomwalls</a>
+					</p>
+
+				</div>
+
+			</div><!-- .row -->
+		</div><!-- .container -->
+	</footer>
+
+	<!-- Footer end -->
+
+	<!-- Scroll to top -->
+
+	<div class="scroll-up">
+		<a href="#home"><i class="fa fa-angle-up"></i></a>
+	</div>
+    <!-- Scroll to top end-->
+
+	<!-- Javascript files -->
+
+	<script src="assets/js/jquery-1.11.1.min.js"></script>
+	<script src="assets/bootstrap/js/bootstrap.min.js"></script>
+	<script src="assets/js/jquery.bootstrap.wizard.js"></script>
+	<script src="assets/js/prettify.js"></script>
+	<script src="assets/js/jquery.parallax-1.1.3.js"></script>
+	<script src="assets/js/imagesloaded.pkgd.js"></script>
+	<script src="assets/js/jquery.sticky.js"></script>
+	<script src="assets/js/smoothscroll.js"></script>
+	<script src="assets/js/wow.min.js"></script>
+    <script src="assets/js/jquery.easypiechart.js"></script>
+    <script src="assets/js/waypoints.min.js"></script>
+    <script src="assets/js/jquery.cbpQTRotator.js"></script>
+	<script src="assets/js/custom.js"></script>
+	<script src="assets/js/jquery.validate.min.js"></script>
+	<script src="assets/js/moment-with-locales.js"></script>
+	<script src="assets/js/bootstrap-datetimepicker.js"></script>
+	<script src="../assets/js/jquery.gritter.min.js"></script>
+	<script src="assets/js/jquery.bootstrap-touchspin.js"></script>	
+	<script src="../assets/js/jquery.validate.min.js"></script>
+	<script src="../assets/js/additional-methods.min.js"></script>
+	<script src="assets/js/underscore-1.5.2.min.js"></script>
+	<script src="assets/js/jquery.scrollTableBody-1.0.0.js"></script>
+	<script src="../assets/js/blockui.js"></script>
+	<script src="app.js"></script>
+</body>
 </html>
-
-
-<script type="text/javascript">
-$(function(){
-$.ajax({
-	url:'reservacion.php',
-	type:'POST',
-	data:{obj_informacion:true},
-	success:function(data){
-		console.log(data);
-		$('#obj_informacion').html(data);
-	}
-});
-});
-//$("#btn_inicio").animate({ scrollTop: $('#inicio')[0].scrollHeight}, 500);
-$("#btn_inicio").css({'cursor':'pointer'});
-$("#btn_inicio").click(function(){
-	$('html,body').animate({
-		scrollTop:'1000px'},
-		1000,
-		function(){
-		 	$('#btn_buscar_servicios').addClass('animated wobble');
-            setTimeout ("renovar1()", 1000);
-            $('#btn_buscar_servicios').css({'color':'red'});
-		});
-	return false;	
-});
-
-function renovar3() {
-    $('#btn_buscar_servicios').removeClass('animated wobble');        
-} 
-
-$.vegas('slideshow', {
-  backgrounds:[
-    { src:'../assets/images/gallery/dc1.jpg', fade:1000 },
-    { src:'../assets/images/gallery/dc2.jpg', fade:1000 },
-    { src:'../assets/images/gallery/dc3.jpg', fade:1000 }
-  ]
-})('overlay', {
-  src:'../assets/vegas/overlays/11.png'
-});
-
-
-function reconstruir(i){	
-	$("#tabla_horas tbody tr").each(function (index) {
-        var campo1, axus=0, campo3;
-        $(this).children("td").each(function (index2) {
-            switch (index2) {            	        	
-                case 0:                	
-                    $(this).children().children().removeAttr('checked');                    
-                    break;                
-            }        
-        });       
-    });
-
-	$("#tabla_horas tbody tr").each(function (index) {        
-        if (i==index) {
-        	$(this).children("td").each(function (index2) {
-	            switch (index2) {            	        	
-	                case 0:                	
-	                    $(this).children().children().prop("checked", "checked");                    
-	                    break;                
-	            }        
-	        }); 
-        }              
-    });
-}
-// variable global
-var ak45=0;
-function reconstruir2(i){	
-	// $("#tabla_horas tbody tr").each(function (index) {
- //        $(this).children("td").each(function (index2) {
- //            switch (index2) {            	        	
- //                case 0:                	
- //                    $(this).children().children().removeAttr('checked');                    
- //                    break;                
- //            }        
- //        });       
- //    });
-
-	$("#tabla_horas tbody tr").each(function (index) {        
-        if (i==index) {
-        	var a=0;
-        	$(this).children("td").each(function (index2) {
-	            switch (index2) {            	        	
-	                case 0:                	
-	                    
-	                   	if (ak45==0) {
-   	                    	$(this).children().children().prop("checked", "checked");
-   	                    	ak45=1;
-   	                    }          
-   	                    console.log(ak45)          
-	                    break;                
-	            }        
-	        }); 
-        }              
-    });
-}
-// funciones de galeria
-$(function() {
-	var colorbox_params = {
-		reposition:true,
-		scalePhotos:true,
-		scrolling:false,
-		previous:'<i class="icon-arrow-left"></i>',
-		next:'<i class="icon-arrow-right"></i>',
-		close:'&times;',
-		current:'{current} of {total}',
-		maxWidth:'100%',
-		maxHeight:'100%',
-		onOpen:function(){
-			document.body.style.overflow = 'hidden';
-		},
-		onClosed:function(){
-			document.body.style.overflow = 'auto';
-		},
-		onComplete:function(){
-			$.colorbox.resize();
-		}
-	};
-
-	$('.ace-thumbnails [data-rel="colorbox"]').colorbox(colorbox_params);
-	$("#cboxLoadingGraphic").append("<i class='icon-spinner orange'></i>");//let's add a custom loading icon
-
-	/**$(window).on('resize.colorbox', function() {
-		try {
-			//this function has been changed in recent versions of colorbox, so it won't work
-			$.fn.colorbox.load();//to redraw the current frame
-		} catch(e){}
-	});*/
-})
-
-$(function(){	
-	 
-	$('#btn_buscar_servicios').popover('show');
-	$('#btn_buscar_servicios').mouseover(function(){		
-		$(this).css({'cursor':'pointer'});
-	});
-
-	// #modal-servicio
-	$('#btn_buscar_servicios').click(function(){			
-		$('#btn_buscar_servicios').popover('hide');		
-		$('#modal-servicio').modal('show');
-		$('#txt_b_servicio').popover('show');
-	});	
-	$('#txt_b_servicio').click(function(){		
-		var valor=$(this);
-		var acu=valor.parent().parent();
-		$(acu).removeClass('warning');
-		$(acu).addClass('success');		
-	});
-
-	// scrollables
-	$('.slim-scroll').each(function () {
-		var $this = $(this);
-		$this.slimScroll({
-			height: $this.data('height') || 100,
-			railVisible:true
-		});
-	});
-
-	
-	
-	//$('#modal-servicio').modal('show');  
-	$('[data-rel=popover]').popover({html:true});
-
-	$('#my-btn').click(function () {
-       
-	     $('[data-toggle=popover]').popover('hide'); //EDIT: added this line to hide popover on button click.
-	});
-	
-	// sumando fechas a la actual
-	function sumaFecha(d, fecha)
-	{
-		var Fecha = new Date();
-		var sFecha = fecha || (Fecha.getDate() + "/" + (Fecha.getMonth() +1) + "/" + Fecha.getFullYear());
-		var sep = sFecha.indexOf('/') != -1 ? '/' : '-'; 
-		var aFecha = sFecha.split(sep);
-		var fecha = aFecha[2]+'/'+aFecha[1]+'/'+aFecha[0];
-		fecha= new Date(fecha);
-		fecha.setDate(fecha.getDate()+parseInt(d));
-		var anno=fecha.getFullYear();
-		var mes= fecha.getMonth()+1;
-		var dia= fecha.getDate();
-		mes = (mes < 10) ? ("0" + mes) : mes;
-		dia = (dia < 10) ? ("0" + dia) : dia;
-		var fechaFinal = dia+sep+mes+sep+anno;
-		return (fechaFinal);
-	}
-	var fec=new Date();
-	var acufecha=fec.getDate() + "/" + (fec.getMonth() +1) + "/" + fec.getFullYear();
-	
-	 var fecha = sumaFecha(7,acufecha);
-	 
-	$('.date-picker').datepicker({					
-		startDate: new Date(),	
-		endDate:'31/12/'+fec.getFullYear(),
-		format: 'dd/mm/yyyy',
-		weekStart: 1
-	});
-
-	// scrollables
-	$('.slim-scroll').each(function () {
-		var $this = $(this);
-		$this.slimScroll({
-			height: $this.data('height') || 100,
-			railVisible:true
-		});
-	});
-
-		
-$('#txt_fecha_origen').change(function(){
-	//mostradon contenido objetos	
-	$('.dc_tabla').removeClass('hide');
-	$('#obj_dia_semana').show();
-	$('#obj_dia_semana').removeClass().addClass('zoomIn animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function(){
-      $(this).removeClass();
-    });
-    $('#obj_tabla_ho_dis').show();
-    $('#obj_tabla_ho_dis').removeClass().addClass('fadeInUp animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function(){
-      $(this).removeClass();
-    });
-    $('#obj_btn_informacion').show();
-	$('#obj_btn_informacion').removeClass().addClass('zoomInUp animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function(){
-          $(this).removeClass();       
-    });
-	var fe=$(this).val()
-	$('#lbl_dia').html();
-	var campo='';
-	buscar_horas($('#id_servicio').html(),dia_semana(fe),fe);	
-});
-// busca la hora que esta disponible en esa fecha
-function buscar_horas(reg,dia,fe){
-	var res=':(';
-	$.ajax({
-        url: "reservacion.php",
-        type: "POST",
-        
-        data:{buscar_horas:'ok', id:reg,dia:dia,f:fe},			               
-        success: function(data)
-        {	//console.log(data)   
-        	$.gritter.removeAll();
-        	$("#tabla_horas tbody").html('');     	
-        	if (data!=0) {
-        		$("#tabla_horas tbody").html(data);
-        	}else{        		
-        		$.gritter.add({
-					title: 'Estimado Cliente',
-					text: 'Lo sentimos, no disponemos horarios para realizar reservaciones en esten día',
-					class_name: 'gritter-info gritter-center',
-					time:20000
-				});
-        	}
-			
-        }	                	        
-    });
-    //return res;
-}
-	
-});
-
-
-
-
-
-</script>

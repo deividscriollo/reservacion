@@ -1,7 +1,7 @@
 <?php
 if(!isset($_SESSION))
 	{
-		session_start();		
+		session_start();
 	}
 	if(!isset($_SESSION["pass"])) {
 
@@ -40,7 +40,7 @@ if(!isset($_SESSION))
 		<link rel="stylesheet" href="../assets/css/daterangepicker.css" />
 		<link rel="stylesheet" href="../assets/css/colorpicker.css" />
 		<link rel="stylesheet" href="../assets/css/colorbox.css" />
-		
+
 
 		<!--page specific plugin styles-->
 
@@ -58,7 +58,7 @@ if(!isset($_SESSION))
 		<![endif]-->
 
 		<!--inline styles related to this page-->
-	
+
 		<style type="text/css">
 			.dc_spm{
 				width: 100%;
@@ -76,7 +76,7 @@ if(!isset($_SESSION))
 			}
 			.dc_btn:hover{
 				cursor: pointer;
-							
+
 			}
 			.zoom{
 				transition: 2.5s ease;
@@ -127,22 +127,20 @@ if(!isset($_SESSION))
 									<div class="dctexto zoom">
 										<h4 class="animated bounceInDown">Hola, </h4>
 									</div>
-									<div class="dctexto zoom">										
+									<div class="dctexto zoom">
 										<h4 class="animated bounceInUp"><?php $m=split(' ', $_SESSION['nom']); print $m[0];?></h4>
 									</div>
 								</div>
-											
-							</div>							
+							</div>
 						</div>
 						<div class="span6">
 							<div class="widget-box animated bounceInDown">
 								<div class="widget-header">
-									<h4>Detalle Factura / Realizar Pago</h4>							
-									
+									<h4>Detalle Factura / Realizar Pago</h4>
 								</div>
 
 								<div class="widget-body" style="background: rgba(255,255,255,0.9);!important;">
-									<div class="widget-main">										
+									<div class="widget-main">
 										<?php 
 										$id_reservacion=0;
 											if (isset($_GET['id'])) {
@@ -150,10 +148,10 @@ if(!isset($_SESSION))
 											}else{
 												$resultado=$class->consulta("SELECT DIA, R.ID FROM RESERVACION_HORARIOS H, RESERVACION R WHERE R.ID=H.ID_RESERVACION AND ID_USUARIO='".$_SESSION['id']."' AND H.STADO='0'");												
 											}
-											while ($row=$class->fetch_array($resultado)) {											                       
+											while ($row=$class->fetch_array($resultado)) {
 												    $dia = $row[0];	
-												    $id_reservacion=$row[1];										    
-												}												
+												    $id_reservacion=$row[1];
+												}
 										?>
 
 										<table class="table table-striped table-bordered table-hover">
@@ -161,7 +159,7 @@ if(!isset($_SESSION))
 												<tr>
 													<th>Día de Reservación</th>
 													<th>Categorias</th>
-													<th>Total</th>														
+													<th>Total</th>
 												</tr>
 											</thead>
 											<tbody>
@@ -180,7 +178,7 @@ if(!isset($_SESSION))
 																</tr>
 															</thead>
 															<tbody>
-																<?php 													
+																<?php
 																$valor="";
 																$nombre="";
 																if (isset($_GET['id'])) {
@@ -188,23 +186,26 @@ if(!isset($_SESSION))
 																}else{
 																	$resultado=$class->consulta("SELECT * FROM RESERVACION WHERE ID_USUARIO='".$_SESSION['id']."' AND STADO='0'");
 																}
-																while ($row=$class->fetch_array($resultado)) {																                       
+																while ($row=$class->fetch_array($resultado)) {
 																    $valor = $row[0];
 																    $nombre =$row[3];
-																    
-																}													 
+																}
 															?>
 																<?php 
 																	if (isset($_GET['id'])) {
-																		$resultado=$class->consulta("SELECT SERVICIOS, PRECIO, CANTIDAD,TOTAL FROM RESERVACION_TARIFA WHERE ID_RESERVACION='".$_GET['id']."' AND STADO='0'");
+																		$resultado=$class->consulta("SELECT NOM_TARIFA,TA.PRECIO,T.CANTIDAD,round((T.CANTIDAD*TA.PRECIO), 2),CASE WHEN IMPUESTO='SI' THEN  (PORCENTAJE)::int ELSE 0  END AS IMPUESTO
+	FROM RESERVACION R, SERVICIOS S, RESERVACION_TARIFA T, TARIFA TA
+	WHERE R.ID_SERVICIO=S.ID AND T.ID_TARIFA=TA.ID AND T.ID_RESERVACION=R.ID AND T.CANTIDAD!=0 AND ID_RESERVACION='".$_GET['id']."' AND T.STADO='0'");
 																	}else{
-																		$resultado=$class->consulta("SELECT SERVICIOS, PRECIO, CANTIDAD,TOTAL FROM RESERVACION_TARIFA T, RESERVACION R WHERE T.ID_RESERVACION=R.ID AND R.ID_USUARIO='".$_SESSION['id']."' AND T.STADO='0'");
+																		$resultado=$class->consulta("SELECT NOM_TARIFA,TA.PRECIO,T.CANTIDAD,round((T.CANTIDAD*TA.PRECIO), 2),CASE WHEN IMPUESTO='SI' THEN  (PORCENTAJE)::int ELSE 0  END AS IMPUESTO
+	FROM RESERVACION R, SERVICIOS S, RESERVACION_TARIFA T, TARIFA TA
+	WHERE R.ID_SERVICIO=S.ID AND T.ID_TARIFA=TA.ID AND T.ID_RESERVACION=R.ID AND T.CANTIDAD!=0  AND R.ID_USUARIO='".$_SESSION['id']."' AND T.STADO='0'");
 																	}
-																	while ($row=$class->fetch_array($resultado)) {											                       
-																	    //valores a consumir     
-																	    $t=$row[3];                 
-																	    print'<tr><td>'.$row[0].'</td><td>'.$row[1].'</td><td>'.$row[2].'</td><td>'.$row[3].'</td></tr>';											    
-																	}	
+																	while ($row=$class->fetch_array($resultado)) {
+																	    //valores a consumir
+																	    $t=$row[3];
+																	    print'<tr><td>'.$row[0].'</td><td>'.$row[1].'</td><td>'.$row[2].'</td><td>'.$row[3].'</td></tr>';
+																	}
 																?>
 															</tbody>
 														</table>
@@ -213,13 +214,11 @@ if(!isset($_SESSION))
 												</tr>
 											</tbody>
 										</table>
-										
 									</div>
 									<div class="widget-main">
 										<form class="form-horizontal" id="form-comprobante">
 											<div class="row-fluid">
 												<div class="span8">
-													
 													<div class="control-group">
 														<label class="control-label" for="s2id_autogen1">Seleccione Banco</label>
 														<div class="controls">

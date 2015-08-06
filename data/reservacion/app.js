@@ -5,35 +5,34 @@ $(function(){
 	// fin llama de funciones
 
     // dar valores iniciales data spiners
-         
 
-	// botones 
+	// botones
 		$('#btn_modal_info').click(function(){
 			$('#modal-museo').modal('show');
-		});		
+		});
 	// fin botones
 
     // guardando reservaciones
-    $('#btn_guardar_reservacion').click(function(){ 
+    $('#btn_guardar_reservacion').click(function(){
         var res_com=$('#lbl_total').html();
         res_com=res_com+0;
         if (res_com!=0) {
-            $('#modal-reservacion').modal('hide'); 
+            $('#modal-reservacion').modal('hide');
             var matriz= new Array();
             var horas='';
             var resX=buscar_n_tarifa(i);
             var resX=resX.split(';');
             //sacar valores de tarifas y otros elementos
             for (var i = 1; i < 10; i++) {
-                if ( document.getElementById( 'txt_tarifax'+i+'' )) {               
+                if ( document.getElementById( 'txt_tarifax'+i+'' )) {
                     var a ='txt_tarifax'+i+'';
                     var b ='lbl_tarifa'+i+'';
                     var c ='lbl_valores'+i+'';
                     var d1='nom_tar';
                     var a1 =document.getElementById( 'txt_tarifax'+i+'' ).value;
                     var b1 =document.getElementById( 'lbl_tarifa'+i+'' ).innerHTML;
-                    var c1 =document.getElementById( 'lbl_valores'+i+'' ).innerHTML; 
-                    console.log(resX[i]);   
+                    var c1 =document.getElementById( 'lbl_valores'+i+'' ).innerHTML;
+                    console.log(resX[i]);
                     matriz[i-1] = new Array(a1,b1,c1,resX[i-1]);
                 }
             };
@@ -47,54 +46,54 @@ $(function(){
                 hfinal = $(element).find("td").eq(2).html();
                 fecha = $(element).find("td").eq(3).html();
                 dia = $(element).find("td").eq(4).html();
-                matriz1[i]=new Array(hinicio,hfinal,fecha,dia);                
+                matriz1[i]=new Array(hinicio,hfinal,fecha,dia);
                 i++;
             });
-            //sacara valores de total de la reservacion       
+            //sacara valores de total de la reservacion
             $.ajax({
                 url: "app.php",
                 type: "POST",
                 data:{guardar:'ok',matriz:matriz,horario:matriz1,subtotal:$('#lbl_subtotal').html(),id_servicio:$('#id_servicio').html(),txt_institucion:$('#txt_nom_inst').val()},                         
-                beforeSend: function () {                             
+                beforeSend: function () {
                     $.blockUI({
                         message:'<i id="icon-tiempo" class="width-10 icon-spinner red icon-spin bigger-125"></i> Espere un momento...',
-                        css: { 
-                            border: 'none', 
-                            padding: '15px', 
-                            backgroundColor: '#000', 
-                            '-webkit-border-radius': '10px', 
-                            '-moz-border-radius': '10px', 
-                            opacity: .5, 
+                        css: {
+                            border: 'none',
+                            padding: '15px',
+                            backgroundColor: '#000',
+                            '-webkit-border-radius': '10px',
+                            '-moz-border-radius': '10px',
+                            opacity: .5,
                             color: '#fff'
                         }
                     })
                 },
                 success: function(data)
-                {           
-                    // console.log(data) 
-                    $.unblockUI();   
+                {
+                    // console.log(data)
+                    $.unblockUI();
                     if (data==0) {
-                        $.gritter.add({                     
-                            title: '..Mensaje..!',                      
+                        $.gritter.add({
+                            title: '..Mensaje..!',
                             text: 'OK: <br><i class="icon-cloud purple bigger-230"></i>  Su reservacion se ha realizado con exito. por favor verifique su correo y siga las instrucciones <br><i class="icon-spinner icon-spin green bigger-230"></i>',                      
-                            //image: 'http://a0.twimg.com/profile_images/59268975/jquery_avatar_bigger.png',                        
-                            sticky: false,                      
+                            //image: 'http://a0.twimg.com/profile_images/59268975/jquery_avatar_bigger.png',
+                            sticky: false,
                             time: 2000
                         });
                    };
                    if(data!=0&&data!=1&&data!=2){
-                            $.gritter.add({                     
-                                title: '..Mensaje..!',                      
+                            $.gritter.add({
+                                title: '..Mensaje..!',
                                 text: 'Lo sentimos,<br><i class=" icon-cogs red bigger-230"></i>   Intente mas Tarde . <br><i class="icon-spinner icon-spin red bigger-230"></i>',                       
-                                //image: 'http://a0.twimg.com/profile_images/59268975/jquery_avatar_bigger.png',                        
-                                sticky: false,                      
+                                //image: 'http://a0.twimg.com/profile_images/59268975/jquery_avatar_bigger.png',
+                                sticky: false,
                                 time: ''
                             });
                             //redireccionar();
-                        }; 
-                }                                       
-            });   
-            };if (res_com==0) {              
+                        };
+                }
+            });
+            };if (res_com==0) {
                 $('#txt_tarifax1').addClass('zoomIn animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function(){
                     $(this).removeClass('zoomIn animated');
                 }); 
@@ -319,11 +318,11 @@ function info_tabla(){
                                     d=$(this).text();
                                     break;
                             }
-                        });                            
+                        });
                         $('#tabla_horas_acu tbody').append('<tr><td>1</td><td>'+a+'</td><td>'+b+'</td><td>'+c+'</td><td>'+d+'</td></tr>');                      
                     };
-                    break;   
-            }                
+                    break;
+            }
         });
         // console.log(campo0+' '+campo1+' '+campo2)
     });
@@ -332,7 +331,7 @@ function info_tabla(){
 function renovar() {
     $('#tabla_horas tbody tr td label input').removeClass('animated bounceOut');
     $('#tabla_horas tbody tr td label input').removeAttr('checked');    
-} 
+}
 function renovar1() {
     $('#txt_tarifa1').removeClass('animated wobble');
     $('#txt_tarifa2').removeClass('animated wobble');

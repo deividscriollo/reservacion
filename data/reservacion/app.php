@@ -1,17 +1,17 @@
 <?php 
 if(!isset($_SESSION))
 	{
-		session_start();		
+		session_start();
 	}
 	require('../../admin/class.php');
 	require('../../inicio/php/mail.php');
 	$class=new constante();
 
-	// guardando informacion de la 
+	// guardando informacion de la
 	if(isset($_POST['guardar'])) {
 		// guardar:'ok',matriz:matriz,acu_fh:acu_fh,subtotal:lbl_subtotal
-		$mat=$_POST['matriz'];		
-		$matX=$_POST['matriz'];	
+		$mat=$_POST['matriz'];
+		$matX=$_POST['matriz'];
 		$horario=$_POST['horario'];
 		$subtotal=$_POST['subtotal'];
 		$fecha=$class->fecha_hora();
@@ -21,7 +21,7 @@ if(!isset($_SESSION))
 		$nom_servicio='';
 		$instituacion=$_POST['txt_institucion'];
 		$res1=$class->consulta("SELECT nom FROM SERVICIOS WHERE ID='$id_ser'");
-		while ($row=$class->fetch_array($res1)) {					
+		while ($row=$class->fetch_array($res1)) {
 					$nom_servicio=$row[0];
 	 	}
 
@@ -58,6 +58,8 @@ if(!isset($_SESSION))
 			$f=$horario[$i][2];
 			$d=$horario[$i][3];
 			$tabla=$tabla.'<tr><td></td><td>'.$hi.'</td><td>'.$hf.'</td><td>'.$f.'</td><td>'.$d.'</td></tr>';
+			$hi=$f.' '.$hi;
+			$hf=$f.' '.$hf;
 			$res=$class->consulta("INSERT INTO RESERVACION_HORARIOS VALUES('$idb','$id','$hi','$hf','$f','$d','$fecha','0')");
 		}
 		if (!$res) {
