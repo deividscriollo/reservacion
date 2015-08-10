@@ -8,26 +8,23 @@
 		<meta name="description" content="overview &amp; stats" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<link rel="icon" type="image/png" href="../assets/empresa/logo/logo.png" />
-		
-			
+	<body >
 
-	<body >		
+		<div class="main-container container-fluid">
 
-		<div class="main-container container-fluid">			
-			
 		</div><!--/.main-container-->
 		<!-- ventana emergente horario// -->
 		<?php 
 
-		require('../../admin/class.php');		
+		require('../../admin/class.php');
 		$class=new constante();
 
-		$res1=$class->consulta("SELECT S.NOM,T.SERVICIOS,T.PRECIO,T.CANTIDAD
-								FROM RESERVACION R, SERVICIOS S, RESERVACION_TARIFA T 
-								WHERE R.ID_SERVICIO=S.ID AND T.ID_RESERVACION=R.ID AND T.CANTIDAD!=0 AND R.ID='$_GET[id]'");
+		$res1=$class->consulta("SELECT S.NOM,TA.NOM_TARIFA,T.PRECIO,T.CANTIDAD
+								FROM RESERVACION R, SERVICIOS S, RESERVACION_TARIFA T, TARIFA TA
+								WHERE R.ID_SERVICIO=S.ID AND T.ID_RESERVACION=R.ID AND T.CANTIDAD!=0 AND T.ID_TARIFA=TA.ID AND R.ID='$_GET[id]'");
 		$items='';
 		$x=1;
-		while ($row=$class->fetch_array($res1)) {					
+		while ($row=$class->fetch_array($res1)) {
 			$items=$items."&item_name_".$x.'='.$row[0].'-'.$row[1].
 					"&item_number_".$x."=".$x.
 					"&quantity_".$x."=".$row[3].
@@ -36,14 +33,14 @@
 					"&os0_".$x."=FABRICA IMBABURA";
 			$x++;
 	 	}
-		
+
 		if(isset($_GET['id'])){
 		?>
 		<script type="text/javascript">
 			var winpar = "scrollbars,location,resizable,status",
 			strn  = "https://www.paypal.com/cgi-bin/webscr?cmd=_cart" +
 		   			"&upload=1" +
-		        	"&business=" + 'deividscriollo@gmail.com' + 
+		        	"&business=" + 'deividscriollo@gmail.com' +
 					"&currency_code=USD",
 			counter = 1,
 			itemsString = <?php print "'".$items."'"; ?>;
@@ -55,12 +52,8 @@
 		}
 		?>
 		<!-- modal tarifa -->
-		
 		<!-- modal reservacion  -->
-		
 				<!--[if !IE]>-->
-
-		
 
 		<!--<![endif]-->
 
@@ -93,7 +86,6 @@
 		  <script src="../assets/js/excanvas.min.js"></script>
 		<![endif]-->
 
-		
 		<script src="../assets/js/jquery-ui-1.10.3.custom.min.js"></script>
 		<script src="../assets/js/jquery.ui.touch-punch.min.js"></script>
 		<script src="../assets/js/jquery.gritter.min.js"></script>
@@ -102,12 +94,12 @@
 		<script src="../assets/js/jquery.easy-pie-chart.min.js"></script>
 		<script src="../assets/js/jquery.hotkeys.min.js"></script>
 		<script src="../assets/js/bootstrap-wysiwyg.min.js"></script>
-		<script src="../assets/js/select2.min.js"></script>		
+		<script src="../assets/js/select2.min.js"></script>
 		<script src="../assets/js/fuelux/fuelux.spinner.min.js"></script>
 		<script src="../assets/js/x-editable/bootstrap-editable.min.js"></script>
 		<script src="../assets/js/x-editable/ace-editable.min.js"></script>
 		<script src="../assets/js/jquery.maskedinput.min.js"></script>
-		<script src="../assets/js/chosen.jquery.min.js"></script>		
+		<script src="../assets/js/chosen.jquery.min.js"></script>
 		<script src="../assets/js/fuelux/fuelux.spinner.min.js"></script>
 		<script src="../assets/js/date-time/bootstrap-datepicker.min.js"></script>
 		<script src="../assets/js/date-time/bootstrap-timepicker.min.js"></script>

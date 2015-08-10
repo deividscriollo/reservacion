@@ -155,7 +155,6 @@ if (isset($_POST['mostrar_categoria'])) {
 			$acu='<span class="label label-success arrowed-in arrowed-in-right">ACTIVO</span>';
 		else
 			$acu='<span class="label label-important arrowed-in arrowed-in-right">DESACTIVADO</span>';
-		
 			$acux=$row[1];
 		print
 			'<tr>
@@ -167,16 +166,16 @@ if (isset($_POST['mostrar_categoria'])) {
 					'.$acu.'
 				</td>
 				<td class="td-actions ">
-					<div class="hidden-phone visible-desktop action-buttons">						
+					<div class="hidden-phone visible-desktop action-buttons">
 
-						<a class="green" onclick=modificar_categoria("'.$row[0].'",{"'.$acux.'"},"'.$row[3].'")>
+						<a class="green" onclick=modificar_categoria("'.$row[0].'")>
 							<i class="icon-pencil bigger-130"></i>
 						</a>
 
-						<a class="red" onclick=eliminar_categoria("'.$row[0].'","'.$row[1].'")>
+						<a class="red" onclick=eliminar_categoria("'.$row[0].'")>
 							<i class="icon-trash bigger-130"></i>
 						</a>
-					</div>				
+					</div>
 				</td>
 			</tr>';
 	}

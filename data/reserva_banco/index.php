@@ -11,6 +11,11 @@ if(!isset($_SESSION))
 	$class=new constante();
 	$acu=0;
 	$id=$class->idz();
+	if (isset($_GET['id'])) {
+
+	}else{
+		header('Location: ../inicio/');
+	}
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -93,7 +98,7 @@ if(!isset($_SESSION))
 			}
 			.dctexto{
 				padding-top: 50px;
-				padding-left: 10%;				
+				padding-left: 10%;
 			}
 			.dctexto h4{
 				font-size: 80px!important;
@@ -106,7 +111,7 @@ if(!isset($_SESSION))
 			.dcespacio{
 				height: 200px;
 			}
-		</style>		
+		</style>
 
 	<body >
 		<?php require('../inicio/menu.php'); menunav(); ?>
@@ -115,10 +120,8 @@ if(!isset($_SESSION))
 			<a class="menu-toggler" id="menu-toggler" href="#">
 				<span class="menu-text"></span>
 			</a>
-			
 			<div class="main-contents" >
 				<div class="page-content" style="background: rgba(25,25,25,0.1);!important;">
-					
 					<div class="row-fluid">
 						<div class="span6">
 							<div class="row"><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/></div>
@@ -141,7 +144,7 @@ if(!isset($_SESSION))
 
 								<div class="widget-body" style="background: rgba(255,255,255,0.9);!important;">
 									<div class="widget-main">
-										<?php 
+										<?php
 										$id_reservacion=0;
 											if (isset($_GET['id'])) {
 												$resultado=$class->consulta("SELECT DIA, R.ID FROM RESERVACION_HORARIOS H, RESERVACION R WHERE R.ID=H.ID_RESERVACION AND H.ID_RESERVACION='".$_GET['id']."' AND H.STADO='0'");
@@ -179,19 +182,23 @@ if(!isset($_SESSION))
 															</thead>
 															<tbody>
 																<?php
-																$valor="";
-																$nombre="";
+																$impuesto="";
+																$nombre=0;
 																if (isset($_GET['id'])) {
-																	$resultado=$class->consulta("SELECT * FROM RESERVACION WHERE ID='".$_GET['id']."' AND STADO='0'");
+																	$resultado=$class->consulta("SELECT RT.TOTAL, CASE WHEN IMPUESTO='SI' THEN  (PORCENTAJE)::int ELSE 0  END FROM RESERVACION R, SERVICIOS S , RESERVACION_TARIFA RT WHERE R.ID=RT.ID_RESERVACION AND R.ID_SERVICIO=S.ID AND  R.STADO='0' AND R.ID='".$_GET['id']."'");
 																}else{
-																	$resultado=$class->consulta("SELECT * FROM RESERVACION WHERE ID_USUARIO='".$_SESSION['id']."' AND STADO='0'");
 																}
 																while ($row=$class->fetch_array($resultado)) {
-																    $valor = $row[0];
-																    $nombre =$row[3];
+																	$impuesto= $row[1];
+																    $nombre =$nombre+$row[0];
 																}
+																$imp=0;
+																if ($impuesto!=0) {
+																	$imp=($nombre * $impuesto)/100;
+																}
+																$nombre=$imp+$nombre;
 															?>
-																<?php 
+																<?php
 																	if (isset($_GET['id'])) {
 																		$resultado=$class->consulta("SELECT NOM_TARIFA,TA.PRECIO,T.CANTIDAD,round((T.CANTIDAD*TA.PRECIO), 2),CASE WHEN IMPUESTO='SI' THEN  (PORCENTAJE)::int ELSE 0  END AS IMPUESTO
 	FROM RESERVACION R, SERVICIOS S, RESERVACION_TARIFA T, TARIFA TA
@@ -239,7 +246,7 @@ if(!isset($_SESSION))
 														<label class="control-label" for="s2id_autogen1">Numero de Cuenta</label>
 														<div class="controls">
 															<span class="span12">
-																<select id="sel_cuenta" name="sel_cuenta">														
+																<select id="sel_cuenta" name="sel_cuenta">
 																</select>
 															</span>
 														</div>
@@ -255,11 +262,11 @@ if(!isset($_SESSION))
 																</select>
 															</span>
 														</div>
-													</div>											
+													</div>
 													<div class="control-group" id="obj_numero">
 														<label class="control-label" for="email">Num de comprobante:</label>
 														<div class="controls">
-															<div class="span12">												
+															<div class="span12">
 																<input type="number" name="txt_num_deposito" id="txt_num_deposito" placeholder="Digíte num. comprobante">
 															</div>
 														</div>
@@ -267,29 +274,28 @@ if(!isset($_SESSION))
 													<div class="control-group" id="obj_boucher">
 														<label class="control-label" for="email">Subir Boucher:</label>
 														<div class="controls">
-															<div class="span11">												
+															<div class="span11">
 																<input type="file" name="boucher" id="boucher" accept="image/jpg,image/png" placeholder="Digíte num. comprobante">
 															</div>
 														</div>
-													</div>													
+													</div>
 
 													<div class="control-group">
 														<label class="control-label" for="email">Valor a Pagar:</label>
 														<div class="controls">
 															<div class="span12">
-																<input type="text" class="hide" id="txt_id_reservacion" value="<?php print $id_reservacion; ?>" >															
+																<input type="text" class="hide" id="txt_id_reservacion" value="<?php print $id_reservacion; ?>" >
 																<input type="text" name="txt_valor_pagar" id="txt_valor_pagar" class="center" value="<?php print($nombre); ?>">
 															</div>
 														</div>
 													</div>
-																									
 												</div>
 												<div class="span4 center">
-													<button type="submit" class="btn btn-app btn-success no-radius" data-last="Finish ">														
+													<button type="submit" class="btn btn-app btn-success no-radius" data-last="Finish ">
 														<i class=" icon-usd"></i> Enviar
 													</button>
 												</div>
-											</div>											
+											</div>
 										</form>
 									</div>
 								</div>
@@ -312,9 +318,9 @@ if(!isset($_SESSION))
 			<div class="modal-body no-padding">
 				<div class="row-fluid">
 					<div class="widget-main" id="obj_contenedor" style="height:350px;">
-					</div>					
-				</div>									
-			</div>			
+					</div>
+				</div>
+			</div>
 			<div class="modal-footer">
 				<button class="btn btn-small btn-danger pull-left" data-dismiss="modal">
 					<i class="icon-remove"></i>
@@ -323,16 +329,14 @@ if(!isset($_SESSION))
 				<button class="btn btn-small btn-success pull-left" data-dismiss="modal">
 					<i class="icon-save"></i>
 					Guardar
-				</button>	
+				</button>
 				<div class="pagination pull-center no-margin">
-					
 					<div class="hidden-phone visible-desktop action-buttons" >
 						<a id="btn_m">
 							<i class="icon-zoom-in bigger-130 blue pointer"></i>
 						</a>
 					</div>
-						
-				</div>												
+				</div>
 			</div>
 		</div><!--modal horario ENDS-->
 		<!-- modal tarifa -->
@@ -347,30 +351,30 @@ if(!isset($_SESSION))
 			<div class="modal-body no-padding">
 				<div class="row-fluid pull-right">
 					<div class="span12 pull-right">
-						<form class="form-horizontal" id="form-reservacion">						
+						<form class="form-horizontal" id="form-reservacion">
 							<div class="control-group warning">
 								<label class="control-label" for="form-field-1">Digitar Servicio</label>
 								<div class="controls">
-									<input 	class="icon-animated-vertical" 
-											type="text" 
+									<input 	class="icon-animated-vertical"
+											type="text"
 											id="txt_b_servicio"
 											placeholder="Nombre del Servicio"
 									>
 								</div>
 							</div>
-						</form>								
+						</form>
 					</div>
 					<div class="page-content center" id="obj_contenedor_servicios">
-														
+
 					</div>
-											
-				</div>									
-			</div>			
+
+				</div>
+			</div>
 			<div class="modal-footer">
 				<button class="btn btn-small btn-danger pull-left" data-dismiss="modal">
 					<i class="icon-remove"></i>
 					Cerrar
-				</button>																		
+				</button>
 			</div>
 		</div>
 		<!-- modal reservacion  -->
@@ -385,16 +389,15 @@ if(!isset($_SESSION))
 			<div class="modal-body no-padding">
 				<div class="row-fluid">
 					<div class="span12">
-						<form class="form-horizontal" id="form-v_reserva">					
-							
-						</form>									
-					</div>	
+						<form class="form-horizontal" id="form-v_reserva">
+						</form>
+					</div>
 				</div>
 				<div class="row-fluid">
 					<div class="span8">
 						<table id="tabla_horas_acu" class="table">
 							<thead>
-								<tr>									
+								<tr>
 									<th>H. Inicio</th>
 									<th>H. Fin</th>
 									<th>fecha</th>
@@ -411,8 +414,8 @@ if(!isset($_SESSION))
 							<tr><td class="pull-right">Total: $</td><td><label id="lbl_total">00.00</label></td></tr>
 						</table>
 					</div>
-				</div>								
-			</div>			
+				</div>
+			</div>
 			<div class="modal-footer">
 				<button class="btn btn-small btn-danger pull-left" id="btn_g_reservar" data-dismiss="modal">
 					<i class="icon-remove"></i>
@@ -421,7 +424,7 @@ if(!isset($_SESSION))
 				<button class="btn btn-small btn-success pull-right" id="btn_guardar_reservacion">
 					<i class="icon-ok"></i>
 					Reservar
-				</button>																		
+				</button>
 			</div>
 		</div>
 		<!--PAGE CONTENT ENDS-->
@@ -432,7 +435,6 @@ if(!isset($_SESSION))
 
 		<!--[if !IE]>-->
 
-		
 
 		<!--<![endif]-->
 
@@ -465,7 +467,7 @@ if(!isset($_SESSION))
 		  <script src="../assets/js/excanvas.min.js"></script>
 		<![endif]-->
 
-		
+
 		<script src="../assets/js/jquery-ui-1.10.3.custom.min.js"></script>
 		<script src="../assets/js/jquery.ui.touch-punch.min.js"></script>
 		<script src="../assets/js/jquery.gritter.min.js"></script>
@@ -474,12 +476,12 @@ if(!isset($_SESSION))
 		<script src="../assets/js/jquery.easy-pie-chart.min.js"></script>
 		<script src="../assets/js/jquery.hotkeys.min.js"></script>
 		<script src="../assets/js/bootstrap-wysiwyg.min.js"></script>
-		<script src="../assets/js/select2.min.js"></script>		
+		<script src="../assets/js/select2.min.js"></script>
 		<script src="../assets/js/fuelux/fuelux.spinner.min.js"></script>
 		<script src="../assets/js/x-editable/bootstrap-editable.min.js"></script>
 		<script src="../assets/js/x-editable/ace-editable.min.js"></script>
 		<script src="../assets/js/jquery.maskedinput.min.js"></script>
-		<script src="../assets/js/chosen.jquery.min.js"></script>		
+		<script src="../assets/js/chosen.jquery.min.js"></script>
 		<script src="../assets/js/fuelux/fuelux.spinner.min.js"></script>
 		<script src="../assets/js/date-time/bootstrap-datepicker.min.js"></script>
 		<script src="../assets/js/date-time/bootstrap-timepicker.min.js"></script>
@@ -499,8 +501,6 @@ if(!isset($_SESSION))
 		<script src="../assets/js/jquery.slimscroll.min.js"></script>
 		<script src="../assets/js/jquery.colorbox-min.js"></script>
 		<script src="../assets/vegas/jquery.vegas.js"></script>
-		
-
 
 
 		<!--personal scripts-->
@@ -508,9 +508,9 @@ if(!isset($_SESSION))
 		<!--ace scripts-->
 
 		<script src="../assets/js/ace-elements.min.js"></script>
-		<script src="../assets/js/ace.min.js"></script>	
+		<script src="../assets/js/ace.min.js"></script>
 		<!--inline scripts related to this page-->
-	</body>	
+	</body>
 </html>
 
 

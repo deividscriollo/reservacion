@@ -16,7 +16,6 @@ $(function(){
 	    try { 
 	         doc = frame.contentDocument ? frame.contentDocument : frame.document;
 	    } catch(err) {
-	       
 	         doc = frame.document;
 	    }
 	    return doc;

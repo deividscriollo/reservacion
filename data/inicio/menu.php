@@ -141,15 +141,21 @@ if ($_SESSION['nivel']=='CLIENTE') {
 						</a>
 					</li>
 					<li ';if ($acus[3]=='reservacion') {print("class=active");}print'>
-						<a href="../reservacion/">
+						<a href="../ciomi/">
 							<i class="icon-check green"></i>
-							<span class="menu-text green"> Reservación </span>
+							<span class="menu-text green"> Crear Reservación </span>
 						</a>
 					</li>
 					<li ';if ($acus[3]=='reserva_banco') {print("class=active");}print'>
 						<a href="../reserva_banco/">
 							<i class=" icon-credit-card red"></i>
 							<span class="menu-text red"> Pago Bancos </span>
+						</a>
+					</li>
+					<li ';if ($acus[3]=='reserva_banco') {print("class=active");}print'>
+						<a href="../reserva_banco/">
+							<i class=" icon-list purple"></i>
+							<span class="menu-text purple"> Historial </span>
 						</a>
 					</li>
 				</ul><!--/.nav-list-->

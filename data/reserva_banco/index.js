@@ -1,4 +1,4 @@
-$(function(){   
+$(function(){
 
         var inp = $('#txt_valor_pagar').get(0);
         if(inp.hasAttribute('disabled')) {
@@ -9,9 +9,7 @@ $(function(){
         else {
             inp.setAttribute('disabled' , 'disabled');
             inp.removeAttribute('readonly');
-            
         }
-    
 
 
     //proceso de accion cselect bancos
@@ -33,7 +31,7 @@ $(function(){
         errorElement: 'span',
         errorClass: 'help-inline',
         focusInvalid: false,
-        rules: { 
+        rules: {
             txt_num_deposito: {required: true,number: true},
             txt_val_deposito: {required: true,number: true,equalTo: "#txt_valor_pagar"},
             sel_banco: {required: true},
@@ -46,7 +44,7 @@ $(function(){
             txt_num_deposito:{
                 required:"Digite numero de comprobante.",
                 number:'Por favor, Digite solo numeros'
-            }, 
+            },
             txt_val_deposito:{required:'Por favor, Digite el valor de su deposito',equalTo:'Su monto debe ser igual'},
             sel_banco:"Por favor, Seleccione Banco.",
             sel_cuenta: "Por favor, seleccione numero cuenta",
@@ -54,7 +52,7 @@ $(function(){
             sel_baucher:"Por favor, Seleccione una opción"
         },
 
-        invalidHandler: function (event, validator) { //display error alert on form submit   
+        invalidHandler: function (event, validator) { //display error alert on form submit
             $('.alert-error', $('.login-form')).show();
         },
 
@@ -90,33 +88,29 @@ $(function(){
                 success:function(data){
                     // console.log(data);
                     if (data==0) {
-                        $.gritter.add({                     
-                            title: '..Mensaje..!',                      
+                        $.gritter.add({
+                            title: '..Mensaje..!',
                             text: 'OK: <br><i class="icon-cloud purple bigger-230"></i>  Sus datos se almacenaron con exito. por favor espere un periodo de 24 horas para la confirmación de su reservación <br><i class="icon-spinner icon-spin green bigger-230"></i>',                      
-                            //image: 'http://a0.twimg.com/profile_images/59268975/jquery_avatar_bigger.png',                        
-                            sticky: false,                      
+                            //image: 'http://a0.twimg.com/profile_images/59268975/jquery_avatar_bigger.png',
+                            sticky: false,
                             time: 2000
                         });
                     };
                      if(data!=0&&data!=1){
-                         $.gritter.add({                     
-                            title: '..Mensaje..!',                      
+                         $.gritter.add({
+                            title: '..Mensaje..!',
                             text: 'Lo sentimos: <br><i class=" icon-cogs red bigger-230"></i>   Intente mas Tarde . <br><i class="icon-spinner icon-spin red bigger-230"></i>',                       
-                            //image: 'http://a0.twimg.com/profile_images/59268975/jquery_avatar_bigger.png',                        
-                            sticky: false,                      
+                            //image: 'http://a0.twimg.com/profile_images/59268975/jquery_avatar_bigger.png',
+                            sticky: false,
                             time: ''
                         });
                      };
                      $('#form-comprobante').each (function(){
-                            this.reset();
-                        });
+                        this.reset();
+                    });
+                     location.href="";
                 }
             });
-        }        
+        }
     });
-
-
-
-
 });
-    

@@ -70,7 +70,7 @@ if(!isset($_SESSION))
 			<?php  menu(); ?>
 
 			<div class="main-content">
-				<?php if ($_SESSION['nivel']!='CLIENTE') { ?>
+				<?php if ($_SESSION['nivel']=='CLIENTE') { ?>
 				<div class="page-content">
 					<div class="row-fluid">
 						<div class="span12">
@@ -132,17 +132,27 @@ if(!isset($_SESSION))
 													<hr />
 													<div class="step-content row-fluid position-relative" id="step-container">
 														<div class="step-pane active" id="step1">
-															<h3 class="lighter block green center">Estimado, <?php print$_SESSION['nom']; ?> seleccione el tipo de reservación</h3>
-															<div id="obj_tipo_reservacion">
+															<div class="row-fluid">
+																<div class="span10">
+																	<h3 class="lighter block green center">Estimado/a, <?php print$_SESSION['nom']; ?> seleccione el tipo de reservación</h3>
+																</div>
+																<div class="span2">
+																	<a href="#modal-museo" data-toggle="modal" class="btn btn-mini btn-danger">
+																		<i class=" icon-info-sign"></i> Información Museo	<i class="icon-flag"></i>
+																	</a>
+																</div>
 															</div>
-															<input type="hidden" id="txt_categoria">
+															<div class="row-fluid">
+																<div id="obj_tipo_reservacion"></div>
+																<input type="hidden" id="txt_categoria">
+															</div>
 														</div>
 
 														<div class="step-pane" id="step2">
 															<div class="row-fluid">
 																<div class="span4">
 																	<div class="row-fluid">
-																		<div class="control-group">
+																		<div class="control-group success">
 																			<div class="row-fluid input-append">
 																				<input class="span11 date-picker" id="id-date-picker-1" type="text" data-date-format="dd-mm-yyyy" />
 																				<span class="add-on">
@@ -237,94 +247,196 @@ if(!isset($_SESSION))
 														<div class="step-pane" id="step3">
 															<div class="center">
 																<div class="row-fluid">
-																	<div class="span5 pricing-span-header">
-																		<div class="widget-box transparent">
-																			<div class="widget-header">
-																				<h5 class="bigger lighter">Servicio Tarifa</h5>
-																			</div>
-																			<div class="widget-body">
-																				<div class="widget-main no-padding">
-																					<ul class="unstyled list-striped pricing-table-header" id="obj_tarifas_nombre">
-																					</ul>
-																				</div>
-																			</div>
+																	<div class="widget-box transparent">
+																		<div class="widget-header widget-header-flat">
+																			<h4 class="lighter">
+																				<i class="icon-star orange"></i>
+																				Servicio
+																			</h4>
 																		</div>
-																	</div>
-																	<div class="span2 pricing-span ">
-																		<div class="widget-box pricing-box-small">
-																			<div class="widget-header header-color-orange">
-																				<h5 class="bigger lighter">Precio </h5>
-																			</div>
 
-																			<div class="widget-body">
-																				<div class="widget-main no-padding">
-																					<ul class="unstyled list-striped pricing-table" id="obj_tarifas_precio">
-																					</ul>
-																				</div>
-																			</div>
-																		</div>
-																	</div>
-																	<div class="span3 pricing-span">
-																		<div class="widget-box pricing-box-small">
-																			<div class="widget-header header-color-blue">
-																				<h5 class="bigger center">Cantidad</h5>
-																			</div>
-																			<div class="widget-body">
-																				<div class="widget-main no-padding">
-																					<ul class="unstyled list-striped pricing-table" id="obj_tarifas_cantidad">
+																		<div class="widget-body">
+																			<div class="widget-main no-padding">
+																				<div class="row-fluid">
+																					<table class="table table-bordered table-striped" id="tabla_info_tarifa">
+																						<thead>
+																							<tr>
+																								<th class="center">
+																									<i class=" icon-circle-blank blue"></i>
+																									Nro
+																								</th>
 
-																					</ul>
-																					<div>
-																					<ul class="unstyled list-striped center">
-																							<li> SUBTOTAL </li>
-																						</ul>
-																					</div>
-																					<div>
-																						<ul class="unstyled list-striped center">
-																							<li> IVA </li>
-																						</ul>
-																					</div>
-																					<div class="widget-header header-color-blue">
-																						<h5 class="bigger center">Total:</h5>
-																					</div>
-																				</div>
-																			</div>
-																		</div>
-																	</div>
-																	<div class="span3 pricing-span">
-																		<div class="widget-box pricing-box-small">
-																			<div class="widget-header header-color-green">
-																				<h5 class="bigger lighter">Total</h5>
-																			</div>
+																								<th class="center">
+																									<i class="icon-coffee blue"></i>
+																									Servicio Tarifa
+																								</th>
 
-																			<div class="widget-body">
-																				<div class="widget-main no-padding">
-																					<ul class="unstyled list-striped pricing-table" id="obj_tarifas_total">
-																					</ul>
+																								<th class="center">
+																									<i class="icon-legal orange"></i>
+																									Precio
+																								</th>
+																								<th class="center">
+																									<i class="icon-cloud-upload red"></i>
+																									Cantidad
+																								</th>
+																								<th class="center">
+																									<i class="icon-caret-right green"></i>
+																									Total
+																								</th>
+																							</tr>
+																						</thead>
+																						<tbody>
+																						</tbody>
+																					</table>
 																				</div>
-																				<div>
-																					<ul class="unstyled list-striped center">
-																						<li id="lbl_subtotal"> 00.00 </li>
-																					</ul>
+																				<div class="row-fluid">
+																					<div class="span5  pull-right">
+																						<table class="table table-bordered table-striped">
+																							<tr>
+																								<th class="center">
+																									<i class="icon-caret-right green"></i>
+																									SubTotal
+																								</th>
+																								<th class="center" id="lbl_subtotal">
+																									<i class="icon-caret-right green"></i>
+																									0.00
+																								</th>
+																							</tr>
+																							<tr>
+																								<th class="center" id="lbl_valor_iva">
+																									<i class="icon-caret-right green"></i>
+																									Iva
+																								</th>
+																								<th class="center" id="lbl_iva">
+																									<i class="icon-caret-right green"></i>
+																									0.00
+																								</th>
+																							</tr>
+																							<tr>
+																								<th class="center">
+																									<i class="icon-caret-right green"></i>
+																									Total
+																								</th>
+																								<th class="center" id="lbl_total">
+																									<i class="icon-caret-right green"></i>
+																									0.00
+																								</th>
+																							</tr>
+																						<tbody>
+																						</tbody>
+																					</table>
+																					</div>
 																				</div>
-																				<div>
-																					<ul class="unstyled list-striped center" >
-																						<li id="lbl_iva"> 00.00 </li>
-																					</ul>
-																				</div>
-																				<div class="widget-header header-color-green" id="lbl_total">
-																				</div>
-																			</div>
-																		</div>
-																	</div>
+																			</div><!--/widget-main-->
+																		</div><!--/widget-body-->
+																	</div><!--/widget-box-->
+
 																</div>
 															</div>
 														</div>
 
 														<div class="step-pane" id="step4">
-															<div class="center">
-																<h3 class="green">Congrats!</h3>
-																Your product is ready to ship! Click finish to continue!
+															<div class="row-fluid">
+																<div class="span6">
+																	<div class="widget-box transparent">
+																		<div class="widget-header widget-header-small">
+																			<h4 class="smaller">
+																				<i class="icon-check bigger-110"></i>
+																				Resumen de la reservación
+																			</h4>
+																		</div>
+
+																		<div class="widget-body">
+																			<div class="widget-main">
+																				<div class="profile-user-info">
+																					<div class="profile-info-row">
+																						<div class="profile-info-name"> A nombre de: </div>
+
+																						<div class="profile-info-value">
+																							<span><?php print$_SESSION['nom']; ?></span>
+																						</div>
+																					</div>
+
+																					<div class="profile-info-row">
+																						<div class="profile-info-name"> Servicio: </div>
+																						<div class="profile-info-value">
+																							<span>MUSEO</span>
+																						</div>
+																					</div>
+
+																					<div class="profile-info-row">
+																						<div class="profile-info-name"> Para la fecha: </div>
+
+																						<div class="profile-info-value">
+																							<span id="lbl_fecha_final"></span>
+																						</div>
+																					</div>
+
+																					<div class="profile-info-row">
+																						<div class="profile-info-name"> Hora inicio: </div>
+																						<div class="profile-info-value">
+																							<span id="lbl_info_hora_inicio">20/06/2010</span>
+																						</div>
+																					</div>
+																					<div class="profile-info-row">
+																						<div class="profile-info-name"> Hora Fin: </div>
+																						<div class="profile-info-value">
+																							<span id="lbl_info_hora_fin">20/06/2010</span>
+																						</div>
+																					</div>
+
+																					<div class="profile-info-row">
+																						<div class="profile-info-name"> Monto Total: </div>
+
+																						<div class="profile-info-value">
+																							<span id="lbl_info_total"></span>
+																						</div>
+																					</div>
+																				</div>
+
+																			</div>
+																		</div>
+																	</div>
+																</div>
+																<div class="span6">
+																	<div class="widget-box transparent">
+																		<div class="widget-header widget-header-small">
+																			<h4 class="smaller">
+																				<i class="icon-check bigger-110"></i>
+																				Estimado/a, <?php print$_SESSION['nom']; ?> Tenga en cuenta las siguientes notas.
+																			</h4>
+
+																		</div>
+
+																		<div class="widget-body">
+																			<div class="widget-main">
+																				<ul class="unstyled spaced">
+																					<li>
+																						<i class="icon-ok green"></i>
+																						Su reservación tendrá una vigencia de 48 horas para la activación o se cancelara automáticamente.
+																					</li>
+																					<li>
+																						<i class="icon-ok green"></i>
+																						Para la activación sigas los pasos que se indica y que se han enviado a su correo electrónico.
+																					</li>
+																					<li>
+																						<i class="icon-ok green"></i>
+																						Los pagos los puede realizar en el Banco Guayaquil en la cuenta Nro. 1209345 a nombre de Fábrica Imbabura.
+																					</li>
+																					<li>
+																						<i class="icon-ok green"></i>
+																						Estar presente al menos 10 minutos antes que inicie el turno de su reservación.
+																					</li>
+																					<li>
+																						<i class="icon-ok green"></i>
+																						Día de la reservación, Presente su cedula para verificar información y dar validez de su reservación.
+																					</li>
+																				</ul>
+																			</div>
+																		</div>
+																	</div>
+																</div>
+
 															</div>
 														</div>
 													</div>
@@ -336,7 +448,7 @@ if(!isset($_SESSION))
 															Atras
 														</button>
 
-														<button class="btn btn-success btn-next" data-last="Finish ">
+														<button class="btn btn-success btn-next" data-last="Reservar ">
 															Adelante
 															<i class="icon-arrow-right icon-on-right"></i>
 														</button>
@@ -359,16 +471,6 @@ if(!isset($_SESSION))
 						</div><!--/span-->
 					</div><!--/.row-fluid-->
 				</div><!--/.page-content-->
-
-				<?php } ?>
-				<?php if ($_SESSION['nivel']=='CLIENTE') { ?>
-					<div class="page-content">
-						<div class="row-fluid">
-							<h3 class="header smaller lighter green">Reservaciones En Proceso de pagos Pendientes</h3>
-							<h3 class="header smaller lighter green">Reservaciones Realizadas</h3>
-							<h3 class="header smaller lighter green">Reservaciones Finalizadas</h3>
-						</div>
-					</div>
 				<?php } ?>
 			</div><!--/.main-content-->
 		</div><!--/.main-container-->
@@ -376,6 +478,28 @@ if(!isset($_SESSION))
 		<a href="#" id="btn-scroll-up" class="btn-scroll-up btn btn-small btn-inverse">
 			<i class="icon-double-angle-up icon-only bigger-110"></i>
 		</a>
+		<div id="modal-museo" class="modal hide fade" tabindex="-1">
+				<div class="modal-header no-padding">
+					<div class="table-header">
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+						Información Museo
+					</div>
+				</div>
+
+				<div class="modal-body no-padding">
+					<div class="row-fluid" id="obj_informacion_museo">
+						
+					</div>
+				</div>
+
+				<div class="modal-footer">
+					<button class="btn btn-small btn-danger pull-left" data-dismiss="modal">
+						<i class="icon-remove"></i>
+						Cerrar
+					</button>
+				</div>
+			</div><!--PAGE CONTENT ENDS-->
+
 
 		<!--basic scripts-->
 
@@ -429,6 +553,8 @@ if(!isset($_SESSION))
 		<script src="../assets/js/date-time/moment.min.js"></script>
 		<script src="../assets/js/date-time/daterangepicker.min.js"></script>
 		<script src="../assets/js/jquery.gritter.min.js"></script>
+		<script src="../assets/js/fuelux/fuelux.spinner.min.js"></script>
+		<script src="../assets/js/blockui.js"></script>
 
 
 
@@ -449,3 +575,17 @@ if(!isset($_SESSION))
 		<script src="app.js"></script>
 	</body>
 </html>
+<script type="text/javascript">
+	$('#modal-museo').modal({
+        backdrop: true,
+        keyboard: true,
+        show:false
+    }).css({
+       'width': function () {
+           return ($(document).width() * .7) + 'px';  
+       },
+       'margin-left': function () { 
+           return -($(this).width() / 2); 
+       }
+});
+</script>

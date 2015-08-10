@@ -46,11 +46,11 @@ class email  extends PHPMailer{
 }//--> fin clase
 
 /* == se emplea la clase email == */
-  function envio_correoReservacion($correo, $tabla, $subtotal,$id) {  
+  function envio_correoReservacion($correo, $tabla, $subtotal,$id) {
     // $]tabla=$_POST['tabla'];
     $link='https://www.paypal.com/cgi-bin/webscr?cmd=_cart&upload=1&business=deividscriollo@gmail.com&currency_code=USD&lc=US&item_name_1=RESERVACION&item_number_1=1&quantity_1=1&amount_1='.$subtotal.'&no_shipping_1=0&no_note_1=1';
       $acus='0';
-    // $correo=$_POST['correo'];  
+    // $correo=$_POST['correo'];
     $contenido_html =  '
       <table width="100%" border="0" style="width: 90%;
             padding-top: 8px;
@@ -68,32 +68,33 @@ class email  extends PHPMailer{
             </td>
           </tr>
           <tr>
-            <td style="color:#E1A401">RESERVACION, FABRICA IMBABURA</td>
+            <td style="color:#E1A401">RESERVACIÓN, FÁBRICA IMBABURA</td>
           </tr>
           <tr>
             <td><table style="float: left;">
                 <tbody style="color:#FFFFFF">
                   <tr>
-                    <td style="color:#FFFFFF; font-size: 20px;">
-                      Hola, para que tu reservación sea válida accedo aquí para realizar el pago respectivo de tu reservación 
+                    <td style="color:#FFFFFF; font-size: 15px;">
+                      Estimado/a, para que su reservación sea válida haga clic en los botones de forma de pago que mas le convenga, tenga en cuenta que su reservación tiene una vigencia de 48 horas, después de ese lapso se cancelara automáticamente.
                     </td>
                   </tr>
                 </tbody>
               </table>'.$tabla.'
             </td>
           </tr>
-          <tr><td align="center" style="color:#FFFFFF;"> 
-              <a href="http://localhost/reservacion/data/paypal/index.php?paypal=ok&id='.$id.'" style="color: #FFFFFF; text-decoration: none; margin: 0px; text-align: center; vertical-align: baseline; border-width: 1px 1px 2px; border-style: solid; border-color: #057EC5; padding: 6px 12px; font-size: 14px; line-height: 20px; background-color:#057EC5;">PayPal</a>
+          <tr><td align="center" style="color:#FFFFFF;">
+              <a href="http://localhost/reservacion/data/paypal/index.php?paypal=ok&id='.$id.'" style="color: #FFFFFF; text-decoration: none; margin: 0px; text-align: center; vertical-align: baseline; border-width: 1px 1px 2px; border-style: solid; border-color: #057EC5; padding: 6px 12px; font-size: 14px; line-height: 20px; background-color:#E2A500;">PayPal</a>
               <a href="http://localhost/reservacion/data/reserva_banco/index.php?banco=ok&id='.$id.'" style="color: #FFFFFF; text-decoration: none; margin: 0px; text-align: center; vertical-align: baseline; border-width: 1px 1px 2px; border-style: solid; border-color: #BE4A36; padding: 6px 12px; font-size: 14px; line-height: 20px; background-color: #BE4A36">Depositos Bancarios</a>
               <a href="http://localhost/reservacion/data/tarjeta/index.php?targeta=ok&id='.$id.'" style="color: #FFFFFF; text-decoration: none; margin: 0px; text-align: center; vertical-align: baseline; border-width: 1px 1px 2px; border-style: solid; border-color: #89B019; padding: 6px 12px; font-size: 14px; line-height: 20px; background-color: #89B019">Tarjeta de Crédito</a>
           </td>
       </tr></tbody>
-      </table>    
+      </table>
     ';
     $contenido_html=utf8_decode($contenido_html);
-
+    $titulo=utf8_decode('RESERVACIÓN FÁBRICA IMBABURA');
+    $titulo2=utf8_decode('FÁBRICA IMBABURA');
     $email = new email();
-    if ( $email->enviar( $correo , 'FABRICA IMBABURA' , 'RESERVACION FABRICA IMBABURA' ,  $contenido_html ) )
+    if ( $email->enviar( $correo , $titulo2 , $titulo ,  $contenido_html ) )
       // mensaje enviado
        $acus='1';
     else

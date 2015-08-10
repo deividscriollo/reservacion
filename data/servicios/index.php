@@ -897,7 +897,9 @@ if(!isset($_SESSION))
 		<!--inline scripts related to this page-->
 	</body>
 </html>
-
+<style type="text/css">.modal{
+	width: 70%;
+    margin-left:  -35% !important;  }</style>
 <script type="text/javascript">
 
 
@@ -1261,7 +1263,6 @@ $(function(){
     	});
     	return res;
 	}
- 
 
 });
 
@@ -1299,18 +1300,21 @@ function show5(){
  }
 
 
-
-
-                      
-
-	function modificar_categoria(id, nombre,stado){
-		$('#txt_id_categoria').val(id);
-		$('#lbl_categoria').html(nombre);
-		$('#lbl_stado_categoria').html(stado);		
-		$('#modal-editar-categorias').modal('show')
-		//$('#form-categoria').removeAttr('id');
-		//console.log(frm_categoria);
-	}	
+	function modificar_categoria(id){
+		$.ajax({
+			url:'php/servicio.php',
+			type:'POST',
+			dataType:'json',
+			async:false,
+			data:{modificar_categorias_1:'ok', id:id},
+			success:function(data){
+				$('#txt_id_categoria').val(id);
+				$('#lbl_categoria').html(data[0]);
+				$('#lbl_stado_categoria').html(data[1]);
+				$('#modal-editar-categorias').modal('show');
+			}
+		});
+	}
 
 	function eliminar_servicios(id,nombre){
 		bootbox.confirm("<h1>Seguro desea eliminar<h1>", function(result) {
@@ -1320,21 +1324,21 @@ function show5(){
 					type:'POST',
 					data:{eliminar_servicios:'ok', id:id, nom:nombre},
 					success:function(data){
-						mostrar_servicios();               						
+						mostrar_servicios();
 						if (data==1) {
-							$.gritter.add({						
-								title: '..Mensaje..!',						
+							$.gritter.add({
+								title: '..Mensaje..!',
 								text: 'OK: <br><i class="icon-cloud purple bigger-230"></i>  '+nombre+' fue eliminado. <br><i class="icon-spinner icon-spin green bigger-230"></i>',						
-								//image: 'http://a0.twimg.com/profile_images/59268975/jquery_avatar_bigger.png',						
-								sticky: false,						
+								//image: 'http://a0.twimg.com/profile_images/59268975/jquery_avatar_bigger.png',
+								sticky: false,
 								time: 2000
 							});	
 						};
 						if (data!=1) {
-							$.gritter.add({						
-								title: '..Mensaje..!',						
+							$.gritter.add({
+								title: '..Mensaje..!',
 								text: 'TENEMOS INCONVENIENTES INTENTE MAS TARDE<br><i class="icon-cloud purple bigger-230"></i> comuniquese con el administrador <br><i class="icon-spinner icon-spin purple bigger-230"></i> : [',						
-								//image: 'http://a0.twimg.com/profile_images/59268975/jquery_avatar_bigger.png',						
+								//image: 'http://a0.twimg.com/profile_images/59268975/jquery_avatar_bigger.png',
 								sticky: false,
 								time: ''
 							});
@@ -1343,57 +1347,49 @@ function show5(){
 					}
 				});
 			}
-		});	
+		});
 	}
-	function eliminar_categoria(id,nombre){
+	function eliminar_categoria(id){
 		bootbox.confirm("<h1>Seguro desea eliminar<h1>", function(result) {
 			if(result) {
 				$.ajax({
 					url:'php/tarifa.php',
 					type:'POST',
-					data:{eliminar_categoria:'ok', id:id, nom:nombre},
+					data:{eliminar_categoria:'ok', id:id},
 					success:function(data){
-						mostrar_categoria();               						
+						mostrar_categoria();
 						if (data==1) {
-							$.gritter.add({						
-								title: '..Mensaje..!',						
-								text: 'OK: <br><i class="icon-cloud purple bigger-230"></i>  '+nombre+' fue eliminado. <br><i class="icon-spinner icon-spin green bigger-230"></i>',						
-								//image: 'http://a0.twimg.com/profile_images/59268975/jquery_avatar_bigger.png',						
-								sticky: false,						
+							$.gritter.add({
+								title: '..Mensaje..!',
+								text: 'OK: <br><i class="icon-cloud purple bigger-230"></i>  Registro eliminado. <br><i class="icon-spinner icon-spin green bigger-230"></i>',
+								//image: 'http://a0.twimg.com/profile_images/59268975/jquery_avatar_bigger.png',
+								sticky: false,
 								time: 2000
 							});	
 						};
 						if (data!=1) {
-							$.gritter.add({						
-								title: '..Mensaje..!',						
+							$.gritter.add({
+								title: '..Mensaje..!',
 								text: 'TENEMOS INCONVENIENTES INTENTE MAS TARDE<br><i class="icon-cloud purple bigger-230"></i> comuniquese con el administrador <br><i class="icon-spinner icon-spin purple bigger-230"></i> : [',						
-								//image: 'http://a0.twimg.com/profile_images/59268975/jquery_avatar_bigger.png',						
-								sticky: false,						
+								//image: 'http://a0.twimg.com/profile_images/59268975/jquery_avatar_bigger.png',
+								sticky: false,
 								time: ''
 							});
 						}
-						
 
 					}
 				});
 			}
-		});			
+		});
 	}
 	$(function() {
-						
-		
-	
 		//another option is using modals
-		$('#avatar2').on('click', function(){				
-			
-			
+		$('#avatar2').on('click', function(){
 			var modal = $(modal);
 			modal.modal("show").on("hidden", function(){
 				modal.remove();
 			});
-	
 			var working = false;
-	
 			var form = modal.find('form:eq(0)');
 			var file = form.find('input[type=file]').eq(0);
 			file.ace_file_input({
@@ -1429,41 +1425,27 @@ function show5(){
 	
 			form.on('submit', function(){
 				if(!file.data('ace_input_files')) return false;
-				
 				file.ace_file_input('disable');
 				form.find('button').attr('disabled', 'disabled');
 				form.find('.modal-body').append("<div class='center'><i class='icon-spinner icon-spin bigger-150 orange'></i></div>");
-				
 				var deferred = new $.Deferred;
 				working = true;
 				deferred.done(function() {
 					form.find('button').removeAttr('disabled');
 					form.find('input[type=file]').ace_file_input('enable');
 					form.find('.modal-body > :last-child').remove();
-					
 					modal.modal("hide");
-	
 					var thumb = file.next().find('img').data('thumb');
 					if(thumb) $('#avatar2').get(0).src = thumb;
-	
 					working = false;
 				});
-				
-				
 				setTimeout(function(){
 					deferred.resolve();
 				} , parseInt(Math.random() * 800 + 800));
-	
 				return false;
 			});
-					
 		});
-	
-	
-	
 		///////////////////////////////////////////
-		
-
 		$('#txt_archivo').ace_file_input({
 			style:'well',
 			btn_choose:'Seleccionar Imagen',

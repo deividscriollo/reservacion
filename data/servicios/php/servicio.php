@@ -28,6 +28,15 @@ if(!isset($_SESSION))
 		}
 		print_r(json_encode($acu));
 	}
+	if (isset($_POST['modificar_categorias_1'])) {
+		$resultado = $class->consulta("SELECT * FROM SEG.CATEGORIA_SERVICIO WHERE ID='$_POST[id]' AND STADO='1'");
+		$acu;
+		while ($row=$class->fetch_array($resultado)) {
+			$acu[]=$row[1];
+			$acu[]=$row[3];
+		}
+		print_r(json_encode($acu));
+	}
 	if (isset($_FILES['file_img']['name'])) {		
 	 	$id=$class->idz();
 	 	$fecha=$class->fecha_hora();
