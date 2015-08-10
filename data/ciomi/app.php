@@ -58,7 +58,7 @@
         <tr style="background: #8FBC1D;"><td>SERVICIO</td><td>TARIFA</td><td>cantidad</td><td>precio</td><td>Total</td></tr>
             </thead><tbody style="color:#FFFFFF;">';
         // estableciendo reservacion
-		$class->consulta("INSERT INTO RESERVACION VALUES('$id','$_SESSION[id]','20141211160003548a05d39b5c8','0','$fecha','0','PETICION_RESERVA')");
+		$class->consulta("INSERT INTO RESERVACION VALUES('$id','$_SESSION[id]','20141211160003548a05d39b5c8','0','$fecha','PETICION_RESERVA','')");
 		$id_horarios=$class->idz();
 		// estableciendo horario de la reserva
 		$hi=$horarios[2].' '.$horarios[0];

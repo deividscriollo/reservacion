@@ -14,7 +14,7 @@
 
 		</div><!--/.main-container-->
 		<!-- ventana emergente horario// -->
-		<?php 
+		<?php
 
 		require('../../admin/class.php');
 		$class=new constante();

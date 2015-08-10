@@ -1,61 +1,55 @@
-$(function(){   
+$(function(){
 
-        var inp = $('#txt_valor_pagar').get(0);
-        if(inp.hasAttribute('disabled')) {
-            inp.setAttribute('readonly' , 'true');
-            inp.removeAttribute('disabled');
-            inp.value="This text field is readonly!";
-        }
-        else {
-            inp.setAttribute('disabled' , 'disabled');
-            inp.removeAttribute('readonly');
-            
-        }
-    function buscando(registro){            
-        var result = "" ;                   
+    function buscando(registro){
+        var result = "" ;
         $.ajax({
                 url:'../../utilidades/tarjeta_credito.php',
-                async :  false ,   
+                async :  false ,
                 type:  'post',
                 dataType:'json',
-                data: {validar_targeta:'ok',tarjeta:registro},            
+                data: {validar_targeta:'ok',tarjeta:registro},
                 success : function ( data )  {
-                    //$("#icon_b_usuario").addClass("icon-user");                                                        
-                     result = data['valid'];  
-                }                       
+                    //$("#icon_b_usuario").addClass("icon-user");
+                     result = data['valid'];
+                }
             });
-        return result ; 
+        return result ;
     }
     jQuery.validator.addMethod("validacion_tarjeta", function (value, element) {
             var a=value;
-            var reg=$('#txt_num_deposito').val();                   
+            var reg=$('#txt_num_deposito').val();
                 return buscando(reg,0);
-           
-    }, "Por favor, Revise el numero la TARJETA DE CREDITO NO ES VALIDA.");
+
+    }, "Por favor, Revise el numero la TARJETA DE CRÉDITO NO ES VALIDA.");
     // proceso de guardar la reservacion
     $('#form-comprobante').validate({
         errorElement: 'span',
         errorClass: 'help-inline',
         focusInvalid: false,
-        rules: { 
+        rules: {
             txt_num_deposito: {
                 required: true,
                 number: true,
                 validacion_tarjeta:true
             },
-            txt_val_deposito: {required: true,number: true,equalTo: "#txt_valor_pagar"},            
+            sel_tarjeta:{
+                required: true
+            }
+            // txt_val_deposito: {required: true,number: true,equalTo: "#txt_valor_pagar"},
         },
 
         messages: {
             txt_num_deposito:{
                 required:"Digíte numero de comprobante.",
-                number:'Por favor, Digite solo numeros'
-            }, 
-            txt_val_deposito:{required:'Por favor, Digíte el valor de su deposito',equalTo:'Su monto debe ser igual'},
-            
+                number:'Por favor, Digite solo números'
+            },
+            sel_tarjeta:{
+                required: 'Selección requerida '
+            }
+            // txt_val_deposito:{required:'Por favor, Digíte el valor de su deposito',equalTo:'Su monto debe ser igual'},
         },
 
-        invalidHandler: function (event, validator) { //display error alert on form submit   
+        invalidHandler: function (event, validator) { //display error alert on form submit
             $('.alert-error', $('.login-form')).show();
         },
 
@@ -87,24 +81,26 @@ $(function(){
             $.ajax({
                 url:'reserva_banco.php',
                 type:'POST',
-                data:{guardar:'ok',num_deposito:$('#txt_num_deposito').val(),id:$('#txt_id_reservacion').val()},
+                data:{guardar:'ok',num_deposito:$('#txt_num_deposito').val(),id:$('#txt_id_reservacion').val(),t:$('#sel_tarjeta').val()},
                 success:function(data){
-                    console.log(data);
                     if (data==0) {
-                        $.gritter.add({                     
-                            title: '..Mensaje..!',                      
+                        $.gritter.add({
+                            title: '..Mensaje..!',
                             text: 'OK: <br><i class="icon-cloud purple bigger-230"></i>  Sus datos se almacenaron con exito. por favor espere un periodo de 24 horas para la confirmación de su reservación <br><i class="icon-spinner icon-spin green bigger-230"></i>',                      
-                            //image: 'http://a0.twimg.com/profile_images/59268975/jquery_avatar_bigger.png',                        
-                            sticky: false,                      
-                            time: 2000
+                            //image: 'http://a0.twimg.com/profile_images/59268975/jquery_avatar_bigger.png',
+                            sticky: false,
+                            time: 2000,
+                            after_close: function(){
+                                location.href="";
+                            }
                         });
                     };
                      if(data!=0&&data!=1){
-                         $.gritter.add({                     
-                            title: '..Mensaje..!',                      
+                         $.gritter.add({
+                            title: '..Mensaje..!',
                             text: 'Lo sentimos: <br><i class=" icon-cogs red bigger-230"></i>   Intente mas Tarde . <br><i class="icon-spinner icon-spin red bigger-230"></i>',                       
-                            //image: 'http://a0.twimg.com/profile_images/59268975/jquery_avatar_bigger.png',                        
-                            sticky: false,                      
+                            //image: 'http://a0.twimg.com/profile_images/59268975/jquery_avatar_bigger.png',
+                            sticky: false,
                             time: ''
                         });
                      };
@@ -113,11 +109,6 @@ $(function(){
                         });
                 }
             });
-        }        
+        }
     });
-
-
-
-
 });
-    

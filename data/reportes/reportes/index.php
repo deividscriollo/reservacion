@@ -9,8 +9,7 @@
 	    <script type="text/javascript" src="js/themes/grid.js"></script>
 		<!-- Este archivo es para poder exportar losd atos que obtengamos -->
 		<script type="text/javascript" src="js/modules/exporting.js"></script>
-	
-		<script type="text/javascript">				
+		<script type="text/javascript">
 		$(document).ready(function() {
             var options = {
                 chart: {
@@ -20,7 +19,7 @@
                     plotShadow: false
                 },
                 title: {
-                    text: 'Servicios Mas reservados'
+                    text: 'Servicios más reservados'
                 },
                 tooltip: {
                     formatter: function() {
@@ -45,21 +44,17 @@
                     name: 'Browser share',
                     data: []
                 }]
-            }            
+            }
             $.getJSON("../reportes.php", {servicio_reservado:'ok'} , function(json) {
                 options.series[0].data = json;
                 chart = new Highcharts.Chart(options);
-            });            
-        });   
+            });
+        });
 		</script>
-		
 	</head>
 <body>
 	<center><img src="../b_reportes.fw.png"></center>
 	<div id="container_amd" style="width: 800px; height: 400px; margin: 0 auto">
-		
 	</div>
-		
-		
 </body>
 </html>

@@ -41,7 +41,7 @@ if(!isset($_SESSION))
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /></head>
 
 	<body>
-		
+
 		<?php require('../inicio/menu.php'); menunav(); ?>
 
 		<div class="main-container container-fluid">
@@ -123,25 +123,23 @@ if(!isset($_SESSION))
 									                        </div>
 									                        <div class="span6">
 									                        	<div class="control-group">
-									                                
 									                                <div class="controls">
 									                                    <button class="btn btn-info" type="button">
 											                                <i class="icon-ok bigger-110"></i>
 											                                Submit
 											                            </button>
 									                                </div>
-									                            </div>									                            
+									                            </div>
 									                        </div>
-									                    </div>                                        
+									                    </div>
 									                </form>
-													
 												</div>
 											</div>
 										</div>
 									</div>
 								</div>
 							</div>
-						</div>						
+						</div>
 					</div>
 				</div>
 			</div><!--/.main-content-->
@@ -154,8 +152,6 @@ if(!isset($_SESSION))
 		<!--basic scripts-->
 
 		<!--[if !IE]>-->
-
-		
 
 		<!--<![endif]-->
 
@@ -191,6 +187,8 @@ if(!isset($_SESSION))
 		<script src="../assets/js/jquery-ui-1.10.3.custom.min.js"></script>
 		<script src="../assets/js/jquery.ui.touch-punch.min.js"></script>
 		<script src="../assets/js/jquery.slimscroll.min.js"></script>
+		<script src="assets/js/jquery.sparkline.min.js"></script>
+
 
 
 		<!--ace scripts-->
@@ -202,7 +200,6 @@ if(!isset($_SESSION))
 
 		<script type="text/javascript">
 			$(function() {
-			
 				// scrollables
 				$('.slim-scroll').each(function () {
 					var $this = $(this);
@@ -211,7 +208,6 @@ if(!isset($_SESSION))
 						railVisible:true
 					});
 				});
-						
 			});
 		</script>
 

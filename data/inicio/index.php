@@ -36,6 +36,7 @@ if(!isset($_SESSION))
 		<link rel="stylesheet" href="../assets/css/ace.min.css" />
 		<link rel="stylesheet" href="../assets/css/ace-responsive.min.css" />
 		<link rel="stylesheet" href="../assets/css/ace-skins.min.css" />
+		<link rel="stylesheet" href="../assets/css/animate.css" />
 
 
 		<!--[if lte IE 8]>
@@ -84,37 +85,8 @@ if(!isset($_SESSION))
 
 					<div class="row-fluid">
 						<div class="span12">
-							<div class="tabbable tabs-right">
-								<ul class="nav nav-tabs" id="myTab4">
-									<li class="active">
-										<a data-toggle="tab" href="#home4">Home</a>
-									</li>
-
-									<li>
-										<a data-toggle="tab" href="#profile4">Profile</a>
-									</li>
-
-									<li>
-										<a data-toggle="tab" href="#dropdown14">More</a>
-									</li>
-								</ul>
-
-								<div class="tab-content">
-									<div id="home4" class="tab-pane in active">
-										<p>Raw denim you probably haven't heard of them jean shorts Austin.</p>
-										<p>Raw denim you probably haven't heard of them jean shorts Austin.</p>
-									</div>
-
-									<div id="profile4" class="tab-pane">
-										<p>Food truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid.</p>
-										<p>Raw denim you probably haven't heard of them jean shorts Austin.</p>
-									</div>
-
-									<div id="dropdown14" class="tab-pane">
-										<p>Etsy mixtape wayfarers, ethical wes anderson tofu before they sold out mcsweeney's organic lomo retro fanny pack lo-fi farm-to-table readymade.</p>
-										<p>Raw denim you probably haven't heard of them jean shorts Austin.</p>
-									</div>
-								</div>
+							<div class="center">
+								<span class="icon-cloud-upload bigger-230"></span>
 							</div>
 						</div><!--/span-->
 					</div><!--/.row-fluid-->
@@ -124,10 +96,100 @@ if(!isset($_SESSION))
 				<?php if ($_SESSION['nivel']=='CLIENTE') { ?>
 					<div class="page-content">
 						<div class="row-fluid">
-							<h3 class="header smaller lighter green">Reservaciones En Proceso de pagos Pendientes</h3>
-							<h3 class="header smaller lighter green">Reservaciones Realizadas</h3>
-							<h3 class="header smaller lighter green">Reservaciones Finalizadas</h3>
+							<div class="span6">
+									<h3 class="header smaller lighter green">
+										<i class="icon-bullhorn"></i>
+										Alertas
+									</h3>
+									<?php
+										$id_usr=$_SESSION['id'];
+										$resultado=$class->consulta("SELECT * FROM  RESERVACION R WHERE R.ID_USUARIO='$id_usr' AND R.STADO='PETICION_RESERVA'");
+										while ($row=$class->fetch_array($resultado)) {
+											$id_reser=$row[0];
+											$existencia=0;
+											$res=$class->consulta("SELECT * FROM CONFIRMACION C WHERE C.ID_RESERVACION='$id_reser'");
+											while ($row=$class->fetch_array($res)) {
+												$existencia=1;
+											}
+											if ($existencia==0) {
+											?>
+										<div class="alert alert-block alert-success">
+											<button type="button" class="close" data-dismiss="alert">
+												<i class="icon-remove"></i>
+											</button>
+											<p>
+												<strong>
+													<i class="icon-ok"></i>
+													Reservación sin cancelar
+												</strong>
+												Usted puede realizar el pago correspondiente por los siguientes medios
+											</p>
+											<p>
+												<a href="../paypal/index.php?paypal=ok&id=<?php print $id_reser; ?>" target="_blank" class="btn btn-small btn-success btn-warning">Paypal</a>
+												<a href="../reserva_banco/index.php?banco=ok&id=<?php print $id_reser; ?>" target="_blank" class="btn btn-small btn-info btn-info">Depositos Bancarios</a>
+												<a href="../tarjeta/index.php?targeta=ok&id=<?php print $id_reser; ?>" target="_blank" class="btn btn-small btn-success btn-info">Tarjeta de Crédito</a>
+											</p>
+										</div>
+									<?php } } ?>
+								</div><!--/span-->
+								<div class="span6">
+									<div class="center">
+										<h3 class="green">Bienvenido!</h3>
+										<img src="img/fab.jpg">
+									</div>
+								</div>
 						</div>
+						<!-- <div class="row-fluid">
+							<h3 class="header smaller lighter green">Accesos Directos</h3>
+							<div class="center"></div>
+							<p class="center">
+								<a href="perfil.php" class="btn btn-app no-radius ">
+									<i class="icon-cog bigger-230"></i>
+									Perfil
+								</a>
+
+								<a href="../ciomi" class="btn btn-app btn-primary no-radius">
+									<i class="icon-edit bigger-230"></i>
+									Reservar
+								</a>
+
+								<a href="#" class="btn btn-app btn-success no-radius ">
+									<i class="icon-refresh bigger-230"></i>
+									Servicios
+								</a>
+
+								<button class="btn btn-app btn-warning no-radius " >
+									<i class="icon-undo bigger-230"></i>
+									Facturas
+								</button>
+
+								<a href="#" class="btn btn-app btn-info no-radius animated bounceInDown">
+									<i class="icon-envelope bigger-200"></i>
+									Contacto
+								</a>
+
+								<button class="btn btn-app btn-danger no-radius animated">
+									<i class="icon-trash bigger-200"></i>
+									Cancelar
+								</button>
+
+								<button class="btn btn-app btn-purple  no-radius animated">
+									<i class="icon-cloud-upload bigger-200"></i>
+									Historial
+								</button>
+
+								<button class="btn btn-app btn-pink  no-radius ">
+									<i class=" icon-info-sign bigger-200"></i>
+									Ayuda
+								</button>
+
+								<button class="btn btn-app btn-inverse no-radius animated rollIn" id="btn_salir">
+									<i class="icon-lock bigger-160"></i>
+									Salir
+								</button>
+							</p>
+						</div> -->
+
 					</div>
 				<?php } ?>
 			</div><!--/.main-content-->
@@ -183,6 +245,8 @@ if(!isset($_SESSION))
 		<script src="../assets/js/flot/jquery.flot.resize.min.js"></script>
 		<script src="../assets/js/jquery.easy-pie-chart.min.js"></script>
 		<script src="../assets/js/spin.min.js"></script>
+		<script src="../assets/js/bootbox.min.js"></script>
+
 
 
 		<!--ace scripts-->

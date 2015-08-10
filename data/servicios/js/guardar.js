@@ -139,9 +139,9 @@ $(function(){
 			else error.insertAfter(element);
 		},
 
-		submitHandler: function (form) {	
+		submitHandler: function (form) {
 
-			var formObj = new FormData(form); 				
+			var formObj = new FormData(form);
 			$.ajax({
                 url: "php/guardar.php",
                 type: "POST",
@@ -154,11 +154,11 @@ $(function(){
                 {
                    mostrar_servicios();
                    if (data==0) {
-                   		$.gritter.add({						
-							title: '..Mensaje..!',						
+                   		$.gritter.add({
+							title: '..Mensaje..!',
 							text: 'OK: <br><i class="icon-cloud purple bigger-230"></i>  Sus datos fueron almacenados correctamente. <br><i class="icon-spinner icon-spin green bigger-230"></i>',						
-							//image: 'http://a0.twimg.com/profile_images/59268975/jquery_avatar_bigger.png',						
-							sticky: false,						
+							//image: 'http://a0.twimg.com/profile_images/59268975/jquery_avatar_bigger.png',
+							sticky: false,
 							time: 2000
 						});
 						//$('#txt_archivo').ace_file_input();

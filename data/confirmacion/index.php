@@ -42,7 +42,7 @@ if(!isset($_SESSION))
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /></head>
 
 	<body>
-		
+
 		<?php require('../inicio/menu.php'); menunav(); ?>
 
 		<div class="main-container container-fluid">
@@ -68,27 +68,26 @@ if(!isset($_SESSION))
 				</div>
 				<div class="page-content">
 					<div class="row-fluid">
-							<h3 class="header smaller lighter blue">Confirmaciones pendientes</h3>
 							<div class="table-header">
 								Resultado confirmaciones pendientes
 							</div>
 							<table id="tbt_mensajes" class="table table-striped table-bordered table-hover">
 								<thead>
 									<tr>
-										<td width="10px"><i class="icon-list"></i></td>
-										<td>Servicio</td>
-										<td>F. Reservación</td>
-										<td width="40px">Monto</td>
-										<td>Banco</td>
-										<td>Tipo</td>
-										<td>Cuenta</td>
-										<td width="40px">Deposito</td>
-										<td>F. R. Deposito</td>
-										<td width="30px">Accion</td>
+										<th width="10px"><i class="icon-list"></i></th>
+										<th>Servicio</th>
+										<th>F. Reservación</th>
+										<th width="40px">Monto</th>
+										<th>Banco</th>
+										<th>Tipo</th>
+										<th>Cuenta</th>
+										<th width="40px">Deposito</th>
+										<th>F. R. Deposito</th>
+										<th width="30px">Accion</th>
 									</tr>
 								</thead>
 								<tbody>
-									
+
 								</tbody>
 							</table>
 					</div>
@@ -104,7 +103,7 @@ if(!isset($_SESSION))
 
 		<!--[if !IE]>-->
 
-		
+
 
 		<!--<![endif]-->
 
@@ -180,7 +179,7 @@ if(!isset($_SESSION))
 						}
 				    });
 		llenar_tabla()
-		});		
+		});
 		function llenar_tabla(){
 
 				$.ajax({
@@ -192,19 +191,19 @@ if(!isset($_SESSION))
 		 				var a=1;
 		 				for (var i = 0; i < data.length; i=i+9) {
 		 					$('#tbt_mensajes').dataTable().fnAddData([
-		 															a,
-		 															data[i+0],
-		 															data[i+1],
-		 															data[i+2],
-		 															data[i+3],
-		 															data[i+4],
-		 															data[i+5],
-		 															data[i+6],
-		 															data[i+7],
-		 															data[i+8],
-		 														]);
+												a,
+												data[i+0],
+												data[i+1],
+												data[i+2],
+												data[i+3],
+												data[i+4],
+												data[i+5],
+												data[i+6],
+												data[i+7],
+												data[i+8],
+											]);
 		 					a++;
-		 				}	
+		 				}
 		 			}
 
 		 		});
@@ -232,21 +231,20 @@ if(!isset($_SESSION))
 		 			success:function(data){
 		 				$.unblockUI();
 		 				if (data==0) {
-		 					$.gritter.add({						
-								title: '..Mensaje..!',						
-								text: 'Mensaje Enviado<br><i class="icon-ok green bigger-230"></i>   Satisfactoriamente al cliente : )',						
-								//image: 'http://a0.twimg.com/profile_images/59268975/jquery_avatar_bigger.png',						
-								sticky: false,						
+		 					$.gritter.add({
+								title: '..Mensaje..!',
+								text: 'Mensaje Enviado<br><i class="icon-ok green bigger-230"></i>   Satisfactoriamente al cliente : )',
+								//image: 'http://a0.twimg.com/profile_images/59268975/jquery_avatar_bigger.png',
+								sticky: false,
 								time: ''
 							});
-	                		
 	                	};
 	                	if (data==1) {
-	                		$.gritter.add({						
-								title: '..Mensaje..!',						
-								text: 'Lo sentimos No pudimos enviar la confirmacion de la reservación.<br><i class="icon-lock red bigger-230"></i>',						
-								//image: 'http://a0.twimg.com/profile_images/59268975/jquery_avatar_bigger.png',						
-								sticky: false,						
+	                		$.gritter.add({
+								title: '..Mensaje..!',
+								text: 'Lo sentimos No pudimos enviar la confirmacion de la reservación.<br><i class="icon-lock red bigger-230"></i>',
+								//image: 'http://a0.twimg.com/profile_images/59268975/jquery_avatar_bigger.png',
+								sticky: false,
 								time: ''
 							});
 							redireccionar();

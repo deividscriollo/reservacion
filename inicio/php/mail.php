@@ -84,7 +84,7 @@ class email  extends PHPMailer{
           </tr>
           <tr><td align="center" style="color:#FFFFFF;">
               <a href="http://localhost/reservacion/data/paypal/index.php?paypal=ok&id='.$id.'" style="color: #FFFFFF; text-decoration: none; margin: 0px; text-align: center; vertical-align: baseline; border-width: 1px 1px 2px; border-style: solid; border-color: #057EC5; padding: 6px 12px; font-size: 14px; line-height: 20px; background-color:#E2A500;">PayPal</a>
-              <a href="http://localhost/reservacion/data/reserva_banco/index.php?banco=ok&id='.$id.'" style="color: #FFFFFF; text-decoration: none; margin: 0px; text-align: center; vertical-align: baseline; border-width: 1px 1px 2px; border-style: solid; border-color: #BE4A36; padding: 6px 12px; font-size: 14px; line-height: 20px; background-color: #BE4A36">Depositos Bancarios</a>
+              <a href="http://localhost/reservacion/data/reserva_banco/index.php?banco=ok&id='.$id.'" style="color: #FFFFFF; text-decoration: none; margin: 0px; text-align: center; vertical-align: baseline; border-width: 1px 1px 2px; border-style: solid; border-color: #BE4A36; padding: 6px 12px; font-size: 14px; line-height: 20px; background-color: #BE4A36">Depósitos Bancarios</a>
               <a href="http://localhost/reservacion/data/tarjeta/index.php?targeta=ok&id='.$id.'" style="color: #FFFFFF; text-decoration: none; margin: 0px; text-align: center; vertical-align: baseline; border-width: 1px 1px 2px; border-style: solid; border-color: #89B019; padding: 6px 12px; font-size: 14px; line-height: 20px; background-color: #89B019">Tarjeta de Crédito</a>
           </td>
       </tr></tbody>

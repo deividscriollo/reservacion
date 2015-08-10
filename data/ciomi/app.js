@@ -208,7 +208,7 @@ $(function() {
             success: function(data){
                 $.unblockUI();
                 if (data==0) {
-                    bootbox.dialog("Thank you! Your information was successfully saved!", [{
+                    bootbox.dialog("<h4>Su reservación se ha almacenado con éxito, por favor verifique su correo electrónico y siga las instrucciones.!</h4>", [{
                         "label" : "OK",
                         "class" : "btn-small btn-primary",
                         callback: function() {
@@ -218,7 +218,7 @@ $(function() {
                     );
                };
                if(data!=0&&data!=1&&data!=2){
-                    bootbox.dialog("Thank you! Your information was successfully saved!", [{
+                    bootbox.dialog("Lo sentimos, comuníquese con un administrador!", [{
                         "label" : "OK",
                         "class" : "btn-small btn-primary",
                         }]
@@ -256,9 +256,6 @@ function buscar_horas(dia,fe){
     });
     //return res;
 }
-function redireccionar(){
-                      window.locationf="http://www.cristalab.com";
-                    }
 // renueva su estado base
 function renovar() {
     $('#tabla_horas tbody tr td label input').removeClass('animated bounceOut');

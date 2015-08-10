@@ -1,4 +1,11 @@
 jQuery(function($) {
+				$("#btn_salir").on(ace.click_event, function() {
+					bootbox.confirm("<h2>Estas seguro de salir</h2>", function(result) {
+						if(result) {
+							location.href="salir.php";
+						}
+					});
+				});
 
 				$('#accordion2').on('hide', function (e) {
 					$(e.target).prev().children(0).addClass('collapsed');

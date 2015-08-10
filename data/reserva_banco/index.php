@@ -16,6 +16,11 @@ if(!isset($_SESSION))
 	}else{
 		header('Location: ../inicio/');
 	}
+	$resultado=$class->consulta("SELECT * FROM CONFIRMACION C, RESERVACION R WHERE R.ID=C.ID_RESERVACION AND R.ID='".$_GET['id']."'");
+	$identi=0;
+	while ($row=$class->fetch_array($resultado)) {
+	   $identi=1;
+	}
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -71,6 +76,14 @@ if(!isset($_SESSION))
 				background: rgba(255,255,255,0.6);
 				float: left;
 			}
+			.dc_spmx{
+				width: 100%;
+				height: 300px;
+				background: rgba(255,255,255,0.9);
+				float: left;
+				padding-top: 6%;
+				font-size: 16px;
+			}
 			.dc_btn{
 				width: 0;
 				height: 0;
@@ -121,6 +134,7 @@ if(!isset($_SESSION))
 				<span class="menu-text"></span>
 			</a>
 			<div class="main-contents" >
+				<?php if ($identi==0) { ?>
 				<div class="page-content" style="background: rgba(25,25,25,0.1);!important;">
 					<div class="row-fluid">
 						<div class="span6">
@@ -145,16 +159,12 @@ if(!isset($_SESSION))
 								<div class="widget-body" style="background: rgba(255,255,255,0.9);!important;">
 									<div class="widget-main">
 										<?php
-										$id_reservacion=0;
-											if (isset($_GET['id'])) {
-												$resultado=$class->consulta("SELECT DIA, R.ID FROM RESERVACION_HORARIOS H, RESERVACION R WHERE R.ID=H.ID_RESERVACION AND H.ID_RESERVACION='".$_GET['id']."' AND H.STADO='0'");
-											}else{
-												$resultado=$class->consulta("SELECT DIA, R.ID FROM RESERVACION_HORARIOS H, RESERVACION R WHERE R.ID=H.ID_RESERVACION AND ID_USUARIO='".$_SESSION['id']."' AND H.STADO='0'");												
-											}
+											$id_reservacion=0;
+											$resultado=$class->consulta("SELECT DIA, R.ID FROM RESERVACION_HORARIOS H, RESERVACION R WHERE R.ID=H.ID_RESERVACION AND H.ID_RESERVACION='".$_GET['id']."' AND H.STADO='0'");
 											while ($row=$class->fetch_array($resultado)) {
-												    $dia = $row[0];	
-												    $id_reservacion=$row[1];
-												}
+											    $dia = $row[0];
+											    $id_reservacion=$row[1];
+											}
 										?>
 
 										<table class="table table-striped table-bordered table-hover">
@@ -182,12 +192,9 @@ if(!isset($_SESSION))
 															</thead>
 															<tbody>
 																<?php
-																$impuesto="";
+																$impuesto=0;
 																$nombre=0;
-																if (isset($_GET['id'])) {
-																	$resultado=$class->consulta("SELECT RT.TOTAL, CASE WHEN IMPUESTO='SI' THEN  (PORCENTAJE)::int ELSE 0  END FROM RESERVACION R, SERVICIOS S , RESERVACION_TARIFA RT WHERE R.ID=RT.ID_RESERVACION AND R.ID_SERVICIO=S.ID AND  R.STADO='0' AND R.ID='".$_GET['id']."'");
-																}else{
-																}
+																$resultado=$class->consulta("SELECT RT.TOTAL, CASE WHEN IMPUESTO='SI' THEN  (PORCENTAJE)::int ELSE 0  END FROM RESERVACION R, SERVICIOS S , RESERVACION_TARIFA RT WHERE R.ID=RT.ID_RESERVACION AND R.ID_SERVICIO=S.ID AND  R.STADO='PETICION_RESERVA' AND R.ID='".$_GET['id']."'");
 																while ($row=$class->fetch_array($resultado)) {
 																	$impuesto= $row[1];
 																    $nombre =$nombre+$row[0];
@@ -199,15 +206,9 @@ if(!isset($_SESSION))
 																$nombre=$imp+$nombre;
 															?>
 																<?php
-																	if (isset($_GET['id'])) {
-																		$resultado=$class->consulta("SELECT NOM_TARIFA,TA.PRECIO,T.CANTIDAD,round((T.CANTIDAD*TA.PRECIO), 2),CASE WHEN IMPUESTO='SI' THEN  (PORCENTAJE)::int ELSE 0  END AS IMPUESTO
-	FROM RESERVACION R, SERVICIOS S, RESERVACION_TARIFA T, TARIFA TA
-	WHERE R.ID_SERVICIO=S.ID AND T.ID_TARIFA=TA.ID AND T.ID_RESERVACION=R.ID AND T.CANTIDAD!=0 AND ID_RESERVACION='".$_GET['id']."' AND T.STADO='0'");
-																	}else{
-																		$resultado=$class->consulta("SELECT NOM_TARIFA,TA.PRECIO,T.CANTIDAD,round((T.CANTIDAD*TA.PRECIO), 2),CASE WHEN IMPUESTO='SI' THEN  (PORCENTAJE)::int ELSE 0  END AS IMPUESTO
-	FROM RESERVACION R, SERVICIOS S, RESERVACION_TARIFA T, TARIFA TA
-	WHERE R.ID_SERVICIO=S.ID AND T.ID_TARIFA=TA.ID AND T.ID_RESERVACION=R.ID AND T.CANTIDAD!=0  AND R.ID_USUARIO='".$_SESSION['id']."' AND T.STADO='0'");
-																	}
+																	$resultado=$class->consulta("SELECT NOM_TARIFA,TA.PRECIO,T.CANTIDAD,round((T.CANTIDAD*TA.PRECIO), 2),CASE WHEN IMPUESTO='SI' THEN  (PORCENTAJE)::int ELSE 0  END AS IMPUESTO
+																				FROM RESERVACION R, SERVICIOS S, RESERVACION_TARIFA T, TARIFA TA
+																				WHERE R.ID_SERVICIO=S.ID AND T.ID_TARIFA=TA.ID AND T.ID_RESERVACION=R.ID AND T.CANTIDAD!=0 AND ID_RESERVACION='".$_GET['id']."' AND T.STADO='0'");
 																	while ($row=$class->fetch_array($resultado)) {
 																	    //valores a consumir
 																	    $t=$row[3];
@@ -223,7 +224,7 @@ if(!isset($_SESSION))
 										</table>
 									</div>
 									<div class="widget-main">
-										<form class="form-horizontal" id="form-comprobante">
+										<form class="form-horizontal" id="form-comprobante" enctype="multipart/form-data">
 											<div class="row-fluid">
 												<div class="span8">
 													<div class="control-group">
@@ -284,14 +285,14 @@ if(!isset($_SESSION))
 														<label class="control-label" for="email">Valor a Pagar:</label>
 														<div class="controls">
 															<div class="span12">
-																<input type="text" class="hide" id="txt_id_reservacion" value="<?php print $id_reservacion; ?>" >
+																<input type="text" class="hide" name="txt_id_reservacion" id="txt_id_reservacion" value="<?php print $id_reservacion; ?>" >
 																<input type="text" name="txt_valor_pagar" id="txt_valor_pagar" class="center" value="<?php print($nombre); ?>">
 															</div>
 														</div>
 													</div>
 												</div>
 												<div class="span4 center">
-													<button type="submit" class="btn btn-app btn-success no-radius" data-last="Finish ">
+													<button type="submit" name="btn_guardar" class="btn btn-app btn-success no-radius" data-last="Finish ">
 														<i class=" icon-usd"></i> Enviar
 													</button>
 												</div>
@@ -301,132 +302,24 @@ if(!isset($_SESSION))
 								</div>
 							</div>
 						</div>
-
 					</div>
 				</div>
+				<?php } else{ ?> ?>
+				<div class="page-content" style="background: rgba(25,25,25,0.1);!important;">
+					<div class="row-fluid">
+						<div class="span12 dc_spmx">
+							<div class="center">
+								<h1 class="green">Felicidades!</h1>
+								La información ya fue almacenada con éxito.!
+								<a href="../inicio">REGRESAR A INICIO</a>
+							</div>
+						</div>
+					</div>
+				</div>
+				<?php } ?>
 			</div><!--/.main-content-->
 		</div><!--/.main-container-->
 		<!-- ventana emergente horario -->
-		<div id="modal-table" class="modal hide fade" tabindex="-1">
-			<div class="modal-header no-padding">
-				<div class="table-header">
-					<div type="button" class="close" data-dismiss="modal">&times;</div>
-					Horarios Dinámico
-				</div>
-			</div>
-
-			<div class="modal-body no-padding">
-				<div class="row-fluid">
-					<div class="widget-main" id="obj_contenedor" style="height:350px;">
-					</div>
-				</div>
-			</div>
-			<div class="modal-footer">
-				<button class="btn btn-small btn-danger pull-left" data-dismiss="modal">
-					<i class="icon-remove"></i>
-					Cerrar
-				</button>
-				<button class="btn btn-small btn-success pull-left" data-dismiss="modal">
-					<i class="icon-save"></i>
-					Guardar
-				</button>
-				<div class="pagination pull-center no-margin">
-					<div class="hidden-phone visible-desktop action-buttons" >
-						<a id="btn_m">
-							<i class="icon-zoom-in bigger-130 blue pointer"></i>
-						</a>
-					</div>
-				</div>
-			</div>
-		</div><!--modal horario ENDS-->
-		<!-- modal tarifa -->
-		<div id="modal-servicio" class="modal hide fade" tabindex="-1">
-			<div class="modal-header no-padding">
-				<div class="table-header">
-					<div type="button" class="close" data-dismiss="modal">&times;</div>
-					SERVICIOS DISPONIBLES
-				</div>
-			</div>
-
-			<div class="modal-body no-padding">
-				<div class="row-fluid pull-right">
-					<div class="span12 pull-right">
-						<form class="form-horizontal" id="form-reservacion">
-							<div class="control-group warning">
-								<label class="control-label" for="form-field-1">Digitar Servicio</label>
-								<div class="controls">
-									<input 	class="icon-animated-vertical"
-											type="text"
-											id="txt_b_servicio"
-											placeholder="Nombre del Servicio"
-									>
-								</div>
-							</div>
-						</form>
-					</div>
-					<div class="page-content center" id="obj_contenedor_servicios">
-
-					</div>
-
-				</div>
-			</div>
-			<div class="modal-footer">
-				<button class="btn btn-small btn-danger pull-left" data-dismiss="modal">
-					<i class="icon-remove"></i>
-					Cerrar
-				</button>
-			</div>
-		</div>
-		<!-- modal reservacion  -->
-		<div id="modal-reservacion" class="modal hide fade" tabindex="-1">
-			<div class="modal-header no-padding">
-				<div class="table-header">
-					<div type="button" class="close" data-dismiss="modal">&times;</div>
-					Servicios de Reservación
-				</div>
-			</div>
-
-			<div class="modal-body no-padding">
-				<div class="row-fluid">
-					<div class="span12">
-						<form class="form-horizontal" id="form-v_reserva">
-						</form>
-					</div>
-				</div>
-				<div class="row-fluid">
-					<div class="span8">
-						<table id="tabla_horas_acu" class="table">
-							<thead>
-								<tr>
-									<th>H. Inicio</th>
-									<th>H. Fin</th>
-									<th>fecha</th>
-									<th>Día</th>
-								</tr>
-							</thead>
-							<tbody></tbody>
-						</table>
-					</div>
-					<div class="span4 pull-right">
-						<table class="table table-striped">
-							<tr><td class="pull-right">SubTotal: $</td><td><label id="lbl_subtotal">00.00</label></td></tr>
-							<tr><td class="pull-right">Iva: $</td><td><label id="lbl_iva">00.00</label></td></tr>
-							<tr><td class="pull-right">Total: $</td><td><label id="lbl_total">00.00</label></td></tr>
-						</table>
-					</div>
-				</div>
-			</div>
-			<div class="modal-footer">
-				<button class="btn btn-small btn-danger pull-left" id="btn_g_reservar" data-dismiss="modal">
-					<i class="icon-remove"></i>
-					Cerrar
-				</button>
-				<button class="btn btn-small btn-success pull-right" id="btn_guardar_reservacion">
-					<i class="icon-ok"></i>
-					Reservar
-				</button>
-			</div>
-		</div>
 		<!--PAGE CONTENT ENDS-->
 		<a href="#" id="btn-scroll-up" class="btn-scroll-up btn btn-small btn-inverse">
 			<i class="icon-double-angle-up icon-only bigger-110"></i>

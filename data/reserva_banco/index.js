@@ -81,10 +81,15 @@ $(function(){
         },
 
         submitHandler: function (form) {
+            var formObj = new FormData(form);
             $.ajax({
                 url:'reserva_banco.php',
                 type:'POST',
-                data:{guardar:'ok',num_cuenta:$("#sel_cuenta").val(),num_deposito:$('#txt_num_deposito').val(),id:$('#txt_id_reservacion').val()},
+                mimeType:"multipart/form-data",
+                contentType: false,
+                cache: false,
+                processData:false,
+                data:formObj,
                 success:function(data){
                     // console.log(data);
                     if (data==0) {
@@ -93,7 +98,13 @@ $(function(){
                             text: 'OK: <br><i class="icon-cloud purple bigger-230"></i>  Sus datos se almacenaron con exito. por favor espere un periodo de 24 horas para la confirmación de su reservación <br><i class="icon-spinner icon-spin green bigger-230"></i>',                      
                             //image: 'http://a0.twimg.com/profile_images/59268975/jquery_avatar_bigger.png',
                             sticky: false,
-                            time: 2000
+                            time: 2000,
+                            after_close: function(){
+                                location.href="";
+                            }
+                        });
+                        $('#form-comprobante').each (function(){
+                            this.reset();
                         });
                     };
                      if(data!=0&&data!=1){
@@ -105,10 +116,7 @@ $(function(){
                             time: ''
                         });
                      };
-                     $('#form-comprobante').each (function(){
-                        this.reset();
-                    });
-                     location.href="";
+
                 }
             });
         }
