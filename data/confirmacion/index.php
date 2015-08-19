@@ -76,13 +76,6 @@ if(!isset($_SESSION))
 									<tr>
 										<th width="10px"><i class="icon-list"></i></th>
 										<th>Servicio</th>
-										<th>F. Reservación</th>
-										<th width="40px">Monto</th>
-										<th>Banco</th>
-										<th>Tipo</th>
-										<th>Cuenta</th>
-										<th width="40px">Deposito</th>
-										<th>F. R. Deposito</th>
 										<th width="30px">Accion</th>
 									</tr>
 								</thead>
@@ -98,6 +91,90 @@ if(!isset($_SESSION))
 		<a href="#" id="btn-scroll-up" class="btn-scroll-up btn btn-small btn-inverse">
 			<i class="icon-double-angle-up icon-only bigger-110"></i>
 		</a>
+		<div id="modal-form" class="modal hide" tabindex="-1">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<h4 class="blue bigger">Información de la Reservación</h4>
+			</div>
+
+			<div class="modal-body overflow-visible">
+				<div class="row-fluid">
+					<div class="span6">
+						<div class="profile-user-info">
+							<div class="profile-info-row">
+								<inpu type="hidden" id="txt_id_reservacion">
+								<div class="profile-info-name"> Cliente </div>
+
+								<div class="profile-info-value">
+									<span id="lbl_cliente">.</span>
+								</div>
+							</div>
+
+							<div class="profile-info-row">
+								<div class="profile-info-name">Cedula</div>
+
+								<div class="profile-info-value">
+									<span id="lbl_cedula">.</span>
+								</div>
+							</div>
+							<div class="profile-info-row">
+								<div class="profile-info-name">Correo</div>
+
+								<div class="profile-info-value">
+									<span id="lbl_correo">.</span>
+								</div>
+							</div>
+							<div class="profile-info-row">
+								<div class="profile-info-name">Teléfono</div>
+
+								<div class="profile-info-value">
+									<span id="lbl_telefono">.</span>
+								</div>
+							</div>
+
+							<div class="profile-info-row">
+								<div class="profile-info-name"> Hora I. </div>
+
+								<div class="profile-info-value">
+									<span id="lbl_inicio">.</span>
+								</div>
+							</div>
+							<div class="profile-info-row">
+								<div class="profile-info-name"> Hora F. </div>
+
+								<div class="profile-info-value">
+									<span id="lbl_fin">.</span>
+								</div>
+							</div>
+
+							<div class="profile-info-row">
+								<div class="profile-info-name"> Monto a  Pagar </div>
+
+								<div class="profile-info-value">
+									<span id="lbl_monto">.</span>
+								</div>
+							</div>
+						</div>
+
+					</div>
+					<div class="span6">
+						<div class="row-fluid" id="obj_deposito"></div>
+					</div>
+				</div>
+			</div>
+
+			<div class="modal-footer">
+				<button class="btn btn-small btn-important" data-dismiss="modal">
+					<i class="icon-remove"></i>
+					Cancelar
+				</button>
+				<button class="btn btn-small btn-success" id="btn_confirmar">
+					<i class="icon-ok"></i>
+					Confirmar Deposito
+				</button>
+			</div>
+		</div><!--PAGE CONTENT ENDS-->
+
 
 		<!--basic scripts-->
 
@@ -143,6 +220,8 @@ if(!isset($_SESSION))
 		<script src="../../assets/js/jquery.dataTables.bootstrap.js"></script>
 		<script src="../assets/js/jquery.gritter.min.js"></script>
 		<script src="../../assets/js/blockui.js"></script>
+		<script src="../assets/js/bootbox.min.js"></script>
+
 		<!--ace scripts-->
 
 		<script src="../assets/js/ace-elements.min.js"></script>
@@ -150,111 +229,14 @@ if(!isset($_SESSION))
 
 		<!--inline scripts related to this page-->
 
-		<script type="text/javascript">
-		$(function(){
-			var table=$('#tbt_mensajes').dataTable( {
-				        language: {
-						    "sProcessing":     "Procesando...",
-						    "sLengthMenu":     "Mostrar _MENU_ registros",
-						    "sZeroRecords":    "No se encontraron resultados",
-						    "sEmptyTable":     "Ningún dato disponible en esta tabla",
-						    "sInfo":           "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
-						    "sInfoEmpty":      "Mostrando registros del 0 al 0 de un total de 0 registros",
-						    "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
-						    "sInfoPostFix":    "",
-						    "sSearch":         "Buscar: ",
-						    "sUrl":            "",
-						    "sInfoThousands":  ",",
-						    "sLoadingRecords": "Cargando...",
-						    "oPaginate": {
-						        "sFirst":    "Primero",
-						        "sLast":     "Último",
-						        "sNext":     "Siguiente",
-						        "sPrevious": "Anterior"
-						    },
-						    "oAria": {
-						        "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
-						        "sSortDescending": ": Activar para ordenar la columna de manera descendente"
-						    }
-						}
-				    });
-		llenar_tabla()
-		});
-		function llenar_tabla(){
-
-				$.ajax({
-		 			url:'confirmacion.php',
-		 			type:'POST',
-		 			dataType: 'json',
-		 			data:{mostrar_reservacion:'ok'},
-		 			success:function(data){
-		 				var a=1;
-		 				for (var i = 0; i < data.length; i=i+9) {
-		 					$('#tbt_mensajes').dataTable().fnAddData([
-												a,
-												data[i+0],
-												data[i+1],
-												data[i+2],
-												data[i+3],
-												data[i+4],
-												data[i+5],
-												data[i+6],
-												data[i+7],
-												data[i+8],
-											]);
-		 					a++;
-		 				}
-		 			}
-
-		 		});
-			}
-		 	function correo_envio(a,b,c){
-				// console.log(a+b+c)
-				$.ajax({
-					url:'confirmacion.php',
-		 			type:'POST',
-		 			data:{confirmar_reservacion:'ok',id:a,correo:c,nombre:b},
-		 			beforeSend: function () {
-						$.blockUI({
-							message:'<i id="icon-tiempo" class="width-10 icon-spinner red icon-spin bigger-125"></i> Espere un momento...',
-							css: { 
-					            border: 'none', 
-					            padding: '15px', 
-					            backgroundColor: '#000', 
-					            '-webkit-border-radius': '10px', 
-					            '-moz-border-radius': '10px', 
-					            opacity: .5, 
-					            color: '#fff'
-					        }
-					    })
-					}, 
-		 			success:function(data){
-		 				$.unblockUI();
-		 				if (data==0) {
-		 					$.gritter.add({
-								title: '..Mensaje..!',
-								text: 'Mensaje Enviado<br><i class="icon-ok green bigger-230"></i>   Satisfactoriamente al cliente : )',
-								//image: 'http://a0.twimg.com/profile_images/59268975/jquery_avatar_bigger.png',
-								sticky: false,
-								time: ''
-							});
-	                	};
-	                	if (data==1) {
-	                		$.gritter.add({
-								title: '..Mensaje..!',
-								text: 'Lo sentimos No pudimos enviar la confirmacion de la reservación.<br><i class="icon-lock red bigger-230"></i>',
-								//image: 'http://a0.twimg.com/profile_images/59268975/jquery_avatar_bigger.png',
-								sticky: false,
-								time: ''
-							});
-							redireccionar();
-	                	}; 
-		 			}
-				});
-				$('#tbt_mensajes').dataTable().fnClearTable();
-				llenar_tabla()
-			}
-		</script>
-
+		<script src="app.js"></script>
 	</body>
 </html>
+<style type="text/css">
+	#modal-form{
+		position: relative;
+		top: -200px;
+		width: 900px; /* SET THE WIDTH OF THE MODAL */
+		margin: -120px 0 0 -450px;
+	}
+</style>

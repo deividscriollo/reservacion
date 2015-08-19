@@ -177,12 +177,12 @@ if(!isset($_SESSION))
 								<div class="span2 pricing-span ">
 									<div class="widget-box pricing-box-small">
 										<div class="widget-header header-color-orange">
-											<h5 class="bigger lighter">Precio </h5>
+											<h5 class="bigger lighter">Personas </h5>
 										</div>
 
 										<div class="widget-body">
 											<div class="widget-main no-padding">
-												<ul class="unstyled list-striped pricing-table" id="obj_tarifas_precio">
+												<ul class="unstyled list-striped pricing-table" id="obj_tarifas_personas">
 												</ul>
 											</div>
 										</div>
@@ -191,26 +191,13 @@ if(!isset($_SESSION))
 								<div class="span3 pricing-span">
 									<div class="widget-box pricing-box-small">
 										<div class="widget-header header-color-blue">
-											<h5 class="bigger center">Cantidad</h5>
+											<h5 class="bigger center">G. Maculino</h5>
 										</div>
 										<div class="widget-body">
 											<div class="widget-main no-padding">
-												<ul class="unstyled list-striped pricing-table" id="obj_tarifas_cantidad">
+												<ul class="unstyled list-striped pricing-table" id="obj_tarifas_gen1">
 
 												</ul>
-												<div>
-												<ul class="unstyled list-striped center">
-														<li> SUBTOTAL </li>
-													</ul>
-												</div>
-												<div>
-													<ul class="unstyled list-striped center">
-														<li id="lbl_iva_dc_opt"> IVA </li>
-													</ul>
-												</div>
-												<div class="widget-header header-color-blue">
-													<h5 class="bigger center">Total:</h5>
-												</div>
 											</div>
 										</div>
 									</div>
@@ -218,25 +205,13 @@ if(!isset($_SESSION))
 								<div class="span3 pricing-span">
 									<div class="widget-box pricing-box-small">
 										<div class="widget-header header-color-green">
-											<h5 class="bigger lighter">Total</h5>
+											<h5 class="bigger lighter">G. Femenino</h5>
 										</div>
 
 										<div class="widget-body">
 											<div class="widget-main no-padding">
 												<ul class="unstyled list-striped pricing-table" id="obj_tarifas_total">
 												</ul>
-											</div>
-											<div>
-												<ul class="unstyled list-striped center">
-													<li id="lbl_subtotal"> 00.00 </li>
-												</ul>
-											</div>
-											<div>
-												<ul class="unstyled list-striped center" >
-													<li id="lbl_iva"> 00.00 </li>
-												</ul>
-											</div>
-											<div class="widget-header header-color-green" id="lbl_total">
 											</div>
 										</div>
 									</div>

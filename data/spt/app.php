@@ -56,9 +56,27 @@
 		 		print_r(json_encode($iden2));
 		 	}
 	}
+	if (isset($_POST['mostrar_reservacion_tarifa'])) {
+			$iden='';
+			$iden2=array('0','00.00');
+			$acu=0;
+			$resultado = $class->consulta("SELECT R.CANTIDAD,round((R.CANTIDAD*T.PRECIO), 2)FROM RESERVACION_TARIFA R, TARIFA T  WHERE T.ID=R.ID_TARIFA AND R.ID_RESERVACION='$_POST[id_reservacion]' AND R.ID_TARIFA='$_POST[id_tarifa]'");
+			while ($row=$class->fetch_array($resultado)) {
+				$iden[]=$row[0];
+				$iden[]=$row[1];
+				$acu=1;
+		 	}
+		 	if ($acu==1) {
+		 		print_r(json_encode($iden));
+		 	}else{
+		 		print_r(json_encode($iden2));
+		 	}
+	}
 
 	if (isset($_POST['mostrar_servicios_reservacion'])) {
-		$resultado = $class->consulta("	SELECT C.ID,C.NOM,T.ID_SERVICIO,R.ID FROM RESERVACION R, TARIFA T, SEG.CATEGORIA_SERVICIO C WHERE R.ID_SERVICIO=T.ID_SERVICIO AND T.ID_CATEGORIA=C.ID AND R.ID='$_POST[id]'");
+		$resultado = $class->consulta("	SELECT C.ID,C.NOM,T.ID_SERVICIO,ID_RESERVACION 
+										FROM SEG.CATEGORIA_SERVICIO C, TARIFA T, RESERVACION_TARIFA RT 
+										WHERE RT.ID_TARIFA=T.ID AND T.ID_CATEGORIA= C.ID AND ID_RESERVACION='$_POST[id]'");
 		$acu[]='<option value="" />';
 		while ($row=$class->fetch_array($resultado)) {
 			$acu[]='<option value="'.$row[0].','.$row[2].','.$row[3].'">'.$row[1].'</option>';
@@ -76,7 +94,7 @@
 	}
 	if (isset($_POST['mostrar_tarifa_servicios2'])) {
 		$acu=split(',', $_POST['id']);
-		$resultado = $class->consulta("SELECT T.ID,T.PRECIO FROM SEG.CATEGORIA_SERVICIO C, TARIFA T, SERVICIOS S WHERE C.ID=T.ID_CATEGORIA AND S.ID=T.ID_SERVICIO AND C.ID='$acu[0]' AND S.ID='$acu[1]'");
+		$resultado = $class->consulta("SELECT T.ID,T.P FROM SEG.CATEGORIA_SERVICIO C, TARIFA T, SERVICIOS S WHERE C.ID=T.ID_CATEGORIA AND S.ID=T.ID_SERVICIO AND C.ID='$acu[0]' AND S.ID='$acu[1]'");
 		while ($row=$class->fetch_array($resultado)) {
 			print'<li id="pre_'.$row[0].'">'.$row[1].'</li>';
 	 	}

@@ -20,15 +20,6 @@ $(function(){
                 $('#obj_tarifas_nombre').html(data);
             }
         });
-        // estableciendo precio
-        $.ajax({
-            url:'app.php',
-            type:'POST',
-            data:{mostrar_tarifa_servicios2:':)',id:acu},
-            success:function(data){
-                $('#obj_tarifas_precio').html(data);
-            }
-        });
         // estableciendo cantidad
         $.ajax({
             url:'app.php',
@@ -50,13 +41,12 @@ $(function(){
                             iden=response;
                         }
                     });
-                    acumulador+='<li id="'+data[0+i]+'"> <span class="editable" id="lbl_'+data[i+0]+','+data[2+i]+'" onclick="ejemplo(event)">'+iden[0]+'</span> </li>';
+                    acumulador+='<li id="'+data[0+i]+'">'+iden[0]+'</li>';
                     sumador+='<li id="tot_'+data[0+i]+'">'+iden[1]+'</li>';
                     subtotal(data[i+2]+','+iden[1]);
                 }
 
-                $('#obj_tarifas_cantidad').html(acumulador);
-                $('#obj_tarifas_total').html(sumador);
+                $('#obj_tarifas_personas').html(acumulador);
             }
         });
     });

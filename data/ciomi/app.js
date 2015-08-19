@@ -1,3 +1,4 @@
+//------------------------------inicio proceso museo---------------------//
 $(function() {
 	//----------llenado categoria----------//
 	$.ajax({
@@ -66,7 +67,11 @@ $(function() {
         type:'POST',
         data:{obj_informacion_museo:':)'},
         success:function(data){
-            $('#obj_informacion_museo').html(data);
+            var data=data.split(';');
+            for (var i = 0; i < data.length; i++) {
+                var acu='<div class="well">'+data[i]+'</div>';
+                $('#obj_informacion_museo').append(acu);
+            }
         }
     });
 	// inicializacion calendario
@@ -76,10 +81,11 @@ $(function() {
 	$('.date-picker').bind("cut copy paste",function(e) {
           e.preventDefault();
       });
+    var f_=new Date();
 	$('.date-picker').datepicker({
-		endDate: '+7d',
         autoclose: true,
         startDate: '+1d',
+        endDate: '31/12/'+f_.getFullYear(),
         format: 'dd/mm/yyyy',
 	}).change(function(){
 		var mes = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
@@ -87,8 +93,8 @@ $(function() {
 		var dia_sem=dia_semana(fecha);
 		var acu=fecha.split('/');
 		buscar_horas(dia_sem,fecha);
-		$('#info_fecha').html('<p class="text-success">'+dia_sem+', '+mes[parseInt(acu[1])]+' '+acu[0]+' del '+acu[2]+'</p>');
-		$('#lbl_fecha_final').html(dia_sem+', '+mes[parseInt(acu[1])]+' '+acu[0]+' del '+acu[2]);
+		$('#info_fecha').html('<p class="text-success">'+dia_sem+', '+mes[parseInt(acu[1])-1]+' '+acu[0]+' del '+acu[2]+'</p>');
+		$('#lbl_fecha_final').html(dia_sem+', '+mes[parseInt(acu[1])-1]+' '+acu[0]+' del '+acu[2]);
 
 	});
 
@@ -179,11 +185,14 @@ $(function() {
         var i=0;
         $('#tabla_info_tarifa tbody tr').each(function () {
             var nombre = $(this).find("td").eq(1).text();
+            var cantidad = $(this).find("td").eq(3).html();
+            var m=cantidad.split('id="');
+            var n=m[1].split('"');
+            var cantidad=$('#'+n[0]).val();
             var precio = $(this).find("td").eq(2).text();
             var tot = $(this).find("td").eq(4).text();
             var id_tar=$(this).find("td").eq(4).attr('id');
-            var sub=parseFloat(tot)/parseFloat(precio);
-            tarifas[i]=new Array(nombre,precio,sub,tot,id_tar);
+            tarifas[i]=new Array(nombre,precio,cantidad,tot,id_tar);
             i++;
         });
         // envio de informacion
@@ -416,3 +425,125 @@ function info_tabla(){
         // console.log(campo0+' '+campo1+' '+campo2)
     });
 }
+
+//----------------------------------fin proceso museo----------------------//
+
+
+//------------------------------inicio proceso auditorio-------------------//
+$(function(){
+
+    // llenado proceso categorias
+    $.ajax({
+        url:'app.php',
+        type:'POST',
+        data:{obj_tipo_reservacion_oaudit:':)'},
+        success:function(data){
+            $('#obj_tipo_reservacion').html(data);
+            var oldie = /msie\s*(8|7|6)/.test(navigator.userAgent.toLowerCase());
+            $('.easy-pie-chart.percentage').each(function(){
+                $(this).easyPieChart({
+                    barColor: $(this).data('color'),
+                    trackColor: '#EEEEEE',
+                    scaleColor: false,
+                    lineCap: 'butt',
+                    lineWidth: 8,
+                    animate: oldie ? false : 1000,
+                    size:75
+                }).css('color', $(this).data('color'));
+            });
+            $('.dc_hover').mouseover(function(){
+                $(this).addClass('animated rubberBand').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function(){
+                    $(this).removeClass('animated rubberBand');
+                });
+            });
+            $('.dc_hover').click(function(dc){
+                $('.dc_hover').css({background: 'rgba(255,25,255,0)'})
+                $(this).css({
+                    background: 'rgba(25,25,25,0.03)',
+                    'border-radius': '5px'
+                });
+                var id=$(this).attr('id');
+                $('#txt_categoria').val(id);
+                // estableciendo total
+                 $.ajax({
+                    url:'app.php',
+                    type:'POST',
+                    dataType:'json',
+                    data:{mostrar_tarifa_servicios4:':)',id:id},
+                    success:function(data){
+                        $('#tabla_info_tarifa tbody').html('');
+                        for (var i = 0; i < data.length; i++) {
+                            if (i%2==0) {
+                                $('#tabla_info_tarifa tbody').append(data[i]);
+                            };
+                            if(i%2!=0){
+                                $('#spi_'+data[i]+'').ace_spinner({value:0,min:0,max:200,step:1, btn_up_class:'btn-info' , btn_down_class:'btn-info'})
+                                .on('change', function(){
+                                    var id=$(this).attr('id').replace('spi_','');
+                                    var precio=$('#pre_'+id).html();
+                                    var precio2=parseFloat(precio);
+                                    var cantidad=$(this).val();
+                                    var cantidad2=parseInt(cantidad);
+                                    $('#total_'+id).html((precio2*cantidad2).toFixed(2));
+                                    valor_subtotal();
+                                });
+                            }
+                        }
+                    }
+                });
+            });
+        }
+    });
+    $.ajax({
+        url:'app.php',
+        type:'POST',
+        data:{obj_informacion_museo:':)'},
+        success:function(data){
+            var data=data.split(';');
+            for (var i = 0; i < data.length; i++) {
+                var acu='<div class="well">'+data[i]+'</div>';
+                $('#obj_informacion_museo').append(acu);
+            }
+        }
+    });
+    $('#fuelux-wizard2').ace_wizard().on('change' , function(e, info){
+    }).on('finished', function(e) {
+        alert('hola')
+    }).on('stepclick', function(e){
+        //return false;//prevent clicking on steps
+    });
+});
+
+// -------------------------------- fin proceso auditorio----------------------------//
+
+
+//----------------------inicio proceso restaurante-------------------//
+
+$(function(){
+    $('#fuelux-wizard3').ace_wizard().on('change' , function(e, info){
+    }).on('finished', function(e) {
+        alert('hola')
+    }).on('stepclick', function(e){
+        //return false;//prevent clicking on steps
+    });
+});
+
+//-----------------------fin proeceso auditori------------------------//
+
+
+
+
+
+//-----------------------inicio proceso convencion------------------------//
+
+$(function(){
+    $('#fuelux-wizard4').ace_wizard().on('change' , function(e, info){
+    }).on('finished', function(e) {
+        alert('hola')
+    }).on('stepclick', function(e){
+        //return false;//prevent clicking on steps
+    });
+});
+
+
+//-----------------------fin proceso convencion------------------------//

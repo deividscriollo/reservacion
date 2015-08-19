@@ -95,7 +95,7 @@ if(!isset($_SESSION))
 										</a>
 									</li>
 									<li>
-										<a data-toggle="tab" href="">
+										<a data-toggle="tab" href="#dc_convencion1">
 											<i class="red icon-dashboard bigger-110"></i>
 											<span>CENTRO DE CONVEN..</span>
 										</a>
@@ -105,366 +105,543 @@ if(!isset($_SESSION))
 								<div class="tab-content">
 									<div id="home4" class="tab-pane in active">
 										<div class="row-fluid">
-													<div id="fuelux-wizard" class="row-fluid hide" data-target="#step-container">
-														<ul class="wizard-steps">
-															<li data-target="#step1" class="active">
-																<span class="step">1</span>
-																<span class="title">Seleccionar Categoría</span>
-															</li>
+											<div id="fuelux-wizard" class="row-fluid hide" data-target="#step-container">
+												<ul class="wizard-steps">
+													<li data-target="#step1" class="active">
+														<span class="step">1</span>
+														<span class="title">Seleccionar Categoría</span>
+													</li>
 
-															<li data-target="#step2">
-																<span class="step">2</span>
-																<span class="title">Fecha y Horarios</span>
-															</li>
+													<li data-target="#step2">
+														<span class="step">2</span>
+														<span class="title">Fecha y Horarios</span>
+													</li>
 
-															<li data-target="#step3">
-																<span class="step">3</span>
-																<span class="title">Contenido Terifa</span>
-															</li>
+													<li data-target="#step3">
+														<span class="step">3</span>
+														<span class="title">Contenido Terifa</span>
+													</li>
 
-															<li data-target="#step4">
-																<span class="step">4</span>
-																<span class="title">Reservar</span>
-															</li>
-														</ul>
-													</div>
-
-													<hr />
-													<div class="step-content row-fluid position-relative" id="step-container">
-														<div class="step-pane active" id="step1">
-															<div class="row-fluid">
-																<div class="span10">
-																	<h3 class="lighter block green center">Estimado/a, <?php print$_SESSION['nom']; ?> seleccione el tipo de reservación</h3>
-																</div>
-																<div class="span2">
-																	<a href="#modal-museo" data-toggle="modal" class="btn btn-mini btn-danger">
-																		<i class=" icon-info-sign"></i> Información Museo	<i class="icon-flag"></i>
-																	</a>
-																</div>
-															</div>
-															<div class="row-fluid">
-																<div id="obj_tipo_reservacion"></div>
-																<input type="hidden" id="txt_categoria">
-															</div>
+													<li data-target="#step4">
+														<span class="step">4</span>
+														<span class="title">Reservar</span>
+													</li>
+												</ul>
+											</div>
+											<hr />
+											<div class="step-content row-fluid position-relative" id="step-container">
+												<div class="step-pane active" id="step1">
+													<div class="row-fluid">
+														<div class="span10">
+															<h3 class="lighter block green center">Estimado/a, <?php print$_SESSION['nom']; ?> seleccione el tipo de reservación</h3>
 														</div>
-
-														<div class="step-pane" id="step2">
-															<div class="row-fluid">
-																<div class="span4">
-																	<div class="row-fluid">
-																		<div class="control-group success">
-																			<div class="row-fluid input-append">
-																				<input class="span11 date-picker" id="id-date-picker-1" type="text" data-date-format="dd-mm-yyyy" />
-																				<span class="add-on">
-																					<i class="icon-calendar"></i>
-																				</span>
-																			</div>
-																		</div>
-																	</div>
-																	<div class="row-fluid">
-																		<div class="widget-container-span">
-																			<div class="widget-box transparent">
-																				<div class="widget-header">
-																					<h4 class="lighter">Fecha Día</h4>
-																				</div>
-
-																				<div class="widget-body">
-																					<div class="widget-main padding-6 no-padding-left no-padding-right">
-																						<blockquote id="info_fecha"></blockquote>
-
-																					</div>
-																				</div>
-																				<div class="row-fluid">
-																					<h3 class="header smaller lighter grey pull-right">
-																						<i class="icon-spinner icon-spin orange bigger-125"></i>
-																					</h3>
-
-																				</div>
-																			</div>
-																		</div>
-
-
-																	</div>
-																</div>
-																<div class="span8">
-																	<div class="widget-box transparent">
-																		<div class="widget-header widget-header-flat">
-																			<h4 class="lighter">
-																				<i class="icon-time orange"></i>
-																				Disponibilidad de Horarios
-																			</h4>
-
-																		</div>
-
-																		<div class="widget-body">
-																			<div class="widget-main no-padding">
-																				<table class="table table-bordered table-striped" id="tabla_horas">
-																					<thead>
-																						<tr>
-																							<th>
-																								<i class="icon-caret-right blue"></i> Nro
-																							</th>
-
-																							<th>
-																								<i class="icon-caret-right blue"></i>	<i class="icon-ok green"></i>
-																							</th>
-
-																							<th class="hidden-phone">
-																								<i class="icon-caret-right blue"></i>
-																								H. Inicio
-																								<i class="icon-time orange"></i>
-																							</th>
-																							<th class="hidden-phone">
-																								<i class="icon-caret-right blue"></i>
-																								H. Fin
-																								<i class="icon-time orange"></i>
-																							</th>
-																							<th class="hidden-phone">
-																								<i class="icon-caret-right blue"></i>
-																								Fecha
-																								<i class="icon-calendar purple"></i>
-																							</th>
-																							<th class="hidden-phone center">
-																								<i class="icon-caret-right blue"></i>
-																								Dia
-																								<!-- <i class="icon-calendar purple"></i> -->
-																							</th>
-																						</tr>
-																					</thead>
-
-																					<tbody>
-																					</tbody>
-																				</table>
-																			</div><!--/widget-main-->
-																		</div><!--/widget-body-->
-																	</div><!--/widget-box-->
-
-																</div>
-																<div class="span2"></div>
-															</div>
-														</div>
-
-														<div class="step-pane" id="step3">
-															<div class="center">
-																<div class="row-fluid">
-																	<div class="widget-box transparent">
-																		<div class="widget-header widget-header-flat">
-																			<h4 class="lighter">
-																				<i class="icon-star orange"></i>
-																				Servicio
-																			</h4>
-																		</div>
-
-																		<div class="widget-body">
-																			<div class="widget-main no-padding">
-																				<div class="row-fluid">
-																					<table class="table table-bordered table-striped" id="tabla_info_tarifa">
-																						<thead>
-																							<tr>
-																								<th class="center">
-																									<i class=" icon-circle-blank blue"></i>
-																									Nro
-																								</th>
-
-																								<th class="center">
-																									<i class="icon-coffee blue"></i>
-																									Servicio Tarifa
-																								</th>
-
-																								<th class="center">
-																									<i class="icon-legal orange"></i>
-																									Precio
-																								</th>
-																								<th class="center">
-																									<i class="icon-cloud-upload red"></i>
-																									Cantidad
-																								</th>
-																								<th class="center">
-																									<i class="icon-caret-right green"></i>
-																									Total
-																								</th>
-																							</tr>
-																						</thead>
-																						<tbody>
-																						</tbody>
-																					</table>
-																				</div>
-																				<div class="row-fluid">
-																					<div class="span5  pull-right">
-																						<table class="table table-bordered table-striped">
-																							<tr>
-																								<th class="center">
-																									<i class="icon-caret-right green"></i>
-																									SubTotal
-																								</th>
-																								<th class="center" id="lbl_subtotal">
-																									<i class="icon-caret-right green"></i>
-																									0.00
-																								</th>
-																							</tr>
-																							<tr>
-																								<th class="center" id="lbl_valor_iva">
-																									<i class="icon-caret-right green"></i>
-																									Iva
-																								</th>
-																								<th class="center" id="lbl_iva">
-																									<i class="icon-caret-right green"></i>
-																									0.00
-																								</th>
-																							</tr>
-																							<tr>
-																								<th class="center">
-																									<i class="icon-caret-right green"></i>
-																									Total
-																								</th>
-																								<th class="center" id="lbl_total">
-																									<i class="icon-caret-right green"></i>
-																									0.00
-																								</th>
-																							</tr>
-																						<tbody>
-																						</tbody>
-																					</table>
-																					</div>
-																				</div>
-																			</div><!--/widget-main-->
-																		</div><!--/widget-body-->
-																	</div><!--/widget-box-->
-
-																</div>
-															</div>
-														</div>
-
-														<div class="step-pane" id="step4">
-															<div class="row-fluid">
-																<div class="span6">
-																	<div class="widget-box transparent">
-																		<div class="widget-header widget-header-small">
-																			<h4 class="smaller">
-																				<i class="icon-check bigger-110"></i>
-																				Resumen de la reservación
-																			</h4>
-																		</div>
-
-																		<div class="widget-body">
-																			<div class="widget-main">
-																				<div class="profile-user-info">
-																					<div class="profile-info-row">
-																						<div class="profile-info-name"> A nombre de: </div>
-
-																						<div class="profile-info-value">
-																							<span><?php print$_SESSION['nom']; ?></span>
-																						</div>
-																					</div>
-
-																					<div class="profile-info-row">
-																						<div class="profile-info-name"> Servicio: </div>
-																						<div class="profile-info-value">
-																							<span>MUSEO</span>
-																						</div>
-																					</div>
-
-																					<div class="profile-info-row">
-																						<div class="profile-info-name"> Para la fecha: </div>
-
-																						<div class="profile-info-value">
-																							<span id="lbl_fecha_final"></span>
-																						</div>
-																					</div>
-
-																					<div class="profile-info-row">
-																						<div class="profile-info-name"> Hora inicio: </div>
-																						<div class="profile-info-value">
-																							<span id="lbl_info_hora_inicio">20/06/2010</span>
-																						</div>
-																					</div>
-																					<div class="profile-info-row">
-																						<div class="profile-info-name"> Hora Fin: </div>
-																						<div class="profile-info-value">
-																							<span id="lbl_info_hora_fin">20/06/2010</span>
-																						</div>
-																					</div>
-
-																					<div class="profile-info-row">
-																						<div class="profile-info-name"> Monto Total: </div>
-
-																						<div class="profile-info-value">
-																							<span id="lbl_info_total"></span>
-																						</div>
-																					</div>
-																				</div>
-
-																			</div>
-																		</div>
-																	</div>
-																</div>
-																<div class="span6">
-																	<div class="widget-box transparent">
-																		<div class="widget-header widget-header-small">
-																			<h4 class="smaller">
-																				<i class="icon-check bigger-110"></i>
-																				Estimado/a, <?php print$_SESSION['nom']; ?> Tenga en cuenta las siguientes notas.
-																			</h4>
-
-																		</div>
-
-																		<div class="widget-body">
-																			<div class="widget-main">
-																				<ul class="unstyled spaced">
-																					<li>
-																						<i class="icon-ok green"></i>
-																						Su reservación tendrá una vigencia de 48 horas para la activación o se cancelara automáticamente.
-																					</li>
-																					<li>
-																						<i class="icon-ok green"></i>
-																						Para la activación sigas los pasos que se indica y que se han enviado a su correo electrónico.
-																					</li>
-																					<li>
-																						<i class="icon-ok green"></i>
-																						Los pagos los puede realizar en el Banco Guayaquil en la cuenta Nro. 1209345 a nombre de Fábrica Imbabura.
-																					</li>
-																					<li>
-																						<i class="icon-ok green"></i>
-																						Estar presente al menos 10 minutos antes que inicie el turno de su reservación.
-																					</li>
-																					<li>
-																						<i class="icon-ok green"></i>
-																						Día de la reservación, Presente su cedula para verificar información y dar validez de su reservación.
-																					</li>
-																				</ul>
-																			</div>
-																		</div>
-																	</div>
-																</div>
-
-															</div>
+														<div class="span2">
+															<a href="#modal-museo" data-toggle="modal" class="btn btn-mini btn-danger">
+																<i class=" icon-info-sign"></i> Información
+															</a>
 														</div>
 													</div>
-
-													<hr />
-													<div class="row-fluid wizard-actions">
-														<button class="btn btn-prev">
-															<i class="icon-arrow-left"></i>
-															Atras
-														</button>
-
-														<button class="btn btn-success btn-next" data-last="Reservar ">
-															Adelante
-															<i class="icon-arrow-right icon-on-right"></i>
-														</button>
+													<div class="row-fluid">
+														<div id="obj_tipo_reservacion"></div>
+														<input type="hidden" id="txt_categoria">
 													</div>
 												</div>
 
+												<div class="step-pane" id="step2">
+													<div class="row-fluid">
+														<div class="span4">
+															<div class="row-fluid">
+																<div class="control-group success">
+																	<div class="row-fluid input-append">
+																		<input class="span11 date-picker" id="id-date-picker-1" type="text" data-date-format="dd-mm-yyyy" />
+																		<span class="add-on">
+																			<i class="icon-calendar"></i>
+																		</span>
+																	</div>
+																</div>
+															</div>
+															<div class="row-fluid">
+																<div class="widget-container-span">
+																	<div class="widget-box transparent">
+																		<div class="widget-header">
+																			<h4 class="lighter">Fecha Día</h4>
+																		</div>
+
+																		<div class="widget-body">
+																			<div class="widget-main padding-6 no-padding-left no-padding-right">
+																				<blockquote id="info_fecha"></blockquote>
+
+																			</div>
+																		</div>
+																		<div class="row-fluid">
+																			<h3 class="header smaller lighter grey pull-right">
+																				<i class="icon-spinner icon-spin orange bigger-125"></i>
+																			</h3>
+
+																		</div>
+																	</div>
+																</div>
+
+
+															</div>
+														</div>
+														<div class="span8">
+															<div class="widget-box transparent">
+																<div class="widget-header widget-header-flat">
+																	<h4 class="lighter">
+																		<i class="icon-time orange"></i>
+																		Disponibilidad de Horarios
+																	</h4>
+
+																</div>
+
+																<div class="widget-body">
+																	<div class="widget-main no-padding">
+																		<table class="table table-bordered table-striped" id="tabla_horas">
+																			<thead>
+																				<tr>
+																					<th>
+																						<i class="icon-caret-right blue"></i> Nro
+																					</th>
+
+																					<th>
+																						<i class="icon-caret-right blue"></i>	<i class="icon-ok green"></i>
+																					</th>
+
+																					<th class="hidden-phone">
+																						<i class="icon-caret-right blue"></i>
+																						H. Inicio
+																						<i class="icon-time orange"></i>
+																					</th>
+																					<th class="hidden-phone">
+																						<i class="icon-caret-right blue"></i>
+																						H. Fin
+																						<i class="icon-time orange"></i>
+																					</th>
+																					<th class="hidden-phone">
+																						<i class="icon-caret-right blue"></i>
+																						Fecha
+																						<i class="icon-calendar purple"></i>
+																					</th>
+																					<th class="hidden-phone center">
+																						<i class="icon-caret-right blue"></i>
+																						Dia
+																						<!-- <i class="icon-calendar purple"></i> -->
+																					</th>
+																				</tr>
+																			</thead>
+
+																			<tbody>
+																			</tbody>
+																		</table>
+																	</div><!--/widget-main-->
+																</div><!--/widget-body-->
+															</div><!--/widget-box-->
+
+														</div>
+														<div class="span2"></div>
+													</div>
+												</div>
+
+												<div class="step-pane" id="step3">
+													<div class="center">
+														<div class="row-fluid">
+															<div class="widget-box transparent">
+																<div class="widget-header widget-header-flat">
+																	<h4 class="lighter">
+																		<i class="icon-star orange"></i>
+																		Servicio
+																	</h4>
+																</div>
+
+																<div class="widget-body">
+																	<div class="widget-main no-padding">
+																		<div class="row-fluid">
+																			<table class="table table-bordered table-striped" id="tabla_info_tarifa">
+																				<thead>
+																					<tr>
+																						<th class="center">
+																							<i class=" icon-circle-blank blue"></i>
+																							Nro
+																						</th>
+
+																						<th class="center">
+																							<i class="icon-coffee blue"></i>
+																							Servicio Tarifa
+																						</th>
+
+																						<th class="center">
+																							<i class="icon-legal orange"></i>
+																							Precio
+																						</th>
+																						<th class="center">
+																							<i class="icon-cloud-upload red"></i>
+																							Cantidad
+																						</th>
+																						<th class="center">
+																							<i class="icon-caret-right green"></i>
+																							Total
+																						</th>
+																					</tr>
+																				</thead>
+																				<tbody>
+																				</tbody>
+																			</table>
+																		</div>
+																		<div class="row-fluid">
+																			<div class="span5  pull-right">
+																				<table class="table table-bordered table-striped">
+																					<tr>
+																						<th class="center">
+																							<i class="icon-caret-right green"></i>
+																							SubTotal
+																						</th>
+																						<th class="center" id="lbl_subtotal">
+																							<i class="icon-caret-right green"></i>
+																							0.00
+																						</th>
+																					</tr>
+																					<tr>
+																						<th class="center" id="lbl_valor_iva">
+																							<i class="icon-caret-right green"></i>
+																							Iva
+																						</th>
+																						<th class="center" id="lbl_iva">
+																							<i class="icon-caret-right green"></i>
+																							0.00
+																						</th>
+																					</tr>
+																					<tr>
+																						<th class="center">
+																							<i class="icon-caret-right green"></i>
+																							Total
+																						</th>
+																						<th class="center" id="lbl_total">
+																							<i class="icon-caret-right green"></i>
+																							0.00
+																						</th>
+																					</tr>
+																				<tbody>
+																				</tbody>
+																			</table>
+																			</div>
+																		</div>
+																	</div><!--/widget-main-->
+																</div><!--/widget-body-->
+															</div><!--/widget-box-->
+
+														</div>
+													</div>
+												</div>
+
+												<div class="step-pane" id="step4">
+													<div class="row-fluid">
+														<div class="span6">
+															<div class="widget-box transparent">
+																<div class="widget-header widget-header-small">
+																	<h4 class="smaller">
+																		<i class="icon-check bigger-110"></i>
+																		Resumen de la reservación
+																	</h4>
+																</div>
+
+																<div class="widget-body">
+																	<div class="widget-main">
+																		<div class="profile-user-info">
+																			<div class="profile-info-row">
+																				<div class="profile-info-name"> A nombre de: </div>
+
+																				<div class="profile-info-value">
+																					<span><?php print$_SESSION['nom']; ?></span>
+																				</div>
+																			</div>
+
+																			<div class="profile-info-row">
+																				<div class="profile-info-name"> Servicio: </div>
+																				<div class="profile-info-value">
+																					<span>MUSEO</span>
+																				</div>
+																			</div>
+
+																			<div class="profile-info-row">
+																				<div class="profile-info-name"> Para la fecha: </div>
+
+																				<div class="profile-info-value">
+																					<span id="lbl_fecha_final"></span>
+																				</div>
+																			</div>
+
+																			<div class="profile-info-row">
+																				<div class="profile-info-name"> Hora inicio: </div>
+																				<div class="profile-info-value">
+																					<span id="lbl_info_hora_inicio">20/06/2010</span>
+																				</div>
+																			</div>
+																			<div class="profile-info-row">
+																				<div class="profile-info-name"> Hora Fin: </div>
+																				<div class="profile-info-value">
+																					<span id="lbl_info_hora_fin">20/06/2010</span>
+																				</div>
+																			</div>
+
+																			<div class="profile-info-row">
+																				<div class="profile-info-name"> Monto Total: </div>
+
+																				<div class="profile-info-value">
+																					<span id="lbl_info_total"></span>
+																				</div>
+																			</div>
+																		</div>
+
+																	</div>
+																</div>
+															</div>
+														</div>
+														<div class="span6">
+															<div class="widget-box transparent">
+																<div class="widget-header widget-header-small">
+																	<h4 class="smaller">
+																		<i class="icon-check bigger-110"></i>
+																		Estimado/a, <?php print$_SESSION['nom']; ?> Tenga en cuenta las siguientes notas.
+																	</h4>
+
+																</div>
+
+																<div class="widget-body">
+																	<div class="widget-main">
+																		<ul class="unstyled spaced">
+																			<li>
+																				<i class="icon-ok green"></i>
+																				Su reservación tendrá una vigencia de 48 horas para la activación o se cancelara automáticamente.
+																			</li>
+																			<li>
+																				<i class="icon-ok green"></i>
+																				Para la activación sigas los pasos que se indica y que se han enviado a su correo electrónico.
+																			</li>
+																			<li>
+																				<i class="icon-ok green"></i>
+																				Los pagos los puede realizar en el Banco Guayaquil en la cuenta Nro. 1209345 a nombre de Fábrica Imbabura.
+																			</li>
+																			<li>
+																				<i class="icon-ok green"></i>
+																				Estar presente al menos 10 minutos antes que inicie el turno de su reservación.
+																			</li>
+																			<li>
+																				<i class="icon-ok green"></i>
+																				Día de la reservación, Presente su cedula para verificar información y dar validez de su reservación.
+																			</li>
+																		</ul>
+																	</div>
+																</div>
+															</div>
+														</div>
+
+													</div>
+												</div>
+											</div>
+
+											<hr />
+											<div class="row-fluid wizard-actions">
+												<button class="btn btn-prev">
+													<i class="icon-arrow-left"></i>
+													Atras
+												</button>
+												<button class="btn btn-success btn-next" data-last="Reservar ">
+													Adelante
+													<i class="icon-arrow-right icon-on-right"></i>
+												</button>
+											</div>
+										</div>
 									</div>
 
 									<div id="profile4" class="tab-pane">
-										<p>Food truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid.</p>
-										<p>Raw denim you probably haven't heard of them jean shorts Austin.</p>
+										<div class="row-fluid">
+											<div id="fuelux-wizard2" class="row-fluid hide" data-target="#step-container2">
+												<ul class="wizard-steps">
+													<li data-target="#step12" class="active">
+														<span class="step">1</span>
+														<span class="title">Seleccionar Categoría</span>
+													</li>
+
+													<li data-target="#step22">
+														<span class="step">2</span>
+														<span class="title">Fecha y Horarios</span>
+													</li>
+
+													<li data-target="#step32">
+														<span class="step">3</span>
+														<span class="title">Contenido Terifa</span>
+													</li>
+
+													<li data-target="#step42">
+														<span class="step">4</span>
+														<span class="title">Reservar</span>
+													</li>
+												</ul>
+											</div>
+											<hr />
+											<div class="step-content row-fluid position-relative" id="step-container2">
+												<div class="step-pane active" id="step12">
+													<div class="row-fluid">
+														<div class="span10">
+															<h3 class="lighter block green center">Estimado/a, <?php print$_SESSION['nom']; ?> seleccione el tipo de reservación</h3>
+														</div>
+														<div class="span2">
+															<a href="#modal-museo" data-toggle="modal" class="btn btn-mini btn-danger">
+																<i class=" icon-info-sign"></i> Información
+															</a>
+														</div>
+													</div>
+													<div class="row-fluid">
+														<div id="obj_categoria_teatro_auditorio"> </div>
+													</div>
+												</div>
+
+												<div class="step-pane" id="step22">
+												h2
+												</div>
+
+												<div class="step-pane" id="step32">
+												h3
+												</div>
+
+												<div class="step-pane" id="step42">
+												h4
+												</div>
+											</div>
+
+											<hr />
+											<div class="row-fluid wizard-actions">
+												<button class="btn btn-prev">
+													<i class="icon-arrow-left"></i>
+													Atras
+												</button>
+
+												<button class="btn btn-success btn-next" data-last="Reservar ">
+													Adelante
+													<i class="icon-arrow-right icon-on-right"></i>
+												</button>
+											</div>
+										</div>
 									</div>
 
 									<div id="dropdown14" class="tab-pane">
-										<p>Etsy mixtape wayfarers, ethical wes anderson tofu before they sold out mcsweeney's organic lomo retro fanny pack lo-fi farm-to-table readymade.</p>
-										<p>Raw denim you probably haven't heard of them jean shorts Austin.</p>
+									restaurant
+
+										<div class="row-fluid">
+											<div id="fuelux-wizard3" class="row-fluid hide" data-target="#step-container3">
+												<ul class="wizard-steps">
+													<li data-target="#step13" class="active">
+														<span class="step">1</span>
+														<span class="title">Seleccionar Categoría</span>
+													</li>
+
+													<li data-target="#step23">
+														<span class="step">2</span>
+														<span class="title">Fecha y Horarios</span>
+													</li>
+
+													<li data-target="#step33">
+														<span class="step">3</span>
+														<span class="title">Contenido Terifa</span>
+													</li>
+
+													<li data-target="#step43">
+														<span class="step">4</span>
+														<span class="title">Reservar</span>
+													</li>
+												</ul>
+											</div>
+											<hr />
+											<div class="step-content row-fluid position-relative" id="step-container3">
+												<div class="step-pane active" id="step12">
+												h1
+												</div>
+
+												<div class="step-pane" id="step23">
+												h2
+												</div>
+
+												<div class="step-pane" id="step33">
+												h3
+												</div>
+
+												<div class="step-pane" id="step43">
+												h4
+												</div>
+											</div>
+
+											<hr />
+											<div class="row-fluid wizard-actions">
+												<button class="btn btn-prev">
+													<i class="icon-arrow-left"></i>
+													Atras
+												</button>
+
+												<button class="btn btn-success btn-next" data-last="Reservar ">
+													Adelante
+													<i class="icon-arrow-right icon-on-right"></i>
+												</button>
+											</div>
+										</div>
+									</div>
+									<div id="dc_convencion1" class="tab-pane">
+										<div class="row-fluid">
+											<div id="fuelux-wizard4" class="row-fluid hide" data-target="#step-container4">
+												<ul class="wizard-steps">
+													<li data-target="#step14" class="active">
+														<span class="step">1</span>
+														<span class="title">Seleccionar Categoría</span>
+													</li>
+
+													<li data-target="#step24">
+														<span class="step">2</span>
+														<span class="title">Fecha y Horarios</span>
+													</li>
+
+													<li data-target="#step34">
+														<span class="step">3</span>
+														<span class="title">Contenido Terifa</span>
+													</li>
+
+													<li data-target="#step44">
+														<span class="step">4</span>
+														<span class="title">Reservar</span>
+													</li>
+												</ul>
+											</div>
+											<hr />
+											<div class="step-content row-fluid position-relative" id="step-container4">
+												<div class="step-pane active" id="step14">
+												h1
+												</div>
+
+												<div class="step-pane" id="step24">
+												h2
+												</div>
+
+												<div class="step-pane" id="step34">
+												h3
+												</div>
+
+												<div class="step-pane" id="step44">
+												h4
+												</div>
+											</div>
+
+											<hr />
+											<div class="row-fluid wizard-actions">
+												<button class="btn btn-prev">
+													<i class="icon-arrow-left"></i>
+													Atras
+												</button>
+
+												<button class="btn btn-success btn-next" data-last="Reservar ">
+													Adelante
+													<i class="icon-arrow-right icon-on-right"></i>
+												</button>
+											</div>
+										</div>
 									</div>
 								</div>
 							</div>
@@ -479,26 +656,22 @@ if(!isset($_SESSION))
 			<i class="icon-double-angle-up icon-only bigger-110"></i>
 		</a>
 		<div id="modal-museo" class="modal hide fade" tabindex="-1">
-				<div class="modal-header no-padding">
-					<div class="table-header">
-						<button type="button" class="close" data-dismiss="modal">&times;</button>
-						Información Museo
-					</div>
-				</div>
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<h4 class="blue bigger">Información</h4>
+			</div>
 
-				<div class="modal-body no-padding">
-					<div class="row-fluid" id="obj_informacion_museo">
-						
-					</div>
-				</div>
+			<div class="modal-body overflow-visible">
+				<div class="row-fluid" id="obj_informacion_museo"></div>
+			</div>
 
-				<div class="modal-footer">
-					<button class="btn btn-small btn-danger pull-left" data-dismiss="modal">
-						<i class="icon-remove"></i>
-						Cerrar
-					</button>
-				</div>
-			</div><!--PAGE CONTENT ENDS-->
+			<div class="modal-footer">
+				<button class="btn btn-small btn-danger pull-left" data-dismiss="modal">
+					<i class="icon-remove"></i>
+					Cerrar
+				</button>
+			</div>
+		</div><!--PAGE CONTENT ENDS-->
 
 
 		<!--basic scripts-->
