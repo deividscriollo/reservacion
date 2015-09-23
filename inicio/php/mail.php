@@ -104,6 +104,114 @@ class email  extends PHPMailer{
     }
     return $acus;
   }
+  function envio_correoReservacion2($correo,$servicio) {
+    // $]tabla=$_POST['tabla'];
+    // $link='https://www.paypal.com/cgi-bin/webscr?cmd=_cart&upload=1&business=deividscriollo@gmail.com&currency_code=USD&lc=US&item_name_1=RESERVACION&item_number_1=1&quantity_1=1&amount_1='.$subtotal.'&no_shipping_1=0&no_note_1=1';
+      $acus='0';
+    // $correo=$_POST['correo'];
+    $contenido_html =  '
+      <table width="100%" border="0" style="width: 90%;
+            padding-top: 8px;
+            padding-bottom: 15px;
+            margin: 0 auto 20px auto;
+            background: #3085C9;
+             border-radius: 5px;
+            -moz-border-radius: 5px;
+            -webkit-border-radius: 5px;
+            color: #446bb3;">
+        <tbody class="dc">
+          <tr>
+            <td align="center">
+              <img src="https://raw.githubusercontent.com/deividscriollo/reservacion/master/data/assets/images/b.jpg" style="border-radius: 5px;">
+            </td>
+          </tr>
+          <tr>
+            <td style="color:#E1A401">RESERVACIÓN, FÁBRICA IMBABURA</td>
+          </tr>
+          <tr>
+            <td><table style="float: left;">
+                <tbody style="color:#FFFFFF">
+                  <tr>
+                    <td style="color:#FFFFFF; font-size: 15px;">
+                      Estimado cliente usted ha solicitado la reservación de '.$servicio.', por lo cual su petición de reservación de este servicio está en proceso, un administrador verificara su solicitud de reservación y le responderá en su momento. Gracias por su tiempo.
+                    </td>
+                  </tr>
+                </tbody>
+              </table><h2></h2>
+            </td>
+          </tr>
+          
+      </tr></tbody>
+      </table>
+    ';
+    $contenido_html=utf8_decode($contenido_html);
+    $titulo=utf8_decode('RESERVACIÓN FÁBRICA IMBABURA');
+    $titulo2=utf8_decode('FÁBRICA IMBABURA');
+    $email = new email();
+    if ( $email->enviar( $correo , $titulo2 , $titulo ,  $contenido_html ) )
+      // mensaje enviado
+       $acus='1';
+    else
+    {
+       // $email->ErrorInfo;
+       $acus='2';
+    }
+    return $acus;
+  }
+  function envio_correorespuesta_peticion($correo,$mensaje) {
+    // $]tabla=$_POST['tabla'];
+    // $link='https://www.paypal.com/cgi-bin/webscr?cmd=_cart&upload=1&business=deividscriollo@gmail.com&currency_code=USD&lc=US&item_name_1=RESERVACION&item_number_1=1&quantity_1=1&amount_1='.$subtotal.'&no_shipping_1=0&no_note_1=1';
+      $acus='0';
+    // $correo=$_POST['correo'];
+    $contenido_html =  '
+      <table width="100%" border="0" style="width: 90%;
+            padding-top: 8px;
+            padding-bottom: 15px;
+            margin: 0 auto 20px auto;
+            background: #3085C9;
+             border-radius: 5px;
+            -moz-border-radius: 5px;
+            -webkit-border-radius: 5px;
+            color: #446bb3;">
+        <tbody class="dc">
+          <tr>
+            <td align="center">
+              <img src="https://raw.githubusercontent.com/deividscriollo/reservacion/master/data/assets/images/b.jpg" style="border-radius: 5px;">
+            </td>
+          </tr>
+          <tr>
+            <td style="color:#E1A401">RESERVACIÓN, FÁBRICA IMBABURA</td>
+          </tr>
+          <tr>
+            <td><table style="float: left;">
+                <tbody style="color:#FFFFFF">
+                  <tr>
+                    <td style="color:#FFFFFF; font-size: 15px;">
+                      '.$mensaje.'
+                    </td>
+                  </tr>
+                  <tr><td style="color:#FFFFFF; font-size: 12px;">Att: Administrador Fábrica Imbabura</tr>
+                </tbody>
+              </table><h2></h2>
+            </td>
+          </tr>
+      </tr></tbody>
+      </table>
+    ';
+    $contenido_html=utf8_decode($contenido_html);
+    $titulo=utf8_decode('RESPUESTA PETICIÓN RESERVACIÓN');
+    $titulo2=utf8_decode('FÁBRICA IMBABURA');
+    $email = new email();
+    if ( $email->enviar( $correo , $titulo2 , $titulo ,  $contenido_html ) )
+      // mensaje enviado
+       $acus='1';
+    else
+    {
+       // $email->ErrorInfo;
+       $acus='2';
+    }
+    return $acus;
+  }
   function envio_correomasivo($correo, $nombre, $mensaje) {      
     // $correo=$_POST['correo'];  
     $contenido_html =  '

@@ -48,12 +48,12 @@
 		$resultado = $class->consulta("SELECT ACCESOS FROM SEG.SEGMENTO S, SEG.USUARIO U WHERE U.ID=S.ID_USUARIO AND U.ID='$_POST[id]'");
 		$acu;
 		while ($row=$class->fetch_array($resultado)) {
-			$titulo = array('ACCESO A SERVICIOS', 'ACCESO A BANCOS','ACCESO A AGENDA','ACCESO A CORREO','ACCESO A RESERVA','ACCESO A REPORTES','ACCESO A CONFIRMACION','ACCESO A USR','ACCESO A FACTURA');
-			$btn = array('btn_servicios', 'btn_bancos', 'btn_agenda','btn_correo', 'btn_reserva', 'btn_reportes', 'btn_confirmacion', 'btn_usr', 'btn_factura');
+			$titulo = array('ACCESO A SERVICIOS', 'ACCESO A BANCOS','ACCESO A AGENDA','ACCESO A CORREO','ACCESO A RESERVA','ACCESO A REPORTES','ACCESO A CONFIRMACION','ACCESO A USR','ACCESO A FACTURA','PETICION','SPT');
+			$btn = array('btn_servicios', 'btn_bancos', 'btn_agenda','btn_correo', 'btn_reserva', 'btn_reportes', 'btn_confirmacion', 'btn_usr', 'btn_factura','btn_peticion','btn_spt');
 			$acu=str_replace('{', '', $row[0]);
 			$acu=str_replace('}', '', $acu);
 			$acu=split(',', $acu);
-			for ($i=0; $i < 9; $i++) {
+			for ($i=0; $i < 11; $i++) {
 				$sum=$acu[$i];
 				$sum=split(':',$sum);
 				$var='';

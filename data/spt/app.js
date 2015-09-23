@@ -136,22 +136,64 @@ $(function(){
         });
         $('#modal-cliente').modal('hide');
     }
+    function miseri(){
+        return $('#txt_id_reservacion').val();
+    }
     function accion_reservacion(event){
+        $('#modal-encuesta').modal('show');
         var valor=event.target.value;
         var tar = event.target;
         $(tar).attr('checked','');
         var id = $(tar).attr('id');
         var id=id.split(',');
-        $.ajax({
-            url:'app.php',
-            type:'POST',
-            // dataType:'json',
-            data:{mostrar_servicios_reservacion:':)',id:id[0], id_s:id[1]},
-            success:function(data){
-                $('#select_categoria').html(data);
-                $('#select_categoria').trigger('liszt:updated');
-            }
+        $('#txt_id_reservacion').val(id[0]);
+        //editables on first profile page
+        $.fn.editable.defaults.mode = 'inline';
+        $.fn.editableform.loading = "<div class='editableform-loading'><i class='light-blue icon-2x icon-spinner icon-spin'></i></div>";
+        $.fn.editableform.buttons = '<button type="submit" class="btn btn-info editable-submit"><i class="icon-ok icon-white"></i></button>'+
+                                    '<button type="button" class="btn editable-cancel"><i class="icon-remove"></i></button>';
+        //editables
+        console.log(id[0]);
+        $('#lbl_niños').editable({
+            type: 'spinner',
+            name : 'age',
+            spinner : {
+                min : 0, max:99, step:1
+            },
+            pk:    miseri(),
+            name:  'niños',
+            url:   'app.php'
         });
+        $('#lbl_mujeres').editable({
+             type: 'spinner',
+            name : 'age',
+            spinner : {
+                min : 0, max:99, step:1
+            },
+            pk:    miseri(),
+            name:  'mujeres',
+            url:   'app.php'
+        });
+        $('#lbl_rango_edades').editable({
+             type: 'spinner',
+            name : 'age',
+            spinner : {
+                min : 0, max:99, step:1
+            },
+            pk:    miseri(),
+            name:  'rango',
+            url:   'app.php'
+        });
+        // $.ajax({
+        //     url:'app.php',
+        //     type:'POST',
+        //     // dataType:'json',
+        //     data:{mostrar_servicios_reservacion:':)',id:id[0], id_s:id[1]},
+        //     success:function(data){
+        //         $('#select_categoria').html(data);
+        //         $('#select_categoria').trigger('liszt:updated');
+        //     }
+        // });
     }
     function ejemplo(event){
         var valor=event.target.value;
@@ -249,3 +291,65 @@ $(function(){
     }
 
 
+
+$('#form-validar').validate({
+    errorElement: 'span',
+    errorClass: 'help-inline',
+    focusInvalid: false,
+    rules: {
+        txt_niños: {
+            required: true,
+            digit:true
+        },
+        txt_mujeres: {
+            required: true,
+            digit:true
+        },
+        sel_rango: {
+            required: true
+        }
+    },
+    messages: {
+        txt_niños: {
+            required: 'Información requerida',
+            digit:'Solo numeros'
+        },
+        txt_mujeres: {
+            required: 'Información requerida',
+            digit:'Solo numeros'
+        },
+        sele_rango: {
+            required: 'Información requerida'
+        }
+    },
+    invalidHandler: function (event, validator) { //display error alert on form submit
+        $('.alert-error', $('.login-form')).show();
+    },
+    highlight: function (e) {
+        $(e).closest('.control-group').removeClass('info').addClass('error');
+    },
+    success: function (e) {
+        $(e).closest('.control-group').removeClass('error').addClass('info');
+        $(e).remove();
+    },
+    errorPlacement: function (error, element) {
+        if(element.is(':checkbox') || element.is(':radio')) {
+            var controls = element.closest('.controls');
+            if(controls.find(':checkbox,:radio').length > 1) controls.append(error);
+            else error.insertAfter(element.nextAll('.lbl:eq(0)').eq(0));
+        }
+        else if(element.is('.select2')) {
+            error.insertAfter(element.siblings('[class*="select2-container"]:eq(0)'));
+        }
+        else if(element.is('.chzn-select')) {
+            error.insertAfter(element.siblings('[class*="chzn-container"]:eq(0)'));
+        }
+        else error.insertAfter(element);
+    },
+    submitHandler: function (form) {
+        alert('hola mundo')
+    },
+    invalidHandler: function (form) {
+        alert('fallast')
+    }
+});

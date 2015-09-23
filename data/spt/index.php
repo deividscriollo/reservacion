@@ -150,75 +150,6 @@ if(!isset($_SESSION))
 						</div>
 					</div>
 
-					<h3 class="header smaller lighter blue">
-						Servicios Adicionales
-					</h3>
-
-					<div class="row-fluid">
-						<div class="span3">
-							<label for="form-field-select-3">Seleccione Categoría</label>
-							<select class="chzn-select" id="select_categoria" data-placeholder="Seleccione Categoría"></select>
-						</div>
-						<div class="span9">
-							<div class="row-fluid">
-								<div class="span4 pricing-span-header">
-									<div class="widget-box transparent">
-										<div class="widget-header">
-											<h5 class="bigger lighter">Servicio Tarifa</h5>
-										</div>
-										<div class="widget-body">
-											<div class="widget-main no-padding">
-												<ul class="unstyled list-striped pricing-table-header" id="obj_tarifas_nombre">
-												</ul>
-											</div>
-										</div>
-									</div>
-								</div>
-								<div class="span2 pricing-span ">
-									<div class="widget-box pricing-box-small">
-										<div class="widget-header header-color-orange">
-											<h5 class="bigger lighter">Personas </h5>
-										</div>
-
-										<div class="widget-body">
-											<div class="widget-main no-padding">
-												<ul class="unstyled list-striped pricing-table" id="obj_tarifas_personas">
-												</ul>
-											</div>
-										</div>
-									</div>
-								</div>
-								<div class="span3 pricing-span">
-									<div class="widget-box pricing-box-small">
-										<div class="widget-header header-color-blue">
-											<h5 class="bigger center">G. Maculino</h5>
-										</div>
-										<div class="widget-body">
-											<div class="widget-main no-padding">
-												<ul class="unstyled list-striped pricing-table" id="obj_tarifas_gen1">
-
-												</ul>
-											</div>
-										</div>
-									</div>
-								</div>
-								<div class="span3 pricing-span">
-									<div class="widget-box pricing-box-small">
-										<div class="widget-header header-color-green">
-											<h5 class="bigger lighter">G. Femenino</h5>
-										</div>
-
-										<div class="widget-body">
-											<div class="widget-main no-padding">
-												<ul class="unstyled list-striped pricing-table" id="obj_tarifas_total">
-												</ul>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
 				</div>
 			</div>
 		</div><!--/.main-container-->
@@ -250,6 +181,71 @@ if(!isset($_SESSION))
 							</table>
 						</div>
 					</div><!--/span-->
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button class="btn btn-small btn-danger pull-right" data-dismiss="modal">
+					<i class="icon-remove"></i>
+					Cerrar
+				</button>
+			</div>
+		</div>
+		<div id="modal-encuesta" class="modal hide fade" tabindex="-1">
+			<div class="modal-header no-padding">
+				<div class="table-header">
+					<div type="button" class="close" data-dismiss="modal">&times;</div>
+					Formulario de Informacion reservación
+				</div>
+			</div>
+
+			<div class="modal-body">
+				<div class="row-fluid">
+					<h3 class="lighter block green">Actualizar Información</h3>
+					<form class="form-horizontal" id="form-validar" method="get" />
+						<div class="control-group">
+							<label class="control-label" for="email">Niños:</label>
+
+							<div class="controls">
+								<div class="span12">
+									<input type="text" name="txt_niños" id="txt_niños" class="span6" />
+								</div>
+							</div>
+						</div>
+
+						<div class="control-group">
+							<label class="control-label" for="password">Mujeres:</label>
+
+							<div class="controls">
+								<div class="span12">
+									<input type="text" name="txt_mujeres" id="txt_mujeres" class="span6" />
+								</div>
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label" for="password">Rango Edades:</label>
+
+							<div class="controls">
+								<div class="span12">
+									<select>
+										<option value="sel_rango" class="span6"></option>
+										<option value="1-5">1-5</option>
+										<option value="6-12">6-12</option>
+										<option value="12-17">12-17</option>
+										<option value="18-24">18-24</option>
+										<option value="24-29">24-29</option>
+										<option value="30-37">30-37</option>
+									</select>
+								</div>
+							</div>
+						</div>
+
+						<div class="control-group pull-right">
+							<button class="btn btn-success" type="submit">
+								Actualizar
+							</button>
+						</div>
+					</form>
+
 				</div>
 			</div>
 			<div class="modal-footer">
@@ -346,4 +342,6 @@ if(!isset($_SESSION))
 		<!--inline scripts related to this page-->
 	</body>
 </html>
-<style type="text/css">#modal-cliente{width: 700px;}</style>
+<style type="text/css">
+
+</style>

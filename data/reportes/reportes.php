@@ -28,4 +28,104 @@
 			print'<option value="'.$row[0].'">'.$row[1].' '.$row[2].'</option>';
 	 	}
 	}
+	if (isset($_POST['mostrar_resultados_extranjeros'])) {
+		$inicio = $_POST['inicio'];
+		$fin = $_POST['fin'];
+		$res=$class->consulta("SELECT R.FECHA,upper('extrangero') as na,upper(NOM_PAIS),S.NOM, upper(U.NOMBRE) FROM SEG.USUARIO U, RESERVACION R,SERVICIOS S, SEG.INFO I, LOCALIZACION.PAIS P 
+		WHERE R.ID_USUARIO=I.ID_USUARIO AND P.ID=I.PAIS AND PAIS!='20150326104209551428d175961' AND S.ID=R.ID_SERVICIO AND U.ID=R.ID_USUARIO
+				AND R.FECHA BETWEEN '".$inicio."' AND '".$fin."'");
+		while ($row=$class->fetch_array($res)) {
+			// iniciativas
+			$acu[]=$row[0];
+			$acu[]=$row[1];
+			$acu[]=$row[2];
+			$acu[]=$row[3];
+			$acu[]=$row[4];
+	 	}
+	 	print_r(json_encode($acu));
+	}
+	if (isset($_POST['mostrar_resultados_nacionales'])) {
+		$inicio = $_POST['inicio'];
+		$fin = $_POST['fin'];
+		$res=$class->consulta("	SELECT R.FECHA,upper('extrangero') as na,upper(NOM_PAIS),S.NOM, upper(U.NOMBRE) 
+								FROM SEG.USUARIO U, RESERVACION R,SERVICIOS S, SEG.INFO I, LOCALIZACION.PAIS P 
+								WHERE R.ID_USUARIO=I.ID_USUARIO 
+								AND P.ID=I.PAIS 
+								AND PAIS='20150326104209551428d175961' 
+								AND S.ID=R.ID_SERVICIO 
+								AND U.ID=R.ID_USUARIO
+								AND R.FECHA BETWEEN '".$inicio."' AND '".$fin."'");
+		while ($row=$class->fetch_array($res)) {
+			// iniciativas
+			$acu[]=$row[0];
+			$acu[]=$row[1];
+			$acu[]=$row[2];
+			$acu[]=$row[3];
+			$acu[]=$row[4];
+	 	}
+	 	print_r(json_encode($acu));
+	}
+	if (isset($_POST['mostrar_resultados_nacionales_provincia'])) {
+		$inicio = $_POST['inicio'];
+		$fin = $_POST['fin'];
+		$res=$class->consulta("	SELECT R.FECHA,PRO.NOM_PROVINCIA,upper(NOM_PAIS),S.NOM, upper(U.NOMBRE)
+								FROM SEG.USUARIO U, RESERVACION R,SERVICIOS S, SEG.INFO I, LOCALIZACION.PAIS P, LOCALIZACION.PROVINCIA PRO, LOCALIZACION.CIUDAD C 
+								WHERE R.ID_USUARIO=I.ID_USUARIO 
+								AND P.ID=I.PAIS 
+								AND C.ID_PROVINCIA=PRO.ID
+								AND C.ID=U.ID_CIUDAD
+								AND PAIS='20150326104209551428d175961' 
+								AND S.ID=R.ID_SERVICIO AND U.ID=R.ID_USUARIO 
+								AND PRO.ID_PAIS=P.ID
+								AND R.FECHA BETWEEN '".$inicio."' AND '".$fin."' ORDER BY NOM_PROVINCIA");
+		while ($row=$class->fetch_array($res)) {
+			// iniciativas
+			$acu[]=$row[0];
+			$acu[]=$row[1];
+			$acu[]=$row[2];
+			$acu[]=$row[3];
+			$acu[]=$row[4];
+	 	}
+	 	print_r(json_encode($acu));
+	}
+	if (isset($_POST['mostrar_resultados_nacionales_ciudad'])) {
+		$inicio = $_POST['inicio'];
+		$fin = $_POST['fin'];
+		$res=$class->consulta("	SELECT R.FECHA,PRO.NOM_PROVINCIA,C.NOM_CIUDAD,S.NOM, upper(U.NOMBRE)
+								FROM SEG.USUARIO U, RESERVACION R,SERVICIOS S, SEG.INFO I, LOCALIZACION.PAIS P, LOCALIZACION.PROVINCIA PRO, LOCALIZACION.CIUDAD C 
+								WHERE R.ID_USUARIO=I.ID_USUARIO 
+								AND P.ID=I.PAIS 
+								AND C.ID_PROVINCIA=PRO.ID
+								AND C.ID=U.ID_CIUDAD
+								AND PAIS='20150326104209551428d175961' 
+								AND S.ID=R.ID_SERVICIO AND U.ID=R.ID_USUARIO 
+								AND PRO.ID_PAIS=P.ID
+								AND R.FECHA BETWEEN '".$inicio."' AND '".$fin."' ORDER BY NOM_PROVINCIA");
+		while ($row=$class->fetch_array($res)) {
+			// iniciativas
+			$acu[]=$row[0];
+			$acu[]=$row[1];
+			$acu[]=$row[2];
+			$acu[]=$row[3];
+			$acu[]=$row[4];
+	 	}
+	 	print_r(json_encode($acu));
+	}
+	if (isset($_POST['mostrar_provincias'])) {
+		$res=$class->consulta("SELECT * FROM LOCALIZACION.PROVINCIA");
+		print'<option value=""></option>';
+		while ($row=$class->fetch_array($res)) {
+			// iniciativas
+			print'<option value="'.$row[0].'">'.$row[2].'</option>';
+	 	}
+	}
+	if (isset($_POST['mostrar_ciudad'])) {
+		$res=$class->consulta("SELECT * FROM LOCALIZACION.CIUDAD WHERE ID_PROVINCIA='".$_POST['id']."'");
+		print'<option value=""></option>';
+		while ($row=$class->fetch_array($res)) {
+			// iniciativas
+			print'<option value="'.$row[0].'">'.$row[2].'</option>';
+	 	}
+	}
+
 ?>

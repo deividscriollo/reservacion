@@ -55,7 +55,7 @@
 		$fecha=$class->fecha_hora();
 		$tabla='<table style="float: right;" class="dca" align="right" width="60%" style="padding: 2px;   border:1px #FFFFFF; color:#FFFFFF;">';
 		$tabla=$tabla.'<thead style="display: table-header-group;   vertical-align: middle;    border-color: inherit;">
-        <tr style="background: #8FBC1D;"><td>SERVICIO</td><td>TARIFA</td><td>cantidad</td><td>precio</td><td>Total</td></tr>
+        <tr style="background: #8FBC1D;"><td>SERVICIO</td><td>TARIFA</td><td>precio</td><td>cantidad</td><td>Total</td></tr>
             </thead><tbody style="color:#FFFFFF;">';
         // estableciendo reservacion
 		$class->consulta("INSERT INTO RESERVACION VALUES('$id','$_SESSION[id]','20141211160003548a05d39b5c8','0','$fecha','PETICION_RESERVA','')");
@@ -228,40 +228,32 @@
 // fin prcesos museo
 
 // --------------inicio procesos teatro auditorio------------//
-if (isset($_POST['obj_tipo_reservacion_oaudit'])) {
-		$resultado = $class->consulta("SELECT C.* FROM SEG.CATEGORIA_SERVICIO C, TARIFA T, SERVICIOS S WHERE T.ID_CATEGORIA=C.ID AND S.ID=T.ID_SERVICIO AND S.ID='20141211160613548a07457dffd'");
-		$slim=1;
-		$clase = array('','#90BC21','#3085C9','#D6487E','#D15B47','#B2C0CA','#9687BF','#555555' );
-		$icono = array('','icon-leaf','icon-tag','icon-flag',' icon-bell-alt','icon-fire','icon-cloud','icon-lightbulb' );
+if (isset($_POST['otros_buscar_tarifa'])) {
+		$resultado = $class->consulta("SELECT T.ID, T.NOM_TARIFA,T.PRECIO FROM SERVICIOS S, TARIFA T WHERE S.ID=T.ID_SERVICIO AND S.ID='$_POST[id]'");
+		$m=1;
 		while ($row=$class->fetch_array($resultado)) {
-			$acu[]= array($row[0],$row[1]);
-	 	}
-	 	$acu=array_map("unserialize", array_unique(array_map("serialize", $acu)));
-		print'<div class="row_fluid">';
-		array_unshift($acu, false); // Add to the start of the array
-		$acu = array_values($acu); // Re-number
-		// Remove the first index so we start at 1
-		$acu = array_slice($acu, 1, count($acu), true);
-	 	for ($i=1; $i <= count($acu) ; $i++) {
-	 		$id=$acu[$i][0];
-	 		$nom=$acu[$i][1];
-	 		print'
-				<div class="span2 center dc_hover" id="'.$id.'">
-					<div class="center easy-pie-chart_audi percentage_audi" data-percent="101" data-color="'.$clase[$slim].'">
-						<span class="'.$icono[$slim].'"></span>
-					</div>
-					<div class="space-2"></div>
-					'.$nom.'
-				</div>
-			';
-			if ($slim>5) {
-				print'</div>';
-				print'<div class="row-fluid">';
-			}
-			$slim++;
-	 	}
-	 	print'</div>';
+			print'<tr>
+			<td class="center">'.$m.'</td>
+			<td class="center">'.$row[1].'</td>
+			<td class="center">'.$row[2].'</td>
+			<td class="center"><label><input type="checkbox" id="'.$row[0].'" onclick="reconstruir2('.($m-1).')"/><span class="lbl"></span></label></td>
+			</tr>';
+			$m++;
+		}
 	}
+if (isset($_POST['guardar_otros'])) {
+	$id=$class->idz();
+	$id_horarios=$class->idz();
+	$id_tarifas=$class->idz();
+	$fecha=$class->fecha_hora();
+	$class->consulta("INSERT INTO RESERVACION VALUES('$id','$_SESSION[id]','$_POST[id]','0','$fecha','PETICION_RESERVA_OTROS','')");
+	$class->consulta("INSERT INTO RESERVACION_HORARIOS VALUES('$id_horarios','$id','$_POST[h1]','$_POST[h2]','$_POST[fech]','$_POST[dia]','$fecha','0')");
+	$class->consulta("INSERT INTO RESERVACION_TARIFA VALUES('$id_tarifas','$id','$_POST[it_tar]','$_POST[precio]','$_POST[cant]','$_POST[subtot]','$fecha','0')");
+	$resultado = $class->consulta("SELECT * FROM SEG.USUARIO WHERE ID='$_SESSION[id]'");
+	while ($row=$class->fetch_array($resultado)) {
+		envio_correoReservacion2($row['correo'],$_POST['servi']);
+ 	}
+}
 
 // ----------------------fin proceso auditorio---------------//
 ?>

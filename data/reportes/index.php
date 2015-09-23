@@ -1,7 +1,7 @@
 <?php
 if(!isset($_SESSION))
 	{
-		session_start();		
+		session_start();
 	}
 	if(!isset($_SESSION["pass"])) {
 
@@ -24,11 +24,30 @@ if(!isset($_SESSION))
 		<link href="../assets/css/bootstrap-responsive.min.css" rel="stylesheet" />
 		<link rel="stylesheet" href="../assets/css/font-awesome.min.css" />
 
-		<link rel="stylesheet" href="../assets/css/fontdc.css" />
+		<!--[if IE 7]>
+		  <link rel="stylesheet" href="../assets/css/font-awesome-ie7.min.css" />
+		<![endif]-->
+
+		<!--page specific plugin styles-->
+
+		<link rel="stylesheet" href="../assets/css/jquery-ui-1.10.3.custom.min.css" />
+		<link rel="stylesheet" href="../assets/css/chosen.css" />
+		<link rel="stylesheet" href="../assets/css/datepicker.css" />
+		<link rel="stylesheet" href="../assets/css/bootstrap-timepicker.css" />
+		<link rel="stylesheet" href="../assets/css/daterangepicker.css" />
+		<link rel="stylesheet" href="../assets/css/colorpicker.css" />
+
+		<!--fonts-->
+
+		<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400,300" />
+
+		<!--ace styles-->
 
 		<link rel="stylesheet" href="../assets/css/ace.min.css" />
 		<link rel="stylesheet" href="../assets/css/ace-responsive.min.css" />
 		<link rel="stylesheet" href="../assets/css/ace-skins.min.css" />
+
+
 
 
 
@@ -84,7 +103,7 @@ if(!isset($_SESSION))
 											<li>
 												<a data-toggle="tab" href="#profile2">
 												<i class="icon-print purple"></i>
-													Reserva a la Semana
+													+ Reportes
 												</a>
 											</li>
 										</ul>
@@ -98,41 +117,158 @@ if(!isset($_SESSION))
 								<div class="widget-body">
 									<div class="widget-main padding-12 no-padding-left no-padding-right">
 										<div class="tab-content padding-4">
-											<div id="home2" class="tab-pane in active">
+											<div id="home2" class="tab-pane">
 												<div class="slim-scroll" data-height="590">
 													<iframe src="reportes" width="100%" border="0" height="550"></iframe>
 												</div>
 											</div>
 
-											<div id="profile2" class="tab-pane">
-												<div class="slim-scroll" data-height="550">
-													<form class="form-horizontal">
-									                    <div class="row-fluid">
-									                        <div class="span6">
-									                            <div class="control-group">
-									                                <label class="control-label" for="form-field-1">Seleccione Fechas</label>
-									                                <div class="controls">
-									                                    <div class="row-fluid input-prepend">
-									                                        <span class="add-on">
-									                                            <i class="icon-calendar"></i>
-									                                        </span>
-									                                        <input class="span7" type="text" name="date-range-picker" id="id-date-range-picker-1" />
-									                                    </div>
-									                                </div>
-									                            </div>
-									                        </div>
-									                        <div class="span6">
-									                        	<div class="control-group">
-									                                <div class="controls">
-									                                    <button class="btn btn-info" type="button">
-											                                <i class="icon-ok bigger-110"></i>
-											                                Submit
-											                            </button>
-									                                </div>
-									                            </div>
-									                        </div>
-									                    </div>
-									                </form>
+											<div id="profile2" class="tab-pane in active">
+												<div class="row-fluid">
+												<div class="span4">
+													<div class="widget-box">
+														<div class="widget-header">
+															<h4>Requerimientos por procesos</h4>
+
+															<span class="widget-toolbar">
+																<a href="#" data-action="settings">
+																	<i class="icon-cog"></i>
+																</a>
+
+																<a href="#" data-action="reload">
+																	<i class="icon-refresh"></i>
+																</a>
+
+																<a href="#" data-action="collapse">
+																	<i class="icon-chevron-up"></i>
+																</a>
+
+																<a href="#" data-action="close">
+																	<i class="icon-remove"></i>
+																</a>
+															</span>
+														</div>
+
+														<div class="widget-body">
+															<div class="widget-main">
+																<div class="row-fluid">
+																	<label for="id-date-range-picker-1">Rango de fecha</label>
+																</div>
+
+																<div class="control-group">
+																	<div class="row-fluid input-prepend">
+																		<span class="add-on">
+																			<i class="icon-calendar"></i>
+																		</span>
+																		<input class="span10" type="text" name="date-range-picker" id="id-date-range-picker-1" value="2015-07-27 / 2016-01-07" />
+																	</div>
+																</div>
+																<div class="row-fluid">
+																	<label for="id-date-range-picker-1">Privincia</label>
+																	<select  id="sel_provincia" class="span12">
+																		<option value="" />
+																		<option value="AL" />Alabama
+																	</select>
+																</div>
+																<div class="row-fluid">
+																	<label for="id-date-range-picker-1">Ciudad</label>
+																	<select id="sel_ciudad" class="span12">
+																		<option value="" />
+																		<option value="" />Primero Seleccione Provincia
+																	</select>
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
+												<div class="span4">
+													<div class="widget-box">
+														<div class="widget-header">
+															<h4>Proceso</h4>
+
+															<span class="widget-toolbar">
+																<a href="#" data-action="settings">
+																	<i class="icon-cog"></i>
+																</a>
+
+																<a href="#" data-action="reload">
+																	<i class="icon-refresh"></i>
+																</a>
+
+																<a href="#" data-action="collapse">
+																	<i class="icon-chevron-up"></i>
+																</a>
+
+																<a href="#" data-action="close">
+																	<i class="icon-remove"></i>
+																</a>
+															</span>
+														</div>
+
+														<div class="widget-body">
+															<div class="widget-main">
+																<div class="row-fluid">
+																	<label for="id-date-range-picker-1">Seleccione proceso</label>
+																</div>
+																<p>
+																	<button class="btn btn-danger btn-block" id="btn_turista_extranjero">Turista Extrangero</button>
+																</p>
+																<p>
+																	<button class="btn btn-danger btn-block" id="btn_turista_nacionales">Turista nacional</button>
+																</p>
+																<p>
+																	<button class="btn btn-danger btn-block" id="btn_turista_nacionales_provincia">Turista nacional provincia</button>
+																</p>
+																<p>
+																	<button class="btn btn-danger btn-block" id="btn_turista_nacionales_ciudad">Turista nacional ciudad</button>
+																</p>
+															</div>
+														</div>
+													</div>
+												</div>
+												<div class="span4">
+													<div class="widget-box">
+														<div class="widget-header">
+															<h4>Proceso</h4>
+
+															<span class="widget-toolbar">
+																<a href="#" data-action="settings">
+																	<i class="icon-cog"></i>
+																</a>
+
+																<a href="#" data-action="reload">
+																	<i class="icon-refresh"></i>
+																</a>
+
+																<a href="#" data-action="collapse">
+																	<i class="icon-chevron-up"></i>
+																</a>
+
+																<a href="#" data-action="close">
+																	<i class="icon-remove"></i>
+																</a>
+															</span>
+														</div>
+
+														<div class="widget-body">
+															<div class="widget-main">
+																<div class="row-fluid">
+																	<label for="id-date-range-picker-1">Seleccione procesos</label>
+																</div>
+																<p>
+																	<button class="btn btn-danger btn-block" id="btn_turista_extranjero">Pago Paypal</button>
+																</p>
+																<p>
+																	<button class="btn btn-danger btn-block" id="btn_turista_nacionales">Pago Efectivo</button>
+																</p>
+																<p>
+																	<button class="btn btn-danger btn-block" id="">Pago Deposito</button>
+																<p>
+																	<button class="btn btn-danger btn-block" id="btn_turista_ciudad">Tarjeta de Crédito</button>
+																</p>
+															</p>
+														</div>
+													</div>
 												</div>
 											</div>
 										</div>
@@ -187,7 +323,27 @@ if(!isset($_SESSION))
 		<script src="../assets/js/jquery-ui-1.10.3.custom.min.js"></script>
 		<script src="../assets/js/jquery.ui.touch-punch.min.js"></script>
 		<script src="../assets/js/jquery.slimscroll.min.js"></script>
-		<script src="assets/js/jquery.sparkline.min.js"></script>
+		<script src="../assets/js/jquery.sparkline.min.js"></script>
+		<script src="../assets/js/date-time/moment.min.js"></script>
+		<script src="../../assets/js/date-time/daterangepicker.min.js"></script>
+		<script src="../assets/js/bootbox.min.js"></script>
+		<script src="../assets/js/jquery-ui-1.10.3.custom.min.js"></script>
+		<script src="../assets/js/jquery.ui.touch-punch.min.js"></script>
+		<script src="../assets/js/chosen.jquery.min.js"></script>
+		<script src="../assets/js/fuelux/fuelux.spinner.min.js"></script>
+		<script src="../assets/js/date-time/bootstrap-datepicker.min.js"></script>
+		<script src="../assets/js/date-time/bootstrap-timepicker.min.js"></script>
+		<script src="../assets/js/date-time/moment.min.js"></script>
+		<script src="../assets/js/date-time/daterangepicker.min.js"></script>
+		<script src="../assets/js/bootstrap-colorpicker.min.js"></script>
+		<script src="../assets/js/jquery.knob.min.js"></script>
+		<script src="../assets/js/jquery.autosize-min.js"></script>
+		<script src="../assets/js/jquery.inputlimiter.1.3.1.min.js"></script>
+		<script src="../assets/js/jquery.maskedinput.min.js"></script>
+		<script src="../assets/js/bootstrap-tag.min.js"></script>
+
+
+
 
 
 
@@ -195,6 +351,11 @@ if(!isset($_SESSION))
 
 		<script src="../assets/js/ace-elements.min.js"></script>
 		<script src="../assets/js/ace.min.js"></script>
+
+		<script src="../factura/js/jspdf.min.js"></script>
+		<script src="app.js"></script>
+
+		<!--inline scripts related to this page-->
 
 		<!--inline scripts related to this page-->
 
@@ -208,6 +369,7 @@ if(!isset($_SESSION))
 						railVisible:true
 					});
 				});
+				
 			});
 		</script>
 

@@ -139,6 +139,12 @@ if(!isset($_SESSION))
 									</div>
 								</div>
 						</div>
+						<hr>
+						<div class="row-fluid">
+							<div class="span12">
+								<img src="../assets/images/banner_index.fw.png">
+							</div>
+						</div>
 						<!-- <div class="row-fluid">
 							<h3 class="header smaller lighter green">Accesos Directos</h3>
 							<div class="center"></div>

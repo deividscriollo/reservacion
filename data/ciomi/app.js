@@ -295,6 +295,7 @@ function reconstruir(i){
         }
     });
 }
+
 function valor_subtotal(){
     var suma = 0;
 	$('#tabla_info_tarifa tbody tr').each(function(){ //filas con clase 'dato', especifica una clase, asi no tomas el nombre de las columnas
@@ -432,118 +433,243 @@ function info_tabla(){
 //------------------------------inicio proceso auditorio-------------------//
 $(function(){
 
-    // llenado proceso categorias
-    $.ajax({
-        url:'app.php',
-        type:'POST',
-        data:{obj_tipo_reservacion_oaudit:':)'},
-        success:function(data){
-            $('#obj_tipo_reservacion').html(data);
-            var oldie = /msie\s*(8|7|6)/.test(navigator.userAgent.toLowerCase());
-            $('.easy-pie-chart.percentage').each(function(){
-                $(this).easyPieChart({
-                    barColor: $(this).data('color'),
-                    trackColor: '#EEEEEE',
-                    scaleColor: false,
-                    lineCap: 'butt',
-                    lineWidth: 8,
-                    animate: oldie ? false : 1000,
-                    size:75
-                }).css('color', $(this).data('color'));
-            });
-            $('.dc_hover').mouseover(function(){
-                $(this).addClass('animated rubberBand').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function(){
-                    $(this).removeClass('animated rubberBand');
+    $('#id-date-range-picker-1').daterangepicker({
+    }).prev().on(ace.click_event, function(){
+        $(this).next().focus();
+    });
+    $('.timer_picker').timepicker({
+        minuteStep: 1
+    })
+
+
+
+    // seleccionando otros
+    $('.btn_teatro').click(function(){
+        var valor=$(this).attr('id');
+        $('#txt_nom_otros_servicios').val(valor);
+        $(this).addClass('icon-ok');
+        $('.btn_restaurante').removeClass('icon-ok');
+        $('.btn_centro').removeClass('icon-ok');
+    });
+    $('.btn_restaurante').click(function(){
+        var valor=$(this).attr('id');
+        $('#txt_nom_otros_servicios').val(valor);
+        $(this).addClass('icon-ok');
+        $('.btn_teatro').removeClass('icon-ok');
+        $('.btn_centro').removeClass('icon-ok');
+    });
+    $('.btn_centro').click(function(){
+        var valor=$(this).attr('id');
+        $('#txt_nom_otros_servicios').val(valor);
+        $(this).addClass('icon-ok');
+        $('.btn_restaurante').removeClass('icon-ok');
+        $('.btn_teatro').removeClass('icon-ok');
+    });
+    $('#btn_modal_otros').click(function(){
+        console.log($('#txt_nom_otros_servicios').val());
+    })
+    $('#fuelux-wizard2').ace_wizard().on('change' , function(e, info){
+        if (info.step == 1) {
+            var valor=$('#txt_nom_otros_servicios').val();
+            if (valor!="") {
+                console.log('vamos bn');
+            }else{
+                $.gritter.removeAll();
+                $.gritter.add({
+                    title: 'Estimado Cliente <span class="icon-user"></span>',
+                    text: '<h5>Estimado cliente seleccione un servicio</h5>',
+                    class_name: 'gritter-info gritter-center',
+                    time:2000
                 });
-            });
-            $('.dc_hover').click(function(dc){
-                $('.dc_hover').css({background: 'rgba(255,25,255,0)'})
-                $(this).css({
-                    background: 'rgba(25,25,25,0.03)',
-                    'border-radius': '5px'
-                });
-                var id=$(this).attr('id');
-                $('#txt_categoria').val(id);
-                // estableciendo total
-                 $.ajax({
-                    url:'app.php',
-                    type:'POST',
-                    dataType:'json',
-                    data:{mostrar_tarifa_servicios4:':)',id:id},
-                    success:function(data){
-                        $('#tabla_info_tarifa tbody').html('');
-                        for (var i = 0; i < data.length; i++) {
-                            if (i%2==0) {
-                                $('#tabla_info_tarifa tbody').append(data[i]);
-                            };
-                            if(i%2!=0){
-                                $('#spi_'+data[i]+'').ace_spinner({value:0,min:0,max:200,step:1, btn_up_class:'btn-info' , btn_down_class:'btn-info'})
-                                .on('change', function(){
-                                    var id=$(this).attr('id').replace('spi_','');
-                                    var precio=$('#pre_'+id).html();
-                                    var precio2=parseFloat(precio);
-                                    var cantidad=$(this).val();
-                                    var cantidad2=parseInt(cantidad);
-                                    $('#total_'+id).html((precio2*cantidad2).toFixed(2));
-                                    valor_subtotal();
-                                });
-                            }
-                        }
+                return false;
+            }
+        };
+        if (info.step==2) {
+            var valor=$('#id-date-range-picker-1').val();
+            var valor1=$('#txt_time_inicio').val();
+            var valor3=$('#txt_time_final').val();
+            if (valor!=""&&valor1!=""&&valor3!="") {
+                $.ajax({
+                    url: "app.php",
+                    type: "POST",
+                    data:{otros_buscar_tarifa:'ok',id:$('#txt_nom_otros_servicios').val()},
+                    success: function(data){
+                        $('#tabla_paquetes tbody').html(data);
                     }
                 });
+            }else{
+                $.gritter.removeAll();
+                $.gritter.add({
+                    title: 'Estimado Cliente <span class="icon-user"></span>',
+                    text: '<h5>Estimado cliente ingrese todos los campos</h5>',
+                    class_name: 'gritter-info gritter-center',
+                    time:2000
+                });
+                return false;
+            }
+        };
+        if (info.step==3) {
+            if (busca_seleccionado_chek2()==':)') {
+                console.log('vamos bn');
+                var fecha=$('#id-date-range-picker-1').val();
+                var hora1=$('#txt_time_inicio').val();
+                var hora2=$('#txt_time_final').val();
+                var servicio=$('#txt_nom_otros_servicios').val();
+                var servicio=$('#'+servicio).text();
+                var id_servicio=$('#txt_nom_otros_servicios').val();
+                //contruccion
+                var f=fecha.split("-")
+                var date1 = new Date(f[0]);
+                var date2 = new Date(f[1]);
+                var diffDays = date2.getDate() - date1.getDate(); 
+                $('#lbl_dias_otros').html(diffDays);
+                $('#lbl_fecha_final_otros').html(fecha);
+                $('#lbl_hora_otros').html(hora1+'||'+hora2);
+                $('#lbl_otros').html(servicio);
+                $("#tabla_paquetes tbody tr").each(function (index) {
+                    var campo0, campo1, campo2, campo3,campo4;
+                    $(this).children("td").each(function (index2) {
+                        switch (index2) {
+                            case 1:
+                                campo1=$(this).text();
+                            break;
+                            case 2:
+                                campo2=$(this).text();
+                            break;
+                            case 3:
+                                campo0 = $(this).children().children('input').is(":checked");
+                                id=$(this).children().children('input').attr('id');
+                                if (campo0==true) {
+                                    $('#lbl_paquete_otros').html(campo1);
+                                    $('#lbl_total_otros').html(campo2);
+                                    $('#txt_id_paquete_tarifa').val(id);
+                                };
+                                break;
+                        }
+                    });
+                });
+            }else{
+                $.gritter.removeAll();
+                $.gritter.add({
+                    title: 'Estimado Cliente <span class="icon-user"></span>',
+                    text: '<h5>Estimado cliente seleccione un paquete</h5>',
+                    class_name: 'gritter-info gritter-center',
+                    time:2000
+                });
+                return false;
+            }
+        }
+    }).on('finished', function(e) {
+        var hora1=$('#txt_time_inicio').val();
+        var hora2=$('#txt_time_final').val();
+        var id_servicio=$('#txt_nom_otros_servicios').val();
+        var id_tar_otros=$('#txt_id_paquete_tarifa').val();
+        var fecha=$('#id-date-range-picker-1').val();
+        var f=fecha.split("-")
+        var formato_f1=f[0].split('/');
+        var formato_f2=f[1].split('/');
+        // console.log(formato_f1);
+        var f1=formato_f1[2]+'-'+formato_f1[0]+'-'+formato_f1[1];
+        var f2=formato_f2[2]+'-'+formato_f2[0]+'-'+formato_f2[1];
+        var f1=f1.replace(/\s/g, '');
+        var f2=f2.replace(/\s/g, '');
+        var mk_otros=f1;
+        f1=f1+' '+hora1;
+        f2=f2+' '+hora2;
+
+        var diasSemana = new Array("DOMINGO","LUNES","MARTES","MIÉRCOLES","JUEVES","VIERNES","SÁBADO");
+        var nom_fecha=new Date(f[0]);
+
+        var otros_total=parseFloat($('#lbl_total_otros').html());
+        var di_tot=parseInt($('#lbl_dias_otros').html());
+        var acu_otros_tot=otros_total*di_tot;
+        acu_otros_tot=acu_otros_tot.toFixed(2);
+
+
+        $.ajax({
+            url: "app.php",
+            type: "POST",
+            data:{guardar_otros:'ok',cant:di_tot,subtot:acu_otros_tot,precio:otros_total,id:id_servicio,h1:f1,h2:f2,fech:mk_otros,dia:diasSemana[nom_fecha.getDay()],it_tar:id_tar_otros,servi:$('#lbl_otros').html()},
+            beforeSend: function () {
+                $.blockUI({
+                    message:'<i id="icon-tiempo" class="width-10 icon-spinner red icon-spin bigger-125"></i> <h5>Estamos enviando la información a su correo, espere un momento....</h5>',
+                    css: {
+                        border: 'none',
+                        padding: '15px',
+                        backgroundColor: '#000',
+                        '-webkit-border-radius': '10px',
+                        '-moz-border-radius': '10px',
+                        opacity: .5,
+                        color: '#fff'
+                    }
+                })
+            },
+            success: function(data){
+                $.unblockUI();
+                if (data==0) {
+                    bootbox.dialog("<h4>Su reservación se ha almacenado con éxito, por favor verifique su correo electrónico y siga las instrucciones.!</h4>", [{
+                        "label" : "OK",
+                        "class" : "btn-small btn-primary",
+                        callback: function() {
+                            location.href="";
+                        }
+                        }]
+                    );
+               };
+               if(data!=0&&data!=1&&data!=2){
+                    bootbox.dialog("Lo sentimos, comuníquese con un administrador!", [{
+                        "label" : "OK",
+                        "class" : "btn-small btn-primary",
+                        }]
+                    );
+                };
+            }
+        });
+    }).on('stepclick', function(e){
+        //return false;//prevent clicking on steps
+    });
+});
+
+
+function reconstruir2(i){
+    $("#tabla_paquetes tbody tr").each(function (index) {
+        var campo1, axus=0, campo3;
+        $(this).children("td").each(function (index2) {
+            switch (index2) {
+                case 3:
+                    $(this).children().children().removeAttr('checked');
+                    break;
+            }
+        });
+    });
+
+    $("#tabla_paquetes tbody tr").each(function (index) {
+        if (i==index) {
+            $(this).children("td").each(function (index2) {
+                switch (index2) {
+                    case 3:
+                        $(this).children().children().prop("checked", "checked");
+                        break;
+                }
             });
         }
     });
-    $.ajax({
-        url:'app.php',
-        type:'POST',
-        data:{obj_informacion_museo:':)'},
-        success:function(data){
-            var data=data.split(';');
-            for (var i = 0; i < data.length; i++) {
-                var acu='<div class="well">'+data[i]+'</div>';
-                $('#obj_informacion_museo').append(acu);
+}
+function busca_seleccionado_chek2(){
+    var amd_x=':(';
+    $("#tabla_paquetes tbody tr").each(function (index) {
+        var campo0, campo1, campo2, campo3,campo4;
+        $(this).children("td").each(function (index2) {
+            switch (index2) {
+                case 3:
+                    campo0 = $(this).children().children('input').is(":checked");
+                    if (campo0==true) {
+                        amd_x=':)';
+                    };
+                    break;
             }
-        }
+        });
     });
-    $('#fuelux-wizard2').ace_wizard().on('change' , function(e, info){
-    }).on('finished', function(e) {
-        alert('hola')
-    }).on('stepclick', function(e){
-        //return false;//prevent clicking on steps
-    });
-});
-
+    return amd_x;
+}
 // -------------------------------- fin proceso auditorio----------------------------//
-
-
-//----------------------inicio proceso restaurante-------------------//
-
-$(function(){
-    $('#fuelux-wizard3').ace_wizard().on('change' , function(e, info){
-    }).on('finished', function(e) {
-        alert('hola')
-    }).on('stepclick', function(e){
-        //return false;//prevent clicking on steps
-    });
-});
-
-//-----------------------fin proeceso auditori------------------------//
-
-
-
-
-
-//-----------------------inicio proceso convencion------------------------//
-
-$(function(){
-    $('#fuelux-wizard4').ace_wizard().on('change' , function(e, info){
-    }).on('finished', function(e) {
-        alert('hola')
-    }).on('stepclick', function(e){
-        //return false;//prevent clicking on steps
-    });
-});
-
-
-//-----------------------fin proceso convencion------------------------//

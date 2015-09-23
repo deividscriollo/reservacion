@@ -37,7 +37,6 @@
 		 	print_r($acu[0]);
 		 	print'lbl_';
 		 	print_r($acu[1]);
-
 		}
 	}
 	if (isset($_POST['mostrar_reservacion_tarifa'])) {
@@ -185,6 +184,43 @@
 			$acu=$row[0];
 	 	}
 	 	print $acu;
+	}
+	if (isset($_POST['name'])) {
+		print $fecha=$class->fecha_hora();
+		// --------------- id -------------//
+		$id=$class->idz();
+
+		$id2= $_POST['pk'];
+		$acu=0;
+		$resultado = $class->consulta("SELECT * FROM stado_proceso S,RESERVACION R WHERE R.ID=S.ID_RESERVACION AND S.ID_RESERVACION='$id2'");
+		while ($row=$class->fetch_array($resultado)) {
+			$acu=1;
+	 	}
+	 	if ($acu==1) {
+	 		if ($_POST['name']=='niños') {
+	 		$res=$class->consulta("UPDATE stado_proceso SET campo1='$_POST[value]' WHERE ID='$id'");
+	 		}
+	 		if ($_POST['name']=='mujeres') {
+	 		$res=$class->consulta("UPDATE stado_proceso SET campo2='$_POST[value]' WHERE ID='$id'");
+	 		}
+	 		if ($_POST['name']=='rango') {
+	 		$res=$class->consulta("UPDATE stado_proceso SET campo3='$_POST[value]' WHERE ID='$id'");
+	 		}
+
+	 	}
+	 	if ($acu!=1) {
+	 		if ($_POST['name']=='niños') {
+				$res=$class->consulta("INSERT INTO stado_proceso VALUES('$id','$id2','$_POST[value]','0','0','0','0','0','$fecha')");
+			}
+			if ($_POST['name']=='mujeres') {
+				$res=$class->consulta("INSERT INTO stado_proceso VALUES('$id','$id2','0','$_POST[value]','0','0','0','0','$fecha')");
+			}
+			if ($_POST['name']=='rango') {
+				$res=$class->consulta("INSERT INTO stado_proceso VALUES('$id','$id2','0','0','$_POST[value]','0','0','0','$fecha')");
+			}
+
+	 	}
+
 	}
 
 ?>

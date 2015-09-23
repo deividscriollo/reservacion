@@ -39,8 +39,8 @@
 	    <script type="text/javascript" src="js/themes/grid.js"></script>
 		<!-- Este archivo es para poder exportar losd atos que obtengamos -->
 		<script type="text/javascript" src="js/modules/exporting.js"></script>
-	   
-		<script type="text/javascript">				
+
+		<script type="text/javascript">
 		$(document).ready(function() {
             var options = {
                 chart: {
@@ -75,12 +75,12 @@
                     name: 'Browser share',
                     data: []
                 }]
-            }            
+            }
             $.getJSON("../reportes.php", {servicio_reservado:'ok'} , function(json) {
                 options.series[0].data = json;
                 chart = new Highcharts.Chart(options);
-            });            
-        });   
+            });
+        });
 		</script>
 		
 	</head>

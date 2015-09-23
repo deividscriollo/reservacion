@@ -1,13 +1,12 @@
 <?php
 if(!isset($_SESSION))
 	{
-		session_start();		
+		session_start();
 	}
 	if(!isset($_SESSION["pass"])) {
 
 		header('Location: ../../index.php');
 	}
-	
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -54,7 +53,6 @@ if(!isset($_SESSION))
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /></head>
 
 	<body>
-		
 		<div class="navbar">
 			<div class="red navbar-inner">
 				<div class="container-fluid">
@@ -65,15 +63,14 @@ if(!isset($_SESSION))
 						</small>
 					</a><!--/.brand-->
 					<ul class="nav ace-nav pull-right">
-						
 						<li class="light-blue">
 							<a data-toggle="dropdown" href="#" class="dropdown-toggle">
 								<span class="user-info">
 									<small>Bienvenido,</small>
 									<?php print (strtoupper($_SESSION["nom"]));?>
 								</span>
-							</a>							
-						</li>						
+							</a>
+						</li>
 					</ul><!--/.ace-nav-->
 				</div><!--/.container-fluid-->
 			</div><!--/.navbar-inner-->
@@ -84,10 +81,8 @@ if(!isset($_SESSION))
 				<span class="menu-text"></span>
 			</a>
 
-			
 
 			<div class="main-contents">
-				
 				<div class="page-conten">
 					<?php 
 						require('../../admin/class.php');
@@ -99,30 +94,25 @@ if(!isset($_SESSION))
 										<div class="widget-box">
 											<div class="widget-header">
 												<h4>Información Adicional</h4>
-
-												<span class="widget-toolbar">
-													
-													
-												</span>
 											</div>
 
 											<div class="widget-body">
 												<div class="widget-main center">
-													<form class="form-horizontal" novalidate="novalidate" id="form-guardar">	
+													<form class="form-horizontal" novalidate="novalidate" id="form-guardar">
 														<div class="control-group">
 															<span class="span12">
 															<select class="chzn-select" id="select_sexo" name="select_sexo" data-placeholder="Seleccione Sexo">	
-																<option value=""></option>														
+																<option value=""></option>
 																<option value="HOMBRE">HOMBRE</option>
 																<option value="MUJER">MUJER</option>
 																<option value="OTROS">OTROS</option>
 															</select>
 															</span>
-														</div>													
-														<div class="control-group">														
+														</div>
+														<div class="control-group">
 															<span class="span12">
 																<select class="chzn-select" id="select_pais" name="select_pais" data-placeholder="Seleccione Pais" >
-																	<?php 
+																	<?php
 																		$resultado = $class->consulta("SELECT * FROM LOCALIZACION.PAIS WHERE stado='1'");
 																		print'<option value=""></option>';
 																		while ($row=$class->fetch_array($resultado)) {
@@ -130,35 +120,35 @@ if(!isset($_SESSION))
 																		}
 																		$archivo='dc.txt';
 																		$abrir =fopen($archivo,'r+');
-																		$contenido = fread($abrir , filesize($archivo));  	
-																		fclose($abrir);	
-																		$contenido2 = explode("\r\n", $contenido);				
+																		$contenido = fread($abrir , filesize($archivo));
+																		fclose($abrir);
+																		$contenido2 = explode("\r\n", $contenido);
 																		for ($i=0; $i < 9; $i++) {
 																			$fecha=$class->fecha_hora();
 																			$id=$class->idz();
 																			$class->consulta("INSERT INTO LOCALIZACION.CIUDAD VALUES('".$id."','20150326115500551439e48ff9d','".$contenido2[$i]."','".$fecha."','1')");
 																		}
 																	?>
-																</select>																
-															</span>														
-														</div>																																								
+																</select>
+															</span>
+														</div>
 														<div class="obj_contenedor">
-															<div class="control-group">																
-																<span class="span12">																
-																	<select id="select_provincia" name="select_provincia">															
+															<div class="control-group">
+																<span class="span12">
+																	<select id="select_provincia" name="select_provincia">
 																	</select>
-																</span>																														
+																</span>
 															</div>
 															<div class="control-group">
-																<span class="span12">	
-																	<select id="select_ciudad" name="select_ciudad">																		
+																<span class="span12">
+																	<select id="select_ciudad" name="select_ciudad">
 																	</select>
 																</span>
 															</div>
 														</div>
 														<div class="control-group">
 															<div class="span12">
-																<input class="date-picker span9" id="txt_fecha" type="text" name="txt_fecha"  placeholder="Digite, año/mes/dia" >																	
+																<input class="date-picker span9" id="txt_fecha" type="text" name="txt_fecha"  placeholder="Digite, año/mes/dia" >
 															</div>
 														</div>
 														<div class="control-group">
@@ -247,7 +237,7 @@ if(!isset($_SESSION))
 		<script src="../assets/js/jquery.validate.min.js"></script>
 		<script src="../assets/js/additional-methods.min.js"></script>
 		<script src="../assets/js/jquery.gritter.min.js"></script>
-		<script src="../assets/vegas/jquery.vegas.js"></script>		
+		<script src="../assets/vegas/jquery.vegas.js"></script>
 		<script src="../assets/js/bootbox.min.js"></script>
 		<script src="../assets/js/jquery.slimscroll.min.js"></script>
 		<script src="../assets/js/jquery.easy-pie-chart.min.js"></script>
@@ -271,7 +261,7 @@ if(!isset($_SESSION))
 
 		<script type="text/javascript">
 
-			$(function() {	
+			$(function() {
 
 				// app sistem
 				$.vegas('slideshow', {
@@ -286,7 +276,7 @@ if(!isset($_SESSION))
 				// proceso aplicacion
 				$('.obj_contenedor').hide();
 				$('#select_pais').change(function(){
-					var pais=$(this).val();					
+					var pais=$(this).val();
 					if (pais=='20150326104209551428d175961') {
 						$('.obj_contenedor').show();
 					}else{
@@ -300,9 +290,9 @@ if(!isset($_SESSION))
 					success:function(data){
 						$('#select_provincia').html(data)
 					}
-				});			
+				});
 
-				$('#select_provincia').change(function(){		
+				$('#select_provincia').change(function(){
 					$.ajax({
 						url:'../localizacion/pais.php',
 						type:'POST',
@@ -310,14 +300,14 @@ if(!isset($_SESSION))
 						success:function(data){
 							$('#select_ciudad').html(data)
 						}
-					});	
+					});
 				});
 				$(".chzn-select").chosen();
 				function sumaFecha(d, fecha)
 					{
 					 var Fecha = new Date();
 					 var sFecha = fecha || (Fecha.getDate() + "/" + (Fecha.getMonth() +1) + "/" + Fecha.getFullYear());
-					 var sep = sFecha.indexOf('/') != -1 ? '/' : '-'; 
+					 var sep = sFecha.indexOf('/') != -1 ? '/' : '-';
 					 var aFecha = sFecha.split(sep);
 					 var fecha = aFecha[2]+'/'+aFecha[1]+'/'+aFecha[0];
 					 fecha= new Date(fecha);
@@ -329,19 +319,16 @@ if(!isset($_SESSION))
 					 dia = (dia < 10) ? ("0" + dia) : dia;
 					 var fechaFinal = dia+sep+mes+sep+anno;
 					 return (fechaFinal);
-					 } 
-				
+					 }
 				var f = new Date();
 				var afecha=f.getDate() + "/" + (f.getMonth() +1) + "/" + f.getFullYear();
-				
 				$('.date-picker').datepicker({
 					startDate: '01/01/1950',
-					endDate: sumaFecha((365*18),afecha),
+					endDate: new Date(),//sumaFecha((365*18),afecha),
 					format: 'dd/mm/yyyy',
 					startView: 2
 					//language: 'es'
 				});
-				
 
 
 				$('#form-guardar').validate({
@@ -368,19 +355,18 @@ if(!isset($_SESSION))
 							required: false,
 							number:true,
 							minlength: 8,
-							maxlength: 15,
+							maxlength: 10,
 						},
 						txt_con: {
 							required: false,
 							number:true,
 							minlength: 8,
-							maxlength: 15,
+							maxlength: 10,
 						},
 						txt_dir: {
 							required:true
-						}					
+						}
 					},
-			
 					messages: {
 						select_sexo: {
 							required: "Por favor, Seleccione Sexo",
@@ -395,10 +381,10 @@ if(!isset($_SESSION))
 							required: "Por favor, Seleccione Ciudad",
 						},
 						txt_fecha: {
-							required: "Seleccione fecha de nacimiento"							
+							required: "Seleccione fecha de nacimiento"
 						},
 						txt_dir: {
-							required: "Por favor, Digite Dirección"							
+							required: "Por favor, Digite Dirección"
 						},
 						txt_tel: {
 							required: "Por favor, Digite su teléfono",
@@ -413,20 +399,16 @@ if(!isset($_SESSION))
 							maxlength: "Digite, maximo 15 caracteres",
 						}
 					},
-			
-					invalidHandler: function (event, validator) { //display error alert on form submit   
+					invalidHandler: function (event, validator) { //display error alert on form submit
 						$('.alert-error', $('.login-form')).show();
 					},
-			
 					highlight: function (e) {
 						$(e).closest('.control-group').removeClass('info').addClass('error');
 					},
-			
 					success: function (e) {
 						$(e).closest('.control-group').removeClass('error').addClass('info');
 						$(e).remove();
 					},
-			
 					errorPlacement: function (error, element) {
 						if(element.is(':checkbox') || element.is(':radio')) {
 							var controls = element.closest('.controls');
@@ -441,38 +423,38 @@ if(!isset($_SESSION))
 						}
 						else error.insertAfter(element);
 					},
-			
-					submitHandler: function (form) {						
+					submitHandler: function (form) {
 						$.ajax({
 							url:'../localizacion/pais.php',
 							type:'POST',
 							data:{actualizar_info:':)',sel_0:$('#select_sexo').val(),sel_1:$('#select_pais').val(),sel_2:$('#select_provincia').val(),sel_3:$('#select_ciudad').val(),fec:$('#txt_fecha').val(),tel:$('#txt_tel').val(),dir:$('#txt_dir').val(),con:$('#txt_con').val()},
 							success:function(data){
+								console.log($('#select_pais').val());
 								console.log(data);
 								if (data==0) {
-			                		$.gritter.add({						
-											title: '..Mensaje..!',						
-											text: 'Tenemos inconvenientes intente mas tarde.',						
-											//image: 'http://a0.twimg.com/profile_images/59268975/jquery_avatar_bigger.png',						
-											sticky: false,						
+			                		$.gritter.add({
+											title: '..Mensaje..!',
+											text: 'Tenemos inconvenientes intente mas tarde.',
+											//image: 'http://a0.twimg.com/profile_images/59268975/jquery_avatar_bigger.png',
+											sticky: false,
 											time: ''
 										});
 			                		redireccionar();
 				                	};
 			                	if (data==1) {
-			                		$.gritter.add({						
-										title: '..Mensaje..!',						
+			                		$.gritter.add({
+										title: '..Mensaje..!',
 										text: 'En hora buena: Por favor dame unos segundos para acceder a la aplicación. <br><i class="icon-spinner icon-spin green bigger-230"></i> : )',						
-										//image: 'http://a0.twimg.com/profile_images/59268975/jquery_avatar_bigger.png',						
-										sticky: false,						
+										//image: 'http://a0.twimg.com/profile_images/59268975/jquery_avatar_bigger.png',
+										sticky: false,
 										time: ''
 									});
 									redireccionar();
 			                	};
 							}
 						});
-					}					
-				});	
+					}
+				});
 			});
 			function redireccionar() {
 				setTimeout("location.href='../inicio/'",1000);

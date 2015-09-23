@@ -416,6 +416,16 @@ function seleccion_privilegio(id){
 				$.ajax({ url:'app.php', type:'POST',  data:{btn_privilegios:':)',id:id,pro:'FACTURA:'+res,pos:9}
 			    });
 			});
+			$('#btn_peticion').on('click', function(){
+				var res='';	$validation = this.checked; if(this.checked) {res='TRUE';	}else {res='FALSE';}
+				$.ajax({ url:'app.php', type:'POST',  data:{btn_privilegios:':)',id:id,pro:'PETICION:'+res,pos:10}
+			    });
+			});
+			$('#btn_spt').on('click', function(){
+				var res='';	$validation = this.checked; if(this.checked) {res='TRUE';	}else {res='FALSE';}
+				$.ajax({ url:'app.php', type:'POST',  data:{btn_privilegios:':)',id:id,pro:'SPT:'+res,pos:11}
+			    });
+			});
 		}
     });
 

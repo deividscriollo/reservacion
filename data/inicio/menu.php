@@ -65,16 +65,6 @@ $acus=split('/', $acus);
 						}
 						$sum=$acu[4];	$sum=split(':',$sum);	$var='';
 						if ($sum[1]=='TRUE'){
-							print'<li ';if ($acus[3]=='correo') {print("class=active");}print'>
-								<a href="../correo/">
-									<i class="icon-envelope-alt pink"></i>
-									<span class="menu-text pink">
-										Correo
-									</span>
-								</a></li>';
-						}
-						$sum=$acu[5];	$sum=split(':',$sum);	$var='';
-						if ($sum[1]=='TRUE'){
 							print'<li ';if ($acus[3]=='reserva') {print("class=active");}print'>
 								<a href="../reserva/">
 									<i class="icon-building blue"></i>
@@ -87,7 +77,7 @@ $acus=split('/', $acus);
 									</span>
 								</a></li>';
 						}
-						$sum=$acu[6];	$sum=split(':',$sum);	$var='';
+						$sum=$acu[5];	$sum=split(':',$sum);	$var='';
 						if ($sum[1]=='TRUE'){
 							print'<li ';if ($acus[3]=='reportes') {print("class=active");}print'>
 								<a href="../reportes/">
@@ -95,7 +85,7 @@ $acus=split('/', $acus);
 									<span class="menu-text pink"> Reportes </span>
 								</a></li>';
 						}
-						$sum=$acu[7];	$sum=split(':',$sum);	$var='';
+						$sum=$acu[6];	$sum=split(':',$sum);	$var='';
 						if ($sum[1]=='TRUE'){
 							print'<li ';if ($acus[3]=='confirmacion') {print("class=active");}print'>
 								<a href="../confirmacion/">
@@ -103,7 +93,7 @@ $acus=split('/', $acus);
 									<span class="menu-text purple"> Confirmación </span>
 								</a></li>';
 						}
-						$sum=$acu[8];	$sum=split(':',$sum);	$var='';
+						$sum=$acu[7];	$sum=split(':',$sum);	$var='';
 						if ($sum[1]=='TRUE'){
 							print'<li ';if ($acus[3]=='usr') {print("class=active");}print'>
 								<a href="../usr/">
@@ -111,12 +101,28 @@ $acus=split('/', $acus);
 									<span class="menu-text orange"> Usuario </span>
 								</a></li>';
 						}
-						$sum=$acu[9];	$sum=split(':',$sum);	$var='';
+						$sum=$acu[8];	$sum=split(':',$sum);	$var='';
 						if ($sum[1]=='TRUE'){
 							print'<li ';if ($acus[3]=='factura') {print("class=active");}print'>
 									<a href="../factura/">
 										<i class="icon-book blue"></i>
 										<span class="menu-text blue"> Factura </span>
+									</a></li>';
+							}
+						$sum=$acu[9];	$sum=split(':',$sum);	$var='';
+						if ($sum[1]=='TRUE'){
+							print'<li ';if ($acus[3]=='peticion') {print("class=active");}print'>
+									<a href="../peticion/">
+										<i class="icon-envelope-alt green"></i>
+										<span class="menu-text green"> Peticion </span>
+									</a></li>';
+							}
+						$sum=$acu[10];	$sum=split(':',$sum);	$var='';
+						if ($sum[1]=='TRUE'){
+							print'<li ';if ($acus[3]=='spt') {print("class=active");}print'>
+									<a href="../spt/">
+										<i class="icon-briefcase inverse"></i>
+										<span class="menu-text inverse"> Form Encuesta </span>
 									</a></li>';
 							}
 						}
@@ -150,12 +156,6 @@ if ($_SESSION['nivel']=='CLIENTE') {
 						<a href="../reserva_banco/">
 							<i class=" icon-credit-card red"></i>
 							<span class="menu-text red"> Pago Bancos </span>
-						</a>
-					</li>
-					<li ';if ($acus[3]=='reserva_banco') {print("class=active");}print'>
-						<a href="../reserva_banco/">
-							<i class=" icon-list purple"></i>
-							<span class="menu-text purple"> Historial </span>
 						</a>
 					</li>
 				</ul><!--/.nav-list-->

@@ -85,19 +85,7 @@ if(!isset($_SESSION))
 									<li>
 										<a data-toggle="tab" href="#profile4">
 											<i class="green  icon-fire bigger-110"></i>
-											<span id="">TEATRO AUDITORIO</span>
-										</a>
-									</li>
-									<li>
-										<a data-toggle="tab" href="#dropdown14">
-											<i class="orange icon-coffee bigger-110"></i>
-											RESTAURANTE
-										</a>
-									</li>
-									<li>
-										<a data-toggle="tab" href="#dc_convencion1">
-											<i class="red icon-dashboard bigger-110"></i>
-											<span>CENTRO DE CONVEN..</span>
+											<span id="">Otros</span>
 										</a>
 									</li>
 								</ul>
@@ -462,17 +450,14 @@ if(!isset($_SESSION))
 														<span class="step">1</span>
 														<span class="title">Seleccionar Categoría</span>
 													</li>
-
 													<li data-target="#step22">
 														<span class="step">2</span>
 														<span class="title">Fecha y Horarios</span>
 													</li>
-
 													<li data-target="#step32">
 														<span class="step">3</span>
-														<span class="title">Contenido Terifa</span>
+														<span class="title">Contenido Tarifa</span>
 													</li>
-
 													<li data-target="#step42">
 														<span class="step">4</span>
 														<span class="title">Reservar</span>
@@ -483,30 +468,265 @@ if(!isset($_SESSION))
 											<div class="step-content row-fluid position-relative" id="step-container2">
 												<div class="step-pane active" id="step12">
 													<div class="row-fluid">
-														<div class="span10">
-															<h3 class="lighter block green center">Estimado/a, <?php print$_SESSION['nom']; ?> seleccione el tipo de reservación</h3>
+														<div class="span12">
+															<h3 class="lighter block green center">Estimado/a, <?php print$_SESSION['nom']; ?> seleccione servicio</h3>
 														</div>
+													</div>
+													<div class="row-fluid">
+														<!-- <div id="obj_categoria_teatro_auditorio"> </div> -->
+														<div class="span4">
+															<div class="widget-box pricing-box">
+																<div class="widget-header header-color-blue">
+																	<h5 class="bigger lighter">Teatro Auditorio "CLUB L.I.A."</h5>
+																</div>
+
+																<div class="widget-body">
+																	<div class="widget-main no-padding">
+																		<img src="../assets/images/teatro_audi.fw.png" width="100%">
+																	</div>
+
+																	<div>
+																		<button class="btn btn-primary btn_teatro btn-block" id="20141211160613548a07457dffd">RESERVAR</button>
+																	</div>
+																</div>
+															</div>
+														</div>
+														<div class="span4">
+															<div class="widget-box pricing-box">
+																<div class="widget-header header-color-green">
+																	<h5 class="bigger lighter">Restaurante "LA POSADA"</h5>
+																</div>
+
+																<div class="widget-body">
+																	<div class="widget-main no-padding">
+																		<img src="../assets/images/teatro_audi.fw.png" width="100%">
+																	</div>
+																	<div>
+																		<button class="btn btn-success no-radius btn_restaurante btn-block " id="20141211160521548a07112af84">RESERVAR</button>
+																	</div>
+																</div>
+															</div>
+														</div>
+														<div class="span4">
+															<div class="widget-box pricing-box">
+																<div class="widget-header header-color-dark">
+																	<h5 class="bigger lighter">Centro de Convensiones</h5>
+																</div>
+
+																<div class="widget-body">
+																	<div class="widget-main no-padding">
+																		<img src="../assets/images/teatro_audi.fw.png" width="100%">
+																	</div>
+																	<div>
+																		<button class="btn btn-inverse btn_centro btn-block" id="20141211160155548a0643d0616">RESERVAR</button>
+																	</div>
+																</div>
+															</div>
+														</div>
+														<input type="hidden" id="txt_nom_otros_servicios">
+													</div>
+												</div>
+												<div class="step-pane" id="step22">
+													<div class="row-fluid">
+														<div class="span10"><h3 class="lighter block green center">Estimado/a, <?php print$_SESSION['nom']; ?> seleccione horario</h3></div>
 														<div class="span2">
-															<a href="#modal-museo" data-toggle="modal" class="btn btn-mini btn-danger">
+															<a href="#modal-otros" data-toggle="modal" id="btn_modal_otros" class="btn btn-mini btn-danger">
 																<i class=" icon-info-sign"></i> Información
 															</a>
 														</div>
 													</div>
 													<div class="row-fluid">
-														<div id="obj_categoria_teatro_auditorio"> </div>
+														<div class="span4">
+															<label for="id-date-range-picker-1">Rango de fecha</label>
+
+															<div class="control-group">
+																<div class="row-fluid input-prepend">
+																	<span class="add-on">
+																		<i class="icon-calendar"></i>
+																	</span>
+																	<input class="span10" type="text" name="date-range-picker" id="id-date-range-picker-1" data-date-format="dd-mm-yyyy"/>
+																</div>
+															</div>
+														</div>
+														<div class="span4">
+															<label for="id-date-range-picker-1">Horario Inicio</label>
+															<div class="control-group">
+																<div class="input-append bootstrap-timepicker">
+																	<input id="txt_time_inicio" type="text" class="input-small timer_picker" />
+																	<span class="add-on">
+																		<i class="icon-time"></i>
+																	</span>
+																</div>
+															</div>
+
+														</div>
+														<div class="span4">
+															<label for="id-date-range-picker-1">Horario Final</label>
+															<div class="control-group">
+																<div class="input-append bootstrap-timepicker">
+																	<input id="txt_time_final" type="text" class="input-small timer_picker" />
+																	<span class="add-on">
+																		<i class="icon-time"></i>
+																	</span>
+																</div>
+															</div>
+
+														</div>
 													</div>
 												</div>
 
-												<div class="step-pane" id="step22">
-												h2
-												</div>
-
 												<div class="step-pane" id="step32">
-												h3
-												</div>
+													<div class="row-fluid">
+														<div class="span12">
+															<div class="widget-box transparent">
+																<div class="widget-header widget-header-flat">
+																	<h4 class="lighter">
+																		<i class="icon-time orange"></i>
+																		Precio / Paquetes 
+																	</h4>
 
+																</div>
+
+																<div class="widget-body">
+																	<div class="widget-main no-padding">
+																		<table class="table table-bordered table-striped" id="tabla_paquetes">
+																			<thead>
+																				<tr>
+																					<th>
+																						<i class="icon-caret-right blue"></i> Nro
+																					</th>
+																					<th class="hidden-phone">
+																						<i class="icon-caret-right blue"></i>
+																						Paquetes
+																						<i class="icon-time orange"></i>
+																					</th>
+																					<th class="hidden-phone">
+																						<i class="icon-caret-right blue"></i>
+																						Precio
+																						<i class="icon-time orange"></i>
+																					</th>
+																					<th>
+																						<i class="icon-caret-right blue"></i>	<i class="icon-ok green"></i>
+																					</th>
+																				</tr>
+																			</thead>
+																			<tbody>
+																			</tbody>
+																		</table>
+																	</div><!--/widget-main-->
+																</div><!--/widget-body-->
+															</div><!--/widget-box-->
+														</div>
+													</div>
+												</div>
 												<div class="step-pane" id="step42">
-												h4
+													<div class="row-fluid">
+														<div class="span6">
+															<div class="widget-box transparent">
+																<div class="widget-header widget-header-small">
+																	<h4 class="smaller">
+																		<i class="icon-check bigger-110"></i>
+																		Resumen de la reservación
+																	</h4>
+																</div>
+
+																<div class="widget-body">
+																	<div class="widget-main">
+																		<div class="profile-user-info">
+																			<div class="profile-info-row">
+																				<div class="profile-info-name"> A nombre de: </div>
+
+																				<div class="profile-info-value">
+																					<span><?php print$_SESSION['nom']; ?></span>
+																				</div>
+																			</div>
+
+																			<div class="profile-info-row">
+																				<div class="profile-info-name"> Servicio: </div>
+																				<div class="profile-info-value">
+																					<span id="lbl_otros">OTROS</span>
+																					<input type="hidden" id="txt_id_paquete_tarifa">
+																				</div>
+																			</div>
+
+																			<div class="profile-info-row">
+																				<div class="profile-info-name"> Rango de Fecha: </div>
+
+																				<div class="profile-info-value">
+																					<span id="lbl_fecha_final_otros">JUEVES, Septiembre 17 del 2015</span>
+																				</div>
+																			</div>
+																			<div class="profile-info-row">
+																				<div class="profile-info-name"> Días: </div>
+
+																				<div class="profile-info-value">
+																					<span id="lbl_dias_otros">JUEVES, Septiembre 17 del 2015</span>
+																				</div>
+																			</div>
+																			<div class="profile-info-row">
+																				<div class="profile-info-name"> Rango de Hora: </div>
+																				<div class="profile-info-value">
+																					<span id="lbl_hora_otros">10:00</span>
+																				</div>
+																			</div>
+																			<div class="profile-info-row">
+																				<div class="profile-info-name"> Paquete: </div>
+																				<div class="profile-info-value">
+																					<span id="lbl_paquete_otros">10:00</span>
+																				</div>
+																			</div>
+																			<div class="profile-info-row">
+																				<div class="profile-info-name"> Monto Total: </div>
+
+																				<div class="profile-info-value">
+																					<span id="lbl_total_otros"> 22.40</span>
+																				</div>
+																			</div>
+																		</div>
+
+																	</div>
+																</div>
+															</div>
+														</div>
+														<div class="span6">
+															<div class="widget-box transparent">
+																<div class="widget-header widget-header-small">
+																	<h4 class="smaller">
+																		<i class="icon-check bigger-110"></i>
+																		Estimado/a, <?php print$_SESSION['nom']; ?>  Tenga en cuenta las siguientes notas.
+																	</h4>
+
+																</div>
+
+																<div class="widget-body">
+																	<div class="widget-main">
+																		<ul class="unstyled spaced">
+																			<li>
+																				<i class="icon-ok green"></i>
+																				Su reservación tendrá una vigencia de 48 horas para la activación o se cancelara automáticamente.
+																			</li>
+																			<li>
+																				<i class="icon-ok green"></i>
+																				Para la activación sigas los pasos que se indica y que se han enviado a su correo electrónico.
+																			</li>
+																			<li>
+																				<i class="icon-ok green"></i>
+																				Los pagos los puede realizar en el Banco Guayaquil en la cuenta Nro. 1209345 a nombre de Fábrica Imbabura.
+																			</li>
+																			<li>
+																				<i class="icon-ok green"></i>
+																				Estar presente al menos 30 minutos antes que inicie el turno de su reservación.
+																			</li>
+																			<li>
+																				<i class="icon-ok green"></i>
+																				Día de la reservación, Presente su cedula para verificar información y dar validez de su reservación.
+																			</li>
+																		</ul>
+																	</div>
+																</div>
+															</div>
+														</div>
+													</div>
 												</div>
 											</div>
 
@@ -525,124 +745,6 @@ if(!isset($_SESSION))
 										</div>
 									</div>
 
-									<div id="dropdown14" class="tab-pane">
-									restaurant
-
-										<div class="row-fluid">
-											<div id="fuelux-wizard3" class="row-fluid hide" data-target="#step-container3">
-												<ul class="wizard-steps">
-													<li data-target="#step13" class="active">
-														<span class="step">1</span>
-														<span class="title">Seleccionar Categoría</span>
-													</li>
-
-													<li data-target="#step23">
-														<span class="step">2</span>
-														<span class="title">Fecha y Horarios</span>
-													</li>
-
-													<li data-target="#step33">
-														<span class="step">3</span>
-														<span class="title">Contenido Terifa</span>
-													</li>
-
-													<li data-target="#step43">
-														<span class="step">4</span>
-														<span class="title">Reservar</span>
-													</li>
-												</ul>
-											</div>
-											<hr />
-											<div class="step-content row-fluid position-relative" id="step-container3">
-												<div class="step-pane active" id="step12">
-												h1
-												</div>
-
-												<div class="step-pane" id="step23">
-												h2
-												</div>
-
-												<div class="step-pane" id="step33">
-												h3
-												</div>
-
-												<div class="step-pane" id="step43">
-												h4
-												</div>
-											</div>
-
-											<hr />
-											<div class="row-fluid wizard-actions">
-												<button class="btn btn-prev">
-													<i class="icon-arrow-left"></i>
-													Atras
-												</button>
-
-												<button class="btn btn-success btn-next" data-last="Reservar ">
-													Adelante
-													<i class="icon-arrow-right icon-on-right"></i>
-												</button>
-											</div>
-										</div>
-									</div>
-									<div id="dc_convencion1" class="tab-pane">
-										<div class="row-fluid">
-											<div id="fuelux-wizard4" class="row-fluid hide" data-target="#step-container4">
-												<ul class="wizard-steps">
-													<li data-target="#step14" class="active">
-														<span class="step">1</span>
-														<span class="title">Seleccionar Categoría</span>
-													</li>
-
-													<li data-target="#step24">
-														<span class="step">2</span>
-														<span class="title">Fecha y Horarios</span>
-													</li>
-
-													<li data-target="#step34">
-														<span class="step">3</span>
-														<span class="title">Contenido Terifa</span>
-													</li>
-
-													<li data-target="#step44">
-														<span class="step">4</span>
-														<span class="title">Reservar</span>
-													</li>
-												</ul>
-											</div>
-											<hr />
-											<div class="step-content row-fluid position-relative" id="step-container4">
-												<div class="step-pane active" id="step14">
-												h1
-												</div>
-
-												<div class="step-pane" id="step24">
-												h2
-												</div>
-
-												<div class="step-pane" id="step34">
-												h3
-												</div>
-
-												<div class="step-pane" id="step44">
-												h4
-												</div>
-											</div>
-
-											<hr />
-											<div class="row-fluid wizard-actions">
-												<button class="btn btn-prev">
-													<i class="icon-arrow-left"></i>
-													Atras
-												</button>
-
-												<button class="btn btn-success btn-next" data-last="Reservar ">
-													Adelante
-													<i class="icon-arrow-right icon-on-right"></i>
-												</button>
-											</div>
-										</div>
-									</div>
 								</div>
 							</div>
 						</div><!--/span-->
@@ -663,6 +765,23 @@ if(!isset($_SESSION))
 
 			<div class="modal-body overflow-visible">
 				<div class="row-fluid" id="obj_informacion_museo"></div>
+			</div>
+
+			<div class="modal-footer">
+				<button class="btn btn-small btn-danger pull-left" data-dismiss="modal">
+					<i class="icon-remove"></i>
+					Cerrar
+				</button>
+			</div>
+		</div><!--PAGE CONTENT ENDS-->
+		<div id="modal-otros" class="modal hide fade" tabindex="-1">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<h4 class="blue bigger">Información</h4>
+			</div>
+
+			<div class="modal-body overflow-visible">
+				<div class="row-fluid" id="obj_informacion_otros"></div>
 			</div>
 
 			<div class="modal-footer">
@@ -728,6 +847,7 @@ if(!isset($_SESSION))
 		<script src="../assets/js/jquery.gritter.min.js"></script>
 		<script src="../assets/js/fuelux/fuelux.spinner.min.js"></script>
 		<script src="../assets/js/blockui.js"></script>
+		<script src="../assets/js/jquery.maskedinput.min.js"></script>
 
 
 
