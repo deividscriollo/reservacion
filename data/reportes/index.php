@@ -253,18 +253,18 @@ if(!isset($_SESSION))
 														<div class="widget-body">
 															<div class="widget-main">
 																<div class="row-fluid">
-																	<label for="id-date-range-picker-1">Seleccione procesos</label>
+																	<label for="id-date-range-picker-1">Seleccione Procesos</label>
 																</div>
 																<p>
-																	<button class="btn btn-danger btn-block" id="btn_turista_extranjero">Pago Paypal</button>
+																	<button class="btn btn-danger btn-block" id="btn_pago_paypal">Pago Paypal</button>
 																</p>
 																<p>
-																	<button class="btn btn-danger btn-block" id="btn_turista_nacionales">Pago Efectivo</button>
+																	<button class="btn btn-danger btn-block" id="btn_pago_efectivo">Pago Efectivo</button>
 																</p>
 																<p>
-																	<button class="btn btn-danger btn-block" id="">Pago Deposito</button>
+																	<button class="btn btn-danger btn-block" id="btn_pago_deposito">Pago Deposito</button>
 																<p>
-																	<button class="btn btn-danger btn-block" id="btn_turista_ciudad">Tarjeta de Crédito</button>
+																	<button class="btn btn-danger btn-block" id="btn_pago_tarjeta">Tarjeta de Crédito</button>
 																</p>
 															</p>
 														</div>

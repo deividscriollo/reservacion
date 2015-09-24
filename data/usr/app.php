@@ -95,7 +95,7 @@
 															,'1')");
 		$acu=$class->consulta("	INSERT INTO SEG.NIVEL VALUES('".$class->idz()."','$id','ADMIN','$fecha','1')");
 		$acu=$class->consulta("	INSERT INTO SEG.INFO VALUES('".$class->idz()."','$id','','$fecha','0')");
-		$acu=$class->consulta("	INSERT INTO SEG.SEGMENTO VALUES('".$class->idz()."','$id','{0,0,0,0,0,0,0,0,0,0}','$fecha','1')");
+		$acu=$class->consulta("	INSERT INTO SEG.SEGMENTO VALUES('".$class->idz()."','$id','{SERVICIOS:FALSE,SERVICIOS:FALSE,AGENDA:FALSE,AGENDA:FALSE,CORREO:FALSE,RESERVA:FALSE,REPORTES:FALSE,CONFIRMACIOn:FALSE,URS:FALSE,PETICION:FALSE,SPT:FALSE,0,0}','$fecha','1')");
 		if (!$acu) {
 			print '1';
 		}else{

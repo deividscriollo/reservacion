@@ -11,7 +11,7 @@
 		$resultado = $class->consulta("SELECT C.* FROM SEG.CATEGORIA_SERVICIO C, TARIFA T, SERVICIOS S WHERE T.ID_CATEGORIA=C.ID AND S.ID=T.ID_SERVICIO AND S.ID='20141211160003548a05d39b5c8'");
 		$slim=1;
 		$clase = array('','#90BC21','#3085C9','#D6487E','#D15B47','#B2C0CA','#9687BF','#555555' );
-		$icono = array('','icon-leaf','icon-tag','icon-flag',' icon-bell-alt','icon-fire','icon-cloud','icon-lightbulb' );
+		$icono = array('',' icon-home','icon-user','icon-group',' icon-bell-alt','icon-fire','icon-cloud','icon-lightbulb' );
 		while ($row=$class->fetch_array($resultado)) {
 			$acu[]= array($row[0],$row[1]);
 	 	}

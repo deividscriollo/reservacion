@@ -499,7 +499,7 @@ if(!isset($_SESSION))
 
 																<div class="widget-body">
 																	<div class="widget-main no-padding">
-																		<img src="../assets/images/teatro_audi.fw.png" width="100%">
+																		<img src="../assets/images/restaurante.fw.png" width="100%">
 																	</div>
 																	<div>
 																		<button class="btn btn-success no-radius btn_restaurante btn-block " id="20141211160521548a07112af84">RESERVAR</button>
@@ -515,7 +515,7 @@ if(!isset($_SESSION))
 
 																<div class="widget-body">
 																	<div class="widget-main no-padding">
-																		<img src="../assets/images/teatro_audi.fw.png" width="100%">
+																		<img src="../assets/images/centro.fw.png" width="100%">
 																	</div>
 																	<div>
 																		<button class="btn btn-inverse btn_centro btn-block" id="20141211160155548a0643d0616">RESERVAR</button>
@@ -875,10 +875,10 @@ if(!isset($_SESSION))
         show:false
     }).css({
        'width': function () {
-           return ($(document).width() * .7) + 'px';  
+           return ($(document).width() * .7) + 'px';
        },
-       'margin-left': function () { 
-           return -($(this).width() / 2); 
+       'margin-left': function () {
+           return -($(this).width() / 2);
        }
 });
 </script>

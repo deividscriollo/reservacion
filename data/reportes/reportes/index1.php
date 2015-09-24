@@ -82,7 +82,6 @@
             });
         });
 		</script>
-		
 	</head>
 <body>
 	<center><img src="../b_reportes.fw.png"></center>
@@ -112,17 +111,17 @@
                                 Submit
                             </button>
                         </div>
-                    </div>                                        
+                    </div>
                 </form>
             </div>
-        </div>        
+        </div>
     </center>
-    
+
 
 	<div id="container_amd" style="width: 800px; height: 400px; margin: 0 auto">
-		
+
 	</div>
-		
-		
+
+
 </body>
 </html>

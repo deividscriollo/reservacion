@@ -25,9 +25,10 @@ $(function() {
 				});
 			});
 			$('.dc_hover').click(function(dc){
-				$('.dc_hover').css({background: 'rgba(255,25,255,0)'})
+				$('.dc_hover').css({background: 'rgba(255,25,255,0)',color: '#000',})
 				$(this).css({
-					background: 'rgba(25,25,25,0.03)',
+					background: 'rgba(204,204,61,0.7)',
+                    color: '#2283C5',
 					'border-radius': '5px'
 				});
 				var id=$(this).attr('id');

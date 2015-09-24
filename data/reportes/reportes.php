@@ -111,6 +111,106 @@
 	 	}
 	 	print_r(json_encode($acu));
 	}
+	if (isset($_POST['mostrar_resultados_forma_pago_paypal'])) {
+		$inicio = $_POST['inicio'];
+		$fin = $_POST['fin'];
+		$res=$class->consulta("	SELECT R.FECHA,S.NOM, upper(U.NOMBRE),FP.FORMA_PAGO,
+									CASE WHEN PAIS='20150326104209551428d175961' THEN 'Nacional'
+								            ELSE 'Extrangero'
+									END
+								FROM SEG.USUARIO U, RESERVACION R,SERVICIOS S, SEG.INFO I, LOCALIZACION.PAIS P, FORMA_PAGO FP
+								WHERE R.ID_USUARIO=I.ID_USUARIO 
+								AND P.ID=I.PAIS
+								AND R.ID=FP.ID_RESERVACION
+								AND PAIS='20150326104209551428d175961'
+								AND FORMA_PAGO='PAYPAL' 
+								AND S.ID=R.ID_SERVICIO AND U.ID=R.ID_USUARIO 
+								AND R.FECHA BETWEEN '".$inicio."' AND '".$fin."'");
+		while ($row=$class->fetch_array($res)) {
+			// iniciativas
+			$acu[]=$row[0];
+			$acu[]=$row[1];
+			$acu[]=$row[2];
+			$acu[]=$row[3];
+			$acu[]=$row[4];
+	 	}
+	 	print_r(json_encode($acu));
+	}
+	if (isset($_POST['mostrar_resultados_forma_pago_efectivo'])) {
+		$inicio = $_POST['inicio'];
+		$fin = $_POST['fin'];
+		$res=$class->consulta("	SELECT R.FECHA,S.NOM, upper(U.NOMBRE),FP.FORMA_PAGO,
+									CASE WHEN PAIS='20150326104209551428d175961' THEN 'Nacional'
+								            ELSE 'Extrangero'
+									END
+								FROM SEG.USUARIO U, RESERVACION R,SERVICIOS S, SEG.INFO I, LOCALIZACION.PAIS P, FORMA_PAGO FP
+								WHERE R.ID_USUARIO=I.ID_USUARIO 
+								AND P.ID=I.PAIS
+								AND R.ID=FP.ID_RESERVACION
+								AND PAIS='20150326104209551428d175961'
+								AND FORMA_PAGO='EFECTIVO' 
+								AND S.ID=R.ID_SERVICIO AND U.ID=R.ID_USUARIO 
+								AND R.FECHA BETWEEN '".$inicio."' AND '".$fin."'");
+		while ($row=$class->fetch_array($res)) {
+			// iniciativas
+			$acu[]=$row[0];
+			$acu[]=$row[1];
+			$acu[]=$row[2];
+			$acu[]=$row[3];
+			$acu[]=$row[4];
+	 	}
+	 	print_r(json_encode($acu));
+	}
+	if (isset($_POST['mostrar_resultados_forma_pago_deposito'])) {
+		$inicio = $_POST['inicio'];
+		$fin = $_POST['fin'];
+		$res=$class->consulta("	SELECT R.FECHA,S.NOM, upper(U.NOMBRE),FP.FORMA_PAGO,
+									CASE WHEN PAIS='20150326104209551428d175961' THEN 'Nacional'
+								            ELSE 'Extrangero'
+									END
+								FROM SEG.USUARIO U, RESERVACION R,SERVICIOS S, SEG.INFO I, LOCALIZACION.PAIS P, FORMA_PAGO FP
+								WHERE R.ID_USUARIO=I.ID_USUARIO 
+								AND P.ID=I.PAIS
+								AND R.ID=FP.ID_RESERVACION
+								AND PAIS='20150326104209551428d175961'
+								AND FORMA_PAGO='DEPOSITO' 
+								AND S.ID=R.ID_SERVICIO AND U.ID=R.ID_USUARIO 
+								AND R.FECHA BETWEEN '".$inicio."' AND '".$fin."'");
+		while ($row=$class->fetch_array($res)) {
+			// iniciativas
+			$acu[]=$row[0];
+			$acu[]=$row[1];
+			$acu[]=$row[2];
+			$acu[]=$row[3];
+			$acu[]=$row[4];
+	 	}
+	 	print_r(json_encode($acu));
+	}
+	if (isset($_POST['mostrar_resultados_forma_pago_tarjeta'])) {
+		$inicio = $_POST['inicio'];
+		$fin = $_POST['fin'];
+		$res=$class->consulta("	SELECT R.FECHA,S.NOM, upper(U.NOMBRE),FP.FORMA_PAGO,
+									CASE WHEN PAIS='20150326104209551428d175961' THEN 'Nacional'
+								            ELSE 'Extrangero'
+									END
+								FROM SEG.USUARIO U, RESERVACION R,SERVICIOS S, SEG.INFO I, LOCALIZACION.PAIS P, FORMA_PAGO FP
+								WHERE R.ID_USUARIO=I.ID_USUARIO 
+								AND P.ID=I.PAIS
+								AND R.ID=FP.ID_RESERVACION
+								AND PAIS='20150326104209551428d175961'
+								AND FORMA_PAGO='T.CREDITO' 
+								AND S.ID=R.ID_SERVICIO AND U.ID=R.ID_USUARIO 
+								AND R.FECHA BETWEEN '".$inicio."' AND '".$fin."'");
+		while ($row=$class->fetch_array($res)) {
+			// iniciativas
+			$acu[]=$row[0];
+			$acu[]=$row[1];
+			$acu[]=$row[2];
+			$acu[]=$row[3];
+			$acu[]=$row[4];
+	 	}
+	 	print_r(json_encode($acu));
+	}
 	if (isset($_POST['mostrar_provincias'])) {
 		$res=$class->consulta("SELECT * FROM LOCALIZACION.PROVINCIA");
 		print'<option value=""></option>';

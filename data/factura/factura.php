@@ -85,5 +85,23 @@
 	 	}
 	 	print_r(json_encode($acu));
 	}
-
+	if (isset($_POST['guardar_forma_pago'])) {
+		$info=0;
+		$resultado = $class->consulta("SELECT * FROM FORMA_PAGO WHERE ID_RESERVACION='".$_POST['id']."'");
+		while ($row=$class->fetch_array($resultado)) {
+			$info=1;
+			$class->consulta("UPDATE FORMA_PAGO SET FORMA_PAGO='".$_POST['forma_p']."' WHERE ID_RESERVACION='".$_POST['id']."'");
+			$acu[]=1;//guardado
+	 	}
+	 	if ($info==0) {
+	 		$id=$class->idz();
+			$fecha=$class->fecha_hora();
+			$resultado = $class->consulta("INSERT INTO FORMA_PAGO VALUES ('".$id."','".$_POST['id']."','".$_POST['forma_p']."','1','".$fecha."')");
+			if(!$resultado)
+				$acu[]=0;//no guardado
+			else
+				$acu[]=1;//guardado
+	 	}
+	 	print_r(json_encode($acu));
+	}
 ?>

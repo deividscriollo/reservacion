@@ -72,24 +72,69 @@ if(!isset($_SESSION))
 					</ul><!--.breadcrumb-->
 				</div>
 				<?php if ($_SESSION['nivel']!='CLIENTE') { ?>
-					<div class="page-content">
-					<div class="page-header position-relative">
-						<!-- <h1>
-							UI Elements
-							<small>
-								<i class="icon-double-angle-right"></i>
-								Common UI Features &amp; Elements
-							</small>
-						</h1> -->
-					</div><!--/.page-header-->
-
+				<div class="page-content">
 					<div class="row-fluid">
-						<div class="span12">
-							<div class="center">
-								<span class="icon-cloud-upload bigger-230"></span>
+						<div class="span9">
+							<div class="error-container">
+								<div class="well">
+									<h1 class="grey lighter smaller">
+										<span class="blue bigger-125">
+											<i class="icon-user"></i>
+											<?php print$_SESSION['nom']; ?>
+										</span>
+									</h1>
+
+									<hr />
+									<h3 class="lighter smaller">
+										Estimado/a <?php print$_SESSION['nom']; ?> le damos la bienvenida a la aplicación de reservación de la Fábrica Imbabura :)
+									</h3>
+
+									<div class="space"></div>
+
+									<div>
+										<h4 class="lighter smaller">Información Inicial</h4>
+
+										<ul class="unstyled spaced inline bigger-110">
+											<li>
+												<i class="icon-hand-right blue"></i>
+												 En hora buena su inicio de sesión fue satisfactorio, el uso de esta aplicación está bajo su control y a la vez la información que realice esta será almacenada automáticamente bajo su perfil de configuración.
+											</li>
+										</ul>
+									</div>
+
+									<hr />
+									<div class="space"></div>
+								</div>
 							</div>
 						</div><!--/span-->
+						<div class="span3 widget-container-span">
+							<div class="widget-box">
+								<div class="widget-header">
+									<h5 class="smaller">Informaciòn usuario</h5>
+
+									<div class="widget-toolbar">
+										<span class="label label-success">
+											Estado
+											<i class="icon-ok"></i>
+										</span>
+									</div>
+								</div>
+
+								<div class="widget-body">
+									<div class="widget-main padding-6">
+										<div class="alert alert-info">El Perfil de usuario solo es tratado por un SúperAdmin…</div>
+										<img src="../assets/images/block.png" width="100%">
+									</div>
+								</div>
+							</div>
+						</div>
+
 					</div><!--/.row-fluid-->
+					<div class="row-fluid">
+						<div class="span12">
+							<img src="../assets/images/banner_admin.fw.png" width="100%">
+						</div>
+					</div>
 				</div><!--/.page-content-->
 
 				<?php } ?>
