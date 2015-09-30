@@ -69,11 +69,6 @@ if(!isset($_SESSION))
 									<div id="login-box" class="login-box visible widget-box no-border">
 										<div class="widget-body">
 											<div class="widget-main">
-												<div class="ayuda">
-													<div class="dcbtn">
-														<i class="icon-info-sign"></i> Ayuda
-													</div>
-												</div>
 												<h4 class="header blue lighter bigger">
 													<i class="icon-coffee green"></i>
 													Por favor,Digite tu información
@@ -168,11 +163,7 @@ if(!isset($_SESSION))
 									<div id="forgot-box" class="forgot-box widget-box no-border">
 										<div class="widget-body">
 											<div class="widget-main">
-												<div class="ayuda">
-														<div class="dcbtn">
-															<i class="icon-info-sign"></i> Ayuda
-														</div>
-												</div>
+												
 												<h4 class="header red lighter bigger">
 													<i class="icon-key"></i>
 													Recuperar Contraseña
@@ -216,11 +207,7 @@ if(!isset($_SESSION))
 									<div id="signup-box" class="signup-box widget-box no-border">
 										<div class="widget-body">
 											<div class="widget-main">
-												<div class="ayuda" id="btn_ayuda_registro">
-													<div class="dcbtn">
-														<i class="icon-info-sign"></i> Ayuda
-													</div>
-												</div>
+												
 												<h4 class="header green lighter bigger">
 													<i class="icon-group blue"></i>
 													Registrar Nuevo Cliente

@@ -167,7 +167,7 @@ if ($_SESSION['nivel']=='CLIENTE') {
 
 }
 function menunav(){
-
+	if ($_SESSION['nivel']=='CLIENTE') {
 	print('<div class="navbar">
 			<div class="red navbar-inner">
 				<div class="container-fluid">
@@ -179,11 +179,6 @@ function menunav(){
 					</a><!--/.brand-->
 
 					<ul class="nav ace-nav pull-right">
-						<li class="red">
-							<a data-toggle="dropdown" class="dropdown-toggle" href="#">
-								<i class=" icon-info-sign icon-animated-bell"></i> Ayuda
-							</a>
-						</li>
 						<li class="light-blue">
 							<a data-toggle="dropdown" href="#" class="dropdown-toggle">
 								<span class="user-info">
@@ -225,5 +220,56 @@ function menunav(){
 				</div><!--/.container-fluid-->
 			</div><!--/.navbar-inner-->
 		</div>');
+	}
+	if ($_SESSION['nivel']!='CLIENTE') {
+
+		print('<div class="navbar">
+			<div class="red navbar-inner">
+				<div class="container-fluid">
+					<a href="../inicio/" class="brand">
+						<small>
+							<i class="icon-home"></i>
+							Fábrica Imbabura
+						</small>
+					</a><!--/.brand-->
+
+					<ul class="nav ace-nav pull-right">
+						<li class="light-blue">
+							<a data-toggle="dropdown" href="#" class="dropdown-toggle">
+								<span class="user-info">
+									<small>Bienvenido,</small>
+									'.strtolower($_SESSION["nivel"]).'
+								</span>
+							</a>
+						</li>
+						<li class="light-blue">
+							<a data-toggle="dropdown" href="#" class="dropdown-toggle">
+								<img class="nav-user-photo" src="../assets/avatars/user.jpg" alt="'.$_SESSION['nom'].'" />
+								<span class="user-info">
+									<small>Bienvenido,</small>
+									'.$_SESSION["nom"].'
+								</span>
+
+								<i class="icon-caret-down"></i>
+							</a>
+
+							<ul class="user-menu pull-right dropdown-menu dropdown-yellow dropdown-caret dropdown-closer">
+
+								<li class="divider"></li>
+
+								<li>
+									<a href="../inicio/salir.php">
+										<i class="icon-off"></i>
+										Cerrar  Session
+									</a>
+								</li>
+							</ul>
+						</li>
+					</ul><!--/.ace-nav-->
+				</div><!--/.container-fluid-->
+			</div><!--/.navbar-inner-->
+		</div>');
+
+	}
 }
 ?>

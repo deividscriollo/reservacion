@@ -97,7 +97,7 @@ if(!isset($_SESSION))
 										<ul class="unstyled spaced inline bigger-110">
 											<li>
 												<i class="icon-hand-right blue"></i>
-												 En hora buena su inicio de sesión fue satisfactorio, el uso de esta aplicación está bajo su control y a la vez la información que realice esta será almacenada automáticamente bajo su perfil de configuración.
+												 En hora buena su inicio de sesión fue satisfactorio, el uso de esta aplicación está bajo su control y a la vez la información que ingrese, elimine o modifique será almacenada automáticamente bajo su perfil de configuración.
 											</li>
 										</ul>
 									</div>
@@ -179,7 +179,7 @@ if(!isset($_SESSION))
 								</div><!--/span-->
 								<div class="span6">
 									<div class="center">
-										<h3 class="green">Bienvenido!</h3>
+										<h3 class="green">Bienvenido/a!</h3>
 										<img src="img/fab.jpg">
 									</div>
 								</div>

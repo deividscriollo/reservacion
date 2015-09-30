@@ -678,12 +678,12 @@ class email  extends PHPMailer{
                     <tr><td style="font-family: Arial, sans-serif; font-weight: normal; line-height: 19px; color: #478fca; margin: 0px; font-size: 15px; padding-bottom: 10px; padding-top: 10px;">Estimado/a: '.$nombre.'</td></tr>
                     <tr>
                       <td class="header-row-td" width="378" style="font-family: Arial, sans-serif; font-weight: normal; line-height: 19px; color: #478fca; margin: 0px; font-size: 18px; padding-bottom: 10px; padding-top: 10px;" valign="top" align="left">
-                      ¡Gracias por registrarte con nosotros!</td>
+                      ¡Gracias por registrarse con nosotros!</td>
                       </tr>
                   </tbody>
                 </table>
                 <div style="font-family: Arial, sans-serif; line-height: 20px; color: #444444; font-size: 13px;">
-                  <b style="color: #777777;">Su cuenta de La Fábrica Imbabura ha sido configurada y este correo contiene toda la información que necesitará para comenzar a usar tu cuenta.</b>
+                  <b style="color: #777777;">Su cuenta de La Fábrica Imbabura ha sido configurada y este correo contiene toda la información que necesitará para comenzar a utilizar tu cuenta.</b>
                   <br>
                   Por favor confirme su registro para continuar.
                 </div>
@@ -774,7 +774,7 @@ class email  extends PHPMailer{
                     </tr>
                     <tr>
                       <td style="color:#FFFFFF; font-size: 25px;">
-                        Felicidades su reservación se ha realizado con éxito, lo esperamos el día de la reserva.
+                        Felicidades su reservación se ha realizado con éxito, le esperamos el día de la reserva.
                       </td>
                     </tr>
                   </tbody>

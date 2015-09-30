@@ -107,7 +107,7 @@ if(!isset($_SESSION))
 
 													<li data-target="#step3">
 														<span class="step">3</span>
-														<span class="title">Contenido Terifa</span>
+														<span class="title">Contenido Tarifa</span>
 													</li>
 
 													<li data-target="#step4">
@@ -121,7 +121,7 @@ if(!isset($_SESSION))
 												<div class="step-pane active" id="step1">
 													<div class="row-fluid">
 														<div class="span10">
-															<h3 class="lighter block green center">Estimado/a, <?php print$_SESSION['nom']; ?> seleccione el tipo de reservación</h3>
+															<h3 class="lighter block green center">Estimado/a, <?php print$_SESSION['nom']; ?> seleccione el servicio</h3>
 														</div>
 														<div class="span2">
 															<a href="#modal-museo" data-toggle="modal" class="btn btn-mini btn-danger">
@@ -400,11 +400,11 @@ if(!isset($_SESSION))
 																		<ul class="unstyled spaced">
 																			<li>
 																				<i class="icon-ok green"></i>
-																				Su reservación tendrá una vigencia de 48 horas para la activación o se cancelara automáticamente.
+																				Su reservación tendrá una vigencia de 48 horas para la activación, caso contrario se cancelará automáticamente.
 																			</li>
 																			<li>
 																				<i class="icon-ok green"></i>
-																				Para la activación sigas los pasos que se indica y que se han enviado a su correo electrónico.
+																				Para la activación de su cuenta siga los pasos que se indica y que se han enviado a su correo electrónico.
 																			</li>
 																			<li>
 																				<i class="icon-ok green"></i>
@@ -416,7 +416,7 @@ if(!isset($_SESSION))
 																			</li>
 																			<li>
 																				<i class="icon-ok green"></i>
-																				Día de la reservación, Presente su cedula para verificar información y dar validez de su reservación.
+																				El día de la visita, presente su cédula para verificar información y dar validez a su respectiva de su reservación.
 																			</li>
 																		</ul>
 																	</div>
@@ -469,7 +469,7 @@ if(!isset($_SESSION))
 												<div class="step-pane active" id="step12">
 													<div class="row-fluid">
 														<div class="span12">
-															<h3 class="lighter block green center">Estimado/a, <?php print$_SESSION['nom']; ?> seleccione servicio</h3>
+															<h3 class="lighter block green center">Estimado/a, <?php print$_SESSION['nom']; ?> seleccione el servicio</h3>
 														</div>
 													</div>
 													<div class="row-fluid">
@@ -703,11 +703,11 @@ if(!isset($_SESSION))
 																		<ul class="unstyled spaced">
 																			<li>
 																				<i class="icon-ok green"></i>
-																				Su reservación tendrá una vigencia de 48 horas para la activación o se cancelara automáticamente.
+																				Su reservación tendrá una vigencia de 48 horas para la activación,caso contrario se cancelará automáticamente.
 																			</li>
 																			<li>
 																				<i class="icon-ok green"></i>
-																				Para la activación sigas los pasos que se indica y que se han enviado a su correo electrónico.
+																				Para la activación siga los pasos que se indica y que se han enviado a su correo electrónico.
 																			</li>
 																			<li>
 																				<i class="icon-ok green"></i>
@@ -719,7 +719,7 @@ if(!isset($_SESSION))
 																			</li>
 																			<li>
 																				<i class="icon-ok green"></i>
-																				Día de la reservación, Presente su cedula para verificar información y dar validez de su reservación.
+																				El día de la visita, presente su cédula para verificar información y dar validez a su respectiva de su reservación.
 																			</li>
 																		</ul>
 																	</div>
